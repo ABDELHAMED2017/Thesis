@@ -1,0 +1,551 @@
+%---------------------------------------------------------------------------------
+\chapter{A Spectrum Efficient Shaping Method}
+\label{chap:SpectralLeakage}
+%---------------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------------
+\section{Introduction to Spectral Leakage Filtering}
+\label{Sec:Intro}
+%---------------------------------------------------------------------------------
+
+This chapter is concerned with the OFDM spectral leakage challenge for OFDM-based CRs.
+OFDM signals typically cause large amounts spectral leakage, whereas CRs demand a shaped spectrum confined within the allocated channel in order to reuse free spectral bands without causing ICI to other users occupying adjacent bands.
+Some recent OFDM-based standards are defined with the requirements on spectral leakage that are extremely stringent in an effort  to avoid ICI.
+Spectral leakage filtering may cause some effects on transmitted signals that lead to a reduction in the effective timing guard.
+Therefore, the implementations of spectral leakage filtering need to be able to take into account the parameters of the underlying OFDM signal and its channel characteristics to avoid causing the negative effects on the transmitted signal such as distorsion and ISI.
+
+In this chapter, a novel method that embeds baseband filtering within a cognitive radio (CR) architecture, is proposed. 
+The method is able to meet the specification for the most stringent 802.11p SEM, meet the specification of the 802.11af strict SEM requirement, and furthermore is able to allow ten additional 802.11af sub-carriers to occupy a single basic channel without violating SEM specifications. 
+In addition, the method can adaptively change filter performance according to the transmission power to reduce the computation cost while guaranteeing that the emission spectrum remains smaller than the allowed spectral leakage.
+The method, performed at baseband, relaxes the otherwise strict RF front-end requirements. 
+This allows the RF subsystem to be implemented based upon much less stringent 802.11a designs, which can significantly reduce total cost.
+
+This section firstly analyses the spectral leakage specification of  two recent OFDM-based standards (i.e., 802.11p, 802.11af) together with their defined parameters and channel characteristics to determine their filtering requirements. Then, the state of the art spectral leakge filtering methods are studied and applied in order to show whether those methods are able to meet the strict spectral leakage requirements.
+
+Generally, the PHYs of 802.11p and 802.11af are largely inherited from the well-established 802.11a and 802.11ac OFDM PHYs, respectively.
+The major PHY parameters of these standards are presented in Table~\ref{tab:Para}.
+However, the new standards perform on different channel and in different environment leading to some very strict SEM constraints compared to the original standards.
+
+\begin{table}[ht]
+	\centering
+	\caption{ Major OFDM parameters of 802.11p and 802.11af PHY}
+	\renewcommand{\arraystretch}{1.2}
+	\label{tab:Para}
+	\begin{tabular}{l|c|c|c|c}%[x post scale=1.4]
+		\hline \hline
+		Parameters                      	 		& 802.11p & \multicolumn{3}{c}{802.11af} \\ \hline
+		Bandwidth (BW)                  		& 10 MHz  & 6 MHz    & 7 MHz   & 8 MHz   \\ \hline
+		Used subcarriers ($N_{C}$) 		& 52      & \multicolumn{3}{c}{114}      \\ \hline
+		Total subcarriers ($N_{T}$)  		& 64      & 144      & 168     & 144     \\ \hline
+		FFT points ($N_{FFT}$)      		& 64      & \multicolumn{3}{c}{128}      \\ \hline
+		Subcarrier spacing ($\Delta f$)        	& $\frac{10 MHz}{64}$   & $\frac{6 MHz}{144}$    & $\frac{7 MHz}{168}$   & $\frac{8 MHz}{144}$   \\[1ex] \hline
+		Sampling frequency (Fs)			& 10 MHz & 5.33 MHz & 5.33 MHz & 7.11 MHz  \\ \hline
+		Fourier transform length         		& 6.4 us  & 24 us    & 24 us   & 18 us   \\ \hline
+		CP length                        			& 1.6 us  & 6 us     & 6 us    & 4.5 us   
+	\end{tabular}
+\end{table}
+
+802.11p is defined for VC channel that tends to experience a larger delay spread than WLAN.
+The 802.11p symbol has 16 samples for CP (i.e. the same as in 802.11a).
+802.11p guard intervals are lengthened to avoid ISI by reducing the bandwidth from 20~MHz to 10~MHz (i.e., operating at a sample frequency of 10~MHz), but this raises some challenges in the frequency domain.
+First, reducing bandwidth requires a higher quality factor front-end filter circuit for the higher frequency carrier compared to 802.11a.
+Second, in an 802.11p system, similar to 802.11a, there are 6 sub-carrier spacings used for the frequency guard per side. But reducing the sampling frequency leads to a narrowing of the frequency guard.
+Generally, to improve performance in VC channels with large delay spread, the timing guard is increased, narrowing the frequency guard and resulting in more strict filtering constraints.
+According to empirical VC channel models in \cite{Acosta-Marum2007,Sen2008}, maximum delay spread varies depending on different propagation models and traffic environment.
+The RTV model for suburban street, urban canyon, and expressway, have maximum excess delay of 700, 501, and 401~ns, respectively~\cite{Acosta-Marum2007}.
+For the V2V model, measurements in \cite{Sen2008} show that delay spread is largest for urban areas and smallest for highway areas.
+The 90\% measured value of delay spread for urban areas is near 600~ns which is equivalent to the duration of 6 samples in the CP.
+Therefore, the remaining guard interval of 1~us (i.e., 10 samples in the CP) is for filtering the spectral leakage to meet the SEMs specification.
+
+On the other hand, 802.11af is defined to reuse the white spaces in the UHF band with three basic channel units (BCUs) of 6~MHz, 7~MHz, and 8~MHz.
+In the scope of this chapter, we take the parameters of the 6~MHz BCU to investigate the filtering method for 802.11af systems.
+For 802.11af channels, the delay spread is measured as less than 1 us~\cite{Lan2013}, which is equivalent to the duration of 6 samples in the CP.
+Therefore, the 802.11af guard interval of 6 us is sufficient to avoid ISI. 
+The remaining guard interval of 5~us (i.e., 26 samples in the CP) is for filtering the spectral leakage.
+However,  the FCC rules define a strict  SEM to avoid the ICI on PU channels in the UHF band. 
+For the 6 MHz channels, the transmitted signal of TVBD devices shall maintain at least 55 dB attenuation at the edges of the channel, which is significantly larger in comparison to the original 802.11ac parent  standard.
+
+To the best of the author's knowledge, no baseband filtering solution has yet been published which has been shown suitable to meet the strict SEM criteria for either 802.11p or 802.11af.
+However, several methods have been shown effective at mitigating spectral leakage for the parent standards 802.11a, and 802.11ac.
+
+The following sub-sections thus investigate state of the art methods from the 802.11a and 802.11ac research communities,, and considers their application for the newer standards.
+Specifically, each method will be evaluated, and shown unable to meet the strict SEM criteria for 802.11p (and hence is very unlikely to satisfy the even more stringent 802.11af SEM). 
+
+\subsection{Pulse shaping}
+\label{subsec:Pulse}
+
+Pulse shaping (using a smooth rather than rectangular pulse), recommended in 802.11a, is effective at reducing side lobes of the OFDM signal.
+In practical terms, pulse shaping using the overlapping method is effectively shortening the OFDM guard interval.
+A larger roll-off factor $\beta$ means reduced spectral leakage, at the cost of reducing the effective guard interval since a number of guard interval samples are taken for pulse shaping.
+Three state-of-the-art smoothing functions for pulse shaping are investigated. We will present each in discrete form, before investigating their performance with different roll-off factors.
+The first smoothing function, denoted $p_1$, is present in the IEEE~802.11a standard:
+
+\begin{eqnarray}
+\label{p1m}
+&p_1 &=\begin{cases}	sin^2( \frac{\pi}{2}(0.5+\frac{m}{2\beta N_{T}}) ), 			& 0 \leq m < \beta N_{T} \\
+					 	1, 															& \beta N_{T} \leq m < N_{T}  \\
+					 	sin^2( \frac{\pi}{2}(0.5-\frac{m-N_{T}}{2\beta N_{T}}) ), 	& N_{T} \leq m < (1+\beta)N_{T} \end{cases}
+\end{eqnarray}
+
+
+The second, proposed by Bala et al.~\cite{Bala2013}, is based on a raised cosine function, denoted here as $p_2$:
+
+
+\begin{eqnarray}
+\label{p2m}
+&p_2 &=\begin{cases}	\frac{1}{2}+\frac{1}{2}cos(\pi(1+\frac{m}{\beta N_{T}})), 			&0\leq m<\beta N_{T} \\
+					 	1, 																	&\beta N_{T}\leq m < N_{T}  \\
+					 	\frac{1}{2}+\frac{1}{2}cos(\pi(1+\frac{m-N_{T}}{\beta N_{T}})),		& N_{T}\leq m<(1+\beta)N_{T} \end{cases}
+\end{eqnarray}
+
+
+The third, denoted $p_3$, is based on the characteristics of functions with vestigial symmetry as derived by Castanheira and Gameiro~\cite{Castanheira2013}:
+
+\begin{eqnarray}
+\label{p3m}
+&p_3 &=\begin{cases}	\frac{1}{2}+\frac{9}{16}cos( \pi(1 - \frac{m}{\beta N_{T}}) ) & \\
+						- \frac{1}{16}cos(3\pi(1 - \frac{m}{\beta N_{T}}) ), 					& 0 \leq m < \beta N_{T} \\
+					 	1, 																	& \beta N_{T} \leq m < N_{T}  \\
+					 	\frac{1}{2}+\frac{9}{16}cos( \pi \frac{m-N_{T}}{\beta N_{T}}) &\\
+						-\frac{1}{16}cos(3\pi \frac{m-N_{T}}{\beta N_{T}}),					&  N_{T} \leq m < (1+\beta)N_{T} \end{cases}
+\end{eqnarray}
+
+
+The compression of OFDM spectral side lobes as a consequence of pulse shaping is investigated by first assuming that the effect of the image spectrum caused by interpolation or digital-to-analogue conversion (DAC) is negligible.
+This assumption is noted because the band gap between the wanted spectrum and its image is relatively narrow.
+Thus the overlapping image spectrum can influence the effectiveness of the shaped spectral leakage.
+The issue will be discussed later in the section, where image cancellation is presented separately for 802.11p and 802.11af.
+
+The three smoothing functions are simulated for otherwise identical channels and signals, and compared in Fig.~\ref{fig:Spec_PS}. The figure reveals the spectral envelope attenuation achieved using the three smoothing functions.
+
+\begin{figure}
+	\centering
+	\scalebox{1}{
+	\begin{tikzpicture}
+	\begin{axis}[ xlabel=Frequency (MHz), ylabel= Amplitude (dB), legend columns=3,	legend style={at={(0.5,1.02)}, anchor=south, cells={anchor=west}, draw=none}, xmin=-10, xmax=10,
+	x post scale=1.4]
+		\addplot+[style={loosely dashed, color=blue, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-50) (-15,-50) (-10,-40) (-5.5,-32) (-5,-26) (-4.5,0) (4.5,0) (5,-26) (5.5,-32) (10,-40) (15,-50) (40,-50)};
+		\addlegendentry{Class C};
+		\addplot+[style={loosely dashed, color=violet, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-65) (-15,-65) (-10,-55) (-5.5,-45) (-5,-35) (-4.5,0) (4.5,0) (5,-35) (5.5,-45) (10,-55) (15,-65) (40,-65)};
+		\addlegendentry{Class D};
+		\addplot+[black, style={solid, color=lightgray, thin}, every mark/.append style={mark=none}]  table [x index=0, y index=1] {./Dat/PulseshapeM10.dat};
+		\addlegendentry{os};
+		\addplot+[black, style={dotted, color=blue, thick}, every mark/.append style={mark=none}]	 table [x index=0, y index=2] {./Dat/PulseshapeM2.dat};
+		\addlegendentry{$p_1\_\beta$1};
+		\addplot+[black, style={dotted, color=violet, thick}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/PulseshapeM2.dat};
+		\addlegendentry{$p_2\_\beta$1};
+		\addplot+[black, style={dotted,  color=red, thick}, every mark/.append style={mark=none}]	 table [x index=0, y index=4] {./Dat/PulseshapeM2.dat};
+		\addlegendentry{$p_3\_\beta$1};
+		\addplot+[black, style={solid, color=blue, thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=2] {./Dat/PulseshapeM10.dat};
+		\addlegendentry{$p_1\_\beta$5};
+		\addplot+[black, style={solid, color=violet, thin}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/PulseshapeM10.dat};
+		\addlegendentry{$p_2\_\beta$5};
+		\addplot+[black, style={solid, color=red, thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=4] {./Dat/PulseshapeM10.dat};
+		\addlegendentry{$p_3\_\beta$5};
+	\end{axis}
+%	\end{semilogyaxis}
+	\end{tikzpicture}
+	}
+\caption{Spectral envelope due to pulse shaping OFDM symbols using three smoothing functions and different roll-off factors for 802.11p. Class C and D spectral emission mask limits are overlaid as dotted lines.}
+\label{fig:Spec_PS}
+\vspace{-4mm}
+\end{figure}
+%
+In Fig.~\ref{fig:Spec_PS}, $os$ shows the original OFDM spectrum without applying pulse shaping.
+$p_1\_\beta1$, $p_2\_\beta1$, $p_3\_\beta1$ show the spectra of the OFDM signal using smoothing functions: $p_1(m)$ to $p_3(m)$, respectively. In each case, roll-off factors of $\beta N_{T}=1$ and $\beta N_{T}=5$ are shown.
+In the case of using one guard interval sample, the spectral leakage is reduced compared to the original OFDM signal, and  $p_1(m)$ obtains better results than the other two methods, however, the shaped spectra do not meet the emission requirement of class C.
+When 5 CP samples are used for pulse shaping, $p_2(m)$ and $p_3(m)$ achieve a significant improvement, and in fact, $p_2\beta5$ satisfies class C and almost meets the requirement of class D.
+
+Thus, we can state that, ignoring the presence of an image spectrum as noted previously, the pulse shaping method can take part of the guard interval for applying the smoothing function in order to shape the spectral leakage and nearly meet the most stringent SEM compliance.
+
+\begin{figure}
+	\centering
+	\scalebox{1}{
+	\begin{tikzpicture}
+	\begin{axis}[ xlabel=Frequency (MHz), ylabel= Amplitude (dB), legend columns=3,	legend style={at={(0.5,1.02), thick}, anchor=south, cells={anchor=west}, draw=none}, xmin=-10, xmax=10,
+	x post scale=1.4]
+		\addplot+[style={loosely dashed, color=blue, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-50) (-15,-50) (-10,-40) (-5.5,-32) (-5,-26) (-4.5,0) (4.5,0) (5,-26) (5.5,-32) (10,-40) (15,-50) (40,-50)};
+		\addlegendentry{Class C};
+		\addplot+[style={loosely dashed, color=violet, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-65) (-15,-65) (-10,-55) (-5.5,-45) (-5,-35) (-4.5,0) (4.5,0) (5,-35) (5.5,-45) (10,-55) (15,-65) (40,-65)};
+		\addlegendentry{Class D};
+		\addplot+[black, style={solid, color=lightgray, thin}, every mark/.append style={mark=none}]  table [x index=0, y index=1] {./Dat/PulseshapeM10_inter.dat};
+		\addlegendentry{os};
+		\addplot+[black, style={solid, color=green, thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=2] {./Dat/PulseshapeM10_inter.dat};
+		\addlegendentry{ps1\_$\beta$5};
+		\addplot+[black, style={solid, color=red, thin}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/PulseshapeM10_inter.dat};
+		\addlegendentry{ps2\_$\beta$5};
+		\addplot+[black, style={solid,  color=black, thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=4] {./Dat/PulseshapeM10_inter.dat};
+		\addlegendentry{ps2\_$\beta$5};
+	\end{axis}
+	\end{tikzpicture}
+	}
+\caption{Spectrum of 802.11p OFDM symbols shaped with different winwod functions, with the presence of the image spectrum included.}
+\label{fig:Inter_Spec_PS}
+\vspace{-4mm}
+\end{figure}
+
+To investigate further, Fig.~\ref{fig:Inter_Spec_PS} plots simulation results for pulse shaped 802.11p OFDM symbols with the presence of the image spectrum included.
+The image is a consequence of interpolation or DAC response.
+The plot shows that pulse shaping yields a response that is similar to, but slightly better than, the original OFDM signal.
+However, when the image spectrum is considered, pulse shaping clearly can not achieve meaningful adjacent channel signal compression. 
+In fact, the band gap between the main spectrum and the image spectrum is insufficient for pulse shaping to achieve any significant spectral leakage decay.
+
+In a practical system, the consequence is that almost all of the side-lobe attenuation may need to be contributed by sharp and hence both high order and accurate analogue filters.
+Such filters contribute design complexity, increased component count, manufacturing difficulty, and additional cost to a product.
+
+To alleviate this, the following subsection investigates digital filtering for image spectrum cancellation, using FIR filter.
+
+\subsection{Image Spectrum Cancellation By FIR Filter}
+\label{subsec:FIR}
+The critical issue for 802.11p signals to meet the stringent class D mask requirements is that the frequency guards are narrow and the frequency carrier is relatively high (5.9~GHz) compared to 802.11a.
+However, interpolation can be used at baseband to increase sampling frequency, and thereby extend the baseband bandwidth.
+Since the image spectra are repeats of the original baseband spectrum, replicated due to interpolation effects, interpolation filters can be used to cancel them.
+
+Such filters are commonly implemented using finite impulse response (FIR) form. A cascaded integrator comb (CIC) implementation is sometimes chosen, since this can combine the interpolation and filtering steps, however while it is computationally efficient it lacks flexibility.
+Since the research is concerned with the tradeoff between duration of impulse response, degree of oversampling, and filter transition band sharpness, flexibility is important and thus general FIR form filters are assumed.
+The tradeoff mentioned above exists because the narrow band gap between main and adjacent image spectra mandates a high order filter to remove ICI, which generally implies a high order and thus long impulse response filter. 
+Unfortunately the long impulse response of the filter has a similar effect to the impulse response of the overall channel in terms of inducing ISI. 
+Thus the FIR filter also reduces the effective guard interval of OFDM symbols~\cite{farhang2008signal}.
+Consequently, its design contributes to the tradeoff between ISI avoidance, the transition band, and degree of filter attenuation needed to meet the SEM requirement.
+
+Several widely used FIR implementation filters are listed in Table~\ref{tab:lengthFIR}. These will all be investigated for image spectrum attenuation, as applied to 802.11p symbols.
+An empirical formula~\cite{Kapadia2012} is used to estimate the length of each filter in terms of attenuation $A$ and transition band $\Delta\omega$.
+The specifications of the most stringent 802.11p class D SEM are used to calculate the required number of taps with L-fold interpolation, in terms of L.
+
+\begin{table}[h]
+	\centering
+	\caption{Popular window-based FIR filter lengths}
+	\label{tab:lengthFIR}
+	\renewcommand{\arraystretch}{1.6}
+	\begin{tabular}{l|c|c|c}
+       \toprule
+    		  Window 	& Stopband Attenuation  & Filter Length, N   & Length for 802.11p\\
+    	\midrule
+		Hamming, 	$HM$		& $-26.5$dB	& $\frac{6.22\pi}{\Delta\omega}$							&  $N \approx 31 L$ \\
+		Hanning, $HN$				& $-31.5$dB	& $\frac{6.65\pi}{\Delta\omega}$							&  $N \approx 33 L$ \\
+		Backman, $BM$			& $-42.7$dB	& $\frac{11.1\pi}{\Delta\omega}$							&  $N \approx 55 L$ \\
+		Kaiser, $KS$				& --- 		&\parbox{3cm}{	$\frac{A-7.95}{2.23 \Delta\omega}, A>21$ \\
+												$\frac{5.79}{\Delta\omega}, A<21$}			& $N \approx 33 L$ \\ [1ex]
+		Chebyshev, $CW$		      & ---		& $\frac{2.06A -16.5}{2.29 \Delta\omega}$					& $N \approx 67 L$ \\
+    	\bottomrule
+    \end{tabular}
+\end{table}
+
+It is noticeable that the required lengths of these FIR filters for 802.11p are all longer than the guard interval of the 802.11p symbol.
+To avoid ISI, the maximum length of the FIR filter is derived by taking into account the guard interval and the CIR.
+By assuming that the delay spread of the VC channel is constrained to a maximum of 600~ns (as discussed in Section 2) based on the results stated in \cite{Acosta-Marum2007,Sen2008}, the CIR is equivalent to 6 samples of the 802.11p guard interval (sampling frequency of 802.11p is 10MHz).
+Therefore, a remaining effective guard interval of 10 samples is available for filtering.
+However, when the filter is used in a transmitter, a matched filter is required at the receiver~\cite{farhang2008signal} with equivalent length, meaning that the remaining guard interval is effectively halved: only 5 samples remain for transmitter filtering.
+
+Given that L-fold interpolation is used at the transmitter, the permitted FIR filter length becomes $5 \times L$, constituting one of the rules for the FIR filter design process.
+
+\begin{figure}
+	\centering
+	\scalebox{1}{
+	\begin{tikzpicture}
+	\begin{axis}[ xlabel=Frequency (MHz), ylabel= Amplitude (dB), legend columns=4,	legend style={at={(0.5,1.02, ultra thick)}, anchor=south, cells={anchor=west}, draw=none}, xmin=-20, xmax=20,
+	x post scale=1.4]
+
+		\addplot+[style={loosely dashed, color=black, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-40) (-15,-40) (-10,-28) (-5.5,-20) (-5,-10) (-4.5,0) (4.5,0) (5,-10) (5.5,-20) (10,-28) (15,-40) (40,-40)};
+		\addlegendentry{Class A};
+		\addplot+[style={loosely dashed, color=green, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-40) (-15,-40) (-10,-28) (-5.5,-20) (-5,-16) (-4.5,0) (4.5,0) (5,-16) (5.5,-20) (10,-28) (15,-40) (40,-40)};
+		\addlegendentry{Class B};
+		\addplot+[style={loosely dashed, color=blue, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-50) (-15,-50) (-10,-40) (-5.5,-32) (-5,-26) (-4.5,0) (4.5,0) (5,-26) (5.5,-32) (10,-40) (15,-50) (40,-50)};
+		\addlegendentry{Class C};
+		\addplot+[style={loosely dashed, color=violet, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-65) (-15,-65) (-10,-55) (-5.5,-45) (-5,-35) (-4.5,0) (4.5,0) (5,-35) (5.5,-45) (10,-55) (15,-65) (40,-65)};
+		\addlegendentry{Class D};
+
+		\addplot+[smooth, style={solid, color=green, very thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=2] {./Dat/filtered_spec.dat};
+		\addlegendentry{KS};
+		\addplot+[smooth, style={solid, color=cyan, very thin}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/filtered_spec.dat};
+		\addlegendentry{HM};
+		\addplot+[smooth, style={solid, color=red, very thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=4] {./Dat/filtered_spec.dat};
+		\addlegendentry{HN};
+		\addplot+[smooth, style={solid, color=blue, very thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=5] {./Dat/filtered_spec.dat};
+		\addlegendentry{BM};
+		\addplot+[smooth, style={solid, color=black, very thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=7] {./Dat/filtered_spec.dat};
+		\addlegendentry{CW};
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\vspace{-2mm}
+\caption{Spectra of OFDM symbols for 802.11p using different FIR interpolation filters, with $L=8$.}
+\label{fig:FirSpec}
+\vspace{-4mm}
+\end{figure}
+
+To visualise this, a simulation is performed with $L=8$, to evaluate filtered spectra using each window, for 802.11p symbols.
+The spectral responses are plotted in Fig.~\ref{fig:FirSpec}, where the same OFDM signal as in Fig.~\ref{fig:Inter_Spec_PS} has been filtered by the FIR interpolation filters, and compared to the SEMs.
+In the figure, the filtered spectra obtained by using Kaiser, Hamming, Hanning, Blackman, Chebyshev windows are compared (denoted using the abbreviations in Table~\ref{tab:lengthFIR}).
+In each case, two prominent auxiliary peaks, visible beside the main spectrum, are the biggest impediments to satisfying the SEM criteria.
+In detail, the Blackman filtered spectrum slightly exceeds the class A limits, whereas the remaining filters are able to meet the requirements of classes A and B but not of classes C and D. In fact, none of the filters are even close to class C and D compliance.
+Hence, given the effective guard interval of 802.11p, FIR filtering clearly does not provide a solution.
+
+The simulation results show that the common filtering methods used at interpolated baseband are even not close to meet the strict SEM requirements of 802.11p. 
+Although not shown here, this is of course equally true of the more stringent 802.11af SEM.
+
+This result implies that 802.11p and 802.11af implementations must rely on sharp front end RF and analogue filtering, which typically results in an increased total system cost and reduced power efficiency.
+
+%---------------------------------------------------------------------------------
+\section{a spectrum efficient shaping method}
+%---------------------------------------------------------------------------------
+In the conventional approach, the pulse shaping is employed with a small roll-off factor. 
+This is because large roll-off factors reduced the effective guard interval while not obtaining a significant  improvement due to the narrow frequency guard of OFDM spectrum.
+and the pulse shaping does not help to cancel the image spectrum. 
+All of the remaining effective guard interval (after subtracting the effect of CIR) is typically reserved for performing the FIR filtering to compress the image spectrum. 
+However, the guard interval length, and the narrow frequency guard inherited from the original standards are not enough for an FIR filter to cancel the image spectrum to meet the strict SEMs of the new standards.
+
+The method takes a different approach from that conventionally used.
+It does not use a large portion of the remaining guard interval, like in the conventional approach, to perform the FIR filtering, instead we reserve a large portion of the remaining guard interval to perform the pulse shaping with a large roll-off factor.
+To obtain significant spectral leakage reduction in the method, the frequency guard needs to be extended. 
+With the wider frequency guard, the pulse shaping with a large roll-off factor can achieve significant side lobe compression of the OFDM signal and the required transition band of FIR filter is extended resulting in shortening of the length of the FIR filter.
+The feature of the CR architecture which combines mutually transmitting NC-OFDM and changing sampling frequency is explored to adaptively extend the frequency guard according to the SEM requirement. 
+Extending the frequency guard is performed by flexibly increasing the size of the IFFT to $M$ times the original IFFT. The sampling frequency is also increased by $M$ times to maintain the same subcarrier spacing.
+Then, the allocation vector is formed to add data symbols at lower sub-carriers that are the same as those in the original IFFT, and insert zero-padding to the remaining sub-carriers.
+The CR-based transmitter  architecture employed in the method is presented in Fig.~\ref{fig:Struc}. 
+\begin{figure}[t]
+    \centerline{\includegraphics [width=1\columnwidth] {Figures/CRTx_shaping.pdf} }
+	\vspace{-2mm}
+    \caption{The CR-Based architecture for adaptive spectral leakage shaping}
+    \label{fig:Struc}
+\end{figure}
+As can be seen, the proposed CR-based architecture consists of the typical sub-modules as follows;
+$\mathit{Pil\_Insert}$ flexibly inserts data symbol from $\mathit{DAT\_Mod}$ and pilots into an OFDM symbol according to the current allocation vector ($\mathit{Alloc\_Vec}$).
+$\mathit{Pre\_Insert}$ is to insert preamble symbol. 
+$\mathit{IFFT+CP insert}$ is a IP core in Xilinx FPGA that can flexibly reconfigure the length of IFFT and CP in run-time.
+$\mathit{PulseShaping}$ performs pulse shaping with a smoothing function of which the roll-off factor can be changed from small for relaxed spectral shaping to large for stringent spectral shaping.
+$\mathit{L-Fold Inter\&FIR}$ is to perform L-fold interpolation in which $L$ is controllable. After interpolation, the FIR filter is used to filter out the image spectrum. 
+In addition, for a CR architecture, the cognitive control sub-module ($\mathit{CR\_ctrl}$) is able to manage the transmitter flexibly to change the function of the sub-module according to the SEM requirement imposed from a higher level layer.
+The mixed-mode clock manager ($\mathit{MMCM}$), an integrated IP core in Xilinx FPGAs, is employed to manage the sampling clock ($\mathit{Fs}$) according to the required filter performance.
+
+An adaptive mechanism of shaping spectral leakage is performed correspondingly to the transmission power to eliminate ICI.
+A prototype of 802.11p, presented in \cite{Choi2014}, is adopted for direct device-to-device communication between smartphones.
+The prototype is able to adaptively increase transmission power to extend the communication range.
+However, the system is based on the hardware of 802.11a baseband and does not investigate the increasing spectal leakage when transmitting signal is amplified.
+The transmitting signal may not meet the stringent requirement of the spectral leakage for 802.11p.
+In the method, when the transmission power is higher than a threshold that the spectral leakage may cause ICI, a stringent SEM filter is required.
+$\mathit{CR\_ctrl}$ is controlled to change the IFFT length to $M$ times the original IFFT and $\mathit{Alloc\_Vec}$ to extend the frequency guard, $\mathit{MMCM}$ is also used to change the $\mathit{Fs}$ according to the IFFT length.
+Moreover, $\mathit{CR\_ctrl}$ changes $\mathit{PulseShaping}$ with a large roll-off factor, reduces L-fold interpolation ($L\times M = const$) and shortens the FIR length to satisfy a more stringent SEM.
+On the other hand, when an end device is near the access point, the transmission power can be lower than the threshold. The spectral leakage is therefore smaller and thus the higher layer can relax the filter. 
+$\mathit{CR\_ctrl}$ is controlled to change the IFFT length to the original IFFT length and employ the $\mathit{PulseShaping}$ with a small roll-off factor, and normal $\mathit{L-Fold Inter\&FIR}$ to reduce the computation.
+It should be noted that the additional computation needed for signal processing in the baseband (which contains low cost, low power components), can be repaid by relaxing the specification of the RF front-end design (which tends to require more costly, and higher power components).
+
+The following subsections present the application of method in which the CR architecture is configured to perform stringent filter to obtain the SEMs specification of 802.11p and 802.11af. 
+%---------------------------------------------------------------------------------
+\section{Simulation Results and Discussion}
+%---------------------------------------------------------------------------------
+\subsection{Application for 802.11p}
+Continuing the assumption from Section~\ref{Sec:Intro} that the CIR length does not exceed 600~ns.
+Therefore, the effective guard interval which is equivalent to the length of 10 samples of the original CP, i.e., $10 \times 100=1000~ns$ is used for the pulse shaping and FIR filter.
+By choosing an DAC sampling frequency of 80~MHz, the sampling frequency of 802.11p is increased by 8 times ($L\times M =8$) compared to the original (10~MHz).
+Two options denoted as $\mathit{Prop}1$, $\mathit{Prop}2$ are studied for 802.11p.
+$\mathit{Prop}1$ doubles the size of IFFT, i.e., $M=2$, this means doubling the sampling frequency, to extend the frequency guard.
+Then 4-fold interpolation, i.e., $L=4$, is required to obtain a sampling frequency of 80~MHz.
+$\mathit{Prop}2$ quadruples the size of IFFT, i.e., $M=4$; Then 2-fold interpolation, i.e., $L=2$, is performed.
+Based on the results in subsection~\ref{subsec:Pulse}, $p_2(m)$ is employed with $\beta N_{T}=5 \times M$, that is equivalent to the length of 5 samples of the original CP, i.e., 500~ns.
+It should be noted that after extending the frequency guard, the number of samples in the symbol including CP, is increased $M$ times.
+Fig.~\ref{fig:OverSpec} shows the shaped spectrum of the method after interpolation in the baseband, at 80~MHz.
+The result is also compared to the original spectrum denoted \emph{Conv}, and the specifications of classes C and D.
+The main spectrum of $\mathit{Prop}1$, $\mathit{Prop}2$ almost satisfy class D.
+The image spectrum of $\mathit{Prop}1$ is present at $\pm$40~MHz and $\pm$20~MHz whilst $\mathit{Prop}2$ has an image spectrum at $\pm$40~MHz.
+
+\begin{figure}
+	\centering
+	\scalebox{1}{
+	\begin{tikzpicture}
+	\begin{axis}[ xlabel=Frequency (MHz), ylabel= Amplitude(dB), legend columns=4,	legend style={at={(0.5,1.02)}, anchor=south, cells={anchor=west}, draw=none}, xmin=-40, xmax=40,
+	x post scale=1.4]
+		\addplot+[style={loosely dashed, color=blue, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-50) (-15,-50) (-10,-40) (-5.5,-32) (-5,-26) (-4.5,0) (4.5,0) (5,-26) (5.5,-32) (10,-40) (15,-50) (40,-50)};
+		\addlegendentry{Class C};
+		\addplot+[style={loosely dashed, color=violet, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-65) (-15,-65) (-10,-55) (-5.5,-45) (-5,-35) (-4.5,0) (4.5,0) (5,-35) (5.5,-45) (10,-55) (15,-65) (40,-65)};
+		\addlegendentry{Class D};
+		\addplot+[black, style={solid, color=green, thin}, every mark/.append style={mark=none}]  table [x index=0, y index=1] {./Dat/OverSpec.dat};
+		\addlegendentry{Conv};
+		\addplot+[black, style={solid, color=red, thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=2] {./Dat/OverSpec.dat};
+		\addlegendentry{Prop1};
+		\addplot+[black, style={solid, color=blue, thin}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/OverSpec.dat};
+		\addlegendentry{Prop2};
+%		\addplot+[black, style={solid,  color=black, thin}, every mark/.append style={mark=none}] table [x index=0, y index=4] {./Dat/OverSpec.dat};
+%		\addlegendentry{HN};
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\vspace{-2mm}
+\caption{Spectrum of 802.11p signal of the method after interpolation.}
+\label{fig:OverSpec}
+\end{figure}
+
+A simple short length FIR filter is needed to cancel the image spectra.
+The remaining guard interval for the transmitter filter and matched filter is 500~ns.
+Therefore, the maximum impulse response of the FIR filter is 250~ns, which is equivalent to $2.5 \times M \times L$ samples at the 80~MHz sampling frequency.
+
+FIR filters are designed for $\mathit{Prop}1$, $\mathit{Prop}2$ using a Kaiser window.
+Because the frequency guard of $\mathit{Prop}1$ is still relatively narrow, it requires an FIR filter with the length of 20 samples to cancel the image spectrum.
+Fig.~\ref{fig:OptSpec1} shows the result of spectrum filtering for $\mathit{Prop}1$ in comparison to the original OFDM spectrum and class C, D SEMs.
+As can be seen in the $\mathit{Prop}1$ spectrum, there are still two small peaks caused by the image spectrum.
+These peaks are compressed by the FIR filter to meet the class D requirement.
+Slight distortion is present in the main spectrum because of the effect of the FIR filter.
+$\mathit{Prop}2$ has a wider frequency guard compared to $\mathit{Prop}1$.
+The FIR filter only requires a length of 12 samples to cancel the image spectrum and the remaining effective guard interval of 200~ns is reserved.
+Fig.~\ref{fig:OptSpec2} shows the result of spectral filtering for $\mathit{Prop}2$ and $\mathit{Prop}1$ with respect to the class C and D SEMs.
+The image spectrum of $\mathit{Prop}2$ can be cancelled by a short length FIR filter whilst the image spectrum of $\mathit{Prop}1$ still remains larger in magnitude.
+Hence, $\mathit{Prop}2$ meets the class D specification.
+
+\begin{figure}
+	\centering
+	\scalebox{1}{
+	\begin{tikzpicture}
+	\begin{axis}[ xlabel=Frequency (MHz), ylabel= Amplitude (dB), legend columns=4,	legend style={at={(0.5,1.02, ultra thick)}, anchor=south, cells={anchor=west}, draw=none}, xmin=-40, xmax=40,
+	x post scale=1.4]
+		\addplot+[style={loosely dashed, color=blue, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-50) (-15,-50) (-10,-40) (-5.5,-32) (-5,-26) (-4.5,0) (4.5,0) (5,-26) (5.5,-32) (10,-40) (15,-50) (40,-50)};
+		\addlegendentry{Class C};
+		\addplot+[style={loosely dashed, color=violet, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-65) (-15,-65) (-10,-55) (-5.5,-45) (-5,-35) (-4.5,0) (4.5,0) (5,-35) (5.5,-45) (10,-55) (15,-65) (40,-65)};
+		\addlegendentry{Class D};
+		\addplot+[smooth, style={solid, color=green, very thin}, every mark/.append style={mark=none}]  table [x index=0, y index=1] {./Dat/OptSpec1.dat};
+		\addlegendentry{Conv};
+		\addplot+[smooth, style={solid, color=red, very thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=2] {./Dat/OptSpec1.dat};
+		\addlegendentry{Prop1};
+%		\addplot+[smooth, style={densely dashed, color=blue, very thin}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/OptSpec1.dat};
+%		\addlegendentry{OPT2};
+%		\addplot+[smooth, style={solid, color=black, very thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=4] {./Dat/OptSpec1.dat};
+%		\addlegendentry{HN};
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\vspace{-2mm}
+\caption{Filtered Spectrum of 802.11p signal using option $\mathit{Prop}1$.}
+\label{fig:OptSpec1}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\scalebox{1}{
+	\begin{tikzpicture}
+	\begin{axis}[ xlabel=Frequency (MHz), ylabel= Amplitude (dB), legend columns=4,	legend style={at={(0.5,1.02, ultra thick)}, anchor=south, cells={anchor=west}, draw=none}, xmin=-40, xmax=40,
+	x post scale=1.4]
+		\addplot+[style={loosely dashed, color=blue, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-50) (-15,-50) (-10,-40) (-5.5,-32) (-5,-26) (-4.5,0) (4.5,0) (5,-26) (5.5,-32) (10,-40) (15,-50) (40,-50)};
+		\addlegendentry{Class C};
+		\addplot+[style={loosely dashed, color=violet, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-40,-65) (-15,-65) (-10,-55) (-5.5,-45) (-5,-35) (-4.5,0) (4.5,0) (5,-35) (5.5,-45) (10,-55) (15,-65) (40,-65)};
+		\addlegendentry{Class D};
+		\addplot+[smooth, style={solid, color=green, very thin}, every mark/.append style={mark=none}]  table [x index=0, y index=1] {./Dat/OptSpec2.dat};
+		\addlegendentry{Conv};
+		\addplot+[smooth, style={densely dashed, color=red, very thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=2] {./Dat/OptSpec2.dat};
+		\addlegendentry{Prop1};
+		\addplot+[smooth, style={solid, color=blue, very thin}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/OptSpec2.dat};
+		\addlegendentry{Prop2};
+%		\addplot+[smooth, style={solid, color=black, very thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=4] {./Dat/OptSpec2.dat};
+%		\addlegendentry{HN};
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\vspace{-2mm}
+\caption{Filtered Spectrum of 802.11p signal using option $\mathit{Prop}2$.}
+\label{fig:OptSpec2}
+\end{figure}
+
+The simulation results demonstrate that the proposed technique for shaping spectral leakage can meet the specification of class D, the most stringent of the four 802.11p SEMs.
+$\mathit{Prop}2$ obtains  better performance in terms of distortion and effective guard interval compared to $\mathit{Prop}1$, but pays the cost of a higher computational requirement due to the increased IFFT size.
+
+\subsection{Application for 802.11af}
+	
+To shape the spectral leakage for 802.11af, the assumption from Section~\ref{Sec:Intro}, that the CIR length does not exceed 1~us (equivalent to 6 samples in the CP), is maintained.
+Therefore, the effective guard interval, which is equivalent to the length of 26 samples of the original CP, is used for the pulse shaping and FIR filter.
+By choosing a DAC sampling frequency of 48~MHz, the output sampling frequency of 802.11af is increased by 8 times ($L\times M =8$) compared to the original (6~MHz).
+The simulation results of shaping the spectral leakage for 802.11af are presented with a comparison between the proposed method and the conventional approach which makes use of the state of the art pulse shaping and FIR filter.
+In the conventional approach, pulse shaping uses 2 samples in the CP for a smoothing function and the length of FIR filter cancelling the image spectrum is allowed to be 96 ($\frac{26-2}{2} \times 8$) to avoid ISI. 
+The FIR filter is designed using a Kaiser window. %with cut-off frequency that try to compress the signal spectrum inside the SEMs.
+The proposed method quadruples the size of the IFFT, i.e., $M=4$, in order to extend the frequency guard. 
+Pulse shaping is configured to employ $p_2(m)$ with $\beta N_{T}=20 \times M$, that is equivalent to the length of 20 samples of the original CP.
+Then 2-fold interpolation, i.e., $L=2$, is required to obtain a sampling frequency of 48~MHz. 
+The allowed FIR filter length is equivalent to 3 samples of the original CP to cancel the image spectrum while still not causing ISI.
+Fig.~\ref{fig:80211af} illustrates the results of shaping spectral leakage for 802.11af.
+
+\begin{figure}
+	\centering
+	\scalebox{1}{
+	\begin{tikzpicture}
+	\begin{axis}[ xlabel=Frequency (MHz), ylabel= Amplitude (dB), legend columns=4,	legend style={at={(0.5,1.02, ultra thick)}, anchor=south, cells={anchor=west}, draw=none}, xmin=-9, xmax=9,
+	x post scale=1.4]
+		\addplot+[style={loosely dashed, color=violet, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-24,-69) (-21,-69) (-15,-53) (-9,-53) (-8.99,-55) (-3.1,-55) (-3,0) (3,0) (3.1,-55) (8.99,-55) (9,-53) (15,-53) (21,-69) (24,-69)};
+		\addlegendentry{802.11af SEM};
+		\addplot+[smooth, style={solid, color=red, very thin}, every mark/.append style={mark=none}]  table [x index=0, y index=1] {./Dat/80211af.dat};
+		\addlegendentry{Conv};
+		\addplot+[smooth, style={solid, color=blue, very thin}, every mark/.append style={mark=none}] table [x index=0, y index=2] {./Dat/80211af.dat};
+		\addlegendentry{Prop};
+
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\vspace{-2mm}
+\caption{Filtered Spectrum of 802.11af signal.}
+\label{fig:80211af}
+\end{figure}
+
+Because of the limited length, the band transition of the FIR filter is not narrow enough.
+This results in the spectrum of the conventional method, $\mathit{Conv}$ having two side peaks and causes a distortion in the main spectrum.
+Therefore, the conventional method still has a big gap to meet the SEM requirement of 802.11af.
+To fit the filtered spectrum of the conventional method to the 802.11af SEM, one way that may be considered is to deactivate the high index sub-carriers (i.e. to use null-subcarriers).
+This can effectively extend the frequency guard, but results in an obvious loss of spectral efficiency.
+On the other hand, the spectrum of the method not only meet the SEM specifications but also presents a reserved gap that can potentially be used to pack in sub-carriers in order to enhance the spectral efficiency.
+
+In order to investigate the spectral efficiency enhancement available through the proposed method, the number of occupied sub-carriers is modified in a simulation to fit the spectrum of the conventional and proposed methods to the 802.11af SEM specification. % based on the simulation.
+In the conventional method, the attenuation of the FIR filter needs to be smaller, about -35~dBc, to compress the image spectrum at the edge of the bandwidth (3~MHz), that is around -20~dBc, to -55~dBc.
+With the limited length of the FIR filter, as mentioned above, the transition band is calculated theoretically  based on the Kaiser window formula in Table~\ref{tab:lengthFIR}.
+The transition band is required to be 0.83~MHz, equivalent to 21 subcarrier spacings, resulting in the guard band of 42 subcarrier spacings for both sides of 802.11af signal spectrum.
+This means that the number of occupied sub-carriers in the conventional method should be smaller than 102 to reserve enough frequency guard for FIR filtering.
+However, the simulation in Fig.~\ref{fig:80211af2} shows that the filtered spectrum of the conventional method ($\mathit{94 subcar Conv}$ ), which employs 94  sub-carriers, is almost able to meet the SEM requirement.
+On the other hand, the spectrum of the proposed method has a reserved frequency gap that allows more sub-carriers can be used. 
+The filtered spectrum of the method ($\mathit{124 subcar Prop}$), employing 124 sub-carriers, illustrated in Fig.~\ref{fig:80211af2}, still fits inside the 802.11af SEM.
+The results shows that the proposed method is not only able to meet the requirements of 802.11af but also can potentially enhance the spectral efficiency significantly.
+In fact, the method increases the spectral efficiency by 32\% compared to the conventional method.
+
+\begin{figure}
+	\centering
+	\scalebox{1}{
+	\begin{tikzpicture}
+	\begin{axis}[ xlabel=Frequency (MHz), ylabel= Amplitude (dB), legend columns=4,	legend style={at={(0.5,1.02, ultra thick)}, anchor=south, cells={anchor=west}, draw=none}, xmin=-9, xmax=9,
+	x post scale=1.4]
+		\addplot+[style={loosely dashed, color=violet, very thick}, every mark/.append style={mark=none}] coordinates
+						{(-24,-69) (-21,-69) (-15,-53) (-9,-53) (-8.99,-55) (-3.1,-55) (-3,0) (3,0) (3.1,-55) (8.99,-55) (9,-53) (15,-53) (21,-69) (24,-69)};
+		\addlegendentry{802.11af SEM};
+		\addplot+[smooth, style={solid, color=red, very thin}, every mark/.append style={mark=none}]  table [x index=0, y index=1] {./Dat/80211af_90.dat};
+		\addlegendentry{94 subcar Conv};
+		\addplot+[smooth, style={solid, color=blue, very thin}, every mark/.append style={mark=none}] 	 table [x index=0, y index=2] {./Dat/80211af_124.dat};
+		\addlegendentry{124 subcar Prop};
+	\end{axis}
+	\end{tikzpicture}
+	}
+	\vspace{-2mm}
+\caption{Fitting Filtered Spectrum of 802.11af signal to SEMs.}
+\label{fig:80211af2}
+\end{figure}
+
+%---------------------------------------------------------------------------------
+\section{Summary}
+%---------------------------------------------------------------------------------
+In this chapter, shaping the OFDM leakage spectrum has been investigated at baseband within a CR architecture, in order to meet stringent spectral emission mask (SEM) requirements. 
+In particular, this research considers two relatively new standards, 802.11p and 802.11af, which are defined for the physical layer and largely based upon existing standards. 
+In both cases, the extended physical layers are scaled to encourage reuse of existing hardware, devices and designs, but the resulting systems are then subject to much more stringent SEMs.
+The research relies upon a combination of interpolation, IFFT length adjustment, pulse shaping and FIR image suppression filtering, to mitigate against spectral leakage into adjacent channels. 
+Simulations show that the proposed architecture can meet the specification of the four 802.11p classes A to D, as well as the stringent FCC-imposed SEM for 802.11af in the UHF
+band.
+The proposed method is also shown able to improve the achievable spectral efficiency for reuse of Television White Spaces in the 802.11af standard by 32\%, given equivalent transmission power, compared to conventional approaches which need to drop the outermost subcarriers in order to meet SEM requirements.
+In addition, the architecture has the ability to adaptively change the degree of spectral leakage filtering in response to transmission power.
+The computation of filtering can be reduced when transmission power is low, but when transmission power is high, it is able to extend to meet the strict SEM specification of both 802.11p and 802.11af. 
+Furthermore, the architecture is capable of adjusting clock rate, bandwidth, and frequency band on a symbol-by-symbol basis, in order to implement an agile CR solution.
+The work presented in this chapter is firstly published in [C1] and then extended to be submitted to [J4].

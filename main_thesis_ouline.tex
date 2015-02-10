@@ -1,0 +1,146 @@
+% ------------------------------------------------------------
+% This is a template for technical reports
+% The Main_thesis.txt is the master control file. It is like the
+% main function in a C code. Here we use it to load individual chapters.
+
+% Author: Pham Hung Thinh, NTU, Singapore
+% Date: 12, 2012
+% Template from: Xiao Xiong, NTU, Singapore
+% ------------------------------------------------------------
+
+
+\input{setting}     % Input Global settings
+
+
+
+
+\begin{document}    % Start of the text
+
+
+
+% -------------------------------------------------------------------------------- %
+% --------------------------- Part I. Front Matters ------------------------------ %
+% -------------------------------------------------------------------------------- %
+\input{fm1-cover.tex}       % Input the Cover page
+
+\setlength{\baselineskip}{20pt plus 1pt minus 1pt} % Use 1-1/2 spacing for whole document
+\pagenumbering{roman}   % Use small roman digits for the page number of front matters
+
+%\input{fm2-abstract.tex}    % Input the abstract and acknowledgement
+%\input{fm3-ack.tex}	
+
+\newpage
+\setcounter{secnumdepth}{3} % section numbering depth
+\setcounter{tocdepth}{2}    % count to the depth of sections
+\tableofcontents            % table of contents appears here
+
+\newpage
+\addcontentsline{toc}{section}{\numberline{}\hspace{-.35in}{\bf List of Figures}}
+\listoffigures              % list of figures appears here
+
+\newpage
+\addcontentsline{toc}{section}{\numberline{}\hspace{-.35in}{\bf List of Tables}}
+\listoftables              % list of tables appears here
+
+%\input{fm4-abbrev.tex}      % Input the list of abbreviations and notations
+%\input{fm5-notation.tex}
+
+
+
+
+
+% -------------------------------------------------------------------------------- %
+% --------------------------- Part II.  The Body ---- ---------------------------- %
+% -------------------------------------------------------------------------------- %
+\input{format-main-body}    % Input the formating
+%\include{ch1-Introduction}         % Include the chapters
+\chapter{Research Introduction}
+\label{chap:introduction}
+	\section{Background}
+	\section{Objective and Motivation}
+	\section{Research Contributions}
+	\section{Organization}
+%\include{ch2-BackgroundLiterature}
+\chapter{Background Literature}
+\label{chap:BackgroundLiterature}
+	\section{Power Consumption}
+		\subsection{Power Dissipation on FPGA}
+		\subsection{Power Estimation}
+		\subsection{Low power design strategies}
+	\section{Orthogonal Frequency Division Multiplexing}
+		\subsection{Cyclic Prefix}
+		\subsection{OFDM-based system}
+		\subsection{Evaluating OFDM}
+	\section{Multiple Standard Cognitive Radios }
+	\section{OFDM Synchronisation}
+		\subsection{Timing Offsets}
+		\subsection{Frequency Offset}
+		\subsection{Phase Noise}
+	\section{Related Work on OFDM synchronisation}
+		\subsection{Coarse STO and Fractional CFO Estimation}
+		\subsection{Fractional CFO Compensation}
+		\subsection{Fine STO and Integer CFO Estimation}
+	\section{Shaping OFDM Spectral Leakage}
+	\section{Summary}
+%\include{ch3-MultiplierlessCorrelator}
+\chapter{Multiplierless Correlator Design for low-power systems}
+\label{chap:multiplierlesscorrelator}
+	\section{Introduction}
+	\section{Implementation of correlators}
+		\subsection{Design of DSP48E1 Based Correlator}
+		\subsection{Design of Multiplierless Correlator}
+		\subsection{Implementation Results}
+	\section{Simulation and discussion}
+	\section{Summary}
+%\include{ch4-Synchronisation}
+\chapter{Proposed Method for OFDM Synchronisation}
+\label{chap:Synchronisation}
+	\section{Introduction}
+	\section{Proposed Technique for FFO and STO Estimation}
+	\section{Enhanced Synchronization Through Novel IFO Estimation Architecture}
+	\section{Summary}
+%\include{ch5-SpectralLeakage}
+\chapter{Proposed Method for Shaping OFDM Spectral Leakage}
+\label{chap:SpectralLeakage}
+	\section{Introduction}
+	\section{Proposed Technique for Adaptive Shaping Spectral Leakage}
+	\section{Simulation Results and Discussion}
+	\section{Summary}
+%\include{ch6-MSCR}
+\chapter{A Novel Architecture for Multiple Standard Cognitive Radios}
+\label{chap:MSCR}
+	\section{Introduction}
+	\section{Proposed OFDM-based baseband modulation for MSCR}
+	\section{Performance Analysis and Discussion}
+\section{Summary}
+%\include{ch7-Conclusion}
+\chapter{Conclusion and Future Work}
+\label{chap:conclusion}
+
+
+
+
+% -------------------------------------------------------------------------------- %
+% --------------------------- Part III. The Back Matters ------------------------- %
+% -------------------------------------------------------------------------------- %
+\appendix
+%\include{bm1-appendix}      % Appendix and Publications
+%\include{bm2-publication}
+
+% Include the references
+\newpage
+\addcontentsline{toc}{chapter}{References}
+\bibliographystyle{ieeetr}      % Use the IEEE bibiography style
+\bibliography{ConfirRpt_macro,ConfirRpt}  % Include the BibTex files
+
+
+
+
+
+\end{document}      % End of the text
+
+
+
+% ------------------
+% End of the File
+% ------------------

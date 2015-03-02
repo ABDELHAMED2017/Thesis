@@ -106,7 +106,7 @@ In the meantime, the CR engine configures the system by writing relevant paramet
 
 The scope of this chapter focuses on the baseband modulation in order to deal with the challenges of long configuration. 
 The system takes the advantages of coupling PR and parameterised functional units to offer flexibility while minimising reconfiguration time.
-The CR system is assumed capable of performing in burst mode. 
+The CR system is assumed capable of performing in burst mode in which the system only transmit the packages as soon as data is available~\cite{Ai2006}.
 The transmitter subsystem just performs the transmission initiated by the higher layer.
 If the system needs to transmit data during the periods of reconfiguration time, the data package will be stored in FIFO. 
 The stored data packet will be flushed out of FIFO for transmission after the reconfiguration of the transmitter has been done.
@@ -136,6 +136,28 @@ The bistream for each standard is implemented and precompiled separately.
 As a result, when switching from one standard to another, only part of the FPGA needs to be reconfigured.
 
 \begin{enumerate}
+
+\item {FIFO buffer (FIFO):}
+There are two FIFOs at the transmitter side and the receiver side to buffer the data sent from the higher layer and the RF front end, respectively.
+The FIFO buffers are implemented based on the FIFO IP cores with 2 port AXI stream interface configuration.
+In the normal operation of data stream, one data word is written to the buffer by the higher layer/the RF front end, meantime, another one is read out from the buffer by the transmitter side/ the receiver side at every single system clock.
+Therefore, the FIFO buffers normally operate in almost empty state.
+When the reconfiguration is required for switching underlying standard, the transmitted processing and received processing are suspended processing data streams. 
+The FIFO buffers are stored coming data streams to avoid losing frames.
+Because the system performs in burst mode, the trasmitted streams are not continuously, therefore, the transmitted FIFO can be flushed the stored data during the gap of the burst streams.
+The data buffer is not a critical issue for the transmitter side.
+However, the receiver side needs to continuous processing data streams from the RF front end to detect incoming frames. 
+The receiver side does not have spare time to flush the stored data in FIFO bufferred during reconfiguration time.
+Therefore, the received FIFO is configured with independent clocks as shown in the Fig.~\ref{fig:FIFO}. 
+In order to flushing stored data in the received FIFO after switching standard reconfiguration, the MMCM increases the received processing rate (rx\_clk) be multiple time greater than the sampling rate of the RF front end to make the FIFO be almost empty for the next reconfiguration.
+When the received FIFO is almost empty the received processing rate is reduced back to equals the sampling rate to minimise power consumption.
+\begin{figure}
+\centering
+\includegraphics [width=0.5\columnwidth]{Figures/MSCR_RX_FIFO.pdf}
+\caption{The received FIFO module}
+\label{fig:FIFO}
+\end{figure}
+
 \item {Synchronisation (Synch):}
 The CR system performs in burst mode.
 \emph{Synch} is to detect the presence of a frame and estimate the frequency offset required, based upon the preamble of the received frame.
@@ -151,8 +173,10 @@ M[d] &=& \frac{|P[d]|^2} {(R[d])^2},
 where $d$ denotes a time sequential index of received samples $r$, $L$ is the periodic length of the short preamble, $^*$ denotes complex conjugation.
 
 As discussed in Chapter~\ref{chap:Synchronisation}, the frame detection is performed by finding the plateau of $M$ when a frame presents at receiver.
-$P$ is also used to estimate fractional CFO in the subsequent module.
+$P$ is also used to estimate fractional CFO in the subsequent module. 
+The Fig.~\ref{fig:Sync} shows block diagram of synchronisation implementation.  
 The timing metrics are calculated by using auto-correlation on received samples.
+\emph{Coarse Time} detects the new frame and estimate roughly the start of frame based on the comparison the metric $P$ and the value $\frac{R}{2}$ that is equivalents to detect M greater than a threshold of 0.25.
 The method is blind estimation that provides a generality to be applied for multiple standards.
 By parameterising the length of $L$, the synchronisation module can effectively perform for three current supported standards as well as be extensible for future standards.
 Therefore, this module is implemented as a parameterised version with parameter $L$ whose values are defined together with the length of FFT ($NFFT$), shown in Table~\ref{Tab:L}.
@@ -175,6 +199,13 @@ The parameterised values consist not only of the required combinations for 802.1
 }
 \end{table}
 
+\begin{figure}
+\centering
+\includegraphics [width=0.9\columnwidth]{Figures/MSCR_RX_Sync.pdf}
+\caption{The block diagram of Synchronisation module}
+\label{fig:Sync}
+\end{figure}
+
 \item{Frequency Compensation:}
 \emph{FreComp} module performs fractional CFO estimation based on the value of $P$ passed from the previous module \emph{Synch}. 
 Fractional CFO estimation and compensation are mathematically expressed as below;
@@ -185,7 +216,8 @@ Fractional CFO estimation and compensation are mathematically expressed as below
 \end{eqnarray}
 where $\widehat{\Delta f }$ is estimated fractional CFO, $\angle P$ denotes the angle of P and $N$ is number of FFT points.
 
-In hardware implementation, a phase rotation sub-module is used to compensate fractional CFO by rotating the received sample phase with a proper angle.
+The Fig.~\ref{fig:FFO} illustrates the block diagram of frequency compensation. 
+A phase rotation sub-module is used to compensate fractional CFO by rotating the received sample phase with a proper angle.
 The proper angles are calculated and accumulated based on estimated fractional CFO.
 \begin{eqnarray}
 \label{AccumCFO}
@@ -196,6 +228,12 @@ The proper angles are calculated and accumulated based on estimated fractional C
 According to (\ref{AccumCFO}), the computation of \emph{FreComp} depends on the periodic length of short preamble that is used to calculate $P$. 
 Assuming that $L$ is normally defined with a power of two value, the division by $L$ can be effectively computed by a right shift.
 Therefore, this module can be effectively implemented to support multiple standards by parameterising a right shifter according to the value of $L$. 
+\begin{figure}
+\centering
+\includegraphics [width=0.5\columnwidth]{Figures/MSCR_RX_FFO.pdf}
+\caption{The block diagram of frequency compensation module}
+\label{fig:FFO}
+\end{figure}
 
 \item{Fine STO Estimation:}
 \emph{FineSTO\_Est} is to estimate the starting sample of each OFDM symbol. 
@@ -207,15 +245,23 @@ The metric of fine STO estimation is expressed as below;
 S[d] =\sum_{m =0}^{L-1}   |r[d+m+L]|^2  |a[m]|^2,
 \end{equation}
 when $|a[m]|$ denotes the normalised amplitude of the preamble at the transmitter.
-The metric is calculated based on the cross-correlation between received samples and transmitted preamble.
+The Fig.~\ref{fig:STO} shows the block diagram of fine STO estimation.
+The metric is calculated based on the multiplierless correlation between received samples and transmitted preamble.
 The cross-correlation provides high precision for STO estimation. 
 However, this operation requires a large number of DSP blocks, resulting in increased hardware resource and power consumption of the system.
 Reducing the hardware resource and power consumption requires using multiplierless correlation \cite{Pham2012}.
+\emph{Peak Detect} finds the maximum value of correlation that is employed to accurately estimate the STO and \emph{Fine Time} determines the exact first sample of the next OFDM symbol (long preamble symbol).
 However, the multiplierless correlation is not flexible and depends on preambles that are different for each standard.
 Therefore, we employ the PR module for the {FineSTO\_Est} module to obtain flexibility.
 Each supported standard is implemented separately and precompiled to a stored bitstream.
 The suitable precompiled bitstream will then be downloaded to the PR module by the \emph{CR engine} when the underlying standard is switched.
 The PR module must evidently to be large enough to contain the largest bitstream among the supported standards.
+\begin{figure}
+\centering
+\includegraphics [width=0.9\columnwidth]{Figures/MSCR_RX_STO.pdf}
+\caption{The block diagram of fine STO estimation module}
+\label{fig:STO}
+\end{figure}
 
 \item{Remove Cyclic Prefix:}
 \emph{RemoveCP} removes the cyclic prefix attached to each OFDM symbol.
@@ -238,8 +284,9 @@ The function is expressed as below;
 \end{equation}
 where $\epsilon$ denotes the value of IFO, $\hat{\epsilon}$, $\tilde{\epsilon}$ are estimated and trial values of $\epsilon$, respectively,
 $Y(k)$ and $X(k)$ denote the $k^{th}$ frequency symbol index of the received subcarriers and the known transmitted preamble, respectively, and the OFDM symbol size $N_{FFT}$ is equal to the FFT size.
-The estimated IFO can achieve high precision using cross-correlation in the frequency domain.
-The compensation of IFO is performed effectively by cyclic shifting OFDM symbol corresponding to the estimated IFO estimation.
+The Fig.~\ref{fig:IFO} illustrates the block diagram of IFO estimation and channel equalisation.
+The estimated IFO can achieve high precision using cross-correlation in the frequency domain. A low power and low cost IFO estimation architecture presented in Chapter~\ref{chap:CFO} is applied for this module.
+\emph{IFO Correction} is performed effectively by cyclic shifting OFDM symbol corresponding to the estimated IFO estimation.
 
 After compensating for IFO, the effects of the channel and residual STO must be taken into account to compensate the received subcarriers.
 By employ the information of the second preamble symbol, the effect of the channel can be estimated. 
@@ -256,10 +303,17 @@ where $X[k]$, $Y[k]$ are the transmitted and received carriers in the preamble, 
 $H[n]$ represents for the channel and residual STO effect and $N[k]$ is the AWGN.
 The equalization taps are estimated in (\ref{ChEqu}), and the compensation for received data carriers is given in (\ref{ChCom}) 
 in which $R[k]$, $\hat{R}[k]$ denote received and compensated data carriers, respectively.
+Due to symbols are modulated by QPSK, the symbol amplitude is not concerned. So, the complex division of channel estimation and compensation can be equivalently performed by multipling to the conjugation of $X[k]$ and $\hat{H[k]}$, respectively. 
 The operation of this module depends on the second preamble that is specified differently in each standard.
 Therefore, PR is used for the \emph{IFO\_Est\&Ch\_EstEqu} module to obtain the effective standard-specific implementation.
 Suitable precompiled bitstreams are downloaded to the PR module by \emph{CR engine} when the underlying standard is changed.
 The PR module must evidently be large enough to contain the largest bitstream among the supported standards.
+\begin{figure}
+\centering
+\includegraphics [width=0.9\columnwidth]{Figures/MSCR_RX_IFOCh.pdf}
+\caption{The block diagram of IFO estimation and channel equalisation}
+\label{fig:IFO}
+\end{figure}
 
 \item{Phase Tracking:}
 \emph{PhaseTrack} estimates the residual common phase error in each OFDM symbol after channel equalisation. 
@@ -279,6 +333,8 @@ cos\theta_{l} &=& \frac{1}{N_P} \sum_{k \in S_P} \Re\{P_{k,l}\}, \\ \nonumber
 sin\theta_{l} &=& \frac{1}{N_P} \sum_{k \in S_P} \Im\{P_{k,l}\}, \\ \nonumber
 \end{eqnarray}
 where $N_P$ denotes the number of received pilots employed for estimation, $S_P$ is a set of used pilot frequency indices.
+The Fig.~\ref{fig:Phase} shows the block diagram of phase tracking. \emph{Pilot Extract} finds the employed pilots for phase tracking in the OFDM symbol based on allocation vector ($Alloc.~Bits$).
+\emph{Phase Accumulator} and \emph{Phase Accumulator} compute the residual common phase error according to (\ref{CPE}).
 The phase error is simply compensated for by multiplying the data carriers by the complex conjugate of the estimated common phase error.
 To support multiple standards, $N_P$ is parameterised and $S_P$ can be determined through the allocation vector with the value shown in Table~\ref{tab:alloc_vec}
 
@@ -297,6 +353,12 @@ Negative pilot		&  11				\\
 \end{tabular}
 }
 \end{table}
+\begin{figure}
+\centering
+\includegraphics [width=0.9\columnwidth]{Figures/MSCR_RX_Phase.pdf}
+\caption{The block diagram of phase tracking module}
+\label{fig:Phase}
+\end{figure}
 
 \item{Data symbol demodulation (\emph{DatSymDem}):}
 At the final step, the received bits are extracted from the data symbol by a data symbol demodulation block named \emph{DatSymDem}. 

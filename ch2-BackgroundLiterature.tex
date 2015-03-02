@@ -4,9 +4,49 @@
 %---------------------------------------------------------------------------------
 
 %-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\section{Software Defined Radio and Cognitive Radio}
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Software Defined Radio (SDR) is a radio communication system where its components (e.g. mixers, filters, modulators/demodulators, etc.) are realised by means of software on a personal computer or embedded system instead of by specific hardware circuits.
+SDR provides a flexible platform on which application-specific radio systems can be implemented. The rapidly increasing level of flexibility and functionality provided by software platforms has led an increase of radio applications realizable by SDR. 
+Cognitive radio (CR) is an application radio that became more practical and flexible based on the use of SDR.
+Early work in CR, led by Mitola \cite{Mitola1999}, investigated primarily on upper layer adaptation, in which the radio platform can be changed to satisfy directly to anticipated user or application requirements. The radio finds out the required information and provides the needed services to the user or the application.
+According to Mitola \cite{Mitola2006}, the evolution of SDR to CR can be illustrated by the evolution through the three main capabilities \cite{Recio2010a}: awareness, adaptation, and cognition. 
+Awareness can be used to predict or enhance the information from the known environment. For example, for RF-location aware, a wireless terminal correlates different sensing categories that RF spectrum occupation can be associated to its location.
+Adaptation may be performed once a terminal is aware of the environment. In RF-location awareness, spectrum occupation can be associated to location. When a terminal moves to a given location, adaptation could help the terminal prioritise spectrum free search in those bands that historically achieve the best performance at the location.
+Cognition learns from the environment and decides adaptation rules based on its experience on a general set of objectives, for example obtaining the best quality of service or the lowest communication cost at a baseline service quality.
+
+The work at Virginia Tech~\cite{MacKenzie2009} presented an opposite motivation from Mitola’s work. Instead of seeking to respond users’ goals, the CR performs based on the desire
+to exploit available technology. Rieser et al.~\cite{Rieser2007,Rondeau2004} was investigated on the concept of a cognitive engine. Instead of seeking to respond a specific radio with intelligence, the research
+developed a software package that could be able to intelligently control any radios. The work was the first to separate the cognitive function from the radio platform and to study on cognition at the physical layer.
+While CRs are not strictly necessary to be built on a DSR platform, the flexibility of an SDR may be one motivation for trying the study of CR algorithms. 
+Intelligent algorithms and capable radio platforms are needed for a CR to provide the ability to change the functionality to adapt dynamic conditions~\cite{MacKenzie2009}.
+With a conventional specific platform, CRs have a limitation to only support simple tasks like spectrum sensing, where a set of parameters to hardware components can be adjusted. SDR platform allows cognitive systems to radically change configurations and roles according to a variety of stimuli. These types of systems are especially important in situations where there are finite resources or when the desired behavior can be re-defined at deployment time.
+Recently, the CR is also motivated by the spectrum scarcity and inefficient spectrum usage~\cite{FCC2002,Ghasemi2008}. The CR can allows that the spectrum allocated to the licensed users, known as Primary Users (PUs), can be reused by unlicensed users, referred to as Secondary Users (SUs), when the PU is not using it. Thus, the utilisation of the SUs on the locally unoccupied spectrum can make the overall utilisation efficiency of the licensed spectrum can be increased. Federal Communications Commission (FFC) has also given a definition for CR as "a radio or system that senses its operational electromagnetic environment and can dynamically and autonomously adjust its radio operating parameters to modify system operation, such as maximize throughput, mitigate interference , facilitate interoperability, access secondary markets."~\cite{FCC2005}.
+
+There are many comprehensive efforts at some institutions or research labs in the areas of SDR and CR. 
+The Information and Telecommunication Technology Center at the University of Kansas has built the Kansas University Agile Radio (KUAR) hardware platform~\cite{Minden2007}. 
+The platform is a mature radio platform built around a fully-featured Pentium PC with a Xilinx Virtex II FPGA.
+In addition, they collaborating with Rutgers University and Carnegie–Mellon University have developed in the creation of an experimental protocol stack for CR networks known as CogNet~\cite{Raychaudhuri2006}. 
+More over, The Wireless Information Network Laboratory at Rutgers University is also involved to the CogNet with the development of their CR hardware platforms referred as WiNC2R~\cite{Miljanic2007}.
+Georgia Tech also has a research team whose works on CR are spanned from developing a radio-frequency (RF) chip~\cite{Mukhopadhyay2005}, spectrum sensing~\cite{Ganesan2005} to higher layer issues such as cognitive mesh networks~\cite{Chowdhury2008}. 
+The Berkeley Wireless Research Center at the University of California Berkeley has engaged similarly broad efforts on the development of a CR network emulator based on FPGA~\cite{So2008} as well as DSA system design~\cite{Mishra2006}.
+The Centre for Telecommunications Value-Chain Research in Ireland has conducted a similarly research including both radio platform development and the development of reconfigurable radio and network architectures known as IRIS for cognitive systems~\cite{Sutton2006}. IRIS~\cite{sutton2010} did receive some limited support for FPGAs and partial reconfiguration~\cite{fahmy2009,lotze2009} but be not suited to truly embedded implementations with high performance baseband processing. Van de Belt et al.~\cite{Belt2013} recently presented hardware acceleration for the IRIS on the Zynq platform.
+WARP~\cite{amiri2007} is a FPGA based platform developed at CMC lab, Rice University with a recent revision (v3) hosting a Xilinx Virtex 6 FPGA and up to 2 RF interfaces. The baseband can be implemented in the FPGA fabric, while the higher layers are coded in C as a standalone application on an embedded Microblaze processor.
+ZCluster developed by Lin and Chow~\cite{Lin2013} at Department of Electrical and Computer Engineering, University of Toronto is a cluster of Zynq ZC702 boards. The cluster employs the Hadoop framework to distribute MapReduce applications across the framework. The ARM cores run Xillinux, which is an Ubuntu 12.04 based operating system released by Xillybus.
+Microsoft Research Asia launched SORA~\cite{tan2011sora}, a PCI card designed to allow powerful radios to be implemented in Windows desktop computers.
+A Xilinx Virtex 5 FPGA is used to provide high bandwidth deterministic communication between the PC and the radio frontend, but the intent is for the physical layer to be implemented in software on high performance desktop class processors.
+GNU Radio~\cite{gnuradio} is a widely used platform in academia, and is typically coupled with the Ettus USRP radio front end. It is a software application designed to run on general purpose processors. While embedded implementation is possible, e.g. on the Ettus USRP E100, where GNU Radio is executed on the embedded ARM processor. The radio systems are modeled by flowgraphs that represent the flow of moving data through the components of the system. Flowgraphs are designed by connecting processing blocks, which are the basic elements of GNU Radio. GNU Radio Companion (GRC) is a graphical tool that provides graphic interface to easily build flowgraphs by dragging and dropping blocks onto a canvas and drawing their connections~\cite{GRC2009}. 
+GReasy is a extension of GNU Radio that supports the computational benefits of FPGA acceleration targeting to reduce FPGA compile times \cite{Marlow2014}. Within the GReasy environment, FPGA-based processing units are complemented to the GNU Radio library allowing a user to arbitrarily insert optimized hardware and software modules to a given design. GReasy employs TFlow, a university-developed software toolset that allows the rapid assembly of FPGA accelerator modules through pre-compiled hardware library, for back-end bitstream generation, which places and routes parameterized pre-compiled modules into a final FPGA bitstream~\cite{Love2013}.
+
+The application of FPGA in SDR and CR framework is more and more wide and dominant. In recent years, FPGAs capabilities have increased tremendously, such that recent devices can process at rates of over 5000 GMACs (integer multiply accumulates) per second. This enables highly advanced baseband systems to be implemented at a low power budget compared with other programmable architectures.
+The addition of rapidly and dynamical reconfiguration ability of FPGA processing components has provided high performance and energy efficiency levels that used to only be obtainable by ASICs or fully analog circuits. Embedded systems consisting of FPGA devices are an ideal candidate for SDR and CR thanks to their low power consumption and portability. 
+Embedded systems also give the reliability and consistent performance that is a top priority for communications application. 
+The most exciting recent architectural development in this regard has been the emergence of new platforms that couple high-performance ARM processors with a flexible FPGA fabric. In such systems, the ARM can host a fully functioning software stack while the baseband can be implemented in the reconfigurable fabric. The connectivity between the two is very tight and offers high bandwidth and low latency. This
+represents an ideal platform for cognitive radio systems, offering both high computational performance and flexibility, while also facilitating a simple software programmable interface to higher layers of the radio.
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Power Consumption}
 %-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 The increasing computational requirements, and growing requirements for deployment in portable devices have prompted serious attention to reducing the power consumption of wireless communication systems, especially in the physical layer. 
 High power dissipation by a system introduces high operating temperatures and follow-on effects that increase the cost of packaging as well as requiring larger batteries in the case of portable devices, or other power supply solutions.
 Power dissipation has thus come to be considered as one of the most important design metrics, along with area and performance.
@@ -15,7 +55,7 @@ At every stage, the designer can act to optimise the power consumption of the de
 However, small changes at the lower levels may require more work and time to update the higher level optimisations, thus increasing the complexity of the optimization process. 
 Moreover, at the system design level stage, the designer has more options to reduce power dissipation by a greater degree.
 At the lower level, the architecture of the system is designed in terms of data flow between registers, leaving few options to optimize the system. 
-Thus, most power saving opportunities may exist at the highest level of design abstraction \cite{Raghunathan1998}.
+Thus, most power saving opportunities may exist at the highest level of design abstraction~\cite{Raghunathan1998}.
 FPGAs, with their highly parallel architecture, are suitable for the increasing computational requirement of signal processing in wireless communication systems such as modulation, channel coding, and so on.
 In order to optimise the power dissipation of systems on FPGA, the power consumption of FPGAs needs to be clearly understood, and accurate, as well as flexible, power estimation tools are needed in order to provide power profiles of the system to help the designer makes the best decisions.
 In addition, low power design techniques must be investigated to optimise power consumption when a system design is implemented.
@@ -155,6 +195,30 @@ Secondly, the latch registers with enable signals must be used at the inputs of 
 They can reduce the switching activity inside functional modules when the modules must wait for synchronisation in a streaming process.
 Apart from the above strategies, in low power design, the power estimation tools must be used to evaluate the power dissipation of the system at each stage of the flow. 
 This provides information for power dissipation optimisation. 
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\section{Multiple Standard Cognitive Radios}
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+The spectral resource demands of wireless telecommunication systems continues to increase. 
+Cognitive Radios, that have ability to adapte to channel conditions, ensuring effective spectrum usage, are an important technology for achieving this. 
+They are designed to transmit in currently unused spectrum without causing harmful interference to primary users (PUs) or incumbent users (IUs).
+Apart from the critical issues of spectrum sensing and band allocation, the lower priority of secondary users (SUs) raises a challenge in terms of transmission capability and quality of service in cognitive radios. 
+When the spectrum allowed for a CR system is fully occupied by PUs and IUs, the transmission of CRs can be blocked. 
+Multiple Standard Cognitive Radios (MSCRs) are able to operate in multiple frequency bands with different specified standards.
+MSCRs are hence a more flexible generalisation of CRs as they can operate across different bands and standards.
+
+Multi-carrier modulation techniques offer an ideal opportunity for such systems due to their regularity and parameterisation. OFDM and Filter Bank Multi Carrier (FBMC) are two types of multi-carrier modulations. OFDM modulation has been the dominant technique adopted for many standards and has been investigated in terms of spectral sensing and carrier allocation for CRs. 
+Furthermore, OFDM system implementation is simple, low cost, and can be effectively parameterised in comparison to FBMC systems. OFDM is a suitable candidate for a MSCR system. The advantages of coupling OFDM modulation with an FPGA platform are investigated for the feasibility of implementing the proposed MSCR system. 
+The flexibility requirement of a MSCR is to support existing standards like 802.11, 802.16, and 802.22, as well as supporting future OFDM-based standards.
+
+A feasible OFDM-based MSCR requires the ability to switch baseband processing from one standard to another. This means that the system needs to rapidly adapt its functionality to perform variable numbers of FFT/IFFT operations, insert CP of configurable length, and handle differend pilot vectors as well as different preambles. The hardware implementation of an OFDM-based MSCR can be based on the original architecture of an OFDM system illustrated in Fig.~\ref{fig:OFDM-block}. However, each sub-module of the system needs to be designed to perform with all parameters of the supported standards. This results in significantly increasing system complexity as well as reconfiguration time.   
+
+Beside the challenge of long configuration time for MSCR, there are two key challenges of the baseband related to the synchronizer and spectral shaper. OFDM systems typically tolerate a small carrier frequency offset (CFO) leading to strict constraints on the design of the RF front-end. In an MSCR system, the RF front-end should access a wide range of frequencies depending on the standard in operation. Such a precise and yet wide ranging frequency requirement makes the RF front-end design difficult if not impossible or require very expensive components.
+CRs also demand small spectral leakage for both in-band and out-of-band transmitted signals to avoid causing harmful interference to primary users, while OFDM signals have intrinsically large side lobes leading to a potentially large degree of spectral leakage. 
+Flexibility in the baseband can allow a frequency guard extending technique to achieve spectral leakage requirements.
+
+The interface to the higher layer processing is another important factor. Many hardware radio platforms are extremely difficult to design for or to modify. Hence, only hardware experts can use them. While detailed optimisation of low level blocks is important, providing a general interface for implementing higher layer processing is also important. This ensures that radio experts may use the system to investigate cognitive radio techniques without the need for specific advanced low-level FPGA expertise.
 
 %-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Orthogonal Frequency Division Multiplexing}
@@ -329,51 +393,6 @@ Secondly, the usage of guard period reduces bandwidth efficiency of OFDM.
 Last but not least, OFDM performance is sensitive to receiver synchronisation. Frequency offset causes inter-subcarrier interference and errors in timing synchronisation can lead to inter-symbol interference.
 Much effort is needed to improve the accuracy of both frequency and time synchronizers for OFDM.
 
-%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-\section{Multiple Standard Cognitive Radios}
-%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-The spectral resource demands of wireless telecommunication systems continues to increase. %Practically, radio spectrum is not fully usage regarding to its capacity by regulatory and license processes for spectral allocation.
-Cognitive Radios (CRs), that have ability to adapte to channel conditions, ensuring effective spectrum usage, are an important technology for achieving this. 
-They are designed to transmit in currently unused spectrum without causing harmful interference to primary users (PUs) or incumbent users (IUs).
-Apart from the critical issues of spectrum sensing and band allocation, the lower priority of secondary users (SUs) raises a challenge in terms of transmission capability and quality of service in cognitive radios. 
-When the spectrum allowed for a CR system is fully occupied by PUs and IUs, the transmission of CRs can be blocked. 
-Multiple Standard Cognitive Radios (MSCRs) are able to operate in multiple frequency bands with different specified standards.
-MSCRs are hence a more flexible generalisation of CRs as they can operate across different bands and standards.
-
-%Most practical CRs are built using powerful general purpose processors to achieve flexibility through software, but they can still fail to offer the computational throughput required for advanced modulation and coding techniques and they often have high power consumption.
-%GNU Radio~\cite{gnuradio} has been a widely used platform in academia. 
-%It is a software application that runs on a computer or an embedded ARM processor platform, e.g. on the Ettus USRP E100. 
-%Computational limitations mean that while it has been successful for investigating CR ideas, it is not feasible for implementing advanced embedded radios using complex algorithms.
-%Other software based frameworks like Iris~\cite{Sutton2010}, have some limited support for FPGAs but suffer from poor bandwidth between software and hardware.
-
-%In an application area with fast moving standards and requiring support for multiple standards, custom ASIC implementation is prohibitive.
-%Delorme et al.~\cite{Delorme2008} presented a heterogeneous reconfigurable hardware platform for Cognitive Radio. 
-%It can adapt its hardware structure to support standards like GSM, UMTS, wireless LAN. 
-%Most processing components run as embedded software on the nodes in a network on chip, while the channel coder and the mapping of the RX chain are implemented inside an FPGA. 
-%Partial reconfiguration is used to switch the channel coder from one context to an another depending on SNR. 
-%A processor manages data movement between the different processors, the ASIC, and the FPGA. The need for a large data buffer and inefficient data transfer mechanisms lead to increased power consumption and reduced throughput.
-%There are few studies on FPGA based platforms for radio implementation. 
-%KUAR~\cite{Minden2007} is a mature radio platform built around a fully-featured Pentium PC with a Xilinx Virtex II FPGA. 
-%The baseband processing is accelerated on FPGA and only limited for NC-OFDM signal based on the IEEE 802.16 standard.
-%Projects at Virginia Tech~\cite{athanaswires} have shown dynamically assembled radio structures on FPGAs, where the target radio system is defined at a high-level with datapaths connecting relatively large functional modules. 
-%The modules are wrapped, and each of them consists of a PR module with complied partial bit-streams stored in dynamic library. 
-%Using PR eliminates the need for run time compilation, but affording flexibility . 
-%A flexible radio controller can insert and remove compiled modules to adapt to current conditions.
-
-Multi-carrier modulation techniques offer an ideal opportunity for such systems due to their regularity and parameterisation. OFDM and Filter Bank Multi Carrier (FBMC) are two types of multi-carrier modulations. OFDM modulation has been the dominant technique adopted for many standards and has been investigated in terms of spectral sensing and carrier allocation for CRs. 
-Furthermore, OFDM system implementation is simple, low cost, and can be effectively parameterised in comparison to FBMC systems. OFDM is a suitable candidate for a MSCR system. The advantages of coupling OFDM modulation with an FPGA platform are investigated for the feasibility of implementing the proposed MSCR system. 
-The flexibility requirement of a MSCR is to support existing standards like 802.11, 802.16, and 802.22, as well as supporting future OFDM-based standards.
-
-A feasible OFDM-based MSCR requires the ability to switch baseband processing from one standard to another. This means that the system needs to rapidly adapt its functionality to perform variable numbers of FFT/IFFT operations, insert CP of configurable length, and handle differend pilot vectors as well as different preambles. The hardware implementation of an OFDM-based MSCR can be based on the original architecture of an OFDM system illustrated in Fig.~\ref{fig:OFDM-block}. However, each sub-module of the system needs to be designed to perform with all parameters of the supported standards. This results in significantly increasing system complexity as well as reconfiguration time.   
-
-%One way this can be done is for separate implementations of each standard to be implemented as partial bitstreams which are swapped at runtime. However, a large monolithic bitstream requires a longer reconfiguration time. Our proposed approach uses a finer granularity. Each module in the processing chain is investigated and commonalities across standards are analysed. For modules requiring only minor modifications, parameterised versions are created. For those that require significant changes, PR can be used on a per-module level. As a result, when switching from one standard to another, only part of the FPGA needs to be reconfigured.
-
-Beside the challenge of long configuration time for MSCR, there are two key challenges of the baseband related to the synchronizer and spectral shaper. OFDM systems typically tolerate a small carrier frequency offset (CFO) leading to strict constraints on the design of the RF front-end. In an MSCR system, the RF front-end should access a wide range of frequencies depending on the standard in operation. Such a precise and yet wide ranging frequency requirement makes the RF front-end design difficult if not impossible or require very expensive components.
-CRs also demand small spectral leakage for both in-band and out-of-band transmitted signals to avoid causing harmful interference to primary users, while OFDM signals have intrinsically large side lobes leading to a potentially large degree of spectral leakage. 
-Flexibility in the baseband can allow a frequency guard extending technique to achieve spectral leakage requirements.
-
-The interface to the higher layer processing is another important factor. Many hardware radio platforms are extremely difficult to design for or to modify. Hence, only hardware experts can use them. While detailed optimisation of low level blocks is important, providing a general interface for implementing higher layer processing is also important. This ensures that radio experts may use the system to investigate cognitive radio techniques without the need for specific advanced low-level FPGA expertise.
 
 
 %-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -438,7 +457,8 @@ Fig.~\ref{fig:Timingoffsetconstellation} illustrates the effect of timing offset
 As can be seen, the earlier timing, for instance timing offsets of 1 and 5, shown respectively in Figs.~\ref{fig:Timingoffsetconstellation}(b) and~\ref{fig:Timingoffsetconstellation}(d), cause a carriers rotation similar to that of fractional timing errors, and fading that can be estimated by a channel estimator.
 However, the later timing, for instance timing offsets of 1 and 5, as shown in Figs.~\ref{fig:Timingoffsetconstellation}(a) and~\ref{fig:Timingoffsetconstellation}(c), lead to ISI that prevents the OFDM constellation from being recovered. 
 Therefore, timing synchronisation is required to correct the timing offset, and avoid ISI.
-
+Correlation operators are commonly performed to estimate timing offset. Some related works~\cite{Dick2003,Fort2003,Wang2004} investigate the correlation implementation for this purpose. One of the constributions in the thesis proposes a novel low-power correlation for OFDM synchronisation. The related work and proposed correlation are discussed later in Chapter~\ref{chap:multiplierlesscorrelator}. 
+The accuracy of timming synchronisation also depends on the timing metrics and the algorithms applied on these metrics. A novel efficient and robust timing synchronisation based on the low-power correlation is proposed in this thesis. The related works~\cite{Schmidl1997,Kishore2006,Guffey2007,Huang2010,Recio2010} and the proposed method for timing synchronisation will be investigated in Chapter~\ref{chap:Synchronisation}.
 %---------------------------------------------------------------------------------
 \subsection{Frequency Offset}
 %---------------------------------------------------------------------------------
@@ -446,7 +466,8 @@ Therefore, timing synchronisation is required to correct the timing offset, and 
 CFO refers to a difference in frequency between the receiver clock with respect to the `correct' frequency of carriers in a transmitted OFDM symbol. 
 CFO is introduced by an imperfect clock in the RF front-end part, as well as by frequency variation caused by the Doppler effect when a signal is transmitted through a frequency selective channel. 
 This leads to the misalignment of sampling in sub-carriers in the frequency domain that causes a loss of orthogonaltity because at the point of frequency offeset in the sub-carrier, the other sub-carriers are not null as expected (shown in Fig.~\ref{fig:OFDM-subcarrier-freoff}).
-
+The CFO is normalised by subcarrier spacing and usually divided into an integer part (IFO), as a multiple of subcarrier spacings, and a fractional part (FFO). 
+IFO causes a circular shift of the subcarrier in the frequency domain while FFO results in ICI because of lost orthogonality between subcarriers.
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/OFDM-subcarrier-freoff.pdf} }
@@ -493,6 +514,9 @@ If multiple data symbols are transmitted in a packet, the phase rotation of each
 	\caption{The constellations of 5 consecutive OFDM received symbols with frequency offets of 0.025 and 0.05 in a, b respectively.}
 	\label{fig:freoff_5sym}
 \end{figure}
+
+Almost published OFDM implementations limits its synchronisation only can perform with the small CFO that only presents FFO.
+Although IFO estimation methods are investigated by many related works~\cite{Bang2001,Park2002,Shim2006,Kim2008,Morelli2008} in theoretical, their implementation on hardware have still not been published in research literature because of the computational complexity. In Chapter\ref{chap:CFO}, A low cost, low power IFO estimation architecture is presented to enhance OFDM Synchronization. 
 
 %---------------------------------------------------------------------------------
 \subsection{Phase Noise}

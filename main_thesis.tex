@@ -1,56 +1,114 @@
-% ------------------------------------------------------------
-% This is a template for technical reports
-% The Main_thesis.txt is the master control file. It is like the
-% main function in a C code. Here we use it to load individual chapters.
+%% ----------------------------------------------------------------
+%% Thesis.tex
+%% ---------------------------------------------------------------- 
+\documentclass{ecsthesis}                % Use the Thesis Style
+%\usepackage{natbib}                      % Use Natbib style for the refs.
+%\usepackage{amsmath,amsthm,bm}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.5}
+\usepackage{booktabs, colortbl, tabularx}
+\usepackage{todonotes}
+\usepackage{tikz}
+\usepackage{xcolor}	
+\usepackage{makecell}
+\usepackage{slashbox}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{pifont}
+%\usepackage{gensymb}
+\usepackage{wasysym}
+\usetikzlibrary{positioning,shapes,arrows,calc}
+\hypersetup{colorlinks=false}            % Set to false for black/white printing
+\input{Definitions}                      % Include your abbreviations
+\newenvironment{packed_enum}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\goodchi}{\protect\raisebox{2pt}{$\chi$}}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
-% Author: Pham Hung Thinh, NTU, Singapore
-% Date: 12, 2012
-% Template from: Xiao Xiong, NTU, Singapore
-% ------------------------------------------------------------
 
+%% ----------------------------------------------------------------
+\begin{document}
 
-\input{setting}     % Input Global settings
+\frontmatter
+\title      {Power Optimisation for Adaptive Embedded Wideband Radios}
+\authors    {\texorpdfstring
+             {Pham Hung Thinh}
+             {PHAM HUNG THINH}
+            }
+\addresses  {\groupname\\\deptname\\\univname}
+\date       {\today}
+\subject    {}
+\keywords   {}
+\maketitle
 
-
-
-
-\begin{document}    % Start of the text
-
-
-
-% -------------------------------------------------------------------------------- %
-% --------------------------- Part I. Front Matters ------------------------------ %
-% -------------------------------------------------------------------------------- %
-\input{fm1-cover.tex}       % Input the Cover page
-
-\setlength{\baselineskip}{20pt plus 1pt minus 1pt} % Use 1-1/2 spacing for whole document
-\pagenumbering{roman}   % Use small roman digits for the page number of front matters
-
-% Input the abstract and acknowledgement
+%\input{fm1-cover.tex}       % Input the Cover page
 \input{fm3-ack.tex}	
 \input{fm2-abstract.tex}    
 \input{fm6-pub.tex}    
-\newpage
-\setcounter{secnumdepth}{3} % section numbering depth
-\setcounter{tocdepth}{2}    % count to the depth of sections
-\tableofcontents            % table of contents appears here
-\newpage
-\addcontentsline{toc}{section}{\numberline{}\hspace{-.35in}{\bf List of Figures}}
-\listoffigures              % list of figures appears here
-\addcontentsline{toc}{section}{\numberline{}\hspace{-.35in}{\bf List of Tables}}
-\listoftables              % list of tables appears here
+\tableofcontents
+\listoffigures
+\listoftables
+%\lstlistoflistings
+\renewcommand{\arraystretch}{1.5}
 \input{fm4-abbrev.tex}      % Input the list of abbreviations and notations
 \input{fm5-notation.tex}
+%\listofsymbols{ll}{
+%                    \bf{API}   & Application Programming Interface\\
+%                    \bf{ASIC}  & Application Specific Integrated Circuit\\
+%                    \bf{AXI}   & Advanced eXtensible Interface\\
+%                    \bf{BRAM}  & Block Random Access Memory\\
+%                    \bf{CR}    & Cognitive Radio\\
+%                    \bf{DCM}   & Digital Clock Manager\\
+%                    \bf{DMA}   & Direct Memory Access\\
+%                    \bf{DPR}   & Dynamic Partial Reconfiguration\\ 
+%                    \bf{DRP}   & Dynamic Reconfiguration Port\\
+%                    \bf{DSP}   & Digital Signal Processing\\ 
+%                    \bf{FIFO}  & First In First Out\\
+%                    \bf{FPGA}  & Field Programmable Gate Array \\
+%                    \bf{FSM}   & Finite State Machine\\
+%                    \bf{HDL}   & Hardware Description Language\\
+%                    \bf{HLS}   & High-Level Synthesis\\
+%                    \bf{ICAP}  & Internal Configuration Access Port\\
+%                    \bf{JTAG}  & Joint Test Architecture Group\\
+%                    \bf{LUT}   & Look-Up Table\\
+%                    \bf{OFDM}  & Orthogonal Frequency Division Multiplex\\
+%                    \bf{PC}    & Personal Computer\\
+%                    \bf{PCIe}  & Peripheral Component Interconnect Express\\
+%                    \bf{PCAP}  & Processor Configuration Access Port\\
+%                    \bf{PR}    & Partial Reconfiguration\\
+%                    \bf{PLL}   & Phase Locked Loop\\
+%                    \bf{MMCM}  & Mixed Mode Clock Manager\\
+%                    \bf{MPS}   & Maximum Payload Size\\
+%                    \bf{MRRS}  & Maximum Read Request Size\\
+%                    \bf{MSI}   & Message Signalled Interrupt\\
+%                    \bf{PL}    & Programmable Logic\\
+%                    \bf{PRR}   & Partially Reconfigurable Region\\
+%                    \bf{PS}    & Processing System\\
+%                    \bf{PSA}   & PCIe Stram Arbitrator\\
+%                    \bf{PSG}   & PCIe Stream Generator\\
+%                    \bf{UART}  & Universal Asynchronous Receiver/Transmitter\\
+%                    \bf{TLP}   & Transaction Layer Packet\\
+%                    \bf{XDL}   & Xilinx Description Language\\
+%                    \bf{XML}   & Extensible Markup Language
+%                   
+%}
+%
+%\input{acknowledgements}
 
-
-
-
-
-% -------------------------------------------------------------------------------- %
-% --------------------------- Part II.  The Body ---- ---------------------------- %
-% -------------------------------------------------------------------------------- %
-\newpage
-\input{format-main-body}    % Input the formating
+\setstretch{1.5} 
+%%% ----------------------------------------------------------------
+\mainmatter
+%
 \include{ch1-Introduction}         % Include the chapters
 \include{ch2-BackgroundLiterature}
 \include{ch3-MultiplierlessCorrelator}
@@ -60,31 +118,13 @@
 \include{ch7-MSCR}
 \include{ch8-Conclusion}
 
+%\appendix
+%% ----------------------------------------------------------------
+\backmatter
 
-
-
-
-% -------------------------------------------------------------------------------- %
-% --------------------------- Part III. The Back Matters ------------------------- %
-% -------------------------------------------------------------------------------- %
-\appendix
-%\include{bm1-appendix}      % Appendix and Publications
-%\include{bm2-publication}
-
-% Include the references
-\newpage
-\addcontentsline{toc}{chapter}{References}
+%\bibliographystyle{unsrt}
+%\bibliography{ConfirRpt}
 \bibliographystyle{ieeetr}      % Use the IEEE bibiography style
 \bibliography{ConfirRpt_macro,ConfirRpt}  % Include the BibTex files
-
-
-
-
-
-\end{document}      % End of the text
-
-
-
-% ------------------
-% End of the File
-% ------------------
+\end{document}
+%% ----------------------------------------------------------------

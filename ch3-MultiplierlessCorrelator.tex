@@ -111,10 +111,10 @@ The coefficient sets are found by quantising the 64 normalised preamble samples 
 The proposed structure for multiplierless correlators is shown in Fig.~\ref{fig:ML_correlator}.
 This structure is based on the transposed direct form in Fig.~\ref{fig:str_corr}.
 Instead of using multipliers to multiply input samples by coefficients, the \emph{Shift\_Add} block and multiplexers are used to perform the equivalent operation without an actual multiplication.
-The \emph{Shift_Add} block, multiplexers and value of $Pr[n]$ are different depending upon the quantised coefficient set being used, and these perform shifts and additions on received samples according to the degree of quantisation that is applied.
-To optimise resources in the case of small numbers of bit quantisation, one common \emph{Shift_Add} block is used for all 64 coefficients instead of 64 separate \emph{Shift_Add} blocks.
-This common \emph{Shift_Add} block calculates all possible values for 64 coefficients.
-The multiplexers are used to select the corresponding \emph{Shift_Add} outputs to accumulate in order to generate the correlator output.
+The \emph{Shift\_Add} block, multiplexers and value of $Pr[n]$ are different depending upon the quantised coefficient set being used, and these perform shifts and additions on received samples according to the degree of quantisation that is applied.
+To optimise resources in the case of small numbers of bit quantisation, one common \emph{Shift\_Add} block is used for all 64 coefficients instead of 64 separate \emph{Shift\_Add} blocks.
+This common \emph{Shift\_Add} block calculates all possible values for 64 coefficients.
+The multiplexers are used to select the corresponding \emph{Shift\_Add} outputs to accumulate in order to generate the correlator output.
 These are based on expressed coefficients $Pr[n]$ that are pre-computed based on quantizing the 64 preamble samples.
 Since the $Pr[n]$ values are constants, after synthesising the design, the multiplexer is optimised as hard-wired logic, and the preamble cannot be changed.
 To support different OFDM preambles, the $Pr[n]$ could be stored in a register, and a real multiplexer used instead of hard-wired logic.

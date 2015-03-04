@@ -30,7 +30,7 @@ In addition, they collaborating with Rutgers University and Carnegie–Mellon Un
 More over, The Wireless Information Network Laboratory at Rutgers University is also involved to the CogNet with the development of their CR hardware platforms referred as WiNC2R~\cite{Miljanic2007}.
 Georgia Tech also has a research team whose works on CR are spanned from developing a radio-frequency (RF) chip~\cite{Mukhopadhyay2005}, spectrum sensing~\cite{Ganesan2005} to higher layer issues such as cognitive mesh networks~\cite{Chowdhury2008}. 
 The Berkeley Wireless Research Center at the University of California Berkeley has engaged similarly broad efforts on the development of a CR network emulator based on FPGA~\cite{So2008} as well as DSA system design~\cite{Mishra2006}.
-The Centre for Telecommunications Value-Chain Research in Ireland has conducted a similarly research including both radio platform development and the development of reconfigurable radio and network architectures known as IRIS for cognitive systems~\cite{Sutton2006}. IRIS~\cite{sutton2010} did receive some limited support for FPGAs and partial reconfiguration~\cite{fahmy2009,lotze2009} but be not suited to truly embedded implementations with high performance baseband processing. Van de Belt et al.~\cite{Belt2013} recently presented hardware acceleration for the IRIS on the Zynq platform.
+The Centre for Telecommunications Value-Chain Research in Ireland has conducted a similarly research including both radio platform development and the development of reconfigurable radio and network architectures known as IRIS for cognitive systems~\cite{Sutton2006}. IRIS~\cite{Sutton2010} did receive some limited support for FPGAs and partial reconfiguration~\cite{fahmy2009,lotze2009} but be not suited to truly embedded implementations with high performance baseband processing. Van de Belt et al.~\cite{Belt2013} recently presented hardware acceleration for the IRIS on the Zynq platform.
 WARP~\cite{amiri2007} is a FPGA based platform developed at CMC lab, Rice University with a recent revision (v3) hosting a Xilinx Virtex 6 FPGA and up to 2 RF interfaces. The baseband can be implemented in the FPGA fabric, while the higher layers are coded in C as a standalone application on an embedded Microblaze processor.
 ZCluster developed by Lin and Chow~\cite{Lin2013} at Department of Electrical and Computer Engineering, University of Toronto is a cluster of Zynq ZC702 boards. The cluster employs the Hadoop framework to distribute MapReduce applications across the framework. The ARM cores run Xillinux, which is an Ubuntu 12.04 based operating system released by Xillybus.
 Microsoft Research Asia launched SORA~\cite{tan2011sora}, a PCI card designed to allow powerful radios to be implemented in Windows desktop computers.
@@ -516,7 +516,7 @@ If multiple data symbols are transmitted in a packet, the phase rotation of each
 \end{figure}
 
 Almost published OFDM implementations limits its synchronisation only can perform with the small CFO that only presents FFO.
-Although IFO estimation methods are investigated by many related works~\cite{Bang2001,Park2002,Shim2006,Kim2008,Morelli2008} in theoretical, their implementation on hardware have still not been published in research literature because of the computational complexity. In Chapter\ref{chap:CFO}, A low cost, low power IFO estimation architecture is presented to enhance OFDM Synchronization. 
+Although IFO estimation methods are investigated by many related works~\cite{Shim2006,Morelli2008,You2010,Lee2013,Morelli2014} in theoretical, their implementation on hardware have still not been published in research literature because of the computational complexity. In Chapter\ref{chap:CFO}, A low cost, low power IFO estimation architecture is presented to enhance OFDM Synchronization. 
 
 %---------------------------------------------------------------------------------
 \subsection{Phase Noise}
@@ -555,6 +555,7 @@ However, one of their main disadvantages is spectral leakage due to the summatio
 In addition, some recent OFDM-based standards demand very strict requirements on spectral leakage to avoid inter-channel interference.
 This raises a significant challenge in how to shape the spectrum of the OFDM signal. 
 
+\subsection{Spectrum Leakage Specification of Recent Standards}
 In 2009, the FCC issued regulatory rules for reusing the television white space (TVWS) spectrum.
 IEEE~802.11af was developed under the 802.11 Working Group as a standard that enables a Wi-Fi service in the TVWS spectral regions~\cite{802-11af2013}. 
 The scope of the standard is to define amendments to the high throughput 802.11's PHY and MAC layers to meet the requirements for channel access and coexistence in the TVWS regions.
@@ -579,6 +580,49 @@ The four strict 802.11p SEMs are defined to reduce the effect of ICI between the
 Wu et al. \cite{Wu2013} showed that transmitters on adjacent service channels still cause inter-channel interference (ICI) in the safety channel, even if they satisfy the class C requirement.
 Shaping 802.11p  spectral leakage is thus potentially important in helping to eliminate ICI.
 
+\subsection{Dynamic Channel Requirements}
+For static wireless devices operating in licensed spectral regions, the characteristics of communication systems that are licensed to occupy adjacent bands may be known.
+Hence, spectral leakage masks for ICI avoidance in neighbouring systems can be statically specified.
+However, in the case of shared and reused spectrum, the authors of \cite{Macaluso2014} suggest that SEMs should be defined in a more general and flexible way.
+In other words, CRs operating in dynamic spectrum access (DSA) environments must adapt their current transmission SEMs based upon their current operating region -- another argument for baseband digital filtering.
+More sophisticated examples of SEMs are studied in \cite{Forde2010}, which deals with the broader concept of dynamic SEMs.
+
+Time-varying SEMs may also need to consider that neighbouring systems are themselves able to change their SEMs, and hence through negotiation with each other change their masks for in- and out-of-band emission levels separately in accordance with their mutual temporal variations (for example, to adapt to communications traffic density or spatial deployment density).
+In such future systems, an SEM defined by the regulator may simply be a starting point in a collaborative process in which neighbouring communication systems negotiate and renegotiate new SEMs as their status change (e.g. to optimise computational power or increasing throughput).
+
+Unfortunately, the authors in \cite{Forde2010} did not present a complete solution for dynamic filtering of spectral emissions, however they discussed deactivating sub-carriers or changing transmission power to satisfy the requirements of a dynamic SEM.
+The former solution leads to a reduction in throughput due to reduced spectral band occupancy, whereas the latter impacts range.
+A combined approach was presented in \cite{Kryszkiewicz2013} where some sub-carriers are reduced in power instead of being deactivated, in order to reduce spectral leakage to adjacent channels.
+
+\subsection{Filtering in OFDM Implementation}
+\label{sec:how_ofdm_works}
+
+Modern OFDM implementations tend to favour subsuming as much processing as possible within the baseband digital components, in order to simplify the front-end RF hardware.
+Although many alternative transmitter designs exist, direct up-conversion (DUC) architectures are commonly selected due to inherent implementation, cost and performance advantages~\cite{masse2006direct}.
+Within the transmitter, orthogonal intermediate frequency (IF) signals are generated directly by digital baseband hardware, high-pass filtered and then quadrature up-converted to RF for transmission.
+This contrasts with more traditional digital radio implementations in which the digital hardware generates baseband signals which are up-converted to IF in one or more analogue steps before conversion to RF.
+Those systems would perform channel filtering predominantly with analogue filters, which require discrete precision components, and which tend to be inflexible in terms of carrier frequency and other characteristics.
+For cognitive radio (CR) systems, where frequency agility is a requirement, and in SDR (software defined radio), both up-conversion to IF as well as channelisation filtering are performed in the digital domain~\cite{Chen2005,Dowle2006}.
+Typically, this enables a relaxation of stringent IF and RF filtering requirements, which in turn allows a reduction in system cost, though requiring more complex signal processing.
+A further advantage of baseband filtering is agility and flexibility.
+In a CR context in particular, both channel and time agility are required, and this can be best achieved in the digital domain.
+
+Within the baseband, OFDM symbols are constructed in the frequency domain and then transformed to a complex time domain representation through the IFFT.
+A critically sampled construction process requires a sample rate of double the signal bandwidth.
+This signal is up-converted to IF using an interpolation process, during which images of the original OFDM frequency response are created at integer multiples of the original sampling rate.
+Image rejection filtering must then be performed on this signal prior to being output by the digital-to-analogue converters (DACs) and subsequent transmission, since the images lie out-of-band (OOB) and hence are a cause of ICI.
+
+However any such filtering induces time-domain smearing of the transmitted signals~\cite{Faulkner2000} which adds to the similar effects caused by the channel impulse response (CIR) between transmitter and receiver, all of which potentially induce inter-symbol interference (ISI).
+
+OFDM systems combat ISI by dividing information finely in the frequency domain across sub-channels to implement narrow (in frequency) but long (in time) transmitted symbols, and then providing a guard interval between successive symbol blocks.
+The guard interval is determined by the duration of the expected channel and filter impulse responses that are traversed by each symbol on the path from transmitter baseband to receiver baseband.
+The guard interval typically contains a cyclic prefix (CP) which is inserted to combat another cause of ISI: received frequency components ringing during the CIR due to the abrupt onset of modulation at the beginning of each symbol.
+%
+The nearly rectangular OFDM symbols in the time domain naturally have a frequency domain response consisting of overlapping sinc shapes, complete with large side lobes that lie outside the main frequency channel.
+These are another source of OOB interference which contributes to ICI.
+As noted previously, both 802.11p and 802.11af (in common with most OFDM-based standards) specify an SEM which requires that ICI is controlled.
+
+\subsection{Spectral Leakage Compression}
 Conventionally, there are two methods that can be employed to compress the spectral leakage for OFDM-based system, namely pulse shaping and image spectrum compression. Pulse shaping, recommended in 802.11a, is effective at reducing side lobes. 
 Considering an OFDM symbol to have IFFT length and CP length $N$ and $N_{CP}$, respectively, the length of the symbol including its CP is $N_{T} = N + N_{CP}$,
 a sample $x[m]$ of the OFDM symbol $(0\leq m \leq N_{T}-1)$ can be expressed in the time domain as,

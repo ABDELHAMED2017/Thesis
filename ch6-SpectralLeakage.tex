@@ -71,6 +71,53 @@ However, several methods have been shown effective at mitigating spectral leakag
 The following sub-sections thus investigate state of the art methods from the 802.11a and 802.11ac research communities,, and considers their application for the newer standards.
 Specifically, each method will be evaluated, and shown unable to meet the strict SEM criteria for 802.11p (and hence is very unlikely to satisfy the even more stringent 802.11af SEM). 
 
+\subsection{Spectral Leakage Compression}
+Conventionally, there are two methods that can be employed to compress the spectral leakage for OFDM-based system, namely pulse shaping and image spectrum compression. Pulse shaping, recommended in 802.11a, is effective at reducing side lobes. 
+Considering an OFDM symbol to have IFFT length and CP length $N$ and $N_{CP}$, respectively, the length of the symbol including its CP is $N_{T} = N + N_{CP}$,
+a sample $x[m]$ of the OFDM symbol $(0\leq m \leq N_{T}-1)$ can be expressed in the time domain as,
+\begin{equation}
+\label{xm}
+x[m] = \frac{1}{N}\sum_{k=0}^{N-1} X[k] e^{i2\pi\frac{k}{N}(m-N_{CP})},
+\end{equation}
+where $X[k]$ denotes the frequency domain representation of the data sub-carriers.
+Since OFDM symbol samples are generally transmitted sequentially, this is equivalent to multiplying symbols with a rectangular window function, $p$.
+Then the transmitted OFDM samples can be expressed as;
+\begin{equation}
+\label{equ:xn2}
+x[n] = \frac{1}{N}\sum_{l=-\infty}^{\infty} \sum_{k=0}^{N-1} X[k] p[n-l N_{T}] e^{i2\pi\frac{k}{N}(n-N_{CP}-l N_{T})}
+\end{equation}
+In a conventional OFDM system, the window function, $p(m)$, is rectangular and simply described as;
+\begin{equation}
+\label{equ:pm}
+ p[m] =\begin{cases}1, & m = 0,1, ..., N_{T} \\  0, & otherwise \end{cases}
+\end{equation}
+In pulse shaping OFDM, the window function, $p[m]$, uses a smooth rather than rectangular pulse resulting in inducing distortion in the subcarriers.
+One way to avoid this is to add extending parts, i.e. CP and a cyclic suffix (CS) before and after each conventional OFDM symbol respectively, and to multiply the extended symbol with a smoothing function.
+While the CP in conventional OFDM is used as a guard interval, here it is also used for pulse shaping. Pulse shaping extends the  $N_{T}$ length of the OFDM signal by a roll-off factor, $\beta$.
+The overhead of extending CS results in spectral loss; overlapping of the CP and CS of consecutive symbols shown in Fig.~\ref{fig:PS} is needed to form a transmitted symbol to reduce this loss, but causes ISI in the overlapped region. Pulse shaping using the overlapping method is effectively equivalent to shortening the OFDM guard interval.
+A larger $\beta$ obtains greater compression in spectral leakage but reduces the effective guard interval.
+When $\beta N_{T}$ is increased to equal the CP length, the effective guard interval is reduced to zero (no guard interval) to prevent channel-induced ISI.
+
+\begin{figure}[t]
+    \centerline{\includegraphics [width=0.9\columnwidth, height=7.5cm] {./Figures/w-ofdm.pdf} }
+	\vspace{-2mm}
+    \caption{Pulse Shaping operation performed on OFDM symbols.}
+    \label{fig:PS}
+\end{figure}
+
+Image spectrum compression is implemented as an FIR filter to cancel image spectra.
+The Interpolation can be used at baseband to increase sampling frequency, thereby extending baseband bandwidth.
+Image spectra are repeats of the original baseband spectrum, present because of interpolation or digital analogue converter (DAC) effects.
+On one hand, the narrow band gap between main and adjacent image spectra requires a long impulse response FIR filter.
+On the other hand, according to the performance of FIR expressed in (\ref{equ:FIR}), the impulse response of the FIR filter $h$ with length $L_{FIR}$ has a similar effect to the impulse response of the overall channel in terms of inducing ISI.
+\begin{equation}
+\label{equ:FIR}
+y[n] =  \sum_{i=0}^{L_{FIR}-1} h[i]x[n-i] 
+\end{equation}
+
+The FIR filter reduces the effective guard interval of OFDM symbols~\cite{farhang2008signal}.
+Its design also needs to deal with the tradeoff between the length of filter to avoid ISI and the transition band and attenuation of the filter to meet the requirement of SEMs.
+
 \subsection{Pulse shaping}
 \label{subsec:Pulse}
 
@@ -295,50 +342,71 @@ Although not shown here, this is of course equally true of the more stringent 80
 This result implies that 802.11p and 802.11af implementations must rely on sharp front end RF and analogue filtering, which typically results in an increased total system cost and reduced power efficiency.
 
 %---------------------------------------------------------------------------------
-\section{a spectrum efficient shaping method}
+\section{A Spectrum Efficient Shaping Method}
 %---------------------------------------------------------------------------------
-In the conventional approach, the pulse shaping is employed with a small roll-off factor. 
-This is because large roll-off factors reduced the effective guard interval while not obtaining a significant  improvement due to the narrow frequency guard of OFDM spectrum.
-and the pulse shaping does not help to cancel the image spectrum. 
-All of the remaining effective guard interval (after subtracting the effect of CIR) is typically reserved for performing the FIR filtering to compress the image spectrum. 
-However, the guard interval length, and the narrow frequency guard inherited from the original standards are not enough for an FIR filter to cancel the image spectrum to meet the strict SEMs of the new standards.
+The discussions above have revealed that the main challenge to conforming with strict SEMs is the narrow frequency guard which must accommodate a very sharp filter transition between pass and stop bands, since the stop-band attenuation is high.
+In this section, we briefly explain the method before building upon its foundation to derive a CR architecture for OFDM spectral leakage mitigation which we will then evaluate for both 802.11p and 802.11af.
 
-The method takes a different approach from that conventionally used.
-It does not use a large portion of the remaining guard interval, like in the conventional approach, to perform the FIR filtering, instead we reserve a large portion of the remaining guard interval to perform the pulse shaping with a large roll-off factor.
-To obtain significant spectral leakage reduction in the method, the frequency guard needs to be extended. 
-With the wider frequency guard, the pulse shaping with a large roll-off factor can achieve significant side lobe compression of the OFDM signal and the required transition band of FIR filter is extended resulting in shortening of the length of the FIR filter.
-The feature of the CR architecture which combines mutually transmitting NC-OFDM and changing sampling frequency is explored to adaptively extend the frequency guard according to the SEM requirement. 
-Extending the frequency guard is performed by flexibly increasing the size of the IFFT to $M$ times the original IFFT. The sampling frequency is also increased by $M$ times to maintain the same subcarrier spacing.
-Then, the allocation vector is formed to add data symbols at lower sub-carriers that are the same as those in the original IFFT, and insert zero-padding to the remaining sub-carriers.
-The CR-based transmitter  architecture employed in the method is presented in Fig.~\ref{fig:Struc}. 
+\subsection{New Spectral Leakage Filtering Method}
+
+In a conventional approach, pulse shaping is only employed with small roll-off factors.
+This is because large roll-off factors involve longer filters, reducing the effective guard interval.
+Given the narrow frequency guard of the OFDM spectrum for the new standards, and the amount left after accounting for the effects of CIR and matching filters, pulse shaping under such constraints is unable to cancel the image spectrum: in fact, even if the entire guard interval was to be used, this may be insufficient for the very stringent class D SEM in 802.11p, and the SEM of 802.11af.
+Thus our new method takes a different approach.
+Instead of using a large proportion of the guard interval for FIR filtering, we allow the pulse shaping to occupy a significant portion of the guard space, with large roll-off factors.
+To obtain the significant spectral leakage reduction necessary, the frequency guard needs to be increased.
+It thus involves introducing a frequency guard extension technique.
+Then, given a wider frequency guard, pulse shaping with large roll-off factors can achieve significant side lobe compression of the OFDM signal, and the required transition band for FIR filtering is extended, which means a shorter FIR filter is able to attenuate the image spectrum.
+
+The method thus involves three steps:
+
+\begin{itemize}
+\item The IFFT length is multiplied by a factor $M$, and the sampling frequency similarly increased by a factor $M$, to maintain the same subcarrier spacing.
+Given this, the allocation vector is formed to add data symbols at lower sub-carriers that are the same as those in the original IFFT, while the remaining sub-carriers are zero-padded.
+\item Next, pulse shaping is applied in the normal way, to meet the given SEM constraint.
+\item Finally, $L'$-fold interpolation is used to allow simple filtering to remove the image spectrum.
+\end{itemize}
+
+Based on the proposed approach, we build a flexible CR architecture which is demonstrated to achieve the SEM requirements for both 802.11p (all classes A, B, C and D) as well as 802.11af in the UHF band.
+
+\subsection{Novel CR Filtering Architecture}
+
+A CR architecture for OFDM implies the agility to handle non-contiguous (NC) transmission of symbols (NC-OFDM) as well as the ability to adapt to different frequency bands, bandwidths and timing synchronisation regimes.
+For the purposes of this chapter, a CR architecture is developed which combines  transmission of NC-OFDM symbols with switched sampling frequency, supporting both 802.11p and 802.11af.
+In particular, the architecture adaptively extends the frequency guard as required, and performs both pulse shaping and FIR interpolation filtering to meet the most strict SEM requirements of both standards.
+It should be understood that this CR architecture is designed to demonstrate compliance with the more difficult standards: it could trivially be de-rated to the much less stringent 802.11a and 802.11ac parent standards.
+
+The proposed CR-based transmitter architecture structure is presented in Fig.~\ref{fig:Struc}, as implemented on a Xilinx FPGA for experimental purposes.
 \begin{figure}[t]
-    \centerline{\includegraphics [width=1\columnwidth] {Figures/CRTx_shaping.pdf} }
+    \centerline{\includegraphics [width=0.9\columnwidth] {Figures/CRTx_shaping} }
 	\vspace{-2mm}
-    \caption{The CR-Based architecture for adaptive spectral leakage shaping}
+    \caption{The CR-Based architecture for adaptive OFDM spectral leakage shaping.}
     \label{fig:Struc}
 \end{figure}
-As can be seen, the proposed CR-based architecture consists of the typical sub-modules as follows;
-$\mathit{Pil\_Insert}$ flexibly inserts data symbol from $\mathit{DAT\_Mod}$ and pilots into an OFDM symbol according to the current allocation vector ($\mathit{Alloc\_Vec}$).
-$\mathit{Pre\_Insert}$ is to insert preamble symbol. 
-$\mathit{IFFT+CP insert}$ is a IP core in Xilinx FPGA that can flexibly reconfigure the length of IFFT and CP in run-time.
-$\mathit{PulseShaping}$ performs pulse shaping with a smoothing function of which the roll-off factor can be changed from small for relaxed spectral shaping to large for stringent spectral shaping.
-$\mathit{L-Fold Inter\&FIR}$ is to perform L-fold interpolation in which $L$ is controllable. After interpolation, the FIR filter is used to filter out the image spectrum. 
-In addition, for a CR architecture, the cognitive control sub-module ($\mathit{CR\_ctrl}$) is able to manage the transmitter flexibly to change the function of the sub-module according to the SEM requirement imposed from a higher level layer.
-The mixed-mode clock manager ($\mathit{MMCM}$), an integrated IP core in Xilinx FPGAs, is employed to manage the sampling clock ($\mathit{Fs}$) according to the required filter performance.
+As can be seen, the architecture consists of the baseband sub-modules, including %data modulation ($DAT_Mod$), pilot insertion ($Pil_Insert$), preamble insertion ($Pr_Insert$), IFFT and CP adding ($IFFT+CP insert$), $Pulse shaping$, L-fold interpolation and FIR filtering ($L-Fold Inter \& FIR$).
+\emph{Pil\_Insert} which flexibly inserts data symbols and pilots from the data modulator, \emph{DAT\_Mod}, into an OFDM symbol according to the current allocation vector (\emph{Alloc\_Vec}).
+\emph{Pre\_Insert} inserts the preamble symbol while \emph{IFFT+CP Insert} is an IP core that with flexibly reconfigurable IFFT length and CP insertion.
+\emph{PulseShaping} performs pulse shaping with a smoothing function for which the roll-off factor can be changed from small, for relaxed spectral shaping, to large, for more stringent spectral shaping.
+\emph{L-Fold Inter\&FIR} performs $L'$-fold interpolation, with $L'$ being controllable on a symbol-by-symbol basis. After interpolation, the FIR block is used to filter out the image spectrum.
+In addition, for the CR architecture, the cognitive control sub-module (\emph{CR\_Ctrl}) is used to modify sub-module parameters to match SEM requirements imposed from the higher layers (i.e.\ it adjusts timing, bandwidth, frequency band and SEM requirements).
+The mixed-mode clock manager (\emph{MMCM}) is another integrated IP core used to manage the sampling clock ($\mathit{F_s}$), which is set according to the filter performance requirements and operating frequency band.
 
-An adaptive mechanism of shaping spectral leakage is performed correspondingly to the transmission power to eliminate ICI.
-A prototype of 802.11p, presented in \cite{Choi2014}, is adopted for direct device-to-device communication between smartphones.
-The prototype is able to adaptively increase transmission power to extend the communication range.
-However, the system is based on the hardware of 802.11a baseband and does not investigate the increasing spectal leakage when transmitting signal is amplified.
-The transmitting signal may not meet the stringent requirement of the spectral leakage for 802.11p.
-In the method, when the transmission power is higher than a threshold that the spectral leakage may cause ICI, a stringent SEM filter is required.
-$\mathit{CR\_ctrl}$ is controlled to change the IFFT length to $M$ times the original IFFT and $\mathit{Alloc\_Vec}$ to extend the frequency guard, $\mathit{MMCM}$ is also used to change the $\mathit{Fs}$ according to the IFFT length.
-Moreover, $\mathit{CR\_ctrl}$ changes $\mathit{PulseShaping}$ with a large roll-off factor, reduces L-fold interpolation ($L\times M = const$) and shortens the FIR length to satisfy a more stringent SEM.
-On the other hand, when an end device is near the access point, the transmission power can be lower than the threshold. The spectral leakage is therefore smaller and thus the higher layer can relax the filter. 
-$\mathit{CR\_ctrl}$ is controlled to change the IFFT length to the original IFFT length and employ the $\mathit{PulseShaping}$ with a small roll-off factor, and normal $\mathit{L-Fold Inter\&FIR}$ to reduce the computation.
-It should be noted that the additional computation needed for signal processing in the baseband (which contains low cost, low power components), can be repaid by relaxing the specification of the RF front-end design (which tends to require more costly, and higher power components).
+In addition, the \emph{MMCM} allows the transmitter to reduce the degree of filtering (i.e. degree of spectral leakage shaping) when transmission power is reduced: since transmit power reduction naturally reduces ICI.
+This is particularly important for lower power operating modes in which a lower sampling frequency, less filtering complexity, and reduced transmission amplitude all contribute to power savings.
 
-The following subsections present the application of method in which the CR architecture is configured to perform stringent filter to obtain the SEMs specification of 802.11p and 802.11af. 
+Compare this with the 802.11p prototype presented in \cite{Choi2014}, which was adopted for direct device-to-device communication between smartphones.
+That innovative prototype was able to adaptively increase transmission power to extend communication range.
+However, the system was based on an 802.11a hardware solution and baseband, and did not investigate the increased spectral leakage when the transmitted signal was amplified to increase range (at which point it would not be likely to meet the 802.11p SEM requirement).
+
+By contrast, the method proposed and implemented in this chapter, is able to apply a more stringent SEM filter when transmission power is increased such that ICI exceeds a given threshold.
+In particular, \emph{CR\_Ctrl} is invoked to change the IFFT length to $M$ times the original IFFT, while \emph{Alloc\_Vec} extends the frequency guard and \emph{MMCM} increases $\mathit{F_s}$ according to the required IFFT length.
+Moreover, \emph{CR\_Ctrl} changes \emph{PulseShaping} to use a large roll-off factor, reduces the $L$-fold interpolation (since $L'\times M$ is constant) and shortens the FIR length to meet the more stringent SEMs.
+On the other hand, when a device and access point are in closer proximity, the transmission power can be reduced such that the spectral leakage is small, and thus filtering can be relaxed.
+In this case, \emph{CR\_Ctrl} is invoked to change the IFFT length back to the original, and employ \emph{PulseShaping} with a small roll-off factor. Moreover, \emph{L-Fold Inter\&FIR} switches back to a normal range in order to reduce the amount of computation.
+It should be noted that the additional computation needed for signal processing in the baseband (which uses low cost, low power components), can be more than compensated for by relaxing the specification of the RF front-end design since the analogue filtering requirements are so much less strict.
+
+The following Section presents the application of the proposed CR architecture in performing stringent filtering to achieve the SEM specifications of both 802.11p and 802.11af respectively.
+
 %---------------------------------------------------------------------------------
 \section{Simulation Results and Discussion}
 %---------------------------------------------------------------------------------
@@ -548,4 +616,4 @@ The proposed method is also shown able to improve the achievable spectral effici
 In addition, the architecture has the ability to adaptively change the degree of spectral leakage filtering in response to transmission power.
 The computation of filtering can be reduced when transmission power is low, but when transmission power is high, it is able to extend to meet the strict SEM specification of both 802.11p and 802.11af. 
 Furthermore, the architecture is capable of adjusting clock rate, bandwidth, and frequency band on a symbol-by-symbol basis, in order to implement an agile CR solution.
-The work presented in this chapter is firstly published in [C1] and then extended to be submitted to [J4].
+%The work presented in this chapter is firstly published in [C1] and then extended to be submitted to [J4].

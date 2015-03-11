@@ -1,27 +1,40 @@
 %---------------------------------------------------------------------------------
-\chapter{Research Introduction}
+\chapter{Introduction}
 \label{chap:introduction}
 %---------------------------------------------------------------------------------
+
+Wireless transmission plays a key role in our every day lives, and has enabled the exponential growth in connectivity that we have witnessed over the last few decades.
+An exponential increase in the number of users and nodes, and the throughput demanded between them, means significant developments are crucial in the fundamental methods by which this wireless communication is enabled.
+The previous approach of defining fixed wireless standards for use in fixed portions of radio spectrum is giving way to a more dynamic approach to exploiting this scarce resource.
+Practical studies have shown that many licensed bands are relatively unused across time and frequency~\cite{FCC2002}.
+To improve the efficiency of radio spectrum use, the concept of unlicensed users temporarily reusing unused spectrum in licensed bands is currently being researched.
+This concept is known as dynamic spectrum access (DSA)~\cite{Minden}.
+Wireless communication systems for realising DSA must be reconfigurable, to support different radio standards in different environments, and adaptive, to react to changing channel conditions without interfering with licensed users and other unlicensed opportunistic users.
+
+A cognitive radio (CR) is a node that is able to adapt its parameters to optimise performance based on interaction with the environment, as well as to perform DSA.
+A cognitive radio can modify parameters such as transmit power, coding rate, frame size, bandwidth, and centre frequency, in real time to obtain suitable performance in a given, changing, environment.
+The radio baseband should also be reconfigurable to enable support for multiples standards such as WiFi, WiMAX, GSM, WCDMA, and other defined access schemes.
+More advanced adaptive standards are intrinsically flexible and this flexibility should be managed to optimise performance in the channel.
+
+This thesis explores techniques for enabling the mapping and implementation of dynamic cognitive radios on FPGA platforms.
+By dynamic, we are referring to the ability to modify baseband processing to suit difference transmission standards.
+The cognitive portion of a radio is where decisions are made to modify properties of the communication.
+In the context of our work, we are interested in providing a generalised interface for cognitive radio designers to be able to leverage the dynamic capabilities of the hardware platform at a higher level.
+
+FPGAs are silicon devices that allow us to build customised hardware datapaths for a variety of applications.
+By exploiting parellelism inherent in many algorithms, it is possible to develop implementations that are significantly faster that equivalent software running on general purpose processors.
+FPGAs have long been established as a platform of choice in signal processing due to their suitability for parallel bit-level architectures that align well with many signal processing algorithms~\cite{cummings1999}.
+Another key capability of FPGAs that makes them attractive for cognitive radios is their reconfigurability.
+The hardware implemented on an FPGA can be modified at runtime, thereby enabling the dynamic capability required for implementing cognitive radios.
 
 %---------------------------------------------------------------------------------
 \section{Background}
 %---------------------------------------------------------------------------------
 
-Wireless communications is advancing rapidly in terms of both the number of applications  and the bandwidth requirement of applications.
-The increasing data rate results in the consumption of bandwidth while radio spectrum is a limited resource.
-Rapidly growing requirements for additional bandwidth have resulted in the possibility of spectrum scarcity. 
-In addition, inefficient use of the spectrum is another reason which contributes to the threat of spectrum scarcity. 
-Practical studies have shown that many licensed bands are relatively unused across time and frequency \cite{FCC2002}. 
-To improve the efficiency of using radio spectrum resources, the concept of unlicensed users temporarily reusing unused spectrum in licensed bands is currently being researched.
-This concept is known as dynamic spectrum access (DSA) \cite{Minden}.
-Wireless communication systems for realizing DSA are required to be both reconfigurable and adaptive to improve spectrum utilization while not interfering with the communication of licensed applications and other unlicensed opportunistic users.
 
-A cognitive radio (CR) is a node that is able to adapt its parameters to optimise performance based on interaction with the environment, as well as to perform DSA. 
-A cognitive radio would be able to change parameters such as transmit power, coding rate, frame size, bandwidth, and centre frequency in real time to obtain suitable performance in a given, changing, environment.
-The radio would also be reconfigurable to be able to adjust compatibility with various useful wireless standards such as WiFi, WiMAX, GSM, WCDMA, and other defined access schemes.
 
-Orthogonal Frequency Division Multiplexing (OFDM) has been adopted for implementation within the Cognitive Radio field, and is a prime candidate for DSA networks in which the radio is required to be spectrally aware and able to dynamically access idle parts of the spectrum. 
-OFDM is an efficient multi-carrier modulated (MCM) technique that provides robustness to frequency selective channels and the DSA ability based upon spectrum pooling, where unlicensed users may temporarily access spectral resources during the idle periods of licensed users \cite{JondralMarch2004}. 
+Orthogonal Frequency Division Multiplexing (OFDM) has been adopted for implementation within the Cognitive Radio field, and is a prime candidate for DSA networks in which the radio is required to be spectrally aware and able to dynamically access idle parts of the spectrum.
+OFDM is an efficient multi-carrier modulated (MCM) technique that provides robustness to frequency selective channels and the DSA ability based upon spectrum pooling, where unlicensed users may temporarily access spectral resources during the idle periods of licensed users \cite{JondralMarch2004}.
 When utilising a given bandwidth of spectrum, OFDM subcarriers that cause interference with licensed users can be selectively disabled.
 This technique is defined as non-contiguous orthogonal frequency multiplexing (NC-OFDM) \cite{MindenJune2006}.
 
@@ -35,75 +48,75 @@ MSCRs are hence a more flexible generalisation of CRs as they can operate across
 
 MSCR requires platform that provides sufficient flexibility, high computational throughput, and power efficiency.
 Most practical CRs are built using powerful general purpose processors to achieve flexibility through software but they fail to offer the computational throughput and also tend to suffer from high power consumption.
-Multiple processor-on-chip (MPoC) architectures can enhance the throughput; 
+Multiple processor-on-chip (MPoC) architectures can enhance the throughput;
 however, these platforms require problems to be formulated in a way suitable for parallel programming and tend to need additional memories to buffer data transferred between parallel processes.
-Moving data around these processes may consume significant power. 
-Conversely, custom hardware designs such as application specific integrated circuits (ASICs) offer highly efficient computation, high throughput and possibly low power dissipation; however, they suffer from a lack of flexibility, in which operating parameters tend to need to be decided at design time. 
+Moving data around these processes may consume significant power.
+Conversely, custom hardware designs such as application specific integrated circuits (ASICs) offer highly efficient computation, high throughput and possibly low power dissipation; however, they suffer from a lack of flexibility, in which operating parameters tend to need to be decided at design time.
 In an application area with fast moving standards and occupied by multiple standards, ASICs are likely to be inefficient in terms of both time and cost for MSCR.
 However, modern FPGAs which support partial reconfiguration (PR) are an attractive candidate for cognitive radios.
-They provide not only the high performance of a custom data-path implementation, but also offer flexibility with low power dissipation. 
+They provide not only the high performance of a custom data-path implementation, but also offer flexibility with low power dissipation.
 
-The feasibility of MSCR implementation depends on the flexibility of switching system parameters specified by from one standard to another. 
-Multi-carrier modulation based techniques are widely investigated for state of the art and also next-generation wireless standards. 
-These techniques divide communication channels into multi-sub-channels that allow a system to perform parallel data transmission over smaller sub-channels to combat amplitude and phase distortion, impulse noise, multipath propagation and so on. 
-OFDM and Filter Bank Multi Carrier (FBMC) are two types of multi-carrier modulations. 
-OFDM modulation has been the dominant technique adopted for multiple applications in high bit-rate wireless communication systems such as Wireless Local Area Networks (WLAN) standardized in IEEE 802.11 and Metropolitan Area Networks (MAN) in IEEE 802.16. 
+The feasibility of MSCR implementation depends on the flexibility of switching system parameters specified by from one standard to another.
+Multi-carrier modulation based techniques are widely investigated for state of the art and also next-generation wireless standards.
+These techniques divide communication channels into multi-sub-channels that allow a system to perform parallel data transmission over smaller sub-channels to combat amplitude and phase distortion, impulse noise, multipath propagation and so on.
+OFDM and Filter Bank Multi Carrier (FBMC) are two types of multi-carrier modulations.
+OFDM modulation has been the dominant technique adopted for multiple applications in high bit-rate wireless communication systems such as Wireless Local Area Networks (WLAN) standardized in IEEE 802.11 and Metropolitan Area Networks (MAN) in IEEE 802.16.
 It is effective to perform spectral sensing and carrier allocation for CRs.
 Furthermore, OFDM modulation requires a simple and low cost implementation and effectively parameterizes the system to flexibly switch from one standard to another in comparison to FBMC modulation.
 OFDM should be a suitable candidate for a MSCR system.
 The advantages of coupling OFDM modulation and the FPGA platform are investigated for the feasibility of implementing the proposed low cost, low power MSCR system.
 The ability to perform PR in FPGA and allow effective parameterization in OFDM modulation can enable a MSCR to be built for not only current OFDM-based standards such as 802.11, 802.16, and 802.22, but also be potentially able to accept soft upgrades for future OFDM-based standards.
 
-OFDM-based systems have two main intrinsic disadvantages related to synchronization and spectral leakage. They become critical challenges in scenarios of OFDM-based MSCR. 
-The state of the art synchronization of OFDM-based system can tolerate a small carrier frequency offset (CFO) that leads to highly strict constraints for RF front-end design. 
-In MSCR systems, an RF front-end is required to have the ability to switch frequency carriers across a wide frequency range according to spectral operating areas.  This tends to suggest that the constraints of small CFO may not be feasible. 
-Therefore, new synchronization methods that are robust to large CFO should be researched for OFDM-based MSCR systems. 
-Another challenge is that CRs normally demand small spectral leakage for both in-band and out-of-band of transmitted signals, whereas OFDM is well known to induce significant amounts of spectral leakage. 
-Pulse shaping techniques have therefore been widely studied to limit the spectral leakage caused by the OFDM signal. 
-But pulse shaping techniques cannot help to effectively filter out-of-band spectrum in case of small frequency guard because of the present of image spectrum caused by interpolation or DAC operation. 
+OFDM-based systems have two main intrinsic disadvantages related to synchronization and spectral leakage. They become critical challenges in scenarios of OFDM-based MSCR.
+The state of the art synchronization of OFDM-based system can tolerate a small carrier frequency offset (CFO) that leads to highly strict constraints for RF front-end design.
+In MSCR systems, an RF front-end is required to have the ability to switch frequency carriers across a wide frequency range according to spectral operating areas.  This tends to suggest that the constraints of small CFO may not be feasible.
+Therefore, new synchronization methods that are robust to large CFO should be researched for OFDM-based MSCR systems.
+Another challenge is that CRs normally demand small spectral leakage for both in-band and out-of-band of transmitted signals, whereas OFDM is well known to induce significant amounts of spectral leakage.
+Pulse shaping techniques have therefore been widely studied to limit the spectral leakage caused by the OFDM signal.
+But pulse shaping techniques cannot help to effectively filter out-of-band spectrum in case of small frequency guard because of the present of image spectrum caused by interpolation or DAC operation.
 Fortunately, MSCR systems provide flexible parameters that allow the possibility of a frequency guard extending technique which, when combined with an effective pulse shaping technique, can meet the spectral leakage requirements.
 
-The motivation for this research is to study a low power architecture for MSCR based on coupling PR modules and parameterised modules to minimise the adaptation time. 
+The motivation for this research is to study a low power architecture for MSCR based on coupling PR modules and parameterised modules to minimise the adaptation time.
 In addition, a novel method for synchronization and an effective pulse shaping technique have been proposed and shown to be suitable for the requirements of MSCR systems.
 %---------------------------------------------------------------------------------
 \section{Research Contributions}
 %---------------------------------------------------------------------------------
 
-This thesis addresses the design of low complexity, low power wideband radios with the flexibility to support multiple standards. 
+This thesis addresses the design of low complexity, low power wideband radios with the flexibility to support multiple standards.
 The contributions of the thesis, which are published or under review as listed in  ``Publications'' section, are elaborated as following:
 \begin{enumerate}
 \item A multipilerless cross-correlation is proposed in [J1] to perform OFDM synchronisation for a low power, low complexity systems.
-The conventional approach, with the availability of embedded DSP blocks on these FPGAs, is to use standard multiplier-based cross-corellation. However, this can consume a significant number of DSP blocks, and may not fit on low-power devices. 
-A comparison of DSP48E1 Slice-based design and four different quantisations of multiplierless correlation is investigated in terms of resource utilisation and power consumption on Xilinx Virtex-6 and Spartan-6 FPGA devices. 
-OFDM timing synchronisation accuracy is evaluated for each system at varying signal-to-noise ratios. This research shows that even relatively coarse multiplierless coefficient quantisation can yield accurate timing synchronisation, and do so at high clock speeds. 
+The conventional approach, with the availability of embedded DSP blocks on these FPGAs, is to use standard multiplier-based cross-corellation. However, this can consume a significant number of DSP blocks, and may not fit on low-power devices.
+A comparison of DSP48E1 Slice-based design and four different quantisations of multiplierless correlation is investigated in terms of resource utilisation and power consumption on Xilinx Virtex-6 and Spartan-6 FPGA devices.
+OFDM timing synchronisation accuracy is evaluated for each system at varying signal-to-noise ratios. This research shows that even relatively coarse multiplierless coefficient quantisation can yield accurate timing synchronisation, and do so at high clock speeds.
 Multiplierless designs enjoy reduced power consumption over the DSP48E1 Slice-based design, and can be used where DSP Slice resources are insufficient, such as on low-power FPGA devices.
 
-\item A novel OFDM synchronization method that combines robust performance with computational efficiency is proposed in [J2]. 
+\item A novel OFDM synchronization method that combines robust performance with computational efficiency is proposed in [J2].
 FPGA prototyping is used to investigate the trade-off between the number of computations to be performed and computation word length with respect to both synchronization performance and power consumption.
-Through simulation, the proposed method is proven to provide accurate fractional CFO estimation as well as STO estimation in a range of channels. 
-In particular, it can yield excellent synchronization performance in the face of a CFO that is larger than many state-of-the-art synchronization implementations can handle. 
+Through simulation, the proposed method is proven to provide accurate fractional CFO estimation as well as STO estimation in a range of channels.
+In particular, it can yield excellent synchronization performance in the face of a CFO that is larger than many state-of-the-art synchronization implementations can handle.
 The system implementation demonstrates efficient resource usage and reduced power consumption compared to existing methods and this is explored as a fine-grained trade-off between performance and power consumption.
 The proposed method is robust and suitable for use in low-power radios or some multi-standard radios, enabling less precise analogue front-ends to be used.
 
-\item The third contribution presented in [J3] proposes a novel approach for implemeting IFO estimation, which is shown to be able to reduces both the power and computational cost of OFDM implementations. 
-Performing the IFO cross-correlation using four-fold resource sharing reduces the estimation cost. Meanwhile, adopting a multiplierless technique and carefully optimising word lengths yields significant power reduction, while maintaining sufficient accuracy to meet performance requirements. 
-The method is studied theoretically, using numerical simulations as well as with post place-and-route analysis. 
-The novel method is shown to achieve excellent performance, similar to the theoretically achievable bound. 
-In fact, performance is significantly better than conventional techniques, while being much more efficient. 
+\item The third contribution presented in [J3] proposes a novel approach for implemeting IFO estimation, which is shown to be able to reduces both the power and computational cost of OFDM implementations.
+Performing the IFO cross-correlation using four-fold resource sharing reduces the estimation cost. Meanwhile, adopting a multiplierless technique and carefully optimising word lengths yields significant power reduction, while maintaining sufficient accuracy to meet performance requirements.
+The method is studied theoretically, using numerical simulations as well as with post place-and-route analysis.
+The novel method is shown to achieve excellent performance, similar to the theoretically achievable bound.
+In fact, performance is significantly better than conventional techniques, while being much more efficient.
 In case of application for IEEE 802.16-2009, the proposed method saves significant power over the conventional technique on low-power FPGA devices. The method is also applicable to IEEE 802.11 and IEEE 802.22.
-Coupling the robust OFDM synchronisation presented in [J2] and Performing IFO estimation at baseband is importance to allow the RF front-end specification to be relaxed, thus reducing system cost. 
+Coupling the robust OFDM synchronisation presented in [J2] and Performing IFO estimation at baseband is importance to allow the RF front-end specification to be relaxed, thus reducing system cost.
 In fact, for some multi-standard radios, and applications suffering significant Doppler shift, RF constraints may be infeasible without techniques such as IFO estimation.
 
 \item The forth contribution firstly published in [C1] and then extended in [J4] proposes a novel method that explores CR architecture in a new filtering scheme for adaptively shaping spectral leakage of OFDM signal according to the transmitted power and Spectrum Emission Mask (SEM) requirements.
-OFDM presents a disadvantage in terms of spectral leakage due to large side lobes in the signal spectrum. 
+OFDM presents a disadvantage in terms of spectral leakage due to large side lobes in the signal spectrum.
 In addition, some recent OFDM-based standards such as 802.11p for vehicular communication and 802.11af for reusing Television White Spaces (TVWS) demand the strict requirements on spectral leakage that raises a tough challenge for radio frequency (RF) front-end circuits.
-The proposed method can achieve the specification for the most stringent SEM of 802.11p. 
+The proposed method can achieve the specification for the most stringent SEM of 802.11p.
 For 802.11af, it not only meets the requirement for strict SEM filtering but also feasibly increases the spectrum usage by an additional 10 sub-carriers in a basic channel band, compared to conventional techniques,without violating the SEM specifications.
 The proposed method, performed at baseband to relax the strict constraints of the RF front-end, also allows the RF front-end to be implemented using commercial off-the-shelf (COTS) RF hardware from older standards such as 802.11a or 802.11ac, resulting in a much reduced total system cost.
 
-\item Cognitive radios that support multiple standards and modify operation depending on environmental conditions are becoming more important as the demand for higher bandwidth and efficient spectrum use increases. 
+\item Cognitive radios that support multiple standards and modify operation depending on environmental conditions are becoming more important as the demand for higher bandwidth and efficient spectrum use increases.
 Traditional implementations in custom ASICs cannot support such flexibility, with standards changing at a faster pace, while software implementations of baseband communication fail to achieve the performance required.
-Hence, FPGAs offer an ideal platform bringing together flexibility, performance, and efficiency. 
+Hence, FPGAs offer an ideal platform bringing together flexibility, performance, and efficiency.
 The fifth contribution presented in [C2, J5] proposes and explores the possible techniques for designing multi-standard radios on FPGAs.
 This contribution presents a mathematical analysis of the performance of the proposed architecture for MSCR based on a heterogeneous mixture of the PR modules and parameterised modules.
 The calculated results based on the FPGA systhesis show that the proposed architecture achieves a significant reduction in terms of system latency compared to conventional structures.
@@ -117,30 +130,30 @@ This allows a MSCR be implemeted on an FPGA platform, yielding a low cost, low p
 %---------------------------------------------------------------------------------
 
 This thesis is organized as follows:
-Chapter \ref{chap:BackgroundLiterature} presents the comprehensive background of this research. 
-Power consumption on FPGA devices is investigated. 
-Power estimation tools and also low power design strategies, particularly focused on implementing OFDM systems on FPGA, are studied and discussed. 
+Chapter \ref{chap:BackgroundLiterature} presents the comprehensive background of this research.
+Power consumption on FPGA devices is investigated.
+Power estimation tools and also low power design strategies, particularly focused on implementing OFDM systems on FPGA, are studied and discussed.
 This chapter provides the background for OFDM  in terms of mathematical representation and functionality, and then the advantages and limitations of OFDM are also discussed.
 Moreover, the chapter also contains an introduction to MSCR. The related works on MSCR research are presented and discussed to show the main challenges of implementing a MSCR.
 The synchronisation issue of OFDM systems is deeply considered, and the related work focusing on achieving the good performance of synchronisation is discussed on its merits as well as limitations.
 The challenge of shaping spectral leakage is studied for the stringent SEM constraints of the state of the art wireless standards.
 
-Chapter \ref{chap:multiplierlesscorrelator} presents the design of several correlators for timing synchronisation with preamble symbols based upon IEEE 802.16d standard. 
-The comparison between a DSP48E1 Slice-based design to four different quantisations of multiplierless correlation is shown and discussed in terms of resource utilisation and power consumption. 
+Chapter \ref{chap:multiplierlesscorrelator} presents the design of several correlators for timing synchronisation with preamble symbols based upon IEEE 802.16d standard.
+The comparison between a DSP48E1 Slice-based design to four different quantisations of multiplierless correlation is shown and discussed in terms of resource utilisation and power consumption.
 OFDM timing synchronisation accuracy is evaluated for each system at varying signal to-noise ratio.
 
 Chapter \ref{chap:Synchronisation} researches the issue of synchronisation in OFDM system receivers in terms of timing offset and frequency offset.
 A robust and efficient synchronisation method is proposed and discussed.
-The performance of the proposed method is evaluated in comparison to methods in previous works in terms of robustness to large CFO, accuracy of time synchronisation and fractional CFO estimation in both additive white Gaussian noise (AWGN) and frequency selective channels. 
+The performance of the proposed method is evaluated in comparison to methods in previous works in terms of robustness to large CFO, accuracy of time synchronisation and fractional CFO estimation in both additive white Gaussian noise (AWGN) and frequency selective channels.
 The results shows the proposed method can achieve a more accurate fractional CFO estimation and be robust to the large CFO while still obtaining acceptable accuracy for frame synchronisation.
 In addition, this chapter presents a novel approach for implemeting IFO estimation, which reduces both power and computational cost in implementation. The efficiency and hardware reduction are shown in the simulation results as well as implementation reports.
 
-Chapter \ref{chap:SpectralLeakage} studies the novel shaping spectral leakage scheme at the baseband replied upon the cognitive radio architecture. 
+Chapter \ref{chap:SpectralLeakage} studies the novel shaping spectral leakage scheme at the baseband replied upon the cognitive radio architecture.
 The proposed method can meet the specification of class D, the most stringent of the four 802.11p SEMs as well as the stringent SEM of 802.11af. The proposed method can also enhance spectral efficiency in the case of reusing the Television White Spaces in 802.11af standard.
 
 Chapter \ref{chap:MSCR}  explores the feasibility of designing efficient multi-standard radios to improve bandwidth efficiency and avoid spectrum congestion. A novel MSCR architecture is proposed and investigated in term of performance and hardware reduction.
- 
-Finally, Chapter \ref{chap:conclusion} gives a brief summary of the research contributions as well as the conclusion of the works presented in this thesis. 
+
+Finally, Chapter \ref{chap:conclusion} gives a brief summary of the research contributions as well as the conclusion of the works presented in this thesis.
 Some research directions for future work related to the contributions are also identified.
 
 %---------------------------------------------------------------------------------

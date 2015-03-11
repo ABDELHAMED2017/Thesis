@@ -1,4 +1,4 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{100}
 
 \bibitem{farhang2008signal}
 B.~Farhang-Boroujeny, {\em Signal Processing Techniques for Software Radios}.
@@ -28,6 +28,10 @@ R.~Rajbanshi, A.~M. Wyglinski, and G.~J. Minden, {\em {OFDM}-Based Cognitive
   Radios for Dynamic Spectrum Access Networks}.
 \newblock The University of Kansas, USA.
 
+\bibitem{cummings1999}
+M.~Cummings and S.~Haruyama, ``{FPGA} in the software radio,'' {\em IEEE
+  Communications Magazine}, vol.~37, pp.~108--112, {Feb.} 1999.
+
 \bibitem{JondralMarch2004}
 T.~A. Weiss and F.~K. Jondral, ``Spectrum pooling: An innovative strategy for
   the enhancement of spectrum efficiency,'' {\em IEEE Radio Communications},
@@ -38,6 +42,228 @@ R.~Rajbanshi, A.~M. Wyglinski, and G.~J. Minden, ``An efficient implementation
   of {NC-OFDM} transceivers for cognitive radios,'' in {\em Proceedings of the
   1st International Conference on Cognitive Radio Oriented Wireless Networks
   and Communications}, June 2006.
+
+\bibitem{Mitola1999}
+J.~Mitola and G.~Q.~M. Jr., ``{Cognitive radio: making software radios more
+  personal},'' {\em IEEE Personal Communications}, vol.~6, pp.~13--18, Aug
+  1999.
+
+\bibitem{Mitola2006}
+J.~Mitola, {\em {Cognitive Radio Architecture: The Engineering Foundations of
+  Radio XML}}.
+\newblock Wiley, 2006.
+
+\bibitem{Recio2010a}
+A.~L. Recio, {\em {Spectrum-Aware Orthogonal Frequency Division Multiplexing}}.
+\newblock PhD thesis, Virginia Polytechnic Institute and State University,
+  2010.
+
+\bibitem{MacKenzie2009}
+A.~MacKenzie, J.~Reed, P.~Athanas, C.~Bostian, R.~M. Buehrer, L.~DaSilva,
+  S.~Ellingson, Y.~Hou, M.~Hsiao, J.-M. Park, C.~Patterson, S.~Raman, and
+  C.~da~Silva, ``Cognitive radio and networking research at virginia tech,''
+  {\em {Proc. of the IEEE}}, vol.~97, pp.~660--688, April 2009.
+
+\bibitem{Rieser2007}
+C.~J. Rieser, T.~W. Rondeau, C.~Bostian, W.~R. Cyre, and T.~M. Gallagher,
+  ``{Cognitive radio engine based on genetic algorithms in a network},'' 2007.
+
+\bibitem{Rondeau2004}
+T.~W. Rondeau, B.~Le, C.~J. Rieser, and C.~W. Bostian, ``{Cognitive radios with
+  genetic algorithms: Intelligent control of software defined radios},'' in
+  {\em Proceeding Software Defined Radio Technical Conference}, 2004.
+
+\bibitem{Ghasemi2008}
+A.~Ghasemi and E.~S. Sousa, ``{Spectrum sensing in cognitive radio networks:
+  requirements, challenges and design trade-offs},'' {\em IEEE Communications
+  Magazine}, vol.~46, no.~4, pp.~32--39, 2008.
+
+\bibitem{FCC2005}
+{Federal Communications Commission}, ``{Notice of proposed rule making and
+  order: facilitating oppurtunities for flexible, efficient, and reliable
+  spectrum use employing cognitive radio technologies},'' Tech. Rep. 03-108,
+  2005.
+
+\bibitem{IEEE80211}
+IEEE std.802.11-2005, {\em {IEEE} Standard 802 Part11: Wireless LAN Medium
+  Access Control (MAC) and Physical Layer (PHY) Specifications}.
+
+\bibitem{IEEE80216}
+IEEE std.802.16-2009, {\em {IEEE} Standard for Local and Metropolitan Area
+  Networks Part16: Air Interface for Fixed Broadband Wireless Access Systems}.
+
+\bibitem{IEEE80222}
+IEEE std.802.22-2011, {\em {IEEE} Standard for Wireless Regional Area Networks
+  Part22:Cognitive Wireless RAN Medium Access Control (MAC) and Physical Layer
+  (PHY) Specifications: Policies and Procedures for Operation in the TV Bands}.
+
+\bibitem{Minden2007}
+G.~J. Minden, J.~B. Evans, L.~Searl, D.~DePardo, V.~R. Petty, R.~Rajbanshi,
+  T.~Newman, Q.~Chen, F.~Weidling, J.~Guffey, D.~Datla, B.~Barker, M.~Peck,
+  B.~Cordill, A.~M. Wyglinsky, and A.~Agah, ``{KUAR}: A flexibile
+  software-defined radio development platform,'' in {\em Symposium on New
+  Frontiers in Dynamic Spectrum Access Networks ({DySPAN})}, (Dublin, Ireland),
+  17-22 Apr. 2007.
+
+\bibitem{Raychaudhuri2006}
+D.~Raychaudhuri, N.~B. Mandayam, J.~B. Evans, B.~J. Ewy, S.~Seshan, and
+  P.~Steenkiste, ``{Cognet: An architectural foundation for experimental
+  cognitive radio networks within the future internet},'' in {\em Proceeding
+  1st ACM/IEEE Int. Workshop Mobility Evolv. Internet Architect}, pp.~11--16,
+  2006.
+
+\bibitem{Miljanic2007}
+Z.~Miljanic, I.~Seskar, K.~Le, and D.~Raychaudhuri, ``{The WINLAB network
+  centric cognitive radio hardware platform},'' in {\em Proc. Int. Conf. Cogn.
+  Radio Oriented Wireless Netw. Commun. (CrownCom)}, 2007.
+
+\bibitem{Mukhopadhyay2005}
+R.~Mukhopadhyay, Y.~Park, P.~Sen, N.~Srirattana, J.~Lee, C.-H. Lee,
+  S.~Nuttinck, A.~Joseph, J.~D. Cressler, and J.~Laskar, ``{Reconfigurable
+  RFICs in Si-based technologies for a compact intelligent RF front-end},''
+  {\em IEEE Transaction on Microwave Theory and Techniques}, vol.~53,
+  pp.~81--93, 2005.
+
+\bibitem{Ganesan2005}
+G.~Ganesan and Y.~G. Li, ``{Cooperative spectrum sensing in cognitive radio
+  networks},'' in {\em Proceeding IEEE Dynamic Spectrum Access Networks
+  (DySPAN)}, 2005.
+
+\bibitem{Chowdhury2008}
+K.~R. Chowdhury and I.~F. Akyildiz, ``{Cognitive wireless mesh networks with
+  dynamic spectrum access},'' {\em IEEE Journal of Selected Areas
+  Commununications}, vol.~26, pp.~168--181, 2008.
+
+\bibitem{So2008}
+H.~So, A.~Tkachenko, and R.~W. Brodersen, ``{A unified hardware/software
+  runtime environment for FPGA based reconfigurable computers using BORPH},''
+  {\em ACM Transactions on Embedded Computing Systems}, vol.~7, no.~2, 2008.
+
+\bibitem{Mishra2006}
+S.~M. Mishra, A.~Sahai, and R.~W. Brodersen, ``{Cooperative Sensing among
+  Cognitive Radios},'' in {\em IEEE International Conference on Communications
+  (ICC '06)}, 2006.
+
+\bibitem{Sutton2006}
+P.~Sutton, L.~Doyle, and K.~Nolan, ``{A reconfigurable platform for cognitive
+  networks},'' in {\em Proceeding 1st International Conference Cognitive Radio
+  Oriented Wireless Network Communications (CROWNCOM 2006),}, 2006.
+
+\bibitem{Sutton2010}
+P.~Sutton, J.~Lotze, H.~Lahlou, S.~Fahmy, K.~Nolan, B.~{\"O}zg{\"u}l,
+  T.~Rondeau, J.~Noguera, and L.~Doyle, ``Iris -- an architecture for cognitive
+  radio networking testbeds,'' {\em IEEE Communications Magazine}, vol.~48,
+  pp.~114--122, Sep 2010.
+
+\bibitem{fahmy2009}
+S.~Fahmy, J.~Lotze, J.~Noguera, L.~Doyle, and R.~Esser, ``Generic software
+  framework for adaptive applications on {FPGAs},'' in {\em Proceedings of IEEE
+  Symposium on Field-Programmable Custom Computing Machines (FCCM)},
+  pp.~55--62, 2009.
+
+\bibitem{lotze2009}
+J.~Lotze, S.~A. Fahmy, J.~Noguera, B.~Ozg{\"u}l, L.~Doyle, and R.~Esser,
+  ``Development framework for implementing {FPGA}-based cognitive network
+  nodes,'' in {\em Proceedings of the IEEE Global Communications Conference
+  (GLOBECOM)}, 2009.
+
+\bibitem{Belt2013}
+J.~van~de Belt, P.~D. Sutton, and L.~E. Doyle, ``{Accelerating software radio:
+  Iris on the Zynq SoC},'' in {\em {IEEE 21st International Conference on Very
+  Large Scale Integration (VLSI-SoC)}}, 2013.
+
+\bibitem{amiri2007}
+K.~Amiri {\em et~al.}, ``{WARP}, a unified wireless network testbed for
+  education and research,'' in {\em IEEE International Conference on
+  Microelectronic Systems Education (MSE)}, (San Diego, CA, USA), 3--4 June
+  2007.
+
+\bibitem{Lin2013}
+Z.~Lin and P.~Chow, ``{ZCluster: A Zynq-based Hadoop cluster},'' in {\em 2013
+  International Conference on Field-Programmable Technology (FPT),},
+  pp.~450--453, Dec 2013.
+
+\bibitem{tan2011sora}
+K.~Tan, H.~Liu, J.~Zhang, Y.~Zhang, J.~Fang, and G.~M. Voelker, ``Sora:
+  high-performance software radio using general-purpose multi-core
+  processors,'' {\em Communications of the ACM}, vol.~54, no.~1, pp.~99--107,
+  2011.
+
+\bibitem{gnuradio}
+{Free Software Foundation, Inc.}, ``{GNU Radio - The GNU Software Radio},''
+  2009.
+
+\bibitem{GRC2009}
+{Free Software Foundation, Inc.}, ``{GNU Radio Companion},'' 2009.
+
+\bibitem{Marlow2014}
+R.~Marlow, C.~Dobson, and P.~Athanas, ``{An Enhanced and Embedded GNU Radio
+  Flow},'' in {\em 24th International Conference on Field Programmable Logic
+  and Applications (FPL)}, 2014.
+
+\bibitem{Love2013}
+A.~Love, W.~Zha, and P.~Athanas, ``{In pursuit of instant gratification for
+  FPGA design},'' in {\em 23th International Conference on Field Programmable
+  Logic and Applications (FPL)}, 2013.
+
+\bibitem{Kuon2008}
+I.~Kuon, R.~Tessier, and J.~Rose, ``{FPGA} architecture: Survey and
+  challenges,'' {\em Found. Trends Electron. Des. Autom.}, vol.~2,
+  pp.~135--253, Feb. 2008.
+
+\bibitem{Springer2008}
+P.~Coussy and A.~Morawiec, eds., {\em High-Level Synthesis: From Algorithm to
+  Digital Circuit}.
+\newblock Springer, 2008~ed., Oct. 2008.
+
+\bibitem{Xilinx2013c}
+{Xilinx Inc.}, {\em {UG470 }: 7 Series {FPGAs} Configuration User Guide}, Jan.
+  2013.
+
+\bibitem{Xilinx2013d}
+{Xilinx Inc.}, {\em {DS190}: Zynq-7000 All Programmable SoC Overview}, Mar.
+  2013.
+
+\bibitem{Xilinx2013}
+Xilinx Inc., {\em {UG585}: Zynq-7000 All Programmable SoC Technical Reference
+  Manual}, Mar. 2013.
+
+\bibitem{Sedcole2006}
+P.~Sedcole, B.~Blodget, T.~Becker, J.~Anderson, and P.~Lysaght, ``Modular
+  dynamic reconfiguration in virtex {FPGAs},'' {\em IEE Proceedings - Computers
+  and Digital Techniques}, vol.~153, pp.~157--164, May 2006.
+
+\bibitem{McDonald2008}
+E.~McDonald, ``Runtime fpga partial reconfiguration,'' in {\em IEEE Aerospace
+  Conference}, no.~1--7, (Big Sky, MT), Mar. 2008.
+
+\bibitem{Delahaye2007}
+J.-P. Delahaye, J.~Palicot, C.~Moy, and P.~Leray, ``Partial reconfiguration of
+  {FPGA}s for dynamical reconfiguration of a software radio platform,'' in {\em
+  Proceedings of IST Mobile and Wireless Communications Summit}, (Budapest),
+  July 2007.
+
+\bibitem{Delorme2008}
+J.~Delorme, J.~Martin, A.~Nafkha, C.~Moy, F.~Clermidy, P.~Leray, and
+  J.~Palicot, ``{A FPGA partial reconfiguration design approach for cognitive
+  radio based on NoC architecture},'' in {\em Joint 6th International {IEEE}
+  Northeast Workshop on Circuits and Systems and {TAISA} Conference
+  {(NEWCAS-TAISA)}}, pp.~355--358, June 2008.
+
+\bibitem{Vipin2012}
+K.~Vipin and S.~Fahmy, ``{A high speed open source controller for FPGA Partial
+  Reconfiguration},'' in {\em International Conference on Field-Programmable
+  Technology (FPT)}, pp.~61--66, Dec 2012.
+
+\bibitem{Vipin2013}
+K.~Vipin and S.~A. Fahmy, ``Automated partitioning for partial reconfiguration
+  design of adaptive systems,'' in {\em Proceedings of the Reconfigurable
+  Architectures Workshop (RAW)}, (Boston, MA), May 2013.
+
+\bibitem{Dobson2014}
+C.~Dobson, K.~Rooks, and P.~Athanas, ``{A Power-Efficient FPGA-Based
+  Self-Adaptive Software Defined Radio},'' in {\em 24th International Workshop
+  on Power and Timing Modeling, Optimization and Simulation (PATMOS)}, 2014.
 
 \bibitem{Raghunathan1998}
 A.~Raghunathan, N.~K. Jha, and S.~Dey, {\em High-level power analysis and
@@ -70,40 +296,6 @@ A.~Reimer, A.~Schulz, and N.~W., ``Modelling macromodules for high-level
   Proceedings of the 2006 International Symposium on Low Power Electronics and
   Design, 2006. ISLPED'06}, pp.~151--154, 2006.
 
-\bibitem{Deng1994}
-C.~Deng, ``Power analysis for {CMOS/BiCMOS} circuits,'' in {\em International
-  Symposium on Low Power Electronics and Design}, 1994.
-
-\bibitem{ALTERA2010}
-``{FPGA} power management and modeling techniques.''
-  www.altera.com/literature/wp/wp-01044.pdf, 2010.
-
-\bibitem{XilinxXPOWERA2011}
-``Xilinx power tools tutorial.'' Xilinx, San Jose, CA.
-  www.xilinx.com/support/documentation/sw\_manuals/xilinx11/ug733.pdf, 2011.
-
-\bibitem{Landman1996}
-P.~Landman and J.~Rabaey, ``Activity-sensitive architectural power analysis,''
-  {\em IEEE Transactions on Computer-Aided Design of Integrated Circuits and
-  Systems}, vol.~15, no.~6, pp.~571--587, 1996.
-
-\bibitem{Gupta2000}
-S.~Gupta and F.~Najm, ``Analytical models for {RTL} power estimation of
-  combinational and sequential circuits,'' {\em IEEE Transactions on
-  Computer-Aided Design of Integrated Circuits and Systems}, vol.~19,
-  pp.~808--814, 2000.
-
-\bibitem{Raghunathan2003}
-A.~Raghunathan, S.~Dey, and N.~K. Jha, ``High-level macro-modeling and
-  estimation techniques for switching activity and power consumption,'' {\em
-  IEEE Transactions on Very Large Scale Integration (VLSI) Systems}, vol.~11,
-  no.~4, pp.~538--557, 2003.
-
-\bibitem{XPowerEstimator2011}
-``Xpower estimator userguide.'' Xilinx, San Jose, CA.
-  http://www.xilinx.com/support/documentation/sw\_manuals/xilinx13\_2/ug440.pdf,
-  2012.
-
 \bibitem{Danckaert1999}
 K.~Danckaert, K.~Masselos, F.~Cathoor, H.~De~Man, and C.~Goutis, ``Strategy for
   power-efficient design of parallel systems,'' {\em IEEE Transactions on Very
@@ -131,6 +323,92 @@ S.~Ahuja, {\em High Level Power Estimation and Reduction Techniques for Power
   Aware Hardware Design}.
 \newblock PhD thesis, Virginia Polytechnic Institute and State University,
   2010.
+
+\bibitem{Deng1994}
+C.~Deng, ``Power analysis for {CMOS/BiCMOS} circuits,'' in {\em International
+  Symposium on Low Power Electronics and Design}, 1994.
+
+\bibitem{Landman1996}
+P.~Landman and J.~Rabaey, ``Activity-sensitive architectural power analysis,''
+  {\em IEEE Transactions on Computer-Aided Design of Integrated Circuits and
+  Systems}, vol.~15, no.~6, pp.~571--587, 1996.
+
+\bibitem{Gupta2000}
+S.~Gupta and F.~Najm, ``Analytical models for {RTL} power estimation of
+  combinational and sequential circuits,'' {\em IEEE Transactions on
+  Computer-Aided Design of Integrated Circuits and Systems}, vol.~19,
+  pp.~808--814, 2000.
+
+\bibitem{Raghunathan2003}
+A.~Raghunathan, S.~Dey, and N.~K. Jha, ``High-level macro-modeling and
+  estimation techniques for switching activity and power consumption,'' {\em
+  IEEE Transactions on Very Large Scale Integration (VLSI) Systems}, vol.~11,
+  no.~4, pp.~538--557, 2003.
+
+\bibitem{XPowerEstimator2011}
+``Xpower estimator userguide.'' Xilinx, San Jose, CA.
+  http://www.xilinx.com/support/documentation/sw\_manuals/xilinx13\_2/ug440.pdf,
+  2012.
+
+\bibitem{Dick2003}
+C.~Dick and F.~Harris, ``{FPGA} implementation of an {OFDM PHY},'' in {\em
+  Conference Record of the Thirty-Seventh Asilomar Conference on Signals,
+  Systems and Computers}, vol.~1, pp.~905 -- 909, Nov. 2003.
+
+\bibitem{Fort2003}
+A.~Fort, J.-W. Weijers, V.~Derudder, W.~Eberle, and A.~Bourdoux, ``A
+  performance and complexity comparison of auto-correlation and
+  cross-correlation for {OFDM} burst synchronization,'' in {\em IEEE
+  International Conference on Acoustics,Speech,and Signal Processing, 2003
+  (ICASSP'03)}, vol.~2, pp.~II -- 341--4, april 2003.
+
+\bibitem{Wang2004}
+K.~Wang, J.~Singh, and M.~Faulkner, ``{FPGA} implementation of an {OFDM-WLAN}
+  synchronizer,'' in {\em Second IEEE International Workshop on Electronic
+  Design, Test and Applications, 2004. DELTA 2004}, pp.~89 -- 94, Jan. 2004.
+
+\bibitem{Guffey2007}
+J.~Guffey, A.~Wyglinski, and G.~Minden, ``Agile radio implementation of {OFDM}
+  physical layer for dynamic spectrum access research,'' in {\em IEEE Global
+  Telecommunications Conference, 2007. GLOBECOM '07}, pp.~4051 --4055, Nov.
+  2007.
+
+\bibitem{Huang2010}
+Z.~Huang, B.~Li, and M.~Liu, ``A proposed timing synchronization method for
+  802.16e downlink,'' in {\em International Symposium on Intelligent Signal
+  Processing and Communication Systems (ISPACS), 2010}, pp.~1 --4, Dec. 2010.
+
+\bibitem{Recio2010}
+A.~Recio and P.~Athanas, ``Physical layer for spectrum-aware reconfigurable
+  {OFDM} on an {FPGA},'' in {\em 13th Euromicro Conference on Digital System
+  Design: Architectures, Methods and Tools (DSD), 2010}, pp.~321 --327, Sept.
+  2010.
+
+\bibitem{Shim2006}
+E.-S. Shim and Y.-H. You, ``{OFDM integer frequency offset estimator in rapidly
+  time-varying channels},'' in {\em {Asia-Pacific Conf. on Commun.}}, pp.~1--4,
+  2006.
+
+\bibitem{Morelli2008}
+M.~Morelli and M.~Moretti, ``Integer frequency offset recovery in {OFDM}
+  transmissions over selective channels,'' {\em IEEE Transactions on Wireless
+  Communications}, vol.~7, pp.~5220--5226, {Dec.} 2008.
+
+\bibitem{You2010}
+Y.-H. You and K.-W. Kwon, ``{Multiplication-Free Estimation of Integer
+  Frequency Offset for OFDM-Based DRM Systems},'' {\em IEEE Signal Processing
+  Letters}, vol.~17, pp.~851--854, Oct 2010.
+
+\bibitem{Lee2013}
+K.~Lee, S.-H. Moon, S.~Kim, and I.~Lee, ``{Sequence Designs for Robust
+  Consistent Frequency-Offset Estimation in OFDM Systems},'' {\em IEEE
+  Transactions on Vehicular Technology}, vol.~62, pp.~1389--1394, March 2013.
+
+\bibitem{Morelli2014}
+M.~Morelli, L.~Marchetti, and M.~Moretti, ``{Integer frequency offset
+  estimation and preamble identification in WiMAX systems},'' in {\em IEEE
+  International Conference on Communications (ICC),}, pp.~5610--5615, June
+  2014.
 
 \bibitem{Armada1998}
 A.~G. Armada and M.~Calvo, ``Phase noise and sub-carrier spacing effects on the
@@ -177,31 +455,47 @@ X.~Wu, S.~Subramanian, R.~Guha, R.~White, J.~Li, K.~Lu, A.~Bucceri, and
   and Evolution},'' {\em IEEE Journal on Selected Areas in Communications},
   vol.~31, no.~9, pp.~399--408, 2013.
 
-\bibitem{Dick2003}
-C.~Dick and F.~Harris, ``{FPGA} implementation of an {OFDM PHY},'' in {\em
-  Conference Record of the Thirty-Seventh Asilomar Conference on Signals,
-  Systems and Computers}, vol.~1, pp.~905 -- 909, Nov. 2003.
+\bibitem{Macaluso2014}
+I.~Macaluso, B.~Ozgul, T.~Forde, P.~Sutton, and L.~Doyle, ``{Spectrum and
+  Energy Efficient Block Edge Mask-Compliant Waveforms for Dynamic
+  Environments},'' {\em {IEEE Journal on Selected Areas in Communications}},
+  vol.~32, pp.~307--321, February 2014.
 
-\bibitem{Wang2004}
-K.~Wang, J.~Singh, and M.~Faulkner, ``{FPGA} implementation of an {OFDM-WLAN}
-  synchronizer,'' in {\em Second IEEE International Workshop on Electronic
-  Design, Test and Applications, 2004. DELTA 2004}, pp.~89 -- 94, Jan. 2004.
+\bibitem{Forde2010}
+T.~Forde, L.~Doyle, and B.~Ozgul, ``{Dynamic Block-Edge Masks (BEMs) for
+  Dynamic Spectrum Emission Masks (SEMs)},'' in {\em {IEEE Symposium on New
+  Frontiers in Dynamic Spectrum}}, pp.~1--10, April 2010.
 
-\bibitem{Fort2003}
-A.~Fort, J.-W. Weijers, V.~Derudder, W.~Eberle, and A.~Bourdoux, ``A
-  performance and complexity comparison of auto-correlation and
-  cross-correlation for {OFDM} burst synchronization,'' in {\em IEEE
-  International Conference on Acoustics,Speech,and Signal Processing, 2003
-  (ICASSP'03)}, vol.~2, pp.~II -- 341--4, april 2003.
+\bibitem{Kryszkiewicz2013}
+P.~Kryszkiewicz and H.~Bogucka, ``{Dynamic determination of spectrum emission
+  masks in the varying cognitive radio environment},'' in {\em {IEEE
+  International Conference on Communications (ICC)}}, pp.~2733--2737, June
+  2013.
+
+\bibitem{masse2006direct}
+C.~Masse, ``A direct-conversion transmitter for {WiMAX} and {WiBro}
+  applications,'' {\em RF Design}, vol.~29, no.~1, pp.~42--46, 2006.
+
+\bibitem{Chen2005}
+Y.-M. Chen and I.-Y. Kuo, ``Design of lowpass filter for digital down converter
+  in {OFDM} receivers,'' in {\em International Conference on Wireless Networks,
+  Communications and Mobile Computing}, vol.~2, pp.~1094--1099 vol.2, June
+  2005.
+
+\bibitem{Dowle2006}
+J.~Dowle, S.~H. Kuo, K.~Mehrotra, and I.~V. McLoughlin, ``{FPGA}-based {MIMO}
+  and space-time processing platform,'' in {\em EURASIP Journal of Applied
+  Signal Processing}, no.~34653, Jan. 2006.
+
+\bibitem{Faulkner2000}
+M.~Faulkner, ``The effect of filtering on the performance of {OFDM} systems,''
+  {\em IEEE Transactions on Vehicular Technology}, vol.~49, pp.~1877--1884, Sep
+  2000.
 
 \bibitem{Yip2003}
 K.-W. Yip, Y.-C. Wu, and T.-S. Ng, ``Design of multiplierless correlators for
   timing synchronization in {IEEE} 802.11a wireless {LANs},'' {\em IEEE
   Transactions on Consumer Electronics}, vol.~49, pp.~107 -- 114, {Feb.} 2003.
-
-\bibitem{IEEE80216}
-IEEE std.802.16-2009, {\em {IEEE} Standard for Local and Metropolitan Area
-  Networks Part16: Air Interface for Fixed Broadband Wireless Access Systems}.
 
 \bibitem{Hanzo2006}
 L.~Hanzo and T.~Keller, {\em OFDM and MC-CDMA : A Primer}.
@@ -217,23 +511,6 @@ F.~Manavi and Y.~Shayan, ``Implementation of {OFDM} modem for the physical
   layer of {IEEE} 802.11a standard based on {Xilinx Virtex-II} fpga,'' in {\em
   Vehicular Technology Conference, 2004. VTC 2004-Spring. 2004 IEEE 59th},
   vol.~3, pp.~1768 -- 1772, May 2004.
-
-\bibitem{Guffey2007}
-J.~Guffey, A.~Wyglinski, and G.~Minden, ``Agile radio implementation of {OFDM}
-  physical layer for dynamic spectrum access research,'' in {\em IEEE Global
-  Telecommunications Conference, 2007. GLOBECOM '07}, pp.~4051 --4055, Nov.
-  2007.
-
-\bibitem{Huang2010}
-Z.~Huang, B.~Li, and M.~Liu, ``A proposed timing synchronization method for
-  802.16e downlink,'' in {\em International Symposium on Intelligent Signal
-  Processing and Communication Systems (ISPACS), 2010}, pp.~1 --4, Dec. 2010.
-
-\bibitem{Recio2010}
-A.~Recio and P.~Athanas, ``Physical layer for spectrum-aware reconfigurable
-  {OFDM} on an {FPGA},'' in {\em 13th Euromicro Conference on Digital System
-  Design: Architectures, Methods and Tools (DSD), 2010}, pp.~321 --327, Sept.
-  2010.
 
 \bibitem{Kim2008}
 T.-H. Kim and I.-C. Park, ``Low-power and high-accurate synchronization for
@@ -265,16 +542,6 @@ T.~H. Pham, I.~V. McLoughlin, and S.~A. Fahmy, ``{Robust and Efficient OFDM
 M.~Park, N.~Cho, J.~Cho, and D.~Hong, ``Robust integer frequency offset
   estimator with ambiguity of symbol timing offset for {OFDM} systems,'' in
   {\em Proc. Vehic. Techn. Conf. (VTC)}, pp.~2116--2120, 2002.
-
-\bibitem{Shim2006}
-E.-S. Shim and Y.-H. You, ``{OFDM integer frequency offset estimator in rapidly
-  time-varying channels},'' in {\em {Asia-Pacific Conf. on Commun.}}, pp.~1--4,
-  2006.
-
-\bibitem{Morelli2008}
-M.~Morelli and M.~Moretti, ``Integer frequency offset recovery in {OFDM}
-  transmissions over selective channels,'' {\em IEEE Transactions on Wireless
-  Communications}, vol.~7, pp.~5220--5226, {Dec.} 2008.
 
 \bibitem{ug389}
 Xilinx Inc., {\em UG389: Spartan-6 FPGA DSP48A1 Slice}, August 2009.
@@ -317,48 +584,17 @@ P.~Choi, J.~Gao, N.~Ramanathan, M.~Mao, S.~Xu, C.-C. Boon, S.~A. Fahmy, and
   Low Power Electronics and Design}, ISLPED '14, (New York, NY, USA),
   pp.~207--212, ACM, 2014.
 
-\bibitem{gnuradio}
-{Free Software Foundation, Inc.}, ``{GNU} {Radio} - the {GNU} software radio,''
-  2009.
-
-\bibitem{Sutton2010}
-P.~Sutton, J.~Lotze, H.~Lahlou, S.~Fahmy, K.~Nolan, B.~{\"O}zg{\"u}l,
-  T.~Rondeau, J.~Noguera, and L.~Doyle, ``Iris -- an architecture for cognitive
-  radio networking testbeds,'' {\em IEEE Communications Magazine}, vol.~48,
-  pp.~114--122, Sep 2010.
-
-\bibitem{Delorme2008}
-J.~Delorme, J.~Martin, A.~Nafkha, C.~Moy, F.~Clermidy, P.~Leray, and
-  J.~Palicot, ``{A FPGA partial reconfiguration design approach for cognitive
-  radio based on NoC architecture},'' in {\em Joint 6th International {IEEE}
-  Northeast Workshop on Circuits and Systems and {TAISA} Conference
-  {(NEWCAS-TAISA)}}, pp.~355--358, June 2008.
-
-\bibitem{Minden2007}
-G.~J. Minden {\em et~al.}, ``{KUAR}: A flexibile software-defined radio
-  development platform,'' in {\em Symposium on New Frontiers in Dynamic
-  Spectrum Access Networks ({DySPAN})}, (Dublin, Ireland), 17-22 Apr. 2007.
-
 \bibitem{athanaswires}
 P.~Athanas, J.~Bowen, T.~Dunham, C.~Patterson, J.~Rice, M.~Shelburne,
   J.~Sur{\i}s, M.~Bucciero, and J.~Graf, ``{Wires on Demand}: run-time
   communication synthesis for reconfigurable computing,'' in {\em Proceedings
-  of International Conference on Field Programmable Logic and Applications},
-  2007.
+  of International Conference on Field Programmable Logic and Applications
+  (FPL)}, 2007.
 
-\bibitem{IEEE80211}
-IEEE std.802.11-2005, {\em {IEEE} Standard 802 Part11: Wireless LAN Medium
-  Access Control (MAC) and Physical Layer (PHY) Specifications}.
-
-\bibitem{IEEE80222}
-IEEE std.802.22-2011, {\em {IEEE} Standard for Wireless Regional Area Networks
-  Part22:Cognitive Wireless RAN Medium Access Control (MAC) and Physical Layer
-  (PHY) Specifications: Policies and Procedures for Operation in the TV Bands}.
-
-\bibitem{Vipin2012}
-K.~Vipin and S.~Fahmy, ``{A high speed open source controller for FPGA Partial
-  Reconfiguration},'' in {\em International Conference on Field-Programmable
-  Technology (FPT)}, pp.~61--66, Dec 2012.
+\bibitem{Ai2006}
+B.~Ai, Z.-X. Yang, C.-Y. Pan, J.-H. Ge, Y.~Wang, and Z.~Lu, ``{On the
+  synchronization techniques for wireless OFDM systems},'' {\em IEEE Trans. on
+  Broadcasting}, vol.~52, pp.~236--244, Jun 2006.
 
 \bibitem{Troya2007}
 A.~Troya, K.~Maharatna, M.~Krstic, E.~Grass, U.~Jagdhold, and R.~Kraemer,

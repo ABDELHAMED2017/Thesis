@@ -4,13 +4,24 @@
 %---------------------------------------------------------------------------------
 
 %---------------------------------------------------------------------------------
-\section{Introduction and Related Works}
+\section{Introduction}
 %---------------------------------------------------------------------------------
 Cognitive radios that support multiple bands, multiple standards and adapt operation according to environmental conditions are becoming more attractive as the demand for higher bandwidth
 and more efficient spectrum use increases. 
 Traditional implementations in custom ASICs cannot support such flexibility, with standards changing at a faster pace, while software implementations of baseband communications fail to achieve the performance required.
 Hence, FPGAs offer an ideal platform bringing together flexibility, performance, and efficiency.
+Our research focuses on designing the baseband processing of a MSCR system.
+This work explores the advantages of coupling PR and parameterised functional units in one architecture to offer flexibility for OFDM-based baseband processing while minimising reconfiguration time. 
+To the best of our knowledge, there is no published research on dynamical reconfiguration for OFDM-based baseband processing of multiple standards cognitive radio on FPGA.
 
+The work presented in this chapter has also been discussed in:
+\begin{itemize}
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Multi-Standard Cognitive Radios on FPGAs,'' PhD Forum Poster in \textit{Proceedings of the International Conference on Field Programmable Logic and Applications (FPL), Munich, Germany, September 2014}~\cite{Pham2014a}.
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient OFDM-based baseband processing for Multi-Standard Cognitive Radios on FPGAs,'' to be prepared.
+\end{itemize}
+%---------------------------------------------------------------------------------
+\section{Related Work}
+%---------------------------------------------------------------------------------
 Most practical CRs are built using powerful general purpose processors to achieve flexibility through software, but they can fail to offer the computational throughput required for advanced modulation and coding techniques and they often have high power consumption.
 GNU Radio~\cite{gnuradio} has been a widely used platform in academia. 
 It is a software application that runs on a computer or an embedded ARM processor platform, e.g. on the Ettus USRP E100. 
@@ -31,10 +42,6 @@ Projects at Virginia Tech~\cite{athanaswires} have shown dynamically assembled r
 The modules are wrapped, and each of them consists of a PR module with complied partial bit-streams stored in dynamic library. 
 Using PR eliminates the need for run time compilation, thus affording flexibility. 
 A flexible radio controller can insert and remove compiled modules to adapt to current conditions.
-
-Our proposed research focuses on designing the baseband processing of a MSCR system.
-This work explores the advantages of coupling PR and parameterised functional units in one architecture to offer flexibility for OFDM-based baseband processing while minimising reconfiguration time. 
-To the best of our knowledge, there is no published research on dynamical reconfiguration for OFDM-based baseband processing of multiple standards cognitive radio on FPGA.
 
 %---------------------------------------------------------------------------------
 \section{Proposed OFDM-based baseband modulation for MSCR}
@@ -663,4 +670,4 @@ Our research explores the feasibility of designing efficient multi-standard radi
 Our proposed architecture assumes the use of OFDM radio, and implemented on an FPGA, coupling parameterized modules and PR modules to achieve flexibility while minimizing reconfiguration time.
 A mathematical analyses of the FPGA synthesis results shows that the proposed architecture achieves a significant reduction of 82~\% compared to conventional approaches in terms of system latency. 
 The FIFO requirement of the proposed method is also decreased to 25~\% of that required for the conventional method.
-The work presented in this chapter has been submitted in [J5].
+%The work presented in this chapter has been submitted in [J5].

@@ -1,24 +1,5 @@
 \begin{thebibliography}{100}
 
-\bibitem{farhang2008signal}
-B.~Farhang-Boroujeny, {\em Signal Processing Techniques for Software Radios}.
-\newblock Lulu Publishing House, 2008.
-
-\bibitem{Xilinx2011}
-``{Virtex-6 FPGA DSP48E1 Slice: User Guide}.'' Xilinx, San Jose, CA.
-  www.xilinx.com/support/documentation/user\_guides/ug369.pdf, 2011.
-
-\bibitem{Schmidl1997}
-T.~Schmidl and D.~Cox, ``Robust frequency and timing synchronization for
-  {OFDM},'' {\em IEEE Transactions on Communications}, vol.~45, pp.~1613
-  --1621, {Dec.} 1997.
-
-\bibitem{Kishore2006}
-C.~N. Kishore and V.~U. Reddy, ``A frame synchronization and frequency offset
-  estimation algorithm for {OFDM} system and its analysis,'' {\em EURASIP
-  Journal on Wireless Communications and Networking}, vol.~2006, pp.~1--16,
-  2006.
-
 \bibitem{FCC2002}
 {Federal Communications Commission}, ``Spectrum policy task force report,''
   Tech. Rep. No. 02–135, 2002.
@@ -146,8 +127,8 @@ S.~M. Mishra, A.~Sahai, and R.~W. Brodersen, ``{Cooperative Sensing among
 
 \bibitem{Sutton2006}
 P.~Sutton, L.~Doyle, and K.~Nolan, ``{A reconfigurable platform for cognitive
-  networks},'' in {\em Proceeding 1st International Conference Cognitive Radio
-  Oriented Wireless Network Communications (CROWNCOM 2006),}, 2006.
+  networks},'' in {\em Proceeding of International Conference on Cognitive
+  Radio Oriented Wireless Network Communications (CROWNCOM 2006),}, 2006.
 
 \bibitem{Sutton2010}
 P.~Sutton, J.~Lotze, H.~Lahlou, S.~Fahmy, K.~Nolan, B.~{\"O}zg{\"u}l,
@@ -272,7 +253,7 @@ A.~Raghunathan, N.~K. Jha, and S.~Dey, {\em High-level power analysis and
 
 \bibitem{Shang2002}
 L.~Shang, A.~S. Kaviani, and B.~Kusuma, ``Dynamic power consumption in
-  {Virtex-II FPGA} family,'' in {\em ACM Int. Symposium on FPGAs},
+  {Virtex-II FPGA} family,'' in {\em ACM International Symposium on FPGAs},
   pp.~157--164, ACM Press, 2002.
 
 \bibitem{Anderson2004a}
@@ -350,6 +331,10 @@ A.~Raghunathan, S.~Dey, and N.~K. Jha, ``High-level macro-modeling and
   http://www.xilinx.com/support/documentation/sw\_manuals/xilinx13\_2/ug440.pdf,
   2012.
 
+\bibitem{farhang2008signal}
+B.~Farhang-Boroujeny, {\em Signal Processing Techniques for Software Radios}.
+\newblock Lulu Publishing House, 2008.
+
 \bibitem{Dick2003}
 C.~Dick and F.~Harris, ``{FPGA} implementation of an {OFDM PHY},'' in {\em
   Conference Record of the Thirty-Seventh Asilomar Conference on Signals,
@@ -364,8 +349,19 @@ A.~Fort, J.-W. Weijers, V.~Derudder, W.~Eberle, and A.~Bourdoux, ``A
 
 \bibitem{Wang2004}
 K.~Wang, J.~Singh, and M.~Faulkner, ``{FPGA} implementation of an {OFDM-WLAN}
-  synchronizer,'' in {\em Second IEEE International Workshop on Electronic
-  Design, Test and Applications, 2004. DELTA 2004}, pp.~89 -- 94, Jan. 2004.
+  synchronizer,'' in {\em IEEE International Workshop on Electronic Design,
+  Test and Applications (DELTA)}, pp.~89 -- 94, Jan. 2004.
+
+\bibitem{Schmidl1997}
+T.~Schmidl and D.~Cox, ``Robust frequency and timing synchronization for
+  {OFDM},'' {\em IEEE Transactions on Communications}, vol.~45, pp.~1613
+  --1621, {Dec.} 1997.
+
+\bibitem{Kishore2006}
+C.~N. Kishore and V.~U. Reddy, ``A frame synchronization and frequency offset
+  estimation algorithm for {OFDM} system and its analysis,'' {\em EURASIP
+  Journal on Wireless Communications and Networking}, vol.~2006, pp.~1--16,
+  2006.
 
 \bibitem{Guffey2007}
 J.~Guffey, A.~Wyglinski, and G.~Minden, ``Agile radio implementation of {OFDM}
@@ -497,9 +493,18 @@ K.-W. Yip, Y.-C. Wu, and T.-S. Ng, ``Design of multiplierless correlators for
   timing synchronization in {IEEE} 802.11a wireless {LANs},'' {\em IEEE
   Transactions on Consumer Electronics}, vol.~49, pp.~107 -- 114, {Feb.} 2003.
 
+\bibitem{Xilinx2011}
+``{Virtex-6 FPGA DSP48E1 Slice: User Guide}.'' Xilinx, San Jose, CA.
+  www.xilinx.com/support/documentation/user\_guides/ug369.pdf, 2011.
+
 \bibitem{Hanzo2006}
 L.~Hanzo and T.~Keller, {\em OFDM and MC-CDMA : A Primer}.
 \newblock Wiley-IEEE Press, 2006.
+
+\bibitem{Pham2014}
+T.~H. Pham, I.~V. McLoughlin, and S.~A. Fahmy, ``{Robust and Efficient OFDM
+  Synchronisation for FPGA-Based Radios},'' {\em {Circuits, Systems, and Signal
+  Processing}}, vol.~33, pp.~2475--2493, Aug. 2014, Springer.
 
 \bibitem{Schwoerer2002}
 L.~Schwoerer, ``{VLSI} suitable synchronization algorithms and architecture for
@@ -533,11 +538,6 @@ K.~Bang, N.~Cho, J.~Cho, H.~Jun, K.~Kim, H.~Park, and D.~Hong, ``A coarse
   coherence phase bandwidth,'' {\em IEEE Transactions on Communications},
   vol.~49, pp.~1320 --1324, Aug. 2001.
 
-\bibitem{Pham2014}
-T.~H. Pham, I.~V. McLoughlin, and S.~A. Fahmy, ``{Robust and Efficient OFDM
-  Synchronisation for FPGA-Based Radios},'' {\em {Circuits, Systems, and Signal
-  Processing}}, vol.~33, pp.~2475--2493, Aug. 2014, Springer.
-
 \bibitem{Park2002}
 M.~Park, N.~Cho, J.~Cho, and D.~Hong, ``Robust integer frequency offset
   estimator with ambiguity of symbol timing offset for {OFDM} systems,'' in
@@ -562,6 +562,12 @@ Z.~Lan, K.~Mizutani, G.~Villardi, and H.~Harada, ``{Design and implementation
   Wireless Communications and Networking Conference (WCNC)}, pp.~750--755,
   April 2013.
 
+\bibitem{PhamMay2014}
+T.~H. Pham, I.~V. McLoughlin, and S.~A. Fahmy, ``{Shaping Spectral Leakage for
+  IEEE 802.11p Vehicular Communications},'' in {\em to appear in Proceedings of
+  the IEEE Vehicular Technology Conference (VTC Spring), Seoul, Korea}, May
+  2014.
+
 \bibitem{Bala2013}
 E.~Bala, J.~Li, and R.~Yang, ``{Shaping Spectral Leakage: A Novel
   Low-Complexity Transceiver Architecture for Cognitive Radio},'' {\em IEEE
@@ -583,6 +589,11 @@ P.~Choi, J.~Gao, N.~Ramanathan, M.~Mao, S.~Xu, C.-C. Boon, S.~A. Fahmy, and
   communications,'' in {\em Proceedings of the 2014 International Symposium on
   Low Power Electronics and Design}, ISLPED '14, (New York, NY, USA),
   pp.~207--212, ACM, 2014.
+
+\bibitem{Pham2014a}
+T.~H. Pham, S.~A. Fahmy, and I.~V. McLoughlin, ``{Efficient Multi-Standard
+  Cognitive Radios on FPGAs},'' in {\em Proceedings of the International
+  Conference on Field Programmable Logic and Applications (FPL)}, 2014.
 
 \bibitem{athanaswires}
 P.~Athanas, J.~Bowen, T.~Dunham, C.~Patterson, J.~Rice, M.~Shelburne,

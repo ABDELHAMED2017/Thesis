@@ -4,7 +4,7 @@
 %---------------------------------------------------------------------------------
 
 %---------------------------------------------------------------------------------
-\section{Introduction and Related Work on OFDM synchronisation}
+\section{Introduction}
 %---------------------------------------------------------------------------------
 The previous chapter, the robust OFDM synchronisation agains to a large CFO was presented.
 Although the timing synchronisation is able to perform well in the case of large CFO,  the CFO estimation of this method only estimate the fractional CFO.
@@ -21,6 +21,14 @@ The IFO estimation is performed after the FFT and relies upon cross-correlation,
 A typical OFDM receiver avoids the need for IFO estimation by limiting CFO tolerance to be smaller than the range of FFO estimation, resulting in a set of very strict constraints on the design of the RF front-end. However, if CFO exceeds the range of FFO estimation, IFO is present and the system cannot function correctly. 
 This is more pronounced in applications that subject the front-end to intensive Doppler effects, for very high carrier frequencies, or when supporting multiple frequency bands for different standards.
 
+In this chapter, A novel methods for IFO estimation are presented to overcome this challenge targeting to efficient and low-power systems. The method has also been discussed in:
+\begin{itemize}
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Integer Frequency Offset Estimation Architecture for Enhanced OFDM Synchronization,'' to be submitted to \textit{IEEE Transactions on Very Large Scale Integration (VLSI) Systems}.
+\end{itemize}
+
+%---------------------------------------------------------------------------------
+\section{Related Work}
+%---------------------------------------------------------------------------------
 As mentioned in the previous chapter, the estimation range of  fractional CFO has a limitation that is shown in (\ref{fractionalCFOlimitation}); for instance its range is up to $\pm$2 sub-carrier spacings in the case of the IEEE~802.16 preamble. The value of the IFO is a multiple of the coarse CFO's range.
 It is commonly estimated by performing cross-correlation \cite{Bang2001,Kim2008} in the frequency domain. 
 
@@ -63,8 +71,6 @@ selective channels), it is not efficient when the possible IFO range is large si
 
 The state of the art OFDM synchrnisation methods typically has a small tolerance of CFO that requires the hardware be strictly constrained to have a small CFO that doesn't introduce IFO.
 This requirement leads to an increase in total system cost. Particularly, in the case of MSCR such a need for precision coupled with a requirement for a wide ranging frequency band would make the RF front-end design difficult, if not impossible.
-In the following sections, novel methods for timing synchronisation and IFO estimation are presented to overcome this challenge targeting to efficient and low-power systems.
-
 
 %---------------------------------------------------------------------------------
 \section{Enhanced OFDM Synchronization Through Novel IFO Estimation Architecture}
@@ -548,4 +554,4 @@ Beyond IEEE 802.16-2009, the folded resource sharing architecture, which leverag
 This chapter investigated IFO estimation in OFDM-based systems such as IEEE 802.16. A technique is proposed for efficient implementation of IFO estimation, which aims in particular for a low power and low resource utilisation. 
 Since IFO estimation contributes significantly to the complexity of a robust synchroniser design, this work is important for multistandard radios, or applications where significant frequency variation is expected. Robust IFO estimation allows for relaxed analogue RF constraints, leading to reduced cost. A modified timing metric is derived which allows for resource sharing to reduce both resource requirements as well as power consumption. The proposed implementation makes use of a four-fold resource sharing architecture to significantly reduce hardware cost, while multiplierless correlation with optimised wordlength is used to improve estimation accuracy in comparison to a conventional implementation approach using signbit correlation. 
 The method is shown to perform as well as current state-of-the-art methods that employ multiplier-based correlation, and yet with significantly improved power and resource requirements. Dynamic power consumption is reduced by 78\% over even a sign-bit version of the conventional approach, yet it offers better estimation performance in both AWGN and frequency selective channels.
-Beyond IEEE 802.16-2009, the folded resource sharing method, which leverages sub-sample spaced OFDM pilots, can be adopted for use in other OFDM standards (including IEEE 802.11 and IEEE 802.22). Multiplierless correlation with word length optimisation is already used within communication systems, however the trade off between the number of pilots and computational accuracy for timing synchronisation is relatively unexplored in the research literature. This work has been submitted as a journal paper [J3].
+Beyond IEEE 802.16-2009, the folded resource sharing method, which leverages sub-sample spaced OFDM pilots, can be adopted for use in other OFDM standards (including IEEE 802.11 and IEEE 802.22). Multiplierless correlation with word length optimisation is already used within communication systems, however the trade off between the number of pilots and computational accuracy for timing synchronisation is relatively unexplored in the research literature.

@@ -4,12 +4,21 @@
 %---------------------------------------------------------------------------------
 
 %---------------------------------------------------------------------------------
-\section{Introduction and Related Work on OFDM synchronisation}
+\section{Introduction}
 %---------------------------------------------------------------------------------
 OFDM performance is sensitive to receiver synchronisation \cite{Hanzo2006}. 
 Frequency offset causes inter-subcarrier interference, and errors in timing synchronisation can lead to inter-symbol interference. 
 Therefore, accurate synchronisation is critical to the performance in OFDM systems.  
 This section summarizes conventional synchronisation methods used for OFDM systems, discussing their merits and drawbacks, and then the following sections in this chapter presents a new and efficient method that is robust to large frequency offset, obtains accurate  and robust synchronisation and requires relatively low complexity computation. It is suitable for hardware implementation on reconfigurable systems. 
+
+The method presented in this chapter has also been discussed in:
+\begin{itemize}
+\item T. H. Pham, I. V. McLoughlin, and S. A. Fahmy, ``Robust and Efficient OFDM Synchronisation for FPGA-Based Radios,'' in \textit{Circuits, Systems, and Signal Processing, vol. 33, no. 8, pp. 2475 - 2493, Aug. 2014, Springer}~\cite{Pham2014}.
+\end{itemize}
+
+%---------------------------------------------------------------------------------
+\section{Related Work}
+%---------------------------------------------------------------------------------
 The autocorrelation-based method is commonly preferred for implementing synchronisation because of its low computation requirements. In \cite{Schmidl1997}, timing metrics are defined as follows: the normalised power measure $M[d]$:
 
 \begin{center}
@@ -673,5 +682,4 @@ However, the much higher computational resources needed for cross-correlation te
 The methods have been presented to improve upon these drawbacks of previous reported works. 
 The method takes the advantage of period and energy distribution characteristics of the preamble to perform time synchronisation. 
 The synchronisation performance results, obtained through simulation, demonstrates good performance and the robustness to large CFO.
-Although the method just estimates and compensates the fractional CFO, the method still performs well with the larger CFO may presenting the interger CFO and an enhanced OFDM synchronisation method that provides an efficient and low cost IFO estimation will be presented in the next Section.
-This work is published in [J2].
+Although the method just estimates and compensates the fractional CFO, the method still performs well with the larger CFO may presenting the interger CFO and an enhanced OFDM synchronisation method that provides an efficient and low cost IFO estimation will be presented in the next chapter.

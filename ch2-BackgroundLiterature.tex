@@ -4,40 +4,40 @@
 %---------------------------------------------------------------------------------
 
 %-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-\section{Software/Hardware Radio Platforms}
+\section{Cognitive and Software Defined Radio}
 %-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Software Defined Radios (SDRs) are radio communication systems in which the processing components (e.g. mixers, filters, modulators/demodulators, etc.) are realised by means of software on a computer or embedded system instead of in hardware circuits.
 SDR provides a flexible platform on which application-specific radio systems can be implemented. The rapidly increasing level of flexibility and functionality provided by software platforms has led to an increase in the variety of radio applications realizable by SDR.
 Cognitive Radio (CR) is an evolution of SDR incorporating intelligence in adapting the radio to a changing environment..
 A significant portion of CR research, as in early work by Mitola \cite{Mitola1999}, focused primarily on upper layer adaptation, in which the radio platform can adapt to anticipated user or application requirements.
-According to Mitola~\cite{Mitola2006}, the evolution from SDR to CR can be illustrated by mapped through gaining three main capabilities~\cite{Recio2010a}: awareness, adaptation, and cognition.
+According to Mitola~\cite{Mitola2006}, the evolution from SDR to CR can be illustrated by gaining three main capabilities~\cite{Recio2010a}: awareness, adaptation, and cognition.
 Awareness allows the radio to predict or enhance information from the environment. For example, RF-location awareness allows a wireless terminal to correlate information from different types of sensing to determine location.
-Adaptation can performed once a terminal is aware of the environment. A location aware radio, when moved, can prioritise free spectrum search in bands that are historically inactive in the new location.
-Cognition learns from the environment and decides adaptation rules based on its experience on a general set of objectives, for example obtaining the best quality of service or the lowest communication cost at a baseline service quality.
+Adaptation can be performed once a terminal is aware of the environment. A location aware radio, when moved, can prioritise free spectrum search in bands that are historically inactive in the new location.
+Cognition learns from the environment and deduces adaptation rules based on its experience on a general set of objectives, for example obtaining the best quality of service or the lowest communication cost at a baseline service quality.
 
-The work at Virginia Tech~\cite{MacKenzie2009} presented an opposite motivation from Mitola’s work. Instead of seeking to respond users’ goals, the CR performs based on the desire
-to exploit available technology. Rieser et al.~\cite{Rieser2007,Rondeau2004} was investigated on the concept of a cognitive engine. Instead of seeking to respond a specific radio with intelligence, the research
-developed a software package that could be able to intelligently control any radios. The work was the first to separate the cognitive function from the radio platform and to study on cognition at the physical layer.
-While CRs are not strictly necessary to be built on a DSR platform, the flexibility of an SDR may be one motivation for trying the study of CR algorithms.
-Intelligent algorithms and capable radio platforms are needed for a CR to provide the ability to change the functionality to adapt dynamic conditions~\cite{MacKenzie2009}.
-With a conventional specific platform, CRs have a limitation to only support simple tasks like spectrum sensing, where a set of parameters to hardware components can be adjusted. SDR platform allows cognitive systems to radically change configurations and roles according to a variety of stimuli. These types of systems are especially important in situations where there are finite resources or when the desired behavior can be re-defined at deployment time.
+Other researchers have taken a more system level view of cognitive radio.
+Research at Virginia Tech~\cite{MacKenzie2009} explores how to exploit the capabilities of SDR platforms to maximise different aspects of performance. Rieser et al.~\cite{Rieser2007,Rondeau2004} proposed the concept of a cognitive engine, separating the cognition from the radios and focusing on the physical layer. They developed this component in a way that it could intelligently control multiple radios.
+Cognitive radios can be built using fixed function radios, but the flexibility provided by SDRs allows more complex applications to be explored.
+Intelligent algorithms coupled with capable radio platforms allow provide a CR to change functionality to adapt to dynamic conditions~\cite{MacKenzie2009}.
+With a fixed platforms, CRs are limited to supporting simple tasks like spectrum sensing, followed by setting parameters of hardware components in response. SDR platforms allow cognitive radios to significantly change configuration and role according to a variety of stimuli. Such adaptation is important in situations where there are finite resources or when the desired behaviour might be re-defined after deployment.
 
-Recently, the CR is also motivated by the spectrum scarcity and inefficient spectrum usage~\cite{FCC2002,Ghasemi2008}. The CR can allows that the spectrum allocated to the licensed users, known as Primary Users (PUs), can be reused by unlicensed users, referred to as Secondary Users (SUs), when the PU is not using it. Thus, the utilisation of the SUs on the locally unoccupied spectrum can make the overall utilisation efficiency of the licensed spectrum can be increased. Federal Communications Commission (FFC) has also given a definition for CR as ``a radio or system that senses its operational electromagnetic environment and can dynamically and autonomously adjust its radio operating parameters to modify system operation, such as maximize throughput, mitigate interference , facilitate interoperability, access secondary markets.''~\cite{FCC2005}.
+Recently, CR has gained further importance due to spectrum scarcity and inefficient spectrum usage~\cite{FCC2002,Ghasemi2008}.
+CRs enable a situation where spectrum allocated to licensed users, known as Primary Users (PUs), can be reused by unlicensed users, referred to as Secondary Users (SUs), when the PUs are not using it.
+SUs using locally unoccupied spectrum can improve overall utilisation efficiency of licensed spectrum. The Federal Communications Commission (FFC) has also given a definition for CR as \emph{``a radio or system that senses its operational electromagnetic environment and can dynamically and autonomously adjust its radio operating parameters to modify system operation, such as maximize throughput, mitigate interference , facilitate interoperability, access secondary markets.''}~\cite{FCC2005}.
 
 %-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Multiple Standard Cognitive Radios}
+\subsection{Multi-Standard Cognitive Radios}
 %-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-The spectral resource demands of wireless telecommunication systems continues to increase.
-Cognitive Radios, that have ability to adapte to channel conditions, ensuring effective spectrum usage, are an important technology for achieving this.
-They are designed to transmit in currently unused spectrum without causing harmful interference to PUs or incumbent users (IUs).
-Apart from the critical issues of spectrum sensing and band allocation, the lower priority of SUs raises a challenge in terms of transmission capability and quality of service in cognitive radios.
-When the spectrum allowed for a CR system is fully occupied by PUs and IUs, the transmission of CRs can be blocked.
-Multiple Standard Cognitive Radios (MSCRs) are able to operate in multiple frequency bands with different specified standards.
-MSCRs are hence a more flexible generalisation of CRs as they can operate across different bands and standards.
+Building cognitive radios to act as secondary users (SUs) requires that the are able to find and transmit in unoccupied spectrum assigned to primary users (PUs), and this must be done without causing harmful interference to the PUs.
+Other incumbent users (IUs) must also be avoided.
+Apart from the critical issues of sensing for unused spectrum and allocating bands for transmission, the lower priority of SUs presents a problem in terms of transmission capability and quality of service.
+If the spectrum bands allowed for a CR are fully occupied by PUs and IUs transmission might be blocked.
+Multi-standard cognitive radios can operate in multiple frequency bands with different specified standards, providing greater flexibility.
 
-Multi-carrier modulation techniques offer an ideal opportunity for such systems due to their regularity and parameterisation. OFDM and Filter Bank Multi Carrier (FBMC) are two types of multi-carrier modulations. OFDM modulation has been the dominant technique adopted for many standards and has been investigated in terms of spectral sensing and carrier allocation for CRs.
-Furthermore, OFDM system implementation is simple, low cost, and can be effectively parameterised in comparison to FBMC systems. OFDM is a suitable candidate for a MSCR system. The advantages of coupling OFDM modulation with an FPGA platform are investigated for the feasibility of implementing the proposed MSCR system.
+Multi-carrier modulation techniques offer an ideal opportunity for such systems due to their regularity and parameterisation. OFDM and Filter Bank Multi Carrier (FBMC) are two types of multi-carrier modulations.
+OFDM modulation has been the dominant technique adopted for many wireless standards and has been investigated in terms of spectral sensing and carrier allocation for CRs.
+Furthermore, OFDM system implementation is simple, low cost, and can be more effectively parameterised in comparison to FBMC systems. OFDM is a suitable candidate for a MSCR system. The advantages of coupling OFDM modulation with an FPGA platform are investigated for the feasibility of implementing the proposed MSCR system.
 The flexibility requirement of a MSCR is to support existing standards like 802.11~\cite{IEEE80211}, 802.16~\cite{IEEE80216}, and 802.22~\cite{IEEE80222}, as well as supporting future OFDM-based standards.
 
 A feasible OFDM-based MSCR requires the ability to switch baseband processing from one standard to another. This means that the system needs to rapidly adapt its functionality to perform variable numbers of FFT/IFFT operations, insert CP of configurable length, and handle differend pilot vectors as well as different preambles. The hardware implementation of an OFDM-based MSCR can be based on the original architecture of an OFDM system discussed in followed Section. However, each sub-module of the system needs to be designed to perform with all parameters of the supported standards. This results in significantly increasing system complexity as well as reconfiguration time.
@@ -71,185 +71,7 @@ The addition of rapidly and dynamical reconfiguration ability of FPGA processing
 Embedded systems also give the reliability and consistent performance that is a top priority for communications application.
 
 
-%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-\section{Field Programmable Gate Arrays }
-%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Field programmable gate arrays (FPGAs) are silicon devices with an architecture designed to be flexible enough to implement any type of circuit \cite{Kuon2008}.
-They consist of programmable logic components coupled with configurable routing, and flexible I/O for interfacing with external components.
-How these components and connections are set up is determined according to the contents of a configuration memory.
-To implement a circuit, the designer describes it typically using a hardware description language like Verilog or VHDL.
-Alternatively, tools exist that can map higher level languages like C or MATLAB Simulink directly \cite{Springer2008}.
-This description is then processed through synthesis and implementation tools, to determine a suitable mapping of the circuit to the components on the FPGA, and the connections between them.
-This results in a bitstream that can be loaded into the configuration memory to set up the circuit described \cite{Xilinx2013c}.
-%---------------------------------------------------------------------------------
-\subsection{FPGAs for radio platforms}
-%---------------------------------------------------------------------------------
-On the recent FPGAs, additional components like DSP blocks for high-performance signal processing tasks are available.
-These can also be mapped to during the implementation phase, and the tools will generally determine when it is best to do so \cite{Xilinx2013d}.
 
-The most exciting recent FPGA architecture has been the emergence of new platforms that couple high-performance processors with a flexible FPGA fabric.
-For example, The Xilinx Zynq-7000 programmable SoC family is a new generation of reconfigurable devices, which has a tightly coupled hardened 1 GHz dual ARM Cortex-A9 MPCore microprocessor and reconfigurable fabric architecture along with several built-in peripherals \cite{Xilinx2013}.
-In such systems, the ARM can host a fully functioning software stack while the baseband can be implemented in the reconfigurable fabric. The connectivity between the two is very tight and offers high bandwidth and low latency. This represents an ideal platform for cognitive radio systems, offering both high computational performance and flexibility, while also facilitating a simple software programmable interface to higher layers of the radio.
-
-Partial reconfiguration (PR) is also an advanced technique available in recent FPGAs which further provides the flexibility \cite{Sedcole2006,McDonald2008}.
-By modifying only a portion of the configuration memory, it is possible to modify only some system functionality while the remainder continues to operate without interruption.
-This allows portions of a circuit to be changed at runtime, and is ideally suited to applications like cognitive radio \cite{Delahaye2007,Delorme2008}.
-It is clear that PR has significant benefits for dynamic systems like cognitive radios.
-However, the design process remains suitable only for FPGA experts.
-Recent efforts have begun to bridge this gap, allowing a modular approach to PR design, with automated partitioning and floorplanning of the FPGA \cite{Vipin2012,Vipin2013}.
-Combined with the improving efficiency of high-level synthesis, this will enable radio designers with minimal FPGA experience to leverage their power and flexibility in the design of cognitive radios.
-Reduced power consumption is another benefit of PR that is important in radio systems.
-FPGA based systems consume power in proportion to the size of the device, resource utilisation and operating frequency.
-PR based designs save resources, and may even allow use of a smaller FPGA, hence saving power.
-The dynamical reconfiguration ability of FPGA processing components has provided high performance and energy efficiency levels that used to only be obtainable by ASICs or fully analog circuits~\cite{Dobson2014}.
-
-%---------------------------------------------------------------------------------
-\subsection{Power Dissipation on FPGA}
-%---------------------------------------------------------------------------------
-The increasing computational requirements, and growing requirements for deployment in portable devices have prompted serious attention to reducing the power consumption of wireless communication systems, especially in the physical layer.
-High power dissipation by a system introduces high operating temperatures and follow-on effects that increase the cost of packaging as well as requiring larger batteries in the case of portable devices, or other power supply solutions.
-Power dissipation has thus come to be considered as one of the most important design metrics, along with area and performance.
-Reducing power consumption has been investigated at all levels of the digital design flow: from the system design stage to the layout stage.
-At every stage, the designer can act to optimise the power consumption of the design.
-However, small changes at the lower levels may require more work and time to update the higher level optimisations, thus increasing the complexity of the optimization process.
-Moreover, at the system design level stage, the designer has more options to reduce power dissipation by a greater degree.
-At the lower level, the architecture of the system is designed in terms of data flow between registers, leaving few options to optimize the system.
-Thus, most power saving opportunities may exist at the highest level of design abstraction~\cite{Raghunathan1998}.
-FPGAs, with their highly parallel architecture, are suitable for the increasing computational requirement of signal processing in wireless communication systems such as modulation, channel coding, and so on.
-In order to optimise the power dissipation of systems on FPGA, the power consumption of FPGAs needs to be clearly understood, and accurate, as well as flexible, power estimation tools are needed in order to provide power profiles of the system to help the designer makes the best decisions.
-In addition, low power design techniques must be investigated to optimise power consumption when a system design is implemented.
-%
-%Fast time-to-market, flexible programmability, and improving performance continue to render FPGAs an attractive platform for digital circuit implementation.
-%FPGAs have been gaining ground as an alternative implementation technology in a wide range of application domains, due primarily to the increased cost and diminished economies of scale when building custom ASICs.
-%However, power remains a key metric in which FPGAs lag behind custom ICs, although this gap is narrowing.
-Total FPGA power is calculated as follows:
-\begin{center}
-\begin{equation}
-\label{Equ:Ptotal}
- P_{total} = P_{device static} + P_{design static} + P_{dynamic},
-\end{equation}
-\end{center}
-where $P_{total}$ represent the total power consumption of the FPGA, $P_{device static}$ refers to the leakage power in proportion to the size of the device, resource utilisation when the device is powered, $P_{design static}$ is the additional power dissipation when the design is configured on the device and has no switching activity. The leakage current is the only source of this static power dissipation.
-$P_{dynamic}$ represents the additional average power consumption from user logic utilization and switching activity caused by signal transitions in the design. Increasing operating speed leads to a rise in switching activity and thus results in increased dynamic power consumption. The most significant source of dynamic power dissipation is the charging and discharging of parasitic capacitance in signal transitions.
-
-Efficient power-aware designs for FPGA-based systems require estimation tools that gauge power consumption at an early stage in the design flow.
-These tools allow design tradeoffs to be considered at a high level of abstraction, thus reducing design effort and cost.
-Significant research on FPGA power consumption has appeared in the literature \cite {Shang2002,Anderson2004a,Anderson2004,Todorovich2005,Reimer2006}.
-These cited papers have shown that power consumption of FPGA devices is predominantly confined to the programmable interconnection.
-In the Xilinx Virtex-II family, for instance, it was reported that between 50-70\% of total power is dissipated on the interconnection network \cite{Shang2002}.
-The majority of power dissipation in FPGAs is dynamic power dissipation \cite{Shang2002} as characterized by:
-
-\begin{center}
-\begin{equation}
-\label{Pdynamic}
- P_{dynamic} =\frac{1}{2} \sum\limits_{i \in all nets} C_{i} \cdot f_{i} \cdot V^2,
-\end{equation}
-\end{center}
-where $P_{dynamic}$ represents average power consumption, $C_{i}$ is the capacitance of a net, $f_{i}$ is the average transition rate (switching activity) of corresponding net, and $V$ is the voltage supply.
-Thus, estimating dynamic power (\ref{Pdynamic}) requires two parameters for each net: switching activity and capacitance.
-The net's capacitance is the parasitic effects on interconnection wires. It depends on the interconnection used resources.
-The switching activity represents the signal transitions on the net, depending on how circuit delays are accounted for.
-Zero delay activity can be calculated assuming logic and routing delays are zero. Logic delay activity can be calculated considering only logic delays.
-Routed delay activity can be calculated using complete logic and routing delays.
-When delays are accounted for, the presence of glitches, which are spurious logic transitions due to unequal path delays to the net’s driving gate, leads to an increase in switching activity.
-The additional activity due to glitching actually causes a significant increase in dynamic power \cite{Anderson2004a}.
-The path delays in FPGAs are also significantly dominated by interconnects, which have a different delay, compared to primitive logic delays. Therefore, the result of glitching on total power consumption may be more severe in FPGAs versus ASICs.
-
-It is well known that the dominant source of optimising power dissipation on FPGA is optimising dynamic power dissipation.
-Dynamic power dissipation is proportional to switching activity and the equivalent capacitance of the circuit.
-There are many techniques and strategies to reduce the power dissipation in FPGA presented in the literature \cite{Danckaert1999,Kovacs2000,Czapski2007,Liu2009,Ahuja2010}.
-However, only the strategies which appear to be suitable for wireless systems are investigated.
-These strategies will be discussed in detail for specific implementations in the following chapters, but the general approach is discussed here.
-
-Firstly, in signal processing dominated systems, storing and transferring data between functional modules consumes a large proportion of total energy \cite{Liu2009}.
-The power consumption thus heavily depends on the way a system is partitioned and modularised and hence the use of data buffers to synchronously transfer data between functional modules.
-In order to optimise power dissipation at a system level, such systems are often realised to support stream processing in which buffering data between functional modules requires much less memory.
-The energy for storing and transferring data is thus reduced significantly.
-
-Secondly, the latch registers with enable signals must be used at the inputs of functional modules.
-They can reduce the switching activity inside functional modules when the modules must wait for synchronisation in a streaming process.
-Apart from the above strategies, in low power design, the power estimation tools must be used to evaluate the power dissipation of the system at each stage of the flow.
-This provides information for power dissipation optimisation.
-
-%---------------------------------------------------------------------------------
-\subsection{Power Estimation}
-%---------------------------------------------------------------------------------
-
-Several studies investigating power estimation techniques at different levels from the circuit level up to the system level have appeared in the literature.
-At the circuit level, a circuit simulator such as SPICE \cite{Deng1994} provides one of the most accurate power estimation methods but the computational overhead involved in this is not really suitable for highly integrated and dense FPGA based systems and complex designs.
-
-%A large amount of research has focused on logic-level power estimation \cite{Anderson2004a,Anderson2004,Todorovich2005}.
-%Logic-level techniques can be classified into three categorises:  simulation-based techniques,  probability propagation techniques, and statistical techniques.
-%
-%Simulation-based techniques rely on simulating the logic response with specific input signals to compute the power consumption.
-%The PowerPlay power analyzer integrated in Altera Quartus II \cite{ALTERA2010} and the XPower Analyzer integrated in Xilinx ISE Design \cite{XilinxXPOWERA2011} are both able to support computing of the switching activities of signals and dynamic power consumption from a simulation file;
-%Secondly, probability-based propagation techniques calculate the value and transition probabilities of all logic signals in the circuit according to the given value and transition probabilities of the primary inputs from which the power consumption is estimated based on the computed probabilities.
-%Statistical techniques such as Monte-Carlo simulation will monitor values of power consumption according to stimulating generated input patterns until it converges to within user-defined error and confidence levels. Todorovich et al. \cite{Todorovich2005} presented the development of a new FPGA-oriented power estimation tool based on this statistical approach.
-
-%With increasing system complexity, several studies have recently paid attention to power estimation and optimization at higher level and earlier stages of the design such as the register-transfer and behavioural levels. The large run-times required by lower level power analysis tools, and the need to synthesize and validate a gate- or transistor-level netlist make previous techniques highly inefficient for exploring high-level design tradeoffs, and infeasible for use in automatic high-level and system-level synthesis and optimization tools.
-
-Several studies have shown that the efficiency of power optimization is significantly better at the higher levels \cite{Landman1996,Gupta2000,Raghunathan2003,Reimer2006}.
-High-level power estimation is needed to conveniently validate power budgets for the different parts of the design and identify the most power hungry part in the design and also evaluate quickly the effect of various optimized techniques to obtain the power budget of systems.
-Furthermore, the long run time and and the complexity of synthesizing and validating a gate-level netlist make lower level estimation approaches highly inefficient for exploring high-level design abstraction tradeoffs.
-
-%%---------------------------------------------------------------------------------
-%\subsubsection{High Level Power Estimation}
-%%---------------------------------------------------------------------------------
-%
-%Power estimation performed at higher levels of design abstraction is more efficient due to the reduction in complexity of netlists in the design, and due to the availability of behavioural information which is more difficult to obtain at the lower levels.
-%However it also introduces an accuracy penalty due to reducing the complexity of analysis.
-%The absolute accuracy of high level power estimation is typically lower than the accuracy of estimation at the lower levels of the design hierarchy.
-%
-%Recently, more research has focused on the RTL/architecture level power estimation to obtain the power profile for optimizing at high level designs as well as for software programs. Raghunathan et al. \cite{Raghunathan2003} classified high level power estimation into three broad approaches, namely analytical models, control logic analysis techniques, and characterisation-based macro-modeling.
-%At an architectural design level, different parts such as arithmetic macro blocks, control logic, memory, clock network, and I/O are analysed using different estimation approaches.
-%
-%Analytical power modelling techniques are based on correlating power consumption to measures of design complexity. These techniques may be used to estimate in the early stages of a design when complexity is known after synthesizing or mapping the design.
-%For example, the design power estimation tool, XPower Estimator \cite{XPowerEstimator2011},  computes the dynamic power consumption of a logic block based on its used resource count, load capacitance per logic element, the clock frequency, and the average switching activity factor.
-%The designer has to provide estimates for some of these parameters such as clock frequency and the average switching activity factor.
-%The result depends significantly on the designer's judgment.
-%Generally, such techniques are not highly accurate, however, they may be suitable for specific modules of a design such as memories for which the complexity parameters are easy to estimate and also can be used to estimate power in the early stages.
-%
-%Control logic analysis techniques consider the control logic parts of a design. The activity-based control model \cite{Landman1996} is an example of this approach.
-%The switching activities of a control unit show significant spatial and temporal correlations to the remaining parts of a design.
-%So computing the power consumed in the control logic and taking into account its impact on the design can estimate the power consumption of the design.
-%Furthermore, since the control logic is typically smaller in size than the datapath, it can have low overheads and be fast to synthesis, followed by estimating its power consumption at a lower level.
-%In addition, the glitching activity of the control signals have a significant impact on the power consumption in the rest of the design.
-%
-%Characterization-based macro-modeling is an approach mostly used in high level power estimation that uses a macro-model abstraction to obtain and characterize the power consumption of macro-blocks using the measure of lower level methods.
-%A gate-level or logic-level power estimation tool is used to observe the power consumption of the macro-block for various input samples, called training sequences.
-%Based on this observation, a macro-model is built, in which the macro-block's power dissipation is considered as a function of various selected parameters such as the statistics of the inputs and outputs.
-%This approach is best suited for bottom-up design methodologies where models of macro-blocks instantiated from a component library can be used to estimated the power consumption of design.
-%
-%%---------------------------------------------------------------------------------
-%\subsubsection{Xilinx Power Tool}
-%%---------------------------------------------------------------------------------
-
-The contemporary Xilinx FPGA design suite supports two tools: XPower Estimator (XPE) and  XPower Analyzer (XPA) to estimate and analyse the power dissipation of systems that are implemented on Xilinx FPGA devices.
-These tools provide the power profile of a system in the early stages when the RTL description is being implemented that helps the designer highly optimise power when implementing the system.
-XPE is a Microsoft Excel spreadsheet that is used to estimate power distribution typically used in the pre-design and pre-implementation phases of design flow \cite{XPowerEstimator2011} .
-XPE supports selecting the relevant power supply and thermal management components based on the system's architecture evaluation and device selection.
-XPE reads the resource usage of the implemented system, toggle rates, I/O loading, and many other factors from a designer's input and combines these with the appropriate device models to estimate power distribution.
-The appropriate device models are obtained from measurements, simulation, and/or extrapolation.
-There are two primary components that contribute to the accuracy of XPE.
-One is the designer's input estimates such as toggle rates, I/O loading.
-The other is device data models integrated into the spreadsheet that are selected based on the device selection.
-Realistic input must be provided to obtain an accurate estimation.
-
-XPE is used in the early stages when the RTL description is being implemented.
-However, XPE depends significantly on the designer's input estimates that result in poor accuracy of estimation.
-After the system is synthesised and implemented, XPA tool can be used for more accurate estimation and power analysis.
-
-XPA analyses the design on real design data from the system such as the NCD file output from Place \& Route (PAR) after the system is implemented.
-The latest version of XPA employs a vectorless estimation algorithm in which switching activity of nodes are assigned to appropriate values even if they are not defined in the input file.
-However, simulation activity files such as SAIF or the VCD file from simulation in timing mode are required for accurate power analysis.
-
-XPA is used at the stage when a system design has successfully completed PAR and generated an NCD output file and been simulated to verify its functionality.
-The power profile of the system such as resource usage, capacitance of nodes and nets can be extracted from the NCD file while switching activities are computed with high accuracy based on timing simulation from SAIF or VCD files. Much more realistic power information is obtained at this stage, thus, XPA can achieve more accurate results in terms power estimation.
-XPA generates a text-based power report that shows the power distribution on the system that can used for optimisation.
-
-%---------------------------------------------------------------------------------
-%\subsection{Low power design strategies}
-%---------------------------------------------------------------------------------
 
 %-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Orthogonal Frequency Division Multiplexing}
@@ -258,23 +80,23 @@ XPA generates a text-based power report that shows the power distribution on the
 OFDM is a multicarrier modulation scheme used in both wireline and wireless communication in which a high-rate data stream is split into multiple parallel low rate streams that are modulated by multiple sub-carriers.
 The adjacent modulated sub-carriers are theoretically orthogonal with zero mutual interfere to each other.
 OFDM signals are modulated using sub-carriers across the frequency range similar to frequency division multiplexing (FDM).
-But the main difference is that FDM conventionally multiplexes the signals into separatele small bands in which the signal in each band is modulated using a specific sinusoidal carrier, while OFDM signals are modulated using orthogonal sub-subcarriers.
+But the main difference is that FDM conventionally multiplexes the signals into separate small bands in which the signal in each band is modulated using a specific sinusoidal carrier, while OFDM signals are modulated using orthogonal sub-subcarriers.
 Each sub-carrier is mathematically represented by a sinc pulse, which is overlapped with other subcarriers in the frequency domain as shown in Fig.~\ref{fig:OFDM-subcarrier}.
-Note that the sub-carrier of the $sinc$ pulses will null at the centre points where the other subcarriers are located. Ideally, there is thus zero ICI in an OFDM signal.
+Note that the sub-carrier of the sinc pulses will null at the centre points where the other subcarriers are located. Ideally, there is thus zero inter-carrier interference (ICI) in an OFDM signal.
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/OFDM-subcarrier.pdf} }
-	\caption{The spectrum of subcarriers in OFDM \cite{farhang2008signal}}
+	\caption{The spectrum of subcarriers in OFDM~\cite{farhang2008signal}.}
 	\label{fig:OFDM-subcarrier}
 \end{figure}
 
-An OFDM symbol signal can be expressed at baseband by a sum of modulated complex exponentials as:
+An OFDM symbol signal can be expressed at baseband as a sum of modulated complex exponentials:
 
 \begin{eqnarray}
 \label{equ:OFDMsignal}
 s(t) = \sum_{k=0}^{N-1} X_k e^{i2\pi\Delta ft},
 \end{eqnarray}
-where $X_{k}$ represents a data modulated symbol such as a BPSK, QPSK, or QAM symbol, and is a complex number modulated by the $kth$ subcarrier of $N$ subcarriers and $\Delta f$ is the subcarrier spacing.
+where $X_{k}$ represents a data modulated symbol such as a BPSK, QPSK, or QAM, and is a complex number modulated by the $k$th subcarrier of $N$ subcarriers and $\Delta f$ is the subcarrier spacing.
 Sampling this OFDM symbol signal with sampling period of $T_S$ is expressed as:
 
 \begin{eqnarray}
@@ -282,7 +104,7 @@ Sampling this OFDM symbol signal with sampling period of $T_S$ is expressed as:
 s(nT_S) = \sum_{k=0}^{N-1} X_k e^{i2\pi\Delta fnT_S},
 \end{eqnarray}
 A sample of the OFDM signal is equivalent to an inverse N-point discrete Fourier transform (IDFT), taking $X_{k}$ as a discrete point in the frequency domain.
-Inversely, the sampled OFDM symbol signal can be demodulated using the discrete Fourier transform (DFT). The OFDM modulation and demodulation are hence performed by computing the IDFT and DFT, respectively, expressed as:
+Inversely, the sampled OFDM symbol signal can be demodulated using the discrete Fourier transform (DFT). OFDM modulation and demodulation are hence performed by computing the IDFT and DFT, respectively, expressed as:
 
 \begin{eqnarray}
 \label{equ:sampledOFDMsignal}
@@ -293,14 +115,13 @@ s[n] = \frac{1}{N}\sum_{k=0}^{N-1} X[k] e^{i2\pi\frac{k}{N}n},
 X[k] = \sum_{n=0}^{N-1} s[n] e^{-i2\pi\frac{k}{N}n},
 \end{eqnarray}
 
-In order to achieve efficient computation, The inverse Fast Fourier Transform (IFFT) and Fast Fourier Transform (FFT) are implemented in an OFDM system to modulate and demodulate the signal instead of the IDFT and DFT, respectively. These optimised algorithms generally rely on the number of points, and hence carriers, being a power of 2.
+In order to achieve efficient computation, The inverse Fast Fourier Transform (IFFT) and Fast Fourier Transform (FFT) are implemented in OFDM systems to modulate and demodulate the signal instead of the IDFT and DFT, respectively. These optimised algorithms generally rely on the number of points, and hence carriers, being a power of 2.
 
 %---------------------------------------------------------------------------------
-\subsection{Cyclic Prefix}
+\subsection{The Cyclic Prefix}
 %---------------------------------------------------------------------------------
 
-When transmitting OFDM symbols over a delay-dispersive multi-path channel, the received signal is the linear convolution of the transmitted symbol with the channel impulse
-response (CIR)
+When transmitting OFDM symbols over a delay-dispersive multi-path channel, the received signal is the linear convolution of the transmitted symbol with the channel impulse response (CIR)
 
 \begin{eqnarray}
 \label{equ:sampledOFDMsignal}
@@ -309,50 +130,50 @@ y[n] = h*s[n],
 
 where $h$, assuming it has a length of $L$, denotes the equivalent impulse response of the channel. and $*$ is the convolution operation.
 The received symbols $y[n]$ are the result of convolution between CIR $h$ and transmitted symbols $s[n]$ which has a length of $N$.
-So,  $y[n]$ has a length of $N+L-1$.
+So, $y[n]$ has a length of $N+L-1$.
 In addition, the received signal is obtained by concatenating the received OFDM symbols.
-Because the received symbols, having a length of $N+L-1$, are overlapped with the adjacent received symbols, adding the overlap of adjacent received symbols leads to the introduction of the Inter Symbol Interference (ISI) in the received signal shown in Fig.~\ref{fig:CIR-noCP}.
+Because the received symbols, having a length of $N+L-1$, are overlapped with the adjacent received symbols, adding the overlap of adjacent received symbols leads to the introduction of inter-symbol interference (ISI) in the received signal, shown in Fig.~\ref{fig:CIR-noCP}.
 
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/CIR_noCP.pdf} }
-	\caption{OFDM transmission without cyclic prefix results ISI among adjacent symbol}
+	\caption{OFDM transmission without cyclic prefix results ISI among adjacent symbol.}
 	\label{fig:CIR-noCP}
 \end{figure}
 
-In order to avoid ISI, a guard interval (or cyclic prefix), having a length of $L_{CP}$, has to be added before each OFDM symbol as demonstrated in Fig.~\ref{fig:CIR-CP}.
+In order to avoid ISI, a guard interval (or cyclic prefix), having a length of $L_{CP}$, must be added before each OFDM symbol as demonstrated in Fig.~\ref{fig:CIR-CP}.
 If the length of CIR, $L$, is smaller than that of the guard interval, $L_{CP}$, adding the overlap of adjacent received symbols will not interfere with the succeeding received OFDM symbol.
 The ISI is hence missing in the received symbol.
-The guard interval, adopted in standards, can be commonly performed by a copy of the last $L_{CP}$ samples of the symbol as shown in Fig.~\ref{fig:CP}, that is called a cyclic prefix (CP)
+The guard interval adopted in many OFDM standards can be commonly performed by a copy of the last $L_{CP}$ samples of the symbol as shown in Fig.~\ref{fig:CP}, that is called a cyclic prefix (CP).
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/CIR_CP.pdf} }
-	\caption{OFDM transmission with cyclic prefix avoids ISI among adjacent symbol}
+	\caption{OFDM transmission with cyclic prefix avoids ISI among adjacent symbol.}
 	\label{fig:CIR-CP}
 \end{figure}
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/CP.pdf} }
-	\caption{Inserting Cyclic Prefix in the OFDM symbol}
+	\caption{Inserting Cyclic Prefix in the OFDM symbol.}
 	\label{fig:CP}
 \end{figure}
 
-In addition, the use of CP also guarantees the orthogonality of subcarriers avoiding the ICI. Performing DFT operation and a single-tap equalizer per subcarrier allows recovery of the transmitted symbols \cite{farhang2008signal}.
+In addition, the use of a CP also guarantees the orthogonality of subcarriers avoiding ICI. Performing the DFT operation and a single-tap equalizer per subcarrier allows recovery of the transmitted symbols~\cite{farhang2008signal}.
 
 %---------------------------------------------------------------------------------
-\subsection{OFDM-based system}
+\subsection{OFDM Radio System}
 %---------------------------------------------------------------------------------
-In the above section, the OFDM modulation technique was presented, and inserting CP was introduced to improve the performance of OFDM in multi path channel.
-A OFDM-based system model can be equivalently considered as shown in Fig.~\ref{fig:OFDM-model}.
+
+An OFDM system model can be considered as shown in Fig.~\ref{fig:OFDM-model}.
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/OFDM-model.pdf} }
-	\caption{the OFDM system model}
+	\caption{An OFDM system model.}
 	\label{fig:OFDM-model}
 \end{figure}
 
-In the transmitter, the data modulated symbols $X[n]$ are grouped in a blocks of $N$ sub-carrier symbols known as an OFDM symbol, expressed by a vector $X[n]=(X[1], X[2], ..., X[n])^T$.
-Next, the OFDM symbol signal in the time domain is modulated by performing IDFT on each OFDM symbol, and a cyclic prefix of length $L_{CP}$ is inserted at the begin of OFDM signal.
+In the transmitter, the data modulated symbols $X[n]$ are grouped in blocks of $N$ sub-carrier symbols known as an OFDM symbol, expressed by a vector $X[n]=(X[1], X[2], ..., X[n])^T$.
+Next, the OFDM symbol signal in the time domain is modulated by performing the IDFT on each OFDM symbol, and a cyclic prefix of length $L_{CP}$ is inserted at the begin of OFDM signal.
 So, the complex signal of $m$, the OFDM-symbol in baseband discrete time, can be expressed as
 \begin{eqnarray}
 \label{equ:OFDMsymbol}
@@ -367,17 +188,17 @@ The complete transmitted signal in the discrete time domain, $s[n]$, is given by
 s[n] =  \sum_{m=0}^{\infty} s_{m}[n-m(N+L_{CP})],
 \end{eqnarray}
 
-When transmitting OFDM signals over a multi-path channel, the received signal is obtained through the linear convolution of the transmitted symbol with CIR $h[i]$ and adding additive white Gaussian noise (AWGN) $n$.
-Assuming that the synchronisation between the transmitter and receiver are perfectly achieved, the channel fading is slow enough to consider as a time invariant channel during one OFDM symbol interval, and the length of cyclic prefix is longer than that of CIR ($h[i] = 0$ for $i < 0 i > L_{CP}-1$),
+When transmitting OFDM signals over a multi-path channel, the received signal is obtained through the linear convolution of the transmitted symbol with the CIR $h[i]$ and adding additive white Gaussian noise (AWGN) $n$.
+Assuming that the synchronisation between the transmitter and receiver are perfectly achieved, the channel fading is slow enough to consider as a time invariant channel during one OFDM symbol interval, and the length of the cyclic prefix is longer than that of the CIR ($h[i] = 0$ for $i < 0 i > L_{CP}-1$),
 
 \begin{eqnarray}
 \label{equ:OFDMchannelsignal}
 y[n] =  \sum_{i=0}^{L_{CP}-1} h[i]s[n-i] + n[n],
 \end{eqnarray}
 
-In the receiver, the incoming samples $y[n]$ are synchronously  grouped into block of OFDM symbols and then the cyclic prefix in each OFDM symbol is removed.
+In the receiver, the incoming samples $y[n]$ are synchronously grouped into blocks of OFDM symbols and then the cyclic prefix in each OFDM symbol is removed.
 The received symbols can be expressed in a vector $y_{m} = (y_{1}, y_{2}, . . . )$ , with $y_{m}[n]=y[m(Nc+Ncp)+Ncp +n]$.
-The received data symbols associated with $m^{th}$ OFDM symbol $R_{m}[n]$ are retrieved by performing a $N$-point DFT:
+The received data symbols associated with $m^{th}$ OFDM symbol $R_{m}[n]$ are retrieved by performing an $N$-point DFT:
 
 \begin{eqnarray}
 \label{equ:receiveOFDMsymbol}
@@ -386,22 +207,22 @@ R_{m}[n] =  \sum_{n=0}^{N-1} y_{m}[n]e^{-i2\pi \frac{nk}{N}},
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/OFDM-block.pdf} }
-	\caption{The block diagram of OFDM-based RF systems}
+	\caption{Block diagram of an OFDM radio system.}
 	\label{fig:OFDM-block}
 \end{figure}
 
-Fig.~\ref{fig:OFDM-block} presents the common block diagram of an OFDM-based RF system.
-OFDM is perform in the baseband, IFFT and FFT blocks are used to compute IDFT and DFT for OFDM modulation and demodulation, respectively.
+Fig.~\ref{fig:OFDM-block} presents a common block diagram of an OFDM radio system.
+OFDM is perform in the baseband, IFFT and FFT blocks are used to compute the IDFT and DFT for OFDM modulation and demodulation, respectively.
 In the transceiver, the channel coded data from higher abstracted layers is modulated to data symbols (BPSK, QPSK, QAM, ...). The data symbols are then grouped together with the pilots to form $N$ FFT points in parallel.
-After performing IFFT, the CP is inserted, and then the OFDM samples are serialised and split in to in-phase (I) and quadrature (Q) channels corresponding to the real and imaginary parts of  the OFDM sample.
-The digital to analogue converted signals of I and Q channels are modulated by an intermediate frequency, $f_{IF}$, then the signal is up-converted to high frequency by an RF carrier, $f_{C}$.
+After performing the IFFT, the CP is inserted, and then the OFDM samples are serialised and split in to in-phase (I) and quadrature (Q) channels corresponding to the real and imaginary parts of  the OFDM sample.
+The digital to analogue converted signals of the I and Q channels are modulated by an intermediate frequency, $f_{IF}$, then the signal is up-converted to high frequency by an RF carrier, $f_{C}$.
 Before transmitting, the signal should be amplified by an low noise amplifier (LNA).
 
-In the receiver, after down-converting and IQ demodulation, the signal is sampled. The samples are formed from I and Q channels corresponding to the real and imaginary parts of the OFDM sample.
-The timing and frequency synchronisation blocks detect the frame, recover timing of the frame and estimate the frequency offset.
-The received samples are then compensated by estimated frequency offset in the discrete time domain.
-After demodulating an OFDM symbol using FFT, estimating the channel and then channel equalisation as well as phase error compensation are performed to improve performance.
-The block of parallel samples in an OFDM symbol is serialised to data symbol sequences that are then demodulated, and coded data is sent to higher abstracted layers to decode.
+In the receiver, after down-converting and I/Q demodulation, the signal is sampled. The samples are formed from I and Q channels corresponding to the real and imaginary parts of the OFDM sample.
+The timing and frequency synchronisation blocks detect the frame start, recover timing of the frame and estimate the frequency offset.
+The received samples are then compensated with estimated frequency offset in the discrete time domain.
+After demodulating an OFDM symbol using the FFT, the channel is estimated and channel equalisation as well as phase error compensation are performed to improve performance.
+The block of parallel samples in an OFDM symbol is serialised to data symbol sequences that are then demodulated, and coded data is sent to higher layers to decode.
 
 %---------------------------------------------------------------------------------
 \subsection{Evaluating OFDM}
@@ -419,8 +240,8 @@ Thus, performing the DFT and a single-tap equalizer per subcarrier allows recove
 
 On the other hand, OFDM has some disadvantages.
 Firstly, an OFDM signal is the sum of multiple modulated sub-carriers, and thus suffers a high peak-to-average power ratio (PAPR).
-This results in demand on high power and wide range linearity in amplifiers increasing the cost of OFDM-based systems.
-Secondly, the usage of guard period reduces bandwidth efficiency of OFDM.
+This results in demand on high power and wide range linearity in amplifiers increasing the cost of OFDM systems.
+Secondly, the use of a guard period reduces bandwidth efficiency.
 Last but not least, OFDM performance is sensitive to receiver synchronisation. Frequency offset causes inter-subcarrier interference and errors in timing synchronisation can lead to inter-symbol interference.
 Much effort is needed to improve the accuracy of both frequency and time synchronizers for OFDM.
 
@@ -699,6 +520,195 @@ As noted previously, both 802.11p and 802.11af (in common with most OFDM-based s
 %
 %The FIR filter reduces the effective guard interval of OFDM symbols~\cite{farhang2008signal}.
 %Its design also needs to deal with the tradeoff between the length of filter to avoid ISI and the transition band and attenuation of the filter to meet the requirement of SEMs.
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\section{Field Programmable Gate Arrays }
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Field programmable gate arrays (FPGAs) are silicon devices with an architecture designed to be flexible enough to implement any type of circuit \cite{Kuon2008}.
+They consist of programmable logic components coupled with configurable routing, and flexible I/O for interfacing with external components.
+How these components and connections are set up is determined according to the contents of a configuration memory.
+To implement a circuit, the designer typically describes it using a hardware description language like Verilog or VHDL.
+Alternatively, tools exist that can map higher level languages like C or MATLAB Simulink directly~\cite{Springer2008}.
+This description is then processed through synthesis and implementation tools, to determine a suitable mapping of the circuit to the components on the FPGA, and the connections between them.
+This results in a bitstream that can be loaded into the configuration memory to set up the circuit described~\cite{Xilinx2013c}.
+%---------------------------------------------------------------------------------
+\subsection{FPGAs for Radio Platforms}
+%---------------------------------------------------------------------------------
+FPGAs have a long history of use in digital signal processing (DSP) applications.
+They offer a way of exploiting the inherent parallelism in many DSP algorithms through custom architectures, resulting in significant speedup and efficiency compared to software based implementations.
+On recent FPGAs, additional components like DSP blocks for high-performance signal processing improve performance further.
+Generally, the designer will describe the architecture generally, and the implementation tools will decide when to use these components~\cite{Xilinx2013d}.
+
+An exciting recent development is the emergence of new platforms that couple high-performance processors with a flexible FPGA fabric.
+For example, the Xilinx Zynq family is a new generation of reconfigurable devices, which has a tightly coupled hardened 1 GHz dual-core ARM Cortex-A9 processor and reconfigurable fabric architecture along with several built-in peripherals~\cite{Xilinx2013}.
+In such systems, the ARM can host a fully functioning software stack while the baseband can be implemented in the reconfigurable fabric. The connectivity between the two is very tight and offers high bandwidth and low latency. This represents an ideal platform for cognitive radio systems, offering both high computational performance and flexibility, while also facilitating a simple software programmable interface to higher layers of the radio.
+A number of research groups are exploring ways to use these platforms in cognitive radios~\cite{Dobson2014}.
+
+Partial reconfiguration (PR) is also an advanced technique available in recent FPGAs which further provides the flexibility \cite{Sedcole2006,McDonald2008}.
+By modifying only a portion of the configuration memory, it is possible to modify only some system functionality while the remainder continues to operate without interruption.
+This allows portions of a circuit to be changed at runtime, and is ideally suited to applications like cognitive radio~\cite{Delahaye2007,Delorme2008}.
+It is clear that PR has significant benefits for dynamic systems like cognitive radios.
+However, the design process remains suitable only for FPGA experts.
+Recent efforts have begun to bridge this gap, allowing a modular approach to PR design, with automated partitioning and floorplanning of the FPGA~\cite{Vipin2012,Vipin2013}.
+Combined with the improving efficiency of high-level synthesis, this will enable radio designers with minimal FPGA experience to leverage their power and flexibility in the design of cognitive radios.
+
+Reduced power consumption is another benefit of PR that is important in radio systems.
+FPGA based systems consume power in proportion to the size of the device, resource utilisation and operating frequency.
+PR based designs save resources, and may even allow use of a smaller FPGA, hence saving power.
+
+
+%---------------------------------------------------------------------------------
+\subsection{Power Dissipation on FPGA}
+%---------------------------------------------------------------------------------
+The increasing computational requirements, and growing requirements for deployment in portable devices have prompted serious attention to reducing the power consumption of systems, including radios with a focus on the physical layer.
+High power dissipation by a system introduces high operating temperatures and follow-on effects that increase the cost of packaging as well as requiring larger batteries in the case of portable devices, or other power supply solutions.
+Power dissipation has thus come to be considered as one of the most important design metrics, along with area and performance.
+Reducing power consumption has been investigated at all levels of the digital design flow: from the system design stage to the layout stage.
+At every stage, the designer can act to optimise the power consumption of the design.
+
+However, small changes at the lower levels may require more work and time to update the higher level optimisations, thus increasing the complexity of the optimization process.
+Moreover, at the system design level stage, the designer has more options to reduce power dissipation by a greater degree.
+At the lower level, the architecture of the system is designed in terms of data flow between registers, leaving few options to optimize the system.
+Thus, most power saving opportunities may exist at higher level of the design abstraction~\cite{Raghunathan1998}.
+
+FPGAs, with their highly parallel architecture, are suitable for the increasing computational requirement of signal processing in wireless communication systems.
+In order to optimise the power dissipation of systems on FPGAs, the power consumption of FPGAs needs to be clearly understood, and accurate, flexible power estimation tools are needed in order to provide power profiles of the system to help the designer makes the best decisions.
+In addition, low power design techniques must be investigated to optimise power consumption when a system design is implemented.
+%
+%Fast time-to-market, flexible programmability, and improving performance continue to render FPGAs an attractive platform for digital circuit implementation.
+%FPGAs have been gaining ground as an alternative implementation technology in a wide range of application domains, due primarily to the increased cost and diminished economies of scale when building custom ASICs.
+%However, power remains a key metric in which FPGAs lag behind custom ICs, although this gap is narrowing.
+
+Total FPGA power is calculated as follows:
+\begin{center}
+\begin{equation}
+\label{Equ:Ptotal}
+ P_{\mathit{total}} = P_{\mathit{device static}} + P_{\mathit{design static}} + P_{\mathit{dynamic}},
+\end{equation}
+\end{center}
+where $P_{\mathit{total}}$ represents the total power consumption, $P_{\mathit{device static}}$ refers to the leakage power which is proportional to the size of the device and resource utilisation when the device is powered, $P_{\mathit{design static}}$ is the additional power dissipation when the design is configured on the device and has no switching activity. Leakage current is the only source of this static power dissipation.
+$P_{\mathit{dynamic}}$ represents the additional average power consumption from user logic utilization and switching activity caused by signal transitions in the design. Increasing operating frequency leads to a rise in switching activity and thus results in increased dynamic power consumption. The most significant source of dynamic power dissipation is the charging and discharging of parasitic capacitance as a result of signal transitions.
+
+Efficient power-aware designs for FPGA-based systems require estimation tools that gauge power consumption at an early stage in the design flow.
+These tools allow design tradeoffs to be considered at a high level of abstraction, thus reducing design effort and cost.
+Significant research on FPGA power consumption has appeared in the literature~\cite{Shang2002,Anderson2004a,Anderson2004,Todorovich2005,Reimer2006}.
+These papers have shown that power consumption of FPGA devices is predominantly confined to the programmable interconnect.
+In the Xilinx Virtex-II family, for instance, it was reported that between 50-70\% of total power is dissipated in the interconnection network~\cite{Shang2002}.
+The majority of power dissipation in FPGAs is dynamic power dissipation~\cite{Shang2002} as characterized by:
+
+\begin{center}
+\begin{equation}
+\label{Pdynamic}
+ P_{\mathit{dynamic}} =\frac{1}{2} \sum\limits_{i \in \mathit{all nets}} C_{i} \cdot f_{i} \cdot V^2,
+\end{equation}
+\end{center}
+where $P_{\mathit{dynamic}}$ represents average power consumption, $C_{i}$ is the capacitance of a net, $f_{i}$ is the average transition rate (switching activity) of a corresponding net, and $V$ is the voltage supply.
+Thus, estimating dynamic power (\ref{Pdynamic}) requires two parameters for each net: switching activity and capacitance.
+The net's capacitance is the parasitic effect on interconnection wires. It depends on the used interconnect resources.
+The switching activity represents the signal transitions on the net, depending on how circuit delays are accounted for.
+Zero delay activity can be calculated assuming logic and routing delays are zero. Logic delay activity can be calculated considering only logic delays.
+Routed delay activity can be calculated using complete logic and routing delays.
+When delays are accounted for, the presence of glitches, which are spurious logic transitions due to unequal path delays to the net’s driving gate, leads to an increase in switching activity.
+The additional activity due to glitching actually causes a significant increase in dynamic power~\cite{Anderson2004a}.
+The path delays in FPGAs are also significantly dominated by interconnects, which have a different delay, compared to primitive logic delays. Therefore, the result of glitching on total power consumption may be more severe in FPGAs versus ASICs.
+
+It is generally accepted that the dominant source of optimising power dissipation on FPGA is optimising dynamic power dissipation.
+Dynamic power dissipation is proportional to switching activity and the equivalent capacitance of the circuit.
+There are many techniques and strategies to reduce the power dissipation in FPGA presented in the literature~\cite{Danckaert1999,Kovacs2000,Czapski2007,Liu2009,Ahuja2010}.
+However, only the strategies which appear to be suitable for wireless systems are discussed here.
+These strategies will be discussed in detail for specific implementations in the following chapters, but the general approach is discussed here.
+
+Firstly, in signal processing dominated systems, storing and transferring data between functional modules consumes a large proportion of total energy~\cite{Liu2009}.
+The power consumption thus heavily depends on the way a system is partitioned and modularized and hence the use of data buffers to synchronously transfer data between functional modules.
+In order to optimise power dissipation at a system level, such systems are often realized to support stream processing in which buffering data between functional modules requires much less memory.
+The energy for storing and transferring data is thus reduced significantly.
+
+Secondly, latching registers with enable signals should be used at the inputs of functional modules.
+These can reduce switching activity inside functional modules when they are waiting for synchronization in a streaming process.
+Power estimation tools should be used to evaluate the power dissipation of the system at each stage of the flow.
+This provides information to assist in making decisions for reducing power dissipation.
+
+%---------------------------------------------------------------------------------
+\subsection{Power Estimation}
+%---------------------------------------------------------------------------------
+
+Several studies investigating power estimation techniques at different levels from the circuit level up to the system level have appeared in the literature.
+At the circuit level, a circuit simulator such as SPICE~\cite{Deng1994} provides one of the most accurate power estimation methods, but the computational overhead involved in this is not really suitable for highly integrated and dense FPGA based systems and complex designs.
+
+%A large amount of research has focused on logic-level power estimation \cite{Anderson2004a,Anderson2004,Todorovich2005}.
+%Logic-level techniques can be classified into three categorises:  simulation-based techniques,  probability propagation techniques, and statistical techniques.
+%
+%Simulation-based techniques rely on simulating the logic response with specific input signals to compute the power consumption.
+%The PowerPlay power analyzer integrated in Altera Quartus II \cite{ALTERA2010} and the XPower Analyzer integrated in Xilinx ISE Design \cite{XilinxXPOWERA2011} are both able to support computing of the switching activities of signals and dynamic power consumption from a simulation file;
+%Secondly, probability-based propagation techniques calculate the value and transition probabilities of all logic signals in the circuit according to the given value and transition probabilities of the primary inputs from which the power consumption is estimated based on the computed probabilities.
+%Statistical techniques such as Monte-Carlo simulation will monitor values of power consumption according to stimulating generated input patterns until it converges to within user-defined error and confidence levels. Todorovich et al. \cite{Todorovich2005} presented the development of a new FPGA-oriented power estimation tool based on this statistical approach.
+
+%With increasing system complexity, several studies have recently paid attention to power estimation and optimization at higher level and earlier stages of the design such as the register-transfer and behavioural levels. The large run-times required by lower level power analysis tools, and the need to synthesize and validate a gate- or transistor-level netlist make previous techniques highly inefficient for exploring high-level design tradeoffs, and infeasible for use in automatic high-level and system-level synthesis and optimization tools.
+
+Several studies have shown that the efficiency of power optimization is significantly better at the higher levels~\cite{Landman1996,Gupta2000,Raghunathan2003,Reimer2006}.
+High-level power estimation is needed to conveniently validate power budgets for the different parts of the design and identify the most power hungry parts in the design and to quickly evaluate the effects of optimizations on the overall system power budget.
+Furthermore, the long run time and and the complexity of synthesizing and validating a gate-level netlist makes lower level estimation approaches highly inefficient for exploring high-level design abstraction tradeoffs.
+
+%%---------------------------------------------------------------------------------
+%\subsubsection{High Level Power Estimation}
+%%---------------------------------------------------------------------------------
+%
+%Power estimation performed at higher levels of design abstraction is more efficient due to the reduction in complexity of netlists in the design, and due to the availability of behavioural information which is more difficult to obtain at the lower levels.
+%However it also introduces an accuracy penalty due to reducing the complexity of analysis.
+%The absolute accuracy of high level power estimation is typically lower than the accuracy of estimation at the lower levels of the design hierarchy.
+%
+%Recently, more research has focused on the RTL/architecture level power estimation to obtain the power profile for optimizing at high level designs as well as for software programs. Raghunathan et al. \cite{Raghunathan2003} classified high level power estimation into three broad approaches, namely analytical models, control logic analysis techniques, and characterisation-based macro-modeling.
+%At an architectural design level, different parts such as arithmetic macro blocks, control logic, memory, clock network, and I/O are analysed using different estimation approaches.
+%
+%Analytical power modelling techniques are based on correlating power consumption to measures of design complexity. These techniques may be used to estimate in the early stages of a design when complexity is known after synthesizing or mapping the design.
+%For example, the design power estimation tool, XPower Estimator \cite{XPowerEstimator2011},  computes the dynamic power consumption of a logic block based on its used resource count, load capacitance per logic element, the clock frequency, and the average switching activity factor.
+%The designer has to provide estimates for some of these parameters such as clock frequency and the average switching activity factor.
+%The result depends significantly on the designer's judgment.
+%Generally, such techniques are not highly accurate, however, they may be suitable for specific modules of a design such as memories for which the complexity parameters are easy to estimate and also can be used to estimate power in the early stages.
+%
+%Control logic analysis techniques consider the control logic parts of a design. The activity-based control model \cite{Landman1996} is an example of this approach.
+%The switching activities of a control unit show significant spatial and temporal correlations to the remaining parts of a design.
+%So computing the power consumed in the control logic and taking into account its impact on the design can estimate the power consumption of the design.
+%Furthermore, since the control logic is typically smaller in size than the datapath, it can have low overheads and be fast to synthesis, followed by estimating its power consumption at a lower level.
+%In addition, the glitching activity of the control signals have a significant impact on the power consumption in the rest of the design.
+%
+%Characterization-based macro-modeling is an approach mostly used in high level power estimation that uses a macro-model abstraction to obtain and characterize the power consumption of macro-blocks using the measure of lower level methods.
+%A gate-level or logic-level power estimation tool is used to observe the power consumption of the macro-block for various input samples, called training sequences.
+%Based on this observation, a macro-model is built, in which the macro-block's power dissipation is considered as a function of various selected parameters such as the statistics of the inputs and outputs.
+%This approach is best suited for bottom-up design methodologies where models of macro-blocks instantiated from a component library can be used to estimated the power consumption of design.
+%
+%%---------------------------------------------------------------------------------
+%\subsubsection{Xilinx Power Tool}
+%%---------------------------------------------------------------------------------
+
+The contemporary Xilinx FPGA design suite supports two power estimation tools: XPower Estimator (XPE) and  XPower Analyzer (XPA).
+These tools provide the power profile of a system in the early stages when the RTL description is being implemented that helps the designer improve power characteristics when implementing the system.
+XPE is a Microsoft Excel spreadsheet that is used to estimate power distribution typically used in the pre-design and pre-implementation phases of the design flow~\cite{XPowerEstimator2011} .
+XPE supports selecting the relevant power supply and thermal management components based on the system's architecture evaluation and device selection.
+XPE reads the resource usage of the implemented system, toggle rates, I/O loading, and many other factors from a designer's input and combines these with the appropriate device models to estimate power distribution.
+The appropriate device models are obtained from measurements, simulation, and/or extrapolation.
+There are two primary components that contribute to the accuracy of XPE.
+One is the designer's input estimates such as toggle rates, I/O loading.
+The other is device data models integrated into the spreadsheet that are selected based on the device selection.
+Realistic input must be provided to obtain an accurate estimation.
+
+As an early exploration tool, XPE's accuracy is heavily influenced by the numbers input by the designer.
+After synthesis and implementation, XPA provides a more accurate estimation and power analysis.
+
+XPA analyses the design on real design data from the system such as the (native circuit description (NCD) file output once the design has been fully implemented.
+XPA employs a vectorless estimation algorithm in which the switching activity of nodes is assigned to appropriate values even if they are not defined in the input file.
+However, simulation activity files such as a Value core dump (VCD) file from a functional simulation in timing mode are required for accurate power analysis.
+These offer low-level switching activity for all signals in the design, factoring in timing delays.
+
+The power profile of the system, including resource usage and the capacitance of nodes and nets is extracted from the NCD file, while switching activities are computed with high accuracy based on timing simulation from the VCD files. Much more realistic power information is obtained at this stage, thus, XPA can achieve more accurate results in terms power estimation.
+XPA generates a text-based power report that shows the power distribution on the system that can used for optimisation.
+
+Finally it is possible to measure power of a design loaded and functioning in an FPGA using lab equipment to monitor the currents on the various voltage rails. This can give a better view of overall board-level power.
+
+%---------------------------------------------------------------------------------
+%\subsection{Low power design strategies}
+%---------------------------------------------------------------------------------
+
 
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Summary}

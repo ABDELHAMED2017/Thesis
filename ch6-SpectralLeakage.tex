@@ -12,25 +12,25 @@ This chapter is concerned with the OFDM spectral leakage challenge for OFDM-base
 OFDM signals typically cause large amounts spectral leakage, whereas CRs demand a shaped spectrum confined within the allocated channel in order to reuse free spectral bands without causing ICI to other users occupying adjacent bands.
 Some recent OFDM-based standards are defined with the requirements on spectral leakage that are extremely stringent in an effort  to avoid ICI.
 Spectral leakage filtering may cause some effects on transmitted signals that lead to a reduction in the effective timing guard.
-Therefore, the implementations of spectral leakage filtering need to be able to take into account the parameters of the underlying OFDM signal and its channel characteristics to avoid causing the negative effects on the transmitted signal such as distorsion and ISI.
+Therefore, the implementations of spectral leakage filtering need to be able to take into account the parameters of the underlying OFDM signal and its channel characteristics to avoid causing negative effects on the transmitted signal such as distortion and ISI.
 
 In this chapter, a novel method that embeds baseband filtering within a cognitive radio (CR) architecture, is proposed.
-The method is able to meet the specification for the most stringent 802.11p SEM, meet the specification of the 802.11af strict SEM requirement, and furthermore is able to allow ten additional 802.11af sub-carriers to occupy a single basic channel without violating SEM specifications.
-In addition, the method can adaptively change filter performance according to the transmission power to reduce the computation cost while guaranteeing that the emission spectrum remains smaller than the allowed spectral leakage.
-The method, performed at baseband, relaxes the otherwise strict RF front-end requirements.
-This allows the RF subsystem to be implemented based upon much less stringent 802.11a designs, which can significantly reduce total cost.
+The method is able to meet the specification for the most stringent 802.11p SEM, meet the specification of the 802.11af strict SEM requirement, and furthermore can allow ten additional 802.11af sub-carriers to occupy a single basic channel without violating SEM specifications.
+In addition, the method can adaptively change filter performance according to the transmission power to reduce computational cost while guaranteeing that the emission spectrum remains smaller than the allowed spectral leakage.
+The method, performed at baseband, relaxes otherwise strict RF front-end requirements.
+This allows the RF subsystem to be implemented using much less stringent 802.11a designs, which can significantly reduce total cost.
 
 The work presented in this chapter has also been discussed in:
 \begin{itemize}
-\item  T. H. Pham, I. V. McLoughlin, and S. A. Fahmy, ``Shaping Spectral Leakage for IEEE 802.11p Vehicular Communications,'' to appear in \textit{Proceedings of IEEE Vehicular Technology Conference (VTC Spring), Seoul, Korea, May 2014}~\cite{PhamMay2014}.
-\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Spectrally Efficient Emission Mask Shaping for OFDM Cognitive Radios,''  to be submitted to \textit{IEEE Transactions on Communications (TCOM)}.
+\item  T. H. Pham, I. V. McLoughlin, and S. A. Fahmy, ``Shaping Spectral Leakage for IEEE 802.11p Vehicular Communications,'' in \textit{Proceedings of IEEE Vehicular Technology Conference (VTC Spring)}, Seoul, Korea, May 2014~\cite{PhamMay2014}.
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Spectrally Efficient Emission Mask Shaping for OFDM Cognitive Radios,''  under review for \textit{IEEE Transactions on Communications (TCOM)}.
 \end{itemize}
 
 %---------------------------------------------------------------------------------
 \section{Signal Model for Spectral Leakage Filtering}
 \label{sec:SigMod}
 %---------------------------------------------------------------------------------
-Conventionally, there are two methods that can be employed to compress the spectral leakage for OFDM-based system, namely pulse shaping and image spectrum compression. Pulse shaping, recommended in 802.11a, is effective at reducing side lobes. Spectral leakage filtering is designed with respect to the signal model and channel model to avoid the negative effect of filter. In this section, we present the OFDM signal model, 802.11p and 802.11af channel models for compressing the spectral leakage.
+Conventionally, there are two methods that can be employed to compress the spectral leakage for OFDM-based system, namely pulse shaping and image spectrum compression. Pulse shaping, recommended in 802.11a, is effective at reducing side lobes. Spectral leakage filtering is designed with respect to the signal model and channel model to avoid the negative effects of filtering. In this section, we present the OFDM signal model and 802.11p and 802.11af channel models for compressing the spectral leakage.
 
 \subsection{Signal Model}
 We define an OFDM symbol to have inverse fast Fourier transform (IFFT) length and cyclic prefix (CP) length $N$ and $N_{CP}$, respectively, so that the length of the symbol including its CP is $N_{T} = N + N_{CP}$.
@@ -52,8 +52,8 @@ In a conventional OFDM system, the window function, $p(m)$, is rectangular and s
  p(m) =\begin{cases}1, & m = 0,1, ..., N_{T} \\  0, & otherwise \end{cases}
 \end{equation}
 
-CIR, of length $h$, is derived from the delay spread of the channel.
-If the CP is shorter than the channel delay, ISI will be present in received symbols.
+The CIR, of length $h$, is derived from the delay spread of the channel.
+If the CP is shorter than the channel delay, ISI will be present in the received symbols.
 Channels experienced by the two standards discussed in this chapter will obviously differ, but both tend to experience high levels of delay spread: 802.11p because it is primarily a vehicular communications standard, and 802.11af because it operates in lower attenuation UHF and VHF bands.
 
 
@@ -112,7 +112,7 @@ Specifically, each method is evaluated, and shown as unsuitable in meeting the s
 \label{subsec:Pulse}
 %This section investigates the possibility of using pulse shaping technique to achieve the requirement of 802.11p's SEMs.
 %Pulse shaping is a technique in which a smoother transition pulse is used instead of a rectangular pulse as in conventional OFDM, resulting in compressed side lobes.
-Pulse shaping (using a smooth rather than rectangular pulse), recommended in 802.11a, is effective at reducing side lobes, although it induces distortion in the subcarriers.
+Pulse shaping (using a smooth rather than rectangular pulse), recommended in 802.11a, is effective at reducing side lobes, although it induces distortion in the sub-carriers.
 One way to avoid the distortion is to add extending parts, i.e. CP and cyclic suffix (CS), concatenated to the conventional OFDM symbol before the beginning and after the end respectively. The extended symbol is then multiplied with a smoothing function.
 While the CP in conventional OFDM is used as a guard interval, here it is also occupied, along with the CS, for pulse shaping.
 
@@ -159,7 +159,7 @@ The third, denoted $p_3$, is based on the characteristics of functions with vest
 %}
 
 The compression of OFDM spectral side lobes as a consequence of pulse shaping is investigated by first assuming that the effect of the image spectrum caused by interpolation or digital-to-analogue conversion (DAC) is negligible.
-This assumption is noted because the band gap between the wanted spectrum and its image is relatively narrow.
+This assumption is noted because the band gap between the desired spectrum and its image is relatively narrow.
 Thus the overlapping image spectrum can influence the effectiveness of the shaped spectral leakage.
 The issue will be discussed later in the chapter, where image cancellation is presented separately for 802.11p and 802.11af.
 
@@ -359,7 +359,7 @@ Although not shown here, this is of course equally true of the more stringent 80
 This result implies that 802.11p and 802.11af implementations must rely on sharp front end RF and analogue filtering, which typically results in an increased total system cost and reduced power efficiency.
 
 %---------------------------------------------------------------------------------
-\section{A Spectrum Efficient Shaping Method}
+\section{Proposed Spectrum Efficient Shaping Method}
 %---------------------------------------------------------------------------------
 The discussions above have revealed that the main challenge to conforming with strict SEMs is the narrow frequency guard which must accommodate a very sharp filter transition between pass and stop bands, since the stop-band attenuation is high.
 In this section, we briefly explain the method before building upon its foundation to derive a CR architecture for OFDM spectral leakage mitigation which we will then evaluate for both 802.11p and 802.11af.
@@ -649,7 +649,7 @@ In both cases, the extended physical layers are scaled to encourage reuse of exi
 The research relies upon a combination of interpolation, IFFT length adjustment, pulse shaping and FIR image suppression filtering, to mitigate against spectral leakage into adjacent channels.
 Simulations show that the proposed architecture can meet the specification of the four 802.11p classes A to D, as well as the stringent FCC-imposed SEM for 802.11af in the UHF
 band.
-The proposed method is also shown able to improve the achievable spectral efficiency for reuse of Television White Spaces in the 802.11af standard by 32\%, given equivalent transmission power, compared to conventional approaches which need to drop the outermost subcarriers in order to meet SEM requirements.
+The proposed method is also shown able to improve the achievable spectral efficiency for reuse of Television White Spaces in the 802.11af standard by 32\%, given equivalent transmission power, compared to conventional approaches which need to drop the outermost sub-carriers in order to meet SEM requirements.
 In addition, the architecture has the ability to adaptively change the degree of spectral leakage filtering in response to transmission power.
 The computation of filtering can be reduced when transmission power is low, but when transmission power is high, it is able to extend to meet the strict SEM specification of both 802.11p and 802.11af.
 Furthermore, the architecture is capable of adjusting clock rate, bandwidth, and frequency band on a symbol-by-symbol basis, in order to implement an agile CR solution.

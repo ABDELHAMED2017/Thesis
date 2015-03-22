@@ -1,3 +1,4 @@
+%!TEX root = main_thesis.tex
 %---------------------------------------------------------------------------------
 \chapter{Introduction}
 \label{chap:introduction}
@@ -81,82 +82,45 @@ In addition, a novel method for synchronization and an effective pulse shaping t
 \section{Research Contributions}
 %---------------------------------------------------------------------------------
 
-This thesis addresses the design of low complexity, low power wideband radios with the flexibility to support multiple standards.
-The contributions of the thesis, which are published or under review as listed in  ``Publications'' section, are elaborated as following:
+This thesis addresses the design of flexible multi-standard cognitive radios on FPGAs. This includes contributions in platforms, and signal processing techniques with the aim of creating a general OFDM-based platform with high level software programmability for adaptation. The contributions made include:
 \begin{enumerate}
-\item A multipilerless cross-correlation is proposed in [J1] to perform OFDM synchronisation for a low power, low complexity systems.
-The conventional approach, with the availability of embedded DSP blocks on these FPGAs, is to use standard multiplier-based cross-corellation. However, this can consume a significant number of DSP blocks, and may not fit on low-power devices.
-A comparison of DSP48E1 Slice-based design and four different quantisations of multiplierless correlation is investigated in terms of resource utilisation and power consumption on Xilinx Virtex-6 and Spartan-6 FPGA devices.
-OFDM timing synchronisation accuracy is evaluated for each system at varying signal-to-noise ratios. This research shows that even relatively coarse multiplierless coefficient quantisation can yield accurate timing synchronisation, and do so at high clock speeds.
-Multiplierless designs enjoy reduced power consumption over the DSP48E1 Slice-based design, and can be used where DSP Slice resources are insufficient, such as on low-power FPGA devices.
+\item A multipilerless cross-correlation technique for OFDM timing synchronisation demonstrating low power and low resource utilisation on modern FPGA devices.
+We show that DSP blocks, while functionally suited to such tasks, increase power consumption and do not offer improved synchronisation accuracy.
+We show that wordlength can be optimised to maintain synchronisation performance while minimising area, and also making the design suitable for FPGA devices with a small number of DSP blocks like the low power Xilinx Spartan 6.
 
-\item A novel OFDM synchronization method that combines robust performance with computational efficiency is proposed in [J2].
-FPGA prototyping is used to investigate the trade-off between the number of computations to be performed and computation word length with respect to both synchronization performance and power consumption.
-Through simulation, the proposed method is proven to provide accurate fractional CFO estimation as well as STO estimation in a range of channels.
-In particular, it can yield excellent synchronization performance in the face of a CFO that is larger than many state-of-the-art synchronization implementations can handle.
-The system implementation demonstrates efficient resource usage and reduced power consumption compared to existing methods and this is explored as a fine-grained trade-off between performance and power consumption.
-The proposed method is robust and suitable for use in low-power radios or some multi-standard radios, enabling less precise analogue front-ends to be used.
+\item A novel OFDM synchronisation method combining robust performance with computational efficiency.
+We introduce an improved timing metric for synchronisation resulting in significant efficiency improvements over other methods in the literature.
+This provides robust fractional CFO estimation and STO estimation in a range of channels.
+In particular, it is robust to larger CFO ranges than many state-of-the-art synchronization implementations can handle.
+We demonstrate efficient resource usage and reduced power consumption compared to existing methods and this is explored as a fine-grained trade-off between performance and power consumption.
 
-\item The third contribution presented in [J3] proposes a novel approach for implemeting IFO estimation, which is shown to be able to reduces both the power and computational cost of OFDM implementations.
-Performing the IFO cross-correlation using four-fold resource sharing reduces the estimation cost. Meanwhile, adopting a multiplierless technique and carefully optimising word lengths yields significant power reduction, while maintaining sufficient accuracy to meet performance requirements.
-The method is studied theoretically, using numerical simulations as well as with post place-and-route analysis.
-The novel method is shown to achieve excellent performance, similar to the theoretically achievable bound.
-In fact, performance is significantly better than conventional techniques, while being much more efficient.
-In case of application for IEEE 802.16-2009, the proposed method saves significant power over the conventional technique on low-power FPGA devices. The method is also applicable to IEEE 802.11 and IEEE 802.22.
-Coupling the robust OFDM synchronisation presented in [J2] and Performing IFO estimation at baseband is importance to allow the RF front-end specification to be relaxed, thus reducing system cost.
+\item A novel IFO estimation technique that reduces both the power and computational cost in robust OFDM implementations.
+Performing the IFO cross-correlation using four-fold resource sharing reduces the estimation cost. Meanwhile, adopting a multiplierless technique and carefully optimising word lengths yields significant power reduction, while maintaining sufficient accuracy to meet synchronisation requirements.
+Performance is significantly better than conventional techniques, while being much more efficient.
+Robust OFDM synchronisation with IFO estimation at baseband is important to allow the RF front-end specification to be relaxed, thus reducing system cost.
 In fact, for some multi-standard radios, and applications suffering significant Doppler shift, RF constraints may be infeasible without techniques such as IFO estimation.
 
-\item The forth contribution firstly published in [C1] and then extended in [J4] proposes a novel method that explores CR architecture in a new filtering scheme for adaptively shaping spectral leakage of OFDM signal according to the transmitted power and Spectrum Emission Mask (SEM) requirements.
-OFDM presents a disadvantage in terms of spectral leakage due to large side lobes in the signal spectrum.
-In addition, some recent OFDM-based standards such as 802.11p for vehicular communication and 802.11af for reusing Television White Spaces (TVWS) demand the strict requirements on spectral leakage that raises a tough challenge for radio frequency (RF) front-end circuits.
-The proposed method can achieve the specification for the most stringent SEM of 802.11p.
-For 802.11af, it not only meets the requirement for strict SEM filtering but also feasibly increases the spectrum usage by an additional 10 sub-carriers in a basic channel band, compared to conventional techniques,without violating the SEM specifications.
-The proposed method, performed at baseband to relax the strict constraints of the RF front-end, also allows the RF front-end to be implemented using commercial off-the-shelf (COTS) RF hardware from older standards such as 802.11a or 802.11ac, resulting in a much reduced total system cost.
+\item A novel filtering scheme for adaptively shaping spectral leakage of OFDM signals according to the transmitted power and Spectrum Emission Mask (SEM) requirements.
+Recent OFDM-based standards such as 802.11p for vehicular communication and 802.11af for reusing Television White Spaces (TVWS) demand the strict requirements on spectral leakage that raises a tough challenge for radio frequency (RF) front-end circuits.
+Our proposed method can achieve the specification for the most stringent SEM of 802.11p.
+For 802.11af, it not only meets the requirement for strict SEM filtering but also feasibly increases the spectrum usage by an additional 10 sub-carriers in a basic channel band, compared to conventional techniques, without violating the SEM specifications.
 
-\item Cognitive radios that support multiple standards and modify operation depending on environmental conditions are becoming more important as the demand for higher bandwidth and efficient spectrum use increases.
-Traditional implementations in custom ASICs cannot support such flexibility, with standards changing at a faster pace, while software implementations of baseband communication fail to achieve the performance required.
-Hence, FPGAs offer an ideal platform bringing together flexibility, performance, and efficiency.
-The fifth contribution presented in [C2, J5] proposes and explores the possible techniques for designing multi-standard radios on FPGAs.
-This contribution presents a mathematical analysis of the performance of the proposed architecture for MSCR based on a heterogeneous mixture of the PR modules and parameterised modules.
-The calculated results based on the FPGA systhesis show that the proposed architecture achieves a significant reduction in terms of system latency compared to conventional structures.
-The proposed method also requires a much smaller FIFO than conventional structures.
-This allows a MSCR be implemeted on an FPGA platform, yielding a low cost, low power system.
-
+\item A system-level approach for designing multi-standard radios on FPGAs.
+We show that by mixing partial reconfiguration (PR) with static parameterised modules, it is possible to minimise reconfiguration time compared to a full PR implementation.
+We also show that it is possible to buffer internal data while reconfiguring the radio leading to no loss during reconfiguration, with the proposed mixed technique requiring less storage.
 \end{enumerate}
 
 %---------------------------------------------------------------------------------
-\section{Organization}
+\section{Organisation}
 %---------------------------------------------------------------------------------
 
 This thesis is organized as follows:
-Chapter \ref{chap:BackgroundLiterature} presents the comprehensive background of this research.
-Power consumption on FPGA devices is investigated.
-Power estimation tools and also low power design strategies, particularly focused on implementing OFDM systems on FPGA, are studied and discussed.
-This chapter provides the background for OFDM  in terms of mathematical representation and functionality, and then the advantages and limitations of OFDM are also discussed.
-Moreover, the chapter also contains an introduction to MSCR. The related works on MSCR research are presented and discussed to show the main challenges of implementing a MSCR.
-The synchronisation issue of OFDM systems is deeply considered, and the related work focusing on achieving the good performance of synchronisation is discussed on its merits as well as limitations.
-The challenge of shaping spectral leakage is studied for the stringent SEM constraints of the state of the art wireless standards.
-
-Chapter \ref{chap:multiplierlesscorrelator} presents the design of several correlators for timing synchronisation with preamble symbols based upon IEEE 802.16d standard.
-The comparison between a DSP48E1 Slice-based design to four different quantisations of multiplierless correlation is shown and discussed in terms of resource utilisation and power consumption.
-OFDM timing synchronisation accuracy is evaluated for each system at varying signal to-noise ratio.
-
-Chapter \ref{chap:Synchronisation} researches the issue of synchronisation in OFDM system receivers in terms of timing offset and frequency offset.
-A robust and efficient synchronisation method is proposed and discussed.
-The performance of the proposed method is evaluated in comparison to methods in previous works in terms of robustness to large CFO, accuracy of time synchronisation and fractional CFO estimation in both additive white Gaussian noise (AWGN) and frequency selective channels.
-The results shows the proposed method can achieve a more accurate fractional CFO estimation and be robust to the large CFO while still obtaining acceptable accuracy for frame synchronisation.
-In addition, this chapter presents a novel approach for implemeting IFO estimation, which reduces both power and computational cost in implementation. The efficiency and hardware reduction are shown in the simulation results as well as implementation reports.
-
-Chapter \ref{chap:SpectralLeakage} studies the novel shaping spectral leakage scheme at the baseband replied upon the cognitive radio architecture.
-The proposed method can meet the specification of class D, the most stringent of the four 802.11p SEMs as well as the stringent SEM of 802.11af. The proposed method can also enhance spectral efficiency in the case of reusing the Television White Spaces in 802.11af standard.
-
-Chapter \ref{chap:MSCR}  explores the feasibility of designing efficient multi-standard radios to improve bandwidth efficiency and avoid spectrum congestion. A novel MSCR architecture is proposed and investigated in term of performance and hardware reduction.
-
-Finally, Chapter \ref{chap:conclusion} gives a brief summary of the research contributions as well as the conclusion of the works presented in this thesis.
-Some research directions for future work related to the contributions are also identified.
+Chapter~\ref{chap:BackgroundLiterature} presents comprehensive background on cognitive radio platforms and OFDM techniques. We also present some background knowledge on FPGAs and power considerations. Chapter~\ref{chap:multiplierlesscorrelator} presents the multiplierless correlation technique for OFDM synchronisation. Chapter~\ref{chap:Synchronisation} our combined CFO and STO synchronisation design. Chapter~\ref{chap:SpectralLeakage} presents our work on shaping spectral leakage for cognitive radios, with results for both 802.11p and 802.11af.
+Chapter~\ref{chap:MSCR} discusses our system-level design approach for cognitive radio implementation on FPGAs.
+Finally, Chapter~\ref{chap:conclusion} concludes the thesis and presents ideas for future work to follow on from that in this thesis.
 
 %---------------------------------------------------------------------------------
-\section{Publication}
+\section{Publications}
 %---------------------------------------------------------------------------------
 Some of the work presented in the thesis has been written up in a number of published and submitted papers listed below:
 

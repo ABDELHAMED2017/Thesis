@@ -32,17 +32,6 @@ R.~Rajbanshi, A.~M. Wyglinski, and G.~J. Minden, ``{OFDM}-based cognitive
 M.~Cummings and S.~Haruyama, ``{FPGA} in the software radio,'' {\em IEEE
   Communications Magazine}, vol.~37, pp.~108--112, {Feb.} 1999.
 
-\bibitem{JondralMarch2004}
-T.~A. Weiss and F.~K. Jondral, ``Spectrum pooling: An innovative strategy for
-  the enhancement of spectrum efficiency,'' {\em IEEE Radio Communications},
-  March 2004.
-
-\bibitem{MindenJune2006}
-R.~Rajbanshi, A.~M. Wyglinski, and G.~J. Minden, ``An efficient implementation
-  of {NC-OFDM} transceivers for cognitive radios,'' in {\em Proceedings of the
-  1st International Conference on Cognitive Radio Oriented Wireless Networks
-  and Communications}, June 2006.
-
 \bibitem{Mitola1999}
 J.~Mitola and G.~Q.~M. Jr., ``{Cognitive radio: making software radios more
   personal},'' {\em IEEE Personal Communications}, vol.~6, pp.~13--18, Aug

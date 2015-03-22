@@ -1,5 +1,24 @@
 \begin{thebibliography}{100}
 
+\bibitem{farhang2008signal}
+B.~Farhang-Boroujeny, {\em Signal Processing Techniques for Software Radios}.
+\newblock Lulu Publishing House, 2008.
+
+\bibitem{Xilinx2011}
+``{Virtex-6 FPGA DSP48E1 Slice: User Guide}.'' Xilinx, San Jose, CA.
+  www.xilinx.com/support/documentation/user\_guides/ug369.pdf, 2011.
+
+\bibitem{Schmidl1997}
+T.~Schmidl and D.~Cox, ``Robust frequency and timing synchronization for
+  {OFDM},'' {\em IEEE Transactions on Communications}, vol.~45, pp.~1613--1621,
+  {Dec.} 1997.
+
+\bibitem{Kishore2006}
+C.~N. Kishore and V.~U. Reddy, ``A frame synchronization and frequency offset
+  estimation algorithm for {OFDM} system and its analysis,'' {\em EURASIP
+  Journal on Wireless Communications and Networking}, vol.~2006, pp.~1--16,
+  2006.
+
 \bibitem{FCC2002}
 {Federal Communications Commission}, ``Spectrum policy task force report,''
   Tech. Rep. No. 02–135, 2002.
@@ -87,45 +106,6 @@ G.~J. Minden, J.~B. Evans, L.~Searl, D.~DePardo, V.~R. Petty, R.~Rajbanshi,
   International Symposium on New Frontiers in Dynamic Spectrum Access Networks
   ({DySPAN})}, pp.~17--22, Apr. 2007.
 
-\bibitem{Raychaudhuri2006}
-D.~Raychaudhuri, N.~B. Mandayam, J.~B. Evans, B.~J. Ewy, S.~Seshan, and
-  P.~Steenkiste, ``{Cognet: An architectural foundation for experimental
-  cognitive radio networks within the future internet},'' in {\em Proceedings
-  of ACM/IEEE International Workshop on Mobility in the Evolving Internet
-  Architecture}, pp.~11--16, 2006.
-
-\bibitem{Miljanic2007}
-Z.~Miljanic, I.~Seskar, K.~Le, and D.~Raychaudhuri, ``{The WINLAB network
-  centric cognitive radio hardware platform: WiNC2R},'' {\em Mobile Networks
-  and Applications}, vol.~13, no.~5, pp.~533--541, 2008, Springer.
-
-\bibitem{Mukhopadhyay2005}
-R.~Mukhopadhyay, Y.~Park, P.~Sen, N.~Srirattana, J.~Lee, C.-H. Lee,
-  S.~Nuttinck, A.~Joseph, J.~D. Cressler, and J.~Laskar, ``{Reconfigurable
-  RFICs in Si-based technologies for a compact intelligent RF front-end},''
-  {\em IEEE Transaction on Microwave Theory and Techniques}, vol.~53,
-  pp.~81--93, 2005.
-
-\bibitem{Ganesan2005}
-G.~Ganesan and Y.~G. Li, ``{Cooperative spectrum sensing in cognitive radio
-  networks},'' in {\em Proceedings of IEEE International Symposium on New
-  Frontiers in Dynamic Spectrum Access Networks (DySPAN)}, pp.~137--143, 2005.
-
-\bibitem{Chowdhury2008}
-K.~R. Chowdhury and I.~F. Akyildiz, ``{Cognitive wireless mesh networks with
-  dynamic spectrum access},'' {\em IEEE Journal of Selected Areas
-  Commununications}, vol.~26, pp.~168--181, 2008.
-
-\bibitem{So2008}
-H.~So, A.~Tkachenko, and R.~W. Brodersen, ``{A unified hardware/software
-  runtime environment for FPGA based reconfigurable computers using BORPH},''
-  {\em ACM Transactions on Embedded Computing Systems}, vol.~7, no.~2, 2008.
-
-\bibitem{Mishra2006}
-S.~M. Mishra, A.~Sahai, and R.~W. Brodersen, ``{Cooperative Sensing among
-  Cognitive Radios},'' in {\em Proceedings of IEEE International Conference on
-  Communications (ICC)}, vol.~4, pp.~1658--1663, 2006.
-
 \bibitem{Sutton2006}
 P.~Sutton, L.~Doyle, and K.~Nolan, ``{A reconfigurable platform for cognitive
   networks},'' in {\em Proceeding of the International Conference on Cognitive
@@ -153,16 +133,21 @@ J.~van~de Belt, P.~D. Sutton, and L.~E. Doyle, ``{Accelerating software radio:
   Iris on the Zynq SoC},'' in {\em Proceedings of IFIP/IEEE International
   Conference on Very Large Scale Integration (VLSI-SoC)}, pp.~294--295, 2013.
 
+\bibitem{Miljanic2007}
+Z.~Miljanic, I.~Seskar, K.~Le, and D.~Raychaudhuri, ``{The WINLAB network
+  centric cognitive radio hardware platform: WiNC2R},'' {\em Mobile Networks
+  and Applications}, vol.~13, no.~5, pp.~533--541, 2008, Springer.
+
+\bibitem{So2008}
+H.~So, A.~Tkachenko, and R.~W. Brodersen, ``{A unified hardware/software
+  runtime environment for FPGA based reconfigurable computers using BORPH},''
+  {\em ACM Transactions on Embedded Computing Systems}, vol.~7, no.~2, 2008.
+
 \bibitem{amiri2007}
 K.~Amiri, Y.~Sun, P.~Murphy, C.~Hunter, J.~R. Cavallaro, and A.~Sabharwal,
   ``{WARP}, a unified wireless network testbed for education and research,'' in
   {\em Proceedings of IEEE International Conference on Microelectronic Systems
   Education (MSE)}, pp.~53--54, June 2007.
-
-\bibitem{Lin2013}
-Z.~Lin and P.~Chow, ``{ZCluster: A Zynq-based Hadoop cluster},'' in {\em
-  Proceedings of the International Conference on Field-Programmable Technology
-  (FPT)}, pp.~450--453, Dec. 2013.
 
 \bibitem{tan2011sora}
 K.~Tan, H.~Liu, J.~Zhang, Y.~Zhang, J.~Fang, and G.~M. Voelker, ``Sora:
@@ -187,153 +172,6 @@ A.~Love, W.~Zha, and P.~Athanas, ``{In pursuit of instant gratification for
   FPGA design},'' in {\em Proceedings of the International Conference on Field
   Programmable Logic and Applications (FPL)}, pp.~1--8, 2013.
 
-\bibitem{Kuon2008}
-I.~Kuon, R.~Tessier, and J.~Rose, ``{FPGA} architecture: Survey and
-  challenges,'' {\em Foundations and Trends in Electronic Design Automation},
-  vol.~2, pp.~135--253, Feb. 2008.
-
-\bibitem{Springer2008}
-P.~Coussy and A.~Morawiec, eds., {\em High-Level Synthesis: From Algorithm to
-  Digital Circuit}.
-\newblock Springer, 2008~ed., Oct. 2008.
-
-\bibitem{Xilinx2013c}
-{Xilinx Inc.}, {\em {UG470 }: 7 Series {FPGAs} Configuration User Guide}, Jan.
-  2013.
-
-\bibitem{Xilinx2013d}
-{Xilinx Inc.}, {\em {DS190}: Zynq-7000 All Programmable SoC Overview}, Mar.
-  2013.
-
-\bibitem{Xilinx2013}
-Xilinx Inc., {\em {UG585}: Zynq-7000 All Programmable SoC Technical Reference
-  Manual}, Mar. 2013.
-
-\bibitem{Sedcole2006}
-P.~Sedcole, B.~Blodget, T.~Becker, J.~Anderson, and P.~Lysaght, ``{Modular
-  dynamic reconfiguration in Virtex FPGAs},'' {\em IEE Proceedings - Computers
-  and Digital Techniques}, vol.~153, pp.~157--164, May 2006.
-
-\bibitem{McDonald2008}
-E.~McDonald, ``{Runtime FPGA Partial Reconfiguration},'' in {\em Proceedings of
-  IEEE Aerospace Conference}, pp.~1--7, Mar. 2008.
-
-\bibitem{Delahaye2007}
-J.-P. Delahaye, J.~Palicot, C.~Moy, and P.~Leray, ``Partial reconfiguration of
-  {FPGA}s for dynamical reconfiguration of a software radio platform,'' in {\em
-  Proceedings of IST Mobile and Wireless Communications Summit}, July 2007.
-
-\bibitem{Delorme2008}
-J.~Delorme, J.~Martin, A.~Nafkha, C.~Moy, F.~Clermidy, P.~Leray, and
-  J.~Palicot, ``{A FPGA partial reconfiguration design approach for cognitive
-  radio based on NoC architecture},'' in {\em Joint International {IEEE}
-  Northeast Workshop on Circuits and Systems and {TAISA} Conference
-  {(NEWCAS-TAISA)}}, pp.~355--358, June 2008.
-
-\bibitem{Vipin2012}
-K.~Vipin and S.~Fahmy, ``{A high speed open source controller for FPGA Partial
-  Reconfiguration},'' in {\em Proceedings of the International Conference on
-  Field-Programmable Technology (FPT)}, pp.~61--66, Dec 2012.
-
-\bibitem{Vipin2013}
-K.~Vipin and S.~A. Fahmy, ``Automated partitioning for partial reconfiguration
-  design of adaptive systems,'' in {\em Proceedings of the Reconfigurable
-  Architectures Workshop (RAW)}, May 2013.
-
-\bibitem{Dobson2014}
-C.~Dobson, K.~Rooks, and P.~Athanas, ``{A Power-Efficient FPGA-Based
-  Self-Adaptive Software Defined Radio},'' in {\em International Workshop on
-  Power and Timing Modeling, Optimization and Simulation (PATMOS)}, 2014.
-
-\bibitem{Raghunathan1998}
-A.~Raghunathan, N.~K. Jha, and S.~Dey, {\em High-level power analysis and
-  optimization}.
-\newblock Boston : Kluwer Academic, 1998.
-
-\bibitem{Shang2002}
-L.~Shang, A.~S. Kaviani, and B.~Kusuma, ``Dynamic power consumption in
-  {Virtex-II FPGA} family,'' in {\em ACM International Symposium on FPGAs},
-  pp.~157--164, ACM Press, 2002.
-
-\bibitem{Anderson2004a}
-J.~Anderson and F.~Najm, ``Interconnect capacitance estimation for {FPGAs},''
-  in {\em Proceedings of the Asia and South Pacific Design Automation
-  Conference (ASP-DAC)}, pp.~713--718, 2004.
-
-\bibitem{Anderson2004}
-J.~Anderson and F.~Najm, ``Power estimation techniques for {FPGAs},'' {\em IEEE
-  Transactions on Very Large Scale Integration (VLSI) Systems}, vol.~12,
-  no.~10, pp.~1015--1027, 2004.
-
-\bibitem{Todorovich2005}
-E.~Todorovich, E.~Boemo, A.~F., and V.~J., ``Statistical power estimation for
-  {FPGAs},'' in {\em Proceedings of the International Conference on Field
-  Programmable Logic and Applications (FPL)}, pp.~515--518, 2005.
-
-\bibitem{Reimer2006}
-A.~Reimer, A.~Schulz, and N.~W., ``Modelling macromodules for high-level
-  dynamic power estimation of {FPGA}-based digital designs,'' in {\em
-  Proceedings of the International Symposium on Low Power Electronics and
-  Design (ISLPED)}, pp.~151--154, 2006.
-
-\bibitem{Danckaert1999}
-K.~Danckaert, K.~Masselos, F.~Cathoor, H.~De~Man, and C.~Goutis, ``Strategy for
-  power-efficient design of parallel systems,'' {\em IEEE Transactions on Very
-  Large Scale Integration (VLSI) Systems}, vol.~7, Issue: 2, pp.~258 -- 265,
-  Jun 1999.
-
-\bibitem{Kovacs2000}
-L.~Varga, G.~Hosszu, and F.~Kovacs, ``A low-power design technique for digital
-  signal processing applications,'' in {\em Proceedings of the Mediterranean
-  Electrotechnical Conference (MEleCon)}, vol.~II, pp.~827--830, 2000.
-
-\bibitem{Czapski2007}
-P.~P. Czapski and A.~Sluzek, ``Power optimization techniques in {FPGA} devices:
-  A combination of system and low levels,'' {\em International Journal of
-  Electrical, Computer and Systems Engineering}, vol.~1, no.~3, pp.~148 --154,
-  2007.
-
-\bibitem{Liu2009}
-Q.~Liu, G.~Constantinides, K.~Masselos, and P.~Cheung, ``Data-reuse exploration
-  under an on-chip memory constraint for low-power {FPGA}-based systems,'' {\em
-  IET Computers \& Digital Techniques}, vol.~3, no.~3, pp.~235--246, 2009.
-
-\bibitem{Ahuja2010}
-S.~Ahuja, {\em High Level Power Estimation and Reduction Techniques for Power
-  Aware Hardware Design}.
-\newblock PhD thesis, Virginia Polytechnic Institute and State University,
-  2010.
-
-\bibitem{Deng1994}
-C.~Deng, ``Power analysis for {CMOS/BiCMOS} circuits,'' in {\em International
-  Symposium on Low Power Electronics and Design}, 1994.
-
-\bibitem{Landman1996}
-P.~Landman and J.~Rabaey, ``Activity-sensitive architectural power analysis,''
-  {\em IEEE Transactions on Computer-Aided Design of Integrated Circuits and
-  Systems}, vol.~15, no.~6, pp.~571--587, 1996.
-
-\bibitem{Gupta2000}
-S.~Gupta and F.~Najm, ``Analytical models for {RTL} power estimation of
-  combinational and sequential circuits,'' {\em IEEE Transactions on
-  Computer-Aided Design of Integrated Circuits and Systems}, vol.~19,
-  pp.~808--814, 2000.
-
-\bibitem{Raghunathan2003}
-A.~Raghunathan, S.~Dey, and N.~K. Jha, ``High-level macro-modeling and
-  estimation techniques for switching activity and power consumption,'' {\em
-  IEEE Transactions on Very Large Scale Integration (VLSI) Systems}, vol.~11,
-  no.~4, pp.~538--557, 2003.
-
-\bibitem{XPowerEstimator2011}
-``Xpower estimator userguide.'' Xilinx, San Jose, CA.
-  http://www.xilinx.com/support/documentation/sw\_manuals/xilinx13\_2/ug440.pdf,
-  2012.
-
-\bibitem{farhang2008signal}
-B.~Farhang-Boroujeny, {\em Signal Processing Techniques for Software Radios}.
-\newblock Lulu Publishing House, 2008.
-
 \bibitem{Dick2003}
 C.~Dick and F.~Harris, ``{FPGA} implementation of an {OFDM PHY},'' in {\em
   Conference Record of the Thirty-Seventh Asilomar Conference on Signals,
@@ -350,17 +188,6 @@ A.~Fort, J.-W. Weijers, V.~Derudder, W.~Eberle, and A.~Bourdoux, ``A
 K.~Wang, J.~Singh, and M.~Faulkner, ``{FPGA} implementation of an {OFDM-WLAN}
   synchronizer,'' in {\em IEEE International Workshop on Electronic Design,
   Test and Applications (DELTA)}, pp.~89 -- 94, Jan. 2004.
-
-\bibitem{Schmidl1997}
-T.~Schmidl and D.~Cox, ``Robust frequency and timing synchronization for
-  {OFDM},'' {\em IEEE Transactions on Communications}, vol.~45, pp.~1613--1621,
-  {Dec.} 1997.
-
-\bibitem{Kishore2006}
-C.~N. Kishore and V.~U. Reddy, ``A frame synchronization and frequency offset
-  estimation algorithm for {OFDM} system and its analysis,'' {\em EURASIP
-  Journal on Wireless Communications and Networking}, vol.~2006, pp.~1--16,
-  2006.
 
 \bibitem{Guffey2007}
 J.~Guffey, A.~Wyglinski, and G.~Minden, ``Agile radio implementation of {OFDM}
@@ -487,14 +314,153 @@ M.~Faulkner, ``The effect of filtering on the performance of {OFDM} systems,''
   {\em IEEE Transactions on Vehicular Technology}, vol.~49, pp.~1877--1884,
   Sep. 2000.
 
+\bibitem{Kuon2008}
+I.~Kuon, R.~Tessier, and J.~Rose, ``{FPGA} architecture: Survey and
+  challenges,'' {\em Foundations and Trends in Electronic Design Automation},
+  vol.~2, pp.~135--253, Feb. 2008.
+
+\bibitem{Springer2008}
+P.~Coussy and A.~Morawiec, eds., {\em High-Level Synthesis: From Algorithm to
+  Digital Circuit}.
+\newblock Springer, 2008~ed., Oct. 2008.
+
+\bibitem{Xilinx2013c}
+{Xilinx Inc.}, {\em {UG470 }: 7 Series {FPGAs} Configuration User Guide}, Jan.
+  2013.
+
+\bibitem{Xilinx2013d}
+{Xilinx Inc.}, {\em {DS190}: Zynq-7000 All Programmable SoC Overview}, Mar.
+  2013.
+
+\bibitem{Xilinx2013}
+Xilinx Inc., {\em {UG585}: Zynq-7000 All Programmable SoC Technical Reference
+  Manual}, Mar. 2013.
+
+\bibitem{Dobson2014}
+C.~Dobson, K.~Rooks, and P.~Athanas, ``{A Power-Efficient FPGA-Based
+  Self-Adaptive Software Defined Radio},'' in {\em International Workshop on
+  Power and Timing Modeling, Optimization and Simulation (PATMOS)}, 2014.
+
+\bibitem{Sedcole2006}
+P.~Sedcole, B.~Blodget, T.~Becker, J.~Anderson, and P.~Lysaght, ``{Modular
+  dynamic reconfiguration in Virtex FPGAs},'' {\em IEE Proceedings - Computers
+  and Digital Techniques}, vol.~153, pp.~157--164, May 2006.
+
+\bibitem{McDonald2008}
+E.~McDonald, ``{Runtime FPGA Partial Reconfiguration},'' in {\em Proceedings of
+  IEEE Aerospace Conference}, pp.~1--7, Mar. 2008.
+
+\bibitem{Delahaye2007}
+J.-P. Delahaye, J.~Palicot, C.~Moy, and P.~Leray, ``Partial reconfiguration of
+  {FPGA}s for dynamical reconfiguration of a software radio platform,'' in {\em
+  Proceedings of IST Mobile and Wireless Communications Summit}, July 2007.
+
+\bibitem{Delorme2008}
+J.~Delorme, J.~Martin, A.~Nafkha, C.~Moy, F.~Clermidy, P.~Leray, and
+  J.~Palicot, ``{A FPGA partial reconfiguration design approach for cognitive
+  radio based on NoC architecture},'' in {\em Joint International {IEEE}
+  Northeast Workshop on Circuits and Systems and {TAISA} Conference
+  {(NEWCAS-TAISA)}}, pp.~355--358, June 2008.
+
+\bibitem{Vipin2012}
+K.~Vipin and S.~Fahmy, ``{A high speed open source controller for FPGA Partial
+  Reconfiguration},'' in {\em Proceedings of the International Conference on
+  Field-Programmable Technology (FPT)}, pp.~61--66, Dec 2012.
+
+\bibitem{Vipin2013}
+K.~Vipin and S.~A. Fahmy, ``Automated partitioning for partial reconfiguration
+  design of adaptive systems,'' in {\em Proceedings of the Reconfigurable
+  Architectures Workshop (RAW)}, May 2013.
+
+\bibitem{Raghunathan1998}
+A.~Raghunathan, N.~K. Jha, and S.~Dey, {\em High-level power analysis and
+  optimization}.
+\newblock Boston : Kluwer Academic, 1998.
+
+\bibitem{Shang2002}
+L.~Shang, A.~S. Kaviani, and B.~Kusuma, ``Dynamic power consumption in
+  {Virtex-II FPGA} family,'' in {\em ACM International Symposium on FPGAs},
+  pp.~157--164, ACM Press, 2002.
+
+\bibitem{Anderson2004a}
+J.~Anderson and F.~Najm, ``Interconnect capacitance estimation for {FPGAs},''
+  in {\em Proceedings of the Asia and South Pacific Design Automation
+  Conference (ASP-DAC)}, pp.~713--718, 2004.
+
+\bibitem{Anderson2004}
+J.~Anderson and F.~Najm, ``Power estimation techniques for {FPGAs},'' {\em IEEE
+  Transactions on Very Large Scale Integration (VLSI) Systems}, vol.~12,
+  no.~10, pp.~1015--1027, 2004.
+
+\bibitem{Todorovich2005}
+E.~Todorovich, E.~Boemo, A.~F., and V.~J., ``Statistical power estimation for
+  {FPGAs},'' in {\em Proceedings of the International Conference on Field
+  Programmable Logic and Applications (FPL)}, pp.~515--518, 2005.
+
+\bibitem{Reimer2006}
+A.~Reimer, A.~Schulz, and N.~W., ``Modelling macromodules for high-level
+  dynamic power estimation of {FPGA}-based digital designs,'' in {\em
+  Proceedings of the International Symposium on Low Power Electronics and
+  Design (ISLPED)}, pp.~151--154, 2006.
+
+\bibitem{Danckaert1999}
+K.~Danckaert, K.~Masselos, F.~Cathoor, H.~De~Man, and C.~Goutis, ``Strategy for
+  power-efficient design of parallel systems,'' {\em IEEE Transactions on Very
+  Large Scale Integration (VLSI) Systems}, vol.~7, Issue: 2, pp.~258 -- 265,
+  Jun 1999.
+
+\bibitem{Kovacs2000}
+L.~Varga, G.~Hosszu, and F.~Kovacs, ``A low-power design technique for digital
+  signal processing applications,'' in {\em Proceedings of the Mediterranean
+  Electrotechnical Conference (MEleCon)}, vol.~II, pp.~827--830, 2000.
+
+\bibitem{Czapski2007}
+P.~P. Czapski and A.~Sluzek, ``Power optimization techniques in {FPGA} devices:
+  A combination of system and low levels,'' {\em International Journal of
+  Electrical, Computer and Systems Engineering}, vol.~1, no.~3, pp.~148 --154,
+  2007.
+
+\bibitem{Liu2009}
+Q.~Liu, G.~Constantinides, K.~Masselos, and P.~Cheung, ``Data-reuse exploration
+  under an on-chip memory constraint for low-power {FPGA}-based systems,'' {\em
+  IET Computers \& Digital Techniques}, vol.~3, no.~3, pp.~235--246, 2009.
+
+\bibitem{Ahuja2010}
+S.~Ahuja, {\em High Level Power Estimation and Reduction Techniques for Power
+  Aware Hardware Design}.
+\newblock PhD thesis, Virginia Polytechnic Institute and State University,
+  2010.
+
+\bibitem{Deng1994}
+C.~Deng, ``Power analysis for {CMOS/BiCMOS} circuits,'' in {\em International
+  Symposium on Low Power Electronics and Design}, 1994.
+
+\bibitem{Landman1996}
+P.~Landman and J.~Rabaey, ``Activity-sensitive architectural power analysis,''
+  {\em IEEE Transactions on Computer-Aided Design of Integrated Circuits and
+  Systems}, vol.~15, no.~6, pp.~571--587, 1996.
+
+\bibitem{Gupta2000}
+S.~Gupta and F.~Najm, ``Analytical models for {RTL} power estimation of
+  combinational and sequential circuits,'' {\em IEEE Transactions on
+  Computer-Aided Design of Integrated Circuits and Systems}, vol.~19,
+  pp.~808--814, 2000.
+
+\bibitem{Raghunathan2003}
+A.~Raghunathan, S.~Dey, and N.~K. Jha, ``High-level macro-modeling and
+  estimation techniques for switching activity and power consumption,'' {\em
+  IEEE Transactions on Very Large Scale Integration (VLSI) Systems}, vol.~11,
+  no.~4, pp.~538--557, 2003.
+
+\bibitem{XPowerEstimator2011}
+``Xpower estimator userguide.'' Xilinx, San Jose, CA.
+  http://www.xilinx.com/support/documentation/sw\_manuals/xilinx13\_2/ug440.pdf,
+  2012.
+
 \bibitem{Yip2003}
 K.-W. Yip, Y.-C. Wu, and T.-S. Ng, ``Design of multiplierless correlators for
   timing synchronization in {IEEE} 802.11a wireless {LANs},'' {\em IEEE
   Transactions on Consumer Electronics}, vol.~49, pp.~107 -- 114, {Feb.} 2003.
-
-\bibitem{Xilinx2011}
-``{Virtex-6 FPGA DSP48E1 Slice: User Guide}.'' Xilinx, San Jose, CA.
-  www.xilinx.com/support/documentation/user\_guides/ug369.pdf, 2011.
 
 \bibitem{Hanzo2006}
 L.~Hanzo and T.~Keller, {\em OFDM and MC-CDMA : A Primer}.

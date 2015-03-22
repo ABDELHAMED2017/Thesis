@@ -1,5 +1,5 @@
 %---------------------------------------------------------------------------------
-\chapter{A Spectrum Efficient Shaping Method}
+\chapter{A Spectrum Efficient Shaping Method for OFDM Radios}
 \label{chap:SpectralLeakage}
 %---------------------------------------------------------------------------------
 
@@ -14,10 +14,10 @@ Some recent OFDM-based standards are defined with the requirements on spectral l
 Spectral leakage filtering may cause some effects on transmitted signals that lead to a reduction in the effective timing guard.
 Therefore, the implementations of spectral leakage filtering need to be able to take into account the parameters of the underlying OFDM signal and its channel characteristics to avoid causing the negative effects on the transmitted signal such as distorsion and ISI.
 
-In this chapter, a novel method that embeds baseband filtering within a cognitive radio (CR) architecture, is proposed. 
-The method is able to meet the specification for the most stringent 802.11p SEM, meet the specification of the 802.11af strict SEM requirement, and furthermore is able to allow ten additional 802.11af sub-carriers to occupy a single basic channel without violating SEM specifications. 
+In this chapter, a novel method that embeds baseband filtering within a cognitive radio (CR) architecture, is proposed.
+The method is able to meet the specification for the most stringent 802.11p SEM, meet the specification of the 802.11af strict SEM requirement, and furthermore is able to allow ten additional 802.11af sub-carriers to occupy a single basic channel without violating SEM specifications.
 In addition, the method can adaptively change filter performance according to the transmission power to reduce the computation cost while guaranteeing that the emission spectrum remains smaller than the allowed spectral leakage.
-The method, performed at baseband, relaxes the otherwise strict RF front-end requirements. 
+The method, performed at baseband, relaxes the otherwise strict RF front-end requirements.
 This allows the RF subsystem to be implemented based upon much less stringent 802.11a designs, which can significantly reduce total cost.
 
 The work presented in this chapter has also been discussed in:
@@ -643,14 +643,14 @@ Compared to the approach of trimming off edge carriers needed by an equivalent t
 %---------------------------------------------------------------------------------
 \section{Summary}
 %---------------------------------------------------------------------------------
-In this chapter, shaping the OFDM leakage spectrum has been investigated at baseband within a CR architecture, in order to meet stringent spectral emission mask (SEM) requirements. 
-In particular, this research considers two relatively new standards, 802.11p and 802.11af, which are defined for the physical layer and largely based upon existing standards. 
+In this chapter, shaping the OFDM leakage spectrum has been investigated at baseband within a CR architecture, in order to meet stringent spectral emission mask (SEM) requirements.
+In particular, this research considers two relatively new standards, 802.11p and 802.11af, which are defined for the physical layer and largely based upon existing standards.
 In both cases, the extended physical layers are scaled to encourage reuse of existing hardware, devices and designs, but the resulting systems are then subject to much more stringent SEMs.
-The research relies upon a combination of interpolation, IFFT length adjustment, pulse shaping and FIR image suppression filtering, to mitigate against spectral leakage into adjacent channels. 
+The research relies upon a combination of interpolation, IFFT length adjustment, pulse shaping and FIR image suppression filtering, to mitigate against spectral leakage into adjacent channels.
 Simulations show that the proposed architecture can meet the specification of the four 802.11p classes A to D, as well as the stringent FCC-imposed SEM for 802.11af in the UHF
 band.
 The proposed method is also shown able to improve the achievable spectral efficiency for reuse of Television White Spaces in the 802.11af standard by 32\%, given equivalent transmission power, compared to conventional approaches which need to drop the outermost subcarriers in order to meet SEM requirements.
 In addition, the architecture has the ability to adaptively change the degree of spectral leakage filtering in response to transmission power.
-The computation of filtering can be reduced when transmission power is low, but when transmission power is high, it is able to extend to meet the strict SEM specification of both 802.11p and 802.11af. 
+The computation of filtering can be reduced when transmission power is low, but when transmission power is high, it is able to extend to meet the strict SEM specification of both 802.11p and 802.11af.
 Furthermore, the architecture is capable of adjusting clock rate, bandwidth, and frequency band on a symbol-by-symbol basis, in order to implement an agile CR solution.
 %The work presented in this chapter is firstly published in [C1] and then extended to be submitted to [J4].

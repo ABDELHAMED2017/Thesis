@@ -12,38 +12,37 @@ This concept is known as dynamic spectrum access (DSA)~\cite{Minden}.
 Wireless communication systems for realising DSA must be reconfigurable, to support different radio standards in different environments, and adaptive, to react to changing channel conditions without interfering with licensed users and other unlicensed opportunistic users.
 
 A cognitive radio (CR) is a node that is able to adapt its parameters to optimise performance based on interaction with the environment, as well as to perform DSA.
-A cognitive radio can modify parameters such as transmit power, coding rate, frame size, bandwidth, and centre frequency, in real time to obtain suitable performance in a given, changing, environment.
+A cognitive radio can modify parameters such as transmit power, coding rate, frame size, bandwidth, and centre frequency, in real time, to obtain suitable performance in a given, changing, environment.
 The radio baseband should also be reconfigurable to enable support for multiples standards such as WiFi, WiMAX, GSM, WCDMA, and other defined access schemes.
 More advanced adaptive standards are intrinsically flexible and this flexibility should be managed to optimise performance in the channel.
 
 This thesis explores techniques for enabling the mapping and implementation of dynamic cognitive radios on FPGA platforms.
-By dynamic, we are referring to the ability to modify baseband processing to suit difference transmission standards.
+By dynamic, we are referring to the ability to modify baseband processing to suit difference transmission standards and scenarios.
 The cognitive portion of a radio is where decisions are made to modify properties of the communication.
 In the context of our work, we are interested in providing a generalised interface for cognitive radio designers to be able to leverage the dynamic capabilities of the hardware platform at a higher level.
 
 FPGAs are silicon devices that allow us to build customised hardware datapaths for a variety of applications.
-By exploiting parellelism inherent in many algorithms, it is possible to develop implementations that are significantly faster that equivalent software running on general purpose processors.
+By exploiting parellelism inherent in many algorithms, it is possible to develop implementations that are significantly faster than equivalent software running on general purpose processors.
 FPGAs have long been established as a platform of choice in signal processing due to their suitability for parallel bit-level architectures that align well with many signal processing algorithms~\cite{cummings1999}.
 Another key capability of FPGAs that makes them attractive for cognitive radios is their reconfigurability.
 The hardware implemented on an FPGA can be modified at runtime, thereby enabling the dynamic capability required for implementing cognitive radios.
+While a number of radio research groups have used FPGAs in their platforms, we believe our FPGA expertise can help develop a platform that is both easier to use, and that exploits the more advanced capabilities of FPGAs.
+
+% %---------------------------------------------------------------------------------
+% \section{Background}
+% %---------------------------------------------------------------------------------
+
+% Orthogonal Frequency Division Multiplexing (OFDM) has been adopted for implementation within the Cognitive Radio field, and is a prime candidate for DSA networks in which the radio is required to be spectrally aware and able to dynamically access idle parts of the spectrum.
+% OFDM is an efficient multi-carrier modulation technique that provides robustness to frequency selective channels and the DSA ability based upon spectrum pooling, where unlicensed users may temporarily access spectral resources during the idle periods of licensed users~\cite{JondralMarch2004}.
+% When utilising a given bandwidth of spectrum, OFDM sub-carriers that cause interference with licensed users can be selectively disabled.
+% This technique is referred to as non-contiguous orthogonal frequency multiplexing (NC-OFDM)~\cite{MindenJune2006}.
+
+% The lower priority of CRs raises a challenge in term of transmission capability and quality of service. When the spectrum allowed for a CR system is fully occupied by PUs and IUs, the transmission of CRs can be blocked.
+% Multiple Standard Cognitive Radios (MSCRs) are able to operate in multiple frequency bands with different specified standards.
+% MSCRs are hence a more flexible generalisation of CRs as they can operate across different bands and standards to increase transmission capability and enhance bandwidth efficiency.
 
 %---------------------------------------------------------------------------------
-\section{Background}
-%---------------------------------------------------------------------------------
-
-
-
-Orthogonal Frequency Division Multiplexing (OFDM) has been adopted for implementation within the Cognitive Radio field, and is a prime candidate for DSA networks in which the radio is required to be spectrally aware and able to dynamically access idle parts of the spectrum.
-OFDM is an efficient multi-carrier modulated (MCM) technique that provides robustness to frequency selective channels and the DSA ability based upon spectrum pooling, where unlicensed users may temporarily access spectral resources during the idle periods of licensed users \cite{JondralMarch2004}.
-When utilising a given bandwidth of spectrum, OFDM subcarriers that cause interference with licensed users can be selectively disabled.
-This technique is defined as non-contiguous orthogonal frequency multiplexing (NC-OFDM) \cite{MindenJune2006}.
-
-The lower priority of CR raises a challenge in term of transmission capability and quality of service. When the spectrum allowed for a CR system is fully occupied by PUs and IUs, the transmission of CRs can be blocked.
-Multiple Standard Cognitive Radios (MSCRs) are able to operate in multiple frequency bands with different specified standards.
-MSCRs are hence a more flexible generalisation of CRs as they can operate across different bands and standards to increase transmission capability and enhance bandwidth efficiency.
-
-%---------------------------------------------------------------------------------
-\section{Objective and Motivation}
+\section{Motivation and Objectives}
 %---------------------------------------------------------------------------------
 
 MSCR requires platform that provides sufficient flexibility, high computational throughput, and power efficiency.
@@ -163,18 +162,18 @@ Some of the work presented in the thesis has been written up in a number of publ
 
 \begin{enumerate}
 
-\item  T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Low-power correlation for IEEE 802.16 synchronisation on FPGA,'' in \textit{IEEE Transactions on Very Large Scale Integration (VLSI) Systems, vol. 21, no. 8, pp. 1549 - 1553, Aug. 2013}.
+\item  T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Low-power correlation for IEEE 802.16 synchronisation on FPGA,'' in \textit{IEEE Transactions on Very Large Scale Integration (VLSI) Systems}, vol. 21, no. 8, pp. 1549 - 1553, Aug. 2013.
 
-\item T. H. Pham, I. V. McLoughlin, and S. A. Fahmy, ``Robust and Efficient OFDM Synchronisation for FPGA-Based Radios,'' in \textit{Circuits, Systems, and Signal Processing, vol. 33, no. 8, pp. 2475 - 2493, Aug. 2014, Springer}.
+\item T. H. Pham, I. V. McLoughlin, and S. A. Fahmy, ``Robust and Efficient OFDM Synchronisation for FPGA-Based Radios,'' in \textit{Circuits, Systems, and Signal Processing}, vol. 33, no. 8, pp. 2475 - 2493, Aug. 2014, Springer.
 
-\item  T. H. Pham, I. V. McLoughlin, and S. A. Fahmy, ``Shaping Spectral Leakage for IEEE 802.11p Vehicular Communications,'' to appear in \textit{Proceedings of IEEE Vehicular Technology Conference (VTC Spring), Seoul, Korea, May 2014}.
+\item  T. H. Pham, I. V. McLoughlin, and S. A. Fahmy, ``Shaping Spectral Leakage for IEEE 802.11p Vehicular Communications,'' in \textit{Proceedings of IEEE Vehicular Technology Conference (VTC Spring)}, Seoul, Korea, May 2014.
 
-\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Multi-Standard Cognitive Radios on FPGAs,'' PhD Forum Poster in \textit{Proceedings of the International Conference on Field Programmable Logic and Applications (FPL), Munich, Germany, September 2014}.
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Multi-Standard Cognitive Radios on FPGAs,'' PhD Forum Poster in \textit{Proceedings of the International Conference on Field Programmable Logic and Applications (FPL)}, Munich, Germany, September 2014.
 
-\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Integer Frequency Offset Estimation Architecture for Enhanced OFDM Synchronization,'' to be submitted to \textit{IEEE Transactions on Very Large Scale Integration (VLSI) Systems}.
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Integer Frequency Offset Estimation Architecture for Enhanced OFDM Synchronization,'' under review for \textit{IEEE Transactions on Very Large Scale Integration (VLSI) Systems}.
 
-\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Spectrally Efficient Emission Mask Shaping for OFDM Cognitive Radios,''  to be submitted to \textit{IEEE Transactions on Communications (TCOM)}.
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Spectrally Efficient Emission Mask Shaping for OFDM Cognitive Radios,'' under review for \textit{IEEE Transactions on Communications (TCOM)}.
 
-\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient OFDM-based baseband processing for Multi-Standard Cognitive Radios on FPGAs,'' to be prepared.
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient OFDM-based baseband processing for Multi-Standard Cognitive Radios on FPGAs,'' in preparation for submission to \emph{ACM Transactions on Embedded Computing Systems}.
 
 \end{enumerate}

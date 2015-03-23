@@ -163,7 +163,7 @@ The cross correlation now produces distinct peaks at the times when received sam
 A frame is detected when \emph{M} crosses a threshold and the start of frame is found by searching the peaks of \emph{M}. 
 This can accurately determine the start of frame even at low SNRs. 
 Moreover, this method is robust to large CFO for time synchronisation. 
-Simulations \cite{Kishore2006} show that time synchronisation can be performed effectively with CFO~=~10.5 sub-carrier spacings.
+Simulations \cite{Kishore2006} show that time synchronisation can be performed effectively with CFO~=~10.5 subcarrier spacings.
 However, the cross-correlation operation requires complex computation. 
 Although the complexity of cross-correlation can be reduced using multiplierless correlation \cite{Yip2003}, the multiplierless correlator degrades the precision of metric \emph{P}, used for estimating frequency offset.
 In general, this method is appropriate for time synchronisation but requires significant hardware resources for implementing the cross-correlation.
@@ -294,10 +294,10 @@ In this section, we will evaluate the performance of the proposed synchronisatio
 The Stanford University Interim (SUI) channel model~\cite{V.ErcegJuly2003} is used to simulate a frequency selective channel and takes into account  many wireless channel effects including delay spread, Doppler spread, phase noise, and channel interference.
 In addition, the value of metrics computed in MATLAB are later verified with corresponding values from the FPGA simulation, to ensure practical functional equivalence.
 
-In total, 100,000 OFDM frames, preceded by noise with randomly seeded AWGN and followed by preamble and data symbols, are used to evaluate synchronization performance for each method.
-The proposed method is compared to the state of the art method, in terms of accuracy of both time synchronization and fractional CFO estimation.
+In total, 100,000 OFDM frames, preceded by noise with randomly seeded AWGN and followed by preamble and data symbols, are used to evaluate synchronisation performance for each method.
+The proposed method is compared to the state of the art method, in terms of accuracy of both time synchronisation and fractional CFO estimation.
 The performance of STO estimation is measured in terms of failure rate (\%), and the accuracy of CFO estimation is evaluated in terms of mean square error (MSE).
-We separately evaluate the robustness of time synchronization against large CFO for each method.
+We separately evaluate the robustness of time synchronisation against large CFO for each method.
 Three versions of the proposed approach are constructed by varying the length, \emph{C}, of received samples for estimation based on (\ref{ProposedP}). These are investigated to determine the tradeoff between accuracy and computational cost, with \emph{C} defined as follows in each case:
 \begin{itemize}
 \item \textit{Prop 1}: $C=L$
@@ -325,7 +325,7 @@ First, the performance of each method is found for AWGN channels beginning with 
 		\addlegendentry{ \textit{K\&R}};
 	\end{semilogyaxis}
 	\end{tikzpicture}
-\caption{Performance of time synchronization in AWGN channels with a frequency offset of 0.5 subcarrier spacings.}
+\caption{Performance of time synchronisation in AWGN channels with a frequency offset of 0.5 subcarrier spacings.}
 \label{fig:STO_AWGN}
 \end{figure}
 
@@ -350,7 +350,7 @@ First, the performance of each method is found for AWGN channels beginning with 
 \end{figure}
 
 Fig.~\ref{fig:STO_AWGN} and  Fig.~\ref{fig:Fest_AWGN} plot the performance results of STO and CFO estimation in AWGN with a frequency offset of 0.5 subcarrier spacings, respectively.
-\textit{SoA} and the proposed methods have much better performance than \textit{K\&R} in these tests, achieving perfect synchronization when SNR exceeds 5{\thinspace}dB.
+\textit{SoA} and the proposed methods have much better performance than \textit{K\&R} in these tests, achieving perfect synchronisation when SNR exceeds 5{\thinspace}dB.
 \textit{Prop1}'s STO estimation has slightly better accuracy with SNR below 3{\thinspace}dB but is worse at higher SNR than \textit{SoA}.
 Increasing the length of received samples for estimation, i.e., setting $C = 2L$, allows \textit{Prop2} to obtain a remarkable improvement in STO estimation, clearly better than the estimation achievable by \textit{SoA}.
 \textit{Prop3}, with $C = 3L$, demonstrates decreasing gains: it is not able to enhance accuracy as much as \textit{Prop2}, despite a considerable hardware cost incurred when increasing \emph{C}.
@@ -380,7 +380,7 @@ These results show the proposed method to be competitive with state of the art m
 		\addlegendentry{ \textit{K\&R}};
 	\end{semilogyaxis}
 	\end{tikzpicture}
-\caption{Frame synchronization performance of various methods in an SUI1 channel with respect to SNR.}
+\caption{Frame synchronisation performance of various methods in an SUI1 channel with respect to SNR.}
 \label{fig:STO_SUI1}
 \end{figure}
 
@@ -401,7 +401,7 @@ These results show the proposed method to be competitive with state of the art m
 		\addlegendentry{\textit{K\&R}};
 	\end{semilogyaxis}
 	\end{tikzpicture}
-\caption{Frame synchronization performance of various methods in an SUI2 channel with respect to SNR.}
+\caption{Frame synchronisation performance of various methods in an SUI2 channel with respect to SNR.}
 \label{fig:STO_SUI2}
 \end{figure}
 
@@ -430,7 +430,7 @@ Increasing the length of received samples for estimation achieves an improvement
 		\addlegendentry{\textit{K\&R}};
 	\end{semilogyaxis}
 	\end{tikzpicture}
-\caption{Performance of frame synchronization in an AWGN channel with uniform random frequency offset varying from -10 to 10 times carrier spacing, with respect to SNR.}
+\caption{Performance of frame synchronisation in an AWGN channel with uniform random frequency offset varying from -10 to 10 times carrier spacing, with respect to SNR.}
 \label{fig:STO_AWGN_Fre}
 \end{figure}
 
@@ -445,25 +445,25 @@ In summary, simulation results show that \textit{Prop3} and \textit{Prop2} have 
 Given the results described in this sub-section, \textit{Prop2} is selected as an implementation candidate in the subsequent sub-section, where the trade-off between accuracy and hardware cost is explored in more detail.
 
 \subsection{Hardware Implementation}
-This sub-section discusses the implementation of, and investigates the hardware optimization of, the proposed method in terms of word size. The target FPGA is a low-power Xilinx Spartan-6 XC6SLX45 device, with ISE 13.2 used to evaluate both hardware resource and power consumption.
+This sub-section discusses the implementation of, and investigates the hardware optimisation of, the proposed method in terms of word size. The target FPGA is a low-power Xilinx Spartan-6 XC6SLX45 device, with ISE 13.2 used to evaluate both hardware resource and power consumption.
 The results illustrate the trade-off between hardware consumption and the accuracy of the proposed method.
 The above sub-section already revealed that the performance of \textit{K\&R} is generally worse than the other methods, moreover it requires many complex multiply operations to compute the cross-correlation for the \emph{P} Metric. For this reason, \textit{K\&R} is not implemented, only the proposed method and \textit{SoA} are compared here, in terms of hardware resources, power consumption, and accuracy. As mentioned above we set  $C=2L$ since \textit{Prop2} consistently showed performance close to \textit{Prop3}, and significantly better than \textit{Prop1}. It  therefore offers a good balance between increased hardware cost and performance.
 
-		\subsubsection{Implementation of Conventional Synchronizer}
+		\subsubsection{Implementation of Conventional Synchroniser}
 
-First, let us consider a conventional synchronizer. We have implemented this as shown in Fig.~\ref{fig:Con-Sync}, following the efficient implementation methods presented in \cite{Manavi2004,Wang2004,Guffey2007,Liu2009}.
-The \emph{P} and \emph{R} timing metrics in (\ref{PMetric}) and (\ref{RMetric}), respectively are computed using delay and summation, whilst a very efficient signed bit multiplier \cite{Schwoerer2002} is used to significantly reduce the computational overhead of the cross correlation for fine timing synchronization.
+First, let us consider a conventional synchroniser. We have implemented this as shown in Fig.~\ref{fig:Con-Sync}, following the efficient implementation methods presented in \cite{Manavi2004,Wang2004,Guffey2007,Liu2009}.
+The \emph{P} and \emph{R} timing metrics in (\ref{PMetric}) and (\ref{RMetric}), respectively are computed using delay and summation, whilst a very efficient signed bit multiplier \cite{Schwoerer2002} is used to significantly reduce the computational overhead of the cross correlation for fine timing synchronisation.
 
 \begin{figure}[h]
 	\centerline{\includegraphics [width=1\columnwidth] {figures/Con_Sync.pdf}}
-	\caption{Architecture of the conventional synchronization FPGA implementation.}
+	\caption{Architecture of the conventional synchronisation FPGA implementation.}
 	\label{fig:Con-Sync}
 \end{figure}
 
 We assume a 16-bit two's complement fixed point representation with 15 fractional bits (i.e. Q1.15 format in Q-notation).
 The auto-correlation and squared amplitude of received samples are computed with a complex multiplier IP core that uses DSP slices.
 Results are scaled to Q1.15 to reduce resource usage in subsequent pipeline stages.
-Since this synchronizer is for the IEEE~802.16 preamble, the length of the delay is 64 samples.
+Since this synchroniser is for the IEEE~802.16 preamble, the length of the delay is 64 samples.
 Each element is scaled to be less than 1.0, guaranteeing that the final summation result is less than 64, needing just 7 bits for representation in two's complement.
 Hence, the \emph{P} and \emph{R} values are represented in Q7.15 format.
 For the $|P|$ metric, the auto-correlation uses a complex multiplier IP core to multiply the current received sample and the 64th delayed sample.
@@ -473,13 +473,13 @@ The threshold is commonly chosen to be 0.5, which can be implemented using a rig
 After the frame is detected, the \emph{P} metric is used to estimate and correct the fractional CFO.
 A CORDIC IP core is used to determine the phase of the \emph{P} metric, and to derive the estimated fractional CFO.
 The received samples are then compensated using phase accumulation and phase rotation.
-These compensated samples are now used to determine fine timing synchronization.
+These compensated samples are now used to determine fine timing synchronisation.
 
-		\subsubsection{Implementation of Proposed Synchronizer}
+		\subsubsection{Implementation of Proposed Synchroniser}
 
 \begin{figure}[h]
 	\centerline{\includegraphics [width=1\columnwidth] {figures/Pro_Sync.pdf}}
-	\caption{Architecture for the proposed synchronization method implemented on FPGA.}
+	\caption{Architecture for the proposed synchronisation method implemented on FPGA.}
 	\label{fig:Pro-Sync}
 \end{figure}
 
@@ -487,7 +487,7 @@ The architecture for our proposed method is shown in Fig.~\ref{fig:Pro-Sync}.
 The format of received samples is similar to the conventional design.
 The \emph{R'} metric is determined using an energy correlator as illustrated in Fig.~\ref{fig:ML-Cor}.
 The number of samples used to compute it is 128 and since the 128 samples of the short preamble are arranged in two identical spans of 64 samples each, the correlator only needs 64 taps.
-Eqn.~(\ref{ProposedR-imp}) shows the derived equations of this optimization:
+Eqn.~(\ref{ProposedR-imp}) shows the derived equations of this optimisation:
 \begin{eqnarray}
 \label{ProposedR-imp}
 R'(z) &=& I(z)A_{127} + I(z) z^{-1}A_{126} + ... + I(z) z^{-63}A_{64} \nonumber \\
@@ -598,13 +598,13 @@ The optimal choice for this range of SNRs is probably $f1=7bits$ (\textit{Prop-7
 		\addlegendentry{\textit{Prop-15b}};
 	\end{semilogyaxis}
 	\end{tikzpicture}
-\caption{Performance of frame synchronization in an AWGN channel against SNR, with different numbers of fractional bits used in the computation of $R'$.}
+\caption{Performance of frame synchronisation in an AWGN channel against SNR, with different numbers of fractional bits used in the computation of $R'$.}
 \label{fig:STO_AWGN_RQ}
 \end{figure}
 
 
 Similarly, the optimized tradeoff between the accuracy of STO estimation and hardware usage for computation of the \emph{R'} metric is obtained based on reducing $f2$. In this case,
-Table~\ref{tab:R-Metric} reveals the corresponding reduction achieved in computation resources and Fig.~\ref{fig:STO_AWGN_RQ} plots the frame synchronization fail rate with SNR for several values of $f2$.
+Table~\ref{tab:R-Metric} reveals the corresponding reduction achieved in computation resources and Fig.~\ref{fig:STO_AWGN_RQ} plots the frame synchronisation fail rate with SNR for several values of $f2$.
 The performance of the proposed method with $f2=6bit$, \textit{Prop-6b}, can be seen to be almost identical to the `full length' computation using 15 fractional bits, \textit{Prop-15b}. Overall, \textit{Prop-6b} achieves much more accurate estimation compared to the state of the art method, \textit{SoA}. Reducing $f2$ to 6 bits allows a reduction of 41\%, 42\%, and 56\% in the number of FFs, LUTs, and BRAM blocks.
 
 		\subsubsection{Optimized Alternatives}
@@ -636,8 +636,8 @@ The preceding results are now used to define four alternative implementations of
 \end{table}
 
 
-Table~\ref{tab:Int_Imp_Rpt} reports the overall hardware resources required for these instances of the synchronizer, as well as detailing the power consumption of each.
-It should be noted that the CFO estimation and frame synchronization performance of these instances can be seen by choosing the corresponding word length from plots of \emph{P'} \& \emph{R'} in Figs. \ref{fig:Fest_AWGN_PQ} \& \ref{fig:STO_AWGN_RQ} respectively. In other words, all instances have been simulated and reported in the previous plots.
+Table~\ref{tab:Int_Imp_Rpt} reports the overall hardware resources required for these instances of the synchroniser, as well as detailing the power consumption of each.
+It should be noted that the CFO estimation and frame synchronisation performance of these instances can be seen by choosing the corresponding word length from plots of \emph{P'} \& \emph{R'} in Figs. \ref{fig:Fest_AWGN_PQ} \& \ref{fig:STO_AWGN_RQ} respectively. In other words, all instances have been simulated and reported in the previous plots.
 From the table, it is evident that reducing word length can yield a significant reduction in both hardware requirement and power consumption.
 The fully optimized alternative, \textit{Prop-A4}, achieves a reduction of 16.4\%, 31.2\%, and 14.6\% in the number of occupied slices, BRAMs, and in dynamic power consumption, when compared to \textit{SoA}.
 The maximum frequencies of the SoA and proposed method implementations are also reported. 
@@ -647,7 +647,7 @@ Table~\ref{tab:Imp_Rpt} details the comparison between \textit{SoA} and \textit{
 
 \begin{table}[h]
 	\centering
-	\caption{ Detailed resource comparison between two synchronization methods.}
+	\caption{ Detailed resource comparison between two synchronisation methods.}
 	\label{tab:Imp_Rpt}
 	\begin{tabular}{l|r|r|r|r|r}
        \hline \hline
@@ -670,7 +670,7 @@ Table~\ref{tab:Imp_Rpt} details the comparison between \textit{SoA} and \textit{
 \end{table}
 
 The function named `CFO comp', which performs frequency offset estimation and compensation, clearly consumes the largest amount of hardware in both methods.
-The \emph{R'} metric computation in \textit{Prop-A4} uses more hardware than the computation of \emph{R} in \textit{SoA}. However, fine timing estimation, `Fine time', takes a large proportion of the total hardware cost in \textit{SoA} while the alternative in the proposed method (timing synchronization, known as `Time sync'), requires much less hardware.
+The \emph{R'} metric computation in \textit{Prop-A4} uses more hardware than the computation of \emph{R} in \textit{SoA}. However, fine timing estimation, `Fine time', takes a large proportion of the total hardware cost in \textit{SoA} while the alternative in the proposed method (timing synchronisation, known as `Time sync'), requires much less hardware.
 
 %---------------------------------------------------------------------------------
 \section{Summary}

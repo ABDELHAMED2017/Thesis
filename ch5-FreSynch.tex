@@ -23,13 +23,13 @@ This is more pronounced in applications that subject the front-end to intensive 
 
 In this chapter, a novel method is proposed for IFO estimation to overcome this challenge to efficient and low-power implementation. The basis of this method has also been discussed in:
 \begin{itemize}
-\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Integer Frequency Offset Estimation Architecture for Enhanced OFDM Synchronization,'' to be submitted to \textit{IEEE Transactions on Very Large Scale Integration (VLSI) Systems}.
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Integer Frequency Offset Estimation Architecture for Enhanced OFDM Synchronisation,'' to be submitted to \textit{IEEE Transactions on Very Large Scale Integration (VLSI) Systems}.
 \end{itemize}
 
 %---------------------------------------------------------------------------------
 \section{Related Work}
 %---------------------------------------------------------------------------------
-As mentioned in the previous chapter, the estimation range of  fractional CFO has a limitation that is shown in (\ref{fractionalCFOlimitation}); for instance its range is up to $\pm$2 sub-carrier spacings in the case of the IEEE~802.16 preamble. The value of the IFO is a multiple of the coarse CFO's range.
+As mentioned in the previous chapter, the estimation range of  fractional CFO has a limitation that is shown in (\ref{fractionalCFOlimitation}); for instance its range is up to $\pm$2 subcarrier spacings in the case of the IEEE~802.16 preamble. The value of the IFO is a multiple of the coarse CFO's range.
 It is commonly estimated by performing cross-correlation \cite{Bang2001,Kim2008} in the frequency domain.
 
 Let us assume that the signal is transmitted over a frequency selective channel that has channel impulse response (CIR) $h$ with length, \emph{L} ($L<N_{CP}$), and which is corrupted by AWGN.
@@ -69,22 +69,22 @@ A notable exception was presented in \cite{Kim2008}, in which time-domain cross 
 selective channels), it is not efficient when the possible IFO range is large since it effectively performs an exhaustive search of possibilities.
 
 State of the art OFDM synchronisation methods typically have a small tolerance of CFO that requires the hardware be strictly constrained to ensure operation within a small CFO range which does not include any IFO.
-This strict timing requirement leads to an increase in total system cost. Particularly, in the case of MSCR, the need for high precision timing, coupled with a requirement for a wide ranging and agile operating frequency span, would make the RF front-end design extremely difficult, if not impossible.
+This strict timing requirement leads to an increase in total system cost. Particularly, in the case of accessing multiple frequency bands for different standards, the need for high precision timing, coupled with a requirement for a wide ranging and agile operating frequency span, would make the RF front-end design extremely difficult, if not impossible.
 
 %---------------------------------------------------------------------------------
-\section{Enhanced OFDM Synchronization Through Novel IFO Estimation Architecture}
+\section{Enhanced OFDM Synchronisation Through Novel IFO Estimation Architecture}
 %---------------------------------------------------------------------------------
 In this section, we propose a novel method in which hardware resources and power consumption are reduced by determining IFO estimates for only a subset of possible IFO values. This in turn enables an efficient resource sharing folded architecture to be adopted. Adjusting the precision of individual correlation computations within this novel architecture leads to a fine degree of control on the trade-off between performance and power consumption.
 The implementation uses the long preamble of IEEE~802.16-2009~\cite{IEEE80216} for estimating IFO values.
 This preamble has a symbol size of 256 with 100 pilots, as illustrated in Fig.~\ref{fig:long_pre}.
-These 100 pilots are distributed, 50 pilots per side, at even sub-carrier spacings from 2 to 100 and from 156 to 254. The remaining sub-carriers are null.
+These 100 pilots are distributed, 50 pilots per side, at even subcarrier spacings from 2 to 100 and from 156 to 254. The remaining subcarriers are null.
 \begin{figure}[b]
     \centerline{\includegraphics [width=1\columnwidth] {figures/long_pre.pdf} }
     \caption{Pilots in the long preamble of IEEE~802.16-2009.}
     \label{fig:long_pre}
 \end{figure}
 In OFDM-based systems such as 802.11, 802.16, and 802.22, the short preamble is used to estimate and compensate for FFO.
-Typically, fractional CFO estimation has a limited range of up to ${\pm}2$ sub-carrier spacings depending on the format of the short preamble.
+Typically, fractional CFO estimation has a limited range of up to ${\pm}2$ subcarrier spacings depending on the format of the short preamble.
 This results in the possible IFO values being a multiple of 4. The limitation of fractional CFO and the possible IFO values are discussed in detail in the previous chapter.
 It should be noted that, although the proposed method is applied to 802.16 for evaluating the accuracy of IFO estimation, it can be applied in other OFDM-based systems having similar preamble structures, such as 802.11 and 802.22.
 
@@ -129,7 +129,7 @@ The estimation of IFO in (\ref{integerCFO}) can now be rewritten as follows
 V_{\tilde{\epsilon}} &=& \sum_{k=0}^{25} P(4k) A_{\tilde{\epsilon}}(4k) + P(L+4k)  A_{\tilde{\epsilon}}(L+4k),
 \end{eqnarray}
 where $A_{\tilde{\epsilon}}$ denotes the correlation of two consecutive pre-rotated known pilots corresponding to one IFO value, and $V_{\tilde{\epsilon}}$ is the cross-correlation between received pilots and pre-rotated known pilots.
-Since the pilots of the long preamble are distributed on two sides of the OFDM symbol in the frequency domain, at even sub-carrier spacings from 2 to 100 and 156 to 254, \emph{L} denotes the index of the first pilots in second half.
+Since the pilots of the long preamble are distributed on two sides of the OFDM symbol in the frequency domain, at even subcarrier spacings from 2 to 100 and 156 to 254, \emph{L} denotes the index of the first pilots in second half.
 In the case of IEEE~802.16, \emph{L} equals 156.
 Each value, $V_{\tilde{\epsilon}}$, can be computed simultaneously and separately using a multi-add accumulation scheme.
 The challenge in implementation is find a way to efficiently share resources when computing $V_{\tilde{\epsilon}}$.

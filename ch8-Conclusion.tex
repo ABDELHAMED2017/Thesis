@@ -23,8 +23,8 @@ In Chapter~\ref{chap:CFO} we presented a novel method for CFO estimation that to
 These methods together offer practical implementations that are more robust than any other published implementations.
 
 \subsection{OFDM Spectrum Shaping}
-We discussed in Chapter~\ref{chap:BackgroundLiterature} that OFDM suffers from large sidelobes due to the addition of sub carrier sync pulses.
-In the context of cognitive radios opportunistically accessing radio spectrum, typically leads to a reduction in usable bandwidth as some sub-carriers are switched off to reduce potential interference with adjacent channels.
+We discussed in Chapter~\ref{chap:BackgroundLiterature} that OFDM suffers from large sidelobes due to the addition of subcarrier sync pulses.
+In the context of cognitive radios opportunistically accessing radio spectrum, typically leads to a reduction in usable bandwidth as some subcarriers are switched off to reduce potential interference with adjacent channels.
 In Chapter~\ref{chap:SpectralLeakage}, we presented a novel method incorporating filtering at the baseband that can offer much better sidelobe suppression, meeting even very stringent requirements in modern CR standards. We demonstrated this approach applied to 802.11p and 802.11af waveforms, and demonstrated its feasibility in hardware.
 We also showed that the proposed architecture could flexibly adjust this shaping for moving bands in a CR setting.
 
@@ -38,28 +38,41 @@ We also showed how a clock frequency tuning technique could offer seamless recov
 
 Our achievements in this thesis have helped us identify crucial questions to be explored in future along this line. And while we have been able to test our designs in hardware, building a fully functional radio system is something that still requires some engineering design effort.
 
-\subsection{Efficiently adaptive shaping spectral leakage}
+\subsection{Increasing Spectrum Efficiency in Channel Shaping for NC-OFDM Signal}
+The novel approach presented in Chapter~\ref{chap:SpectralLeakage} allows increase roll-off factor of pulse shaping while avoiding the ISI.
+The work is limitted to investigate the out-of-band suppression to satisfy the strict specification of SEMs. 
+Furthermore, the approach is also potential to perform in-band shaping that can be applied for NC-OFDM system to reuse the spectrum of fractionated bands with high efficiency.
+Understanding how to use effectively the large roll-off factor pulse shaping to achieve more efficient spectrum usage of secondary NC-OFDM based system in case of reusing sparse narow bands requires further research.
+
+\subsection{Efficiently Adaptive Shaping Spectral Leakage}
 The static strict SEMs in radio systems can guarantee that the systems mitigate the effect of ICI. However, the implementation and power cost may be significant.
-To meet a strict SEM, the number of subcarriers may need to be reduced, resulting in decreased the spectrum efficiency and throughput, otherwise the transmission power may be tuned down, leading to a reduction of communication range.
-Moreover, the extending frequency guard can maintain the throughput and transmission power but involves increased computational cost.
+%To meet a strict SEM, the number of subcarriers may need to be reduced, resulting in decreased the spectrum efficiency and throughput, otherwise the transmission power may be tuned down, leading to a reduction of communication range.
+%Moreover, the extending frequency guard can maintain the throughput and transmission power but involves increased computational cost.
 However, in practice, the adjacent channels are not always occupied and the communication range can change from time to time. Therefore, statically maintaining a very strict SEMs may be redundant.
-An interesting research question is whether and how the CR can reduce this redundancy.
-The spectral sensing ability of the CR allows the system to recognise the performance of adjacent systems as well as currently allowed communication range.
-A novel method is demanded to calculate the dynamic SEM relied upon the performance of adjacent system as well as current allowed communication range.
+An interesting question is how the CR can reduce this redundancy.
+The spectral sensing ability of the CR allows the system to recognise the performance of adjacent systems as well as currently allowed communication range that determines the suitable transmitted power level.
+A novel method is demanded to calculate the dynamic SEM relied upon the performance of adjacent system as well as current transmitted power level.
 The dynamic SEM could then be temporarily more relaxed than the static SEM while still guaranteeing it does not causing ICI to adjacent systems.
 In addition, the demand of an optimisation approach that takes into account the cost and advantage of the above reduced effort leakage methods can satisfy the dynamic SEM with the smallest cost in terms of throughput, computation and power consumption.
 
-\subsection{Flexible and efficient MSCR platform}
-The interface to the higher layer processing is another important factor in building a radio platform for MSCR.
-While optimization of low level blocks is equally important, providing a general interface for implementing higher layer processing is important.
+\subsection{Standardised Software Interface for Multiple Standard Radio Platform}
+The interface to the higher layer processing is another important factor in building a radio platform for supporting multiple standards.
+While optimisation of low level blocks is equally important, providing a general interface for implementing higher layer processing is important.
 This allows radio experts to use the system to investigate cognitive radio techniques without the need for substantial low-level FPGA expertise.
 In future work, we aim to build a standardised software interface for this purpose that simplifies the process of retrieving systems status and initiating reconfiguration.
-The standardised software interface also allows the MSCR platform to be flexibly and rapidly extended to support new standards.
-In addition, in case of increasing the number of standards, pre-determining the next standard in a switching pattern, relies upon the global (or co-operative distributed) spectrum sensing.
+The standardised software interface also allows this radio platform to be flexibly and rapidly extended to support new standards.
+
+%\subsection{Multiple Multicarrier modulations radio platform}
+%This work explores the advantages of coupling PR and parameterised functional units in one architecture to offer
+%flexibility for OFDM-based baseband processing
+
+\subsection{Improving Reconfiguration Time for Multiple Standard Radio Platform}
+In case of increasing the number of standards, reconfiguration time is significant increased because of increased size of PR modules.
 Dual PR regions for a PR module could be a good solution to reduce reconfiguration time.
 One PR region contains the PR module for the current operating standard while the other region can be reconfigured ready for the standard in the switching pattern.
+Pre-determining the next standard in a switching pattern relies upon the global (or co-operative distributed) spectrum sensing.
 When frequency bands change, the processing band can therefore instantaneously be switched to the second standard's PR module.
-To do so, a new method needs to be studied to in pre-determining the next standard, based on spectrum sensing and this possibly makes use of a predictive system.
+A new method needs to be studied to in pre-determining the next standard, based on spectrum sensing and this possibly makes use of a predictive system.
 The interface between the processing chain and dual PR regions and the switching mechanism also need to be investigated.
 
 \section{Summary}

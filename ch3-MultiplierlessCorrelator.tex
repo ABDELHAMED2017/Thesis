@@ -10,7 +10,7 @@
 The correlation operation plays an important role in a number of signal processing algorithms, and is commonly used to perform basic synchronisation in OFDM systems.
 Auto-correlation based techniques are preferred for implementing OFDM synchronisation on FPGA because of their lower hardware costs.
 Dick and Harris~\cite{Dick2003} reported on an FPGA implementation of an OFDM transceiver including such synchronisation.
-Wang et al.~\cite{Wang2004} also presented an FPGA implementation of an OFDM-WLAN synchronizer, in which the timing synchronisation is performed by double auto-correlation based on short training symbols, allowing a reduction in hardware cost on FPGA.
+Wang et al.~\cite{Wang2004} also presented an FPGA implementation of an OFDM-WLAN synchroniser, in which the timing synchronisation is performed by double auto-correlation based on short training symbols, allowing a reduction in hardware cost on FPGA.
 Fort et al.~\cite{Fort2003} compared the performance and complexity of FPGA implementations of auto-correlation and cross-correlation, showing that the accuracy of cross-correlation algorithms is better, but at a significant hardware cost.
 They proposed a new cross-correlator implementation to reduce hardware cost compared to a classic cross-correlation, but it is still at least 5 times more complex to implement than auto-correlation, due to the fact that several multipliers are required.
 

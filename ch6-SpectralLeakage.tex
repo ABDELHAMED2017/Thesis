@@ -16,7 +16,7 @@ Spectral leakage filtering may cause some effects on transmitted signals that le
 Therefore, the implementations of spectral leakage filtering need to be able to take into account the parameters of the underlying OFDM signal and its channel characteristics to avoid causing negative effects on the transmitted signal such as distortion and ISI.
 
 In this chapter, a novel method that embeds baseband filtering within a cognitive radio (CR) architecture, is proposed.
-The method is able to meet the specification for the most stringent 802.11p SEM, meet the specification of the 802.11af strict SEM requirement, and furthermore can allow ten additional 802.11af sub-carriers to occupy a single basic channel without violating SEM specifications.
+The method is able to meet the specification for the most stringent 802.11p SEM, meet the specification of the 802.11af strict SEM requirement, and furthermore can allow ten additional 802.11af subcarriers to occupy a single basic channel without violating SEM specifications.
 In addition, the method can adaptively change filter performance according to the transmission power to reduce computational cost while guaranteeing that the emission spectrum remains smaller than the allowed spectral leakage.
 The method, performed at baseband, relaxes otherwise strict RF front-end requirements.
 This allows the RF subsystem to be implemented using much less stringent 802.11a designs, which can significantly reduce total cost.
@@ -40,7 +40,7 @@ A sample $x(m)$ of the OFDM symbol $(0\leq m \leq N_{T}-1)$ can be expressed in 
 \label{xm}
 x(m) = \frac{1}{N}\sum_{k=0}^{N-1} X(k) e^{i2\pi\frac{k}{N}(m-N_{CP})},
 \end{equation}
-where $X(k)$ denotes the frequency domain representation of the data sub-carriers.
+where $X(k)$ denotes the frequency domain representation of the data subcarriers.
 Since OFDM symbol samples are generally transmitted sequentially, this is equivalent to multiplying symbols with a rectangular window function, $p$.
 Then the transmitted OFDM samples can be expressed as
 \begin{equation}
@@ -84,7 +84,7 @@ However, since the new standards operate in different channel regions and enviro
 802.11p is defined for vehicular channels that tends to experience a larger delay spread than WLAN.
 While the 802.11p symbol has 16 samples for CP (i.e. the same as in 802.11a), the guard intervals are lengthened to avoid ISI by reducing the bandwidth from 20\,MHz to 10\,MHz (i.e., a 10\,MHz sampling frequency). However this raises some challenges in the frequency domain.
 First, reducing bandwidth requires a higher quality factor front-end filter circuit for the higher frequency carrier compared to 802.11a.
-Second, 802.11p shares a 6 sub-carrier spacing frequency guard per side with 802.11a. Given the reduced sampling frequency, this leads to the absolute frequency guard being correspondingly narrower.
+Second, 802.11p shares a 6 subcarrier spacing frequency guard per side with 802.11a. Given the reduced sampling frequency, this leads to the absolute frequency guard being correspondingly narrower.
 
 Generally, vehicular communication channels with large delay spread will require an increased timing guard, hence narrowing the frequency guard, which leads to more strict filtering constraints.
 Empirical channel models in \cite{Acosta-Marum2007,Sen2008} reveal how maximum delay spread varies depending on different propagation models and traffic environments.
@@ -113,7 +113,7 @@ Specifically, each method is evaluated, and shown as unsuitable in meeting the s
 \label{subsec:Pulse}
 %This section investigates the possibility of using pulse shaping technique to achieve the requirement of 802.11p's SEMs.
 %Pulse shaping is a technique in which a smoother transition pulse is used instead of a rectangular pulse as in conventional OFDM, resulting in compressed side lobes.
-Pulse shaping (using a smooth rather than rectangular pulse), recommended in 802.11a, is effective at reducing side lobes, although it induces distortion in the sub-carriers.
+Pulse shaping (using a smooth rather than rectangular pulse), recommended in 802.11a, is effective at reducing side lobes, although it induces distortion in the subcarriers.
 One way to avoid the distortion is to add extending parts, i.e. CP and cyclic suffix (CS), concatenated to the conventional OFDM symbol before the beginning and after the end respectively. The extended symbol is then multiplied with a smoothing function.
 While the CP in conventional OFDM is used as a guard interval, here it is also occupied, along with the CS, for pulse shaping.
 
@@ -380,7 +380,7 @@ The method thus involves three steps:
 
 \begin{itemize}
 \item The IFFT length is multiplied by a factor $M$, and the sampling frequency similarly increased by a factor $M$, to maintain the same subcarrier spacing.
-Given this, the allocation vector is formed to add data symbols at lower sub-carriers that are the same as those in the original IFFT, while the remaining sub-carriers are zero-padded.
+Given this, the allocation vector is formed to add data symbols at lower subcarriers that are the same as those in the original IFFT, while the remaining subcarriers are zero-padded.
 \item Next, pulse shaping is applied in the normal way, to meet the given SEM constraint.
 \item Finally, $L'$-fold interpolation is used to allow simple filtering to remove the image spectrum.
 \end{itemize}
@@ -589,7 +589,7 @@ Fig.~\ref{fig:80211af} illustrates the results of shaping the spectral leakage f
 Because of the limited length, the band transition of the FIR filter is not narrow enough.
 This results in the spectrum of the conventional method, \emph{Conv}, exhibiting two side lobes, as well as introducing visible distortion in the main spectrum.
 Thus, the conventional method is far from able to meet the SEM requirement for 802.11af.
-One method that might be considered for achieving this is to deactivate the outer sub-carriers (instead, use null-subcarriers).
+One method that might be considered for achieving this is to deactivate the outer subcarriers (instead, use null-subcarriers).
 This can extend the frequency guard, but clearly results in a loss of spectral efficiency.
 Reducing transmission power is also possible, but is similarly unattractive since it would adversely impact range -- in fact the power reduction needed to bring the \emph{Conv} transmission within the SEM envelope is not small.
 For example, the 802.11af prototype hardware in \cite{Lan2013} requires the transmitted power to be attenuated by 20dB to satisfy the SEM specifications.
@@ -604,15 +604,15 @@ In the conventional method (Fig. ~\ref{fig:80211af}), about 35~dBc additional fi
 
 With a 96th order FIR filter as mentioned above for \emph{Conv}, the transition band needed to achieve such suppression is estimated, based on the Kaiser window formula in Table~\ref{tab:lengthFIR}, as being 0.83\,MHz.
 This is equivalent to 21 subcarrier spacings which would need to be trimmed from each side of the 802.11af channel.
-Thus the number of occupied sub-carriers would need to be reduced from the standard 114 subcarriers to below 100 in order to give \emph{Conv} a sufficient guard interval for FIR filtering.
+Thus the number of occupied subcarriers would need to be reduced from the standard 114 subcarriers to below 100 in order to give \emph{Conv} a sufficient guard interval for FIR filtering.
 
 However, the window formula is only an estimate, and hence the system is simulated here to explore further.
-In this case, the number of sub-carriers is reduced step-wise in pairs, from the edges working inwards, until the SEM is just satisfied.
-Fig.~\ref{fig:80211af2} plots results with 94 and 92 sub-carriers occupied (\emph{Conv\_92s} and \emph{Conv\_92s}), showing that 92 sub-carriers meets the SEM requirement whereas 94 sub-carriers does not, by a small margin.
+In this case, the number of subcarriers is reduced step-wise in pairs, from the edges working inwards, until the SEM is just satisfied.
+Fig.~\ref{fig:80211af2} plots results with 94 and 92 subcarriers occupied (\emph{Conv\_92s} and \emph{Conv\_92s}), showing that 92 subcarriers meets the SEM requirement whereas 94 subcarriers does not, by a small margin.
 
 Referring back to Fig.~\ref{fig:80211af}, we also see a clear frequency gap between the spectrum of the proposed approach and the SEM.
-This gap could potentially be exploited to pack in several more occupied sub-carriers.
-We therefore undertake simulations to explore this phenomenon, and find that the proposed method is able to pack in up to 124 employed sub-carriers while still satisfying the SEM.
+This gap could potentially be exploited to pack in several more occupied subcarriers.
+We therefore undertake simulations to explore this phenomenon, and find that the proposed method is able to pack in up to 124 employed subcarriers while still satisfying the SEM.
 This is also illustrated in Fig.~\ref{fig:80211af2} as \emph{Prop\_124s}.
 
 The results demonstrate that the proposed CR architecture can not only meet the stringent SEM requirement of 802.11af but could also be used to enhance spectral efficiency beyond that.
@@ -650,7 +650,7 @@ In both cases, the extended physical layers are scaled to encourage reuse of exi
 The research relies upon a combination of interpolation, IFFT length adjustment, pulse shaping and FIR image suppression filtering, to mitigate against spectral leakage into adjacent channels.
 Simulations show that the proposed architecture can meet the specification of the four 802.11p classes A to D, as well as the stringent FCC-imposed SEM for 802.11af in the UHF
 band.
-The proposed method is also shown able to improve the achievable spectral efficiency for reuse of Television White Spaces in the 802.11af standard by 32\%, given equivalent transmission power, compared to conventional approaches which need to drop the outermost sub-carriers in order to meet SEM requirements.
+The proposed method is also shown able to improve the achievable spectral efficiency for reuse of Television White Spaces in the 802.11af standard by 32\%, given equivalent transmission power, compared to conventional approaches which need to drop the outermost subcarriers in order to meet SEM requirements.
 In addition, the architecture has the ability to adaptively change the degree of spectral leakage filtering in response to transmission power.
 The computation of filtering can be reduced when transmission power is low, but when transmission power is high, it is able to extend to meet the strict SEM specification of both 802.11p and 802.11af.
 Furthermore, the architecture is capable of adjusting clock rate, bandwidth, and frequency band on a symbol-by-symbol basis, in order to implement an agile CR solution.

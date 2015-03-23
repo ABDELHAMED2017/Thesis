@@ -4,7 +4,7 @@
 \label{chap:introduction}
 %---------------------------------------------------------------------------------
 
-Wireless transmission plays a key role in our every day lives, and has enabled the exponential growth in connectivity that we have witnessed over the last few decades.
+Wireless transmission plays a key role in our everyday lives, and has enabled the exponential growth in connectivity that we have witnessed over the last few decades.
 An exponential increase in the number of users and nodes, and the throughput demanded between them, means significant developments are crucial in the fundamental methods by which this wireless communication is enabled.
 The previous approach of defining fixed wireless standards for use in fixed portions of radio spectrum is giving way to a more dynamic approach to exploiting this scarce resource.
 Practical studies have shown that many licensed bands are relatively unused across time and frequency~\cite{FCC2002}.
@@ -13,7 +13,7 @@ This concept is known as dynamic spectrum access (DSA)~\cite{Minden}.
 Wireless communication systems for realising DSA must be reconfigurable, to support different radio standards in different environments, and adaptive, to react to changing channel conditions without interfering with licensed users and other unlicensed opportunistic users.
 
 A cognitive radio (CR) is a node that is able to adapt its parameters to optimise performance based on interaction with the environment, as well as to perform DSA.
-A cognitive radio can modify parameters such as transmit power, coding rate, frame size, bandwidth, and centre frequency, in real time, to obtain suitable performance in a given, changing, environment.
+A cognitive radio can modify parameters such as transmit power, coding rate, frame size, bandwidth, and centre frequency, in real time, to obtain suitable performance in a changing, environment.
 The radio baseband should also be reconfigurable to enable support for multiples standards such as WiFi, WiMAX, GSM, WCDMA, and other defined access schemes.
 More advanced adaptive standards are intrinsically flexible and this flexibility should be managed to optimise performance in the channel.
 
@@ -30,36 +30,37 @@ The hardware implemented on an FPGA can be modified at runtime, thereby enabling
 While a number of radio research groups have used FPGAs in their platforms, we believe our FPGA expertise can help develop a platform that is both easier to use, and that exploits the more advanced capabilities of FPGAs.
 
 % %---------------------------------------------------------------------------------
-% \section{Background}
+ \section{Background}
 % %---------------------------------------------------------------------------------
 
-% Orthogonal Frequency Division Multiplexing (OFDM) has been adopted for implementation within the Cognitive Radio field, and is a prime candidate for DSA networks in which the radio is required to be spectrally aware and able to dynamically access idle parts of the spectrum.
-% OFDM is an efficient multi-carrier modulation technique that provides robustness to frequency selective channels and the DSA ability based upon spectrum pooling, where unlicensed users may temporarily access spectral resources during the idle periods of licensed users~\cite{JondralMarch2004}.
-% When utilising a given bandwidth of spectrum, OFDM sub-carriers that cause interference with licensed users can be selectively disabled.
-% This technique is referred to as non-contiguous orthogonal frequency multiplexing (NC-OFDM)~\cite{MindenJune2006}.
+ Orthogonal Frequency Division Multiplexing (OFDM) has often been adopted for implementation within the CR field, and is a prime candidate for DSA networks in which the radio is required to be spectrally aware and able to dynamically access idle parts of the spectrum.
+ OFDM is an efficient multi-carrier modulation technique that provides robustness to frequency selective channels and the DSA ability based upon spectrum pooling, where unlicensed users may temporarily access spectral resources during the idle periods of licensed users~\cite{JondralMarch2004}.
+ When utilising a given bandwidth of spectrum, OFDM sub-carriers that cause interference with licensed users can be selectively disabled.
+ This technique is referred to as non-contiguous orthogonal frequency multiplexing (NC-OFDM)~\cite{MindenJune2006}.
 
-% The lower priority of CRs raises a challenge in term of transmission capability and quality of service. When the spectrum allowed for a CR system is fully occupied by PUs and IUs, the transmission of CRs can be blocked.
-% Multiple Standard Cognitive Radios (MSCRs) are able to operate in multiple frequency bands with different specified standards.
-% MSCRs are hence a more flexible generalisation of CRs as they can operate across different bands and standards to increase transmission capability and enhance bandwidth efficiency.
+ The lower priority of CRs raises a challenge in term of transmission capability and quality of service. When the spectrum allowed for a CR system is fully occupied by PUs and IUs, the transmission of CRs can be blocked.
+ Multiple Standard Cognitive Radios (MSCRs) are able to operate in multiple frequency bands with different specified standards.
+ MSCRs are hence a more flexible generalisation of CRs as they can operate across different bands and standards to increase transmission capability and enhance bandwidth efficiency.
 
 %---------------------------------------------------------------------------------
 \section{Motivation and Objectives}
 %---------------------------------------------------------------------------------
 
-MSCR requires platform that provides sufficient flexibility, high computational throughput, and power efficiency.
-Most practical CRs are built using powerful general purpose processors to achieve flexibility through software but they fail to offer the computational throughput and also tend to suffer from high power consumption.
+MSCR requires a platform that provides sufficient flexibility, high computational throughput, and ideally power efficiency.
+Most practical CRs are built using powerful general purpose processors to achieve flexibility through software, however they fail to achieve the computational throughput and also tend to suffer from high power consumption.
 Multiple processor-on-chip (MPoC) architectures can enhance the throughput;
-however, these platforms require problems to be formulated in a way suitable for parallel programming and tend to need additional memories to buffer data transferred between parallel processes.
-Moving data around these processes may consume significant power.
-Conversely, custom hardware designs such as application specific integrated circuits (ASICs) offer highly efficient computation, high throughput and possibly low power dissipation; however, they suffer from a lack of flexibility, in which operating parameters tend to need to be decided at design time.
+however, these platforms require problems to be formulated in a way suitable for parallel programming, and tend to need additional memories to buffer data transferred between parallel processes.
+Moving data between these processes can consume significant power in practice.
+Conversely, custom hardware designs such as application specific integrated circuits (ASICs) offer highly efficient computation, high throughput and possibly low power dissipation; however, they suffer from a lack of flexibility, in which operating parameters tend to need to be fixed at design time.
 In an application area with fast moving standards and occupied by multiple standards, ASICs are likely to be inefficient in terms of both time and cost for MSCR.
 However, modern FPGAs which support partial reconfiguration (PR) are an attractive candidate for cognitive radios.
-They provide not only the high performance of a custom data-path implementation, but also offer flexibility with low power dissipation.
+They not only achieve the high performance of a custom data-path implementation, but also offer design flexibility and potentially low power dissipation.
 
-The feasibility of MSCR implementation depends on the flexibility of switching system parameters specified by from one standard to another.
-Multi-carrier modulation based techniques are widely investigated for state of the art and also next-generation wireless standards.
-These techniques divide communication channels into multi-sub-channels that allow a system to perform parallel data transmission over smaller sub-channels to combat amplitude and phase distortion, impulse noise, multipath propagation and so on.
-OFDM and Filter Bank Multi Carrier (FBMC) are two types of multi-carrier modulations.
+The feasibility of MSCR implementation depends on the ability to flexibly switch system parameters from those specified for one standard to those specified for another.
+As mentioned, MCM-based techniques have been widely investigated for next-generation wireless standards.
+These techniques divide communication channels into multi-sub-channels that allow a system to perform parallel data transmission over smaller sub-channels.
+This allows the techniques to effectively combat amplitude and phase distortion, impulse noise, multipath propagation and so on.
+OFDM and Filter Bank Multi Carrier (FBMC) methods are two examples  of multi-carrier modulations.
 OFDM modulation has been the dominant technique adopted for multiple applications in high bit-rate wireless communication systems such as Wireless Local Area Networks (WLAN) standardized in IEEE 802.11 and Metropolitan Area Networks (MAN) in IEEE 802.16.
 It is effective to perform spectral sensing and carrier allocation for CRs.
 Furthermore, OFDM modulation requires a simple and low cost implementation and effectively parameterizes the system to flexibly switch from one standard to another in comparison to FBMC modulation.

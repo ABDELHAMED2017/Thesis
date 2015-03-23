@@ -1,93 +1,67 @@
+%!TEX root = main_thesis.tex
 %---------------------------------------------------------------------------------
-\chapter{Future Work and Conclusion}
+\chapter{Conclusion and Future Work}
 \label{chap:conclusion}
 %---------------------------------------------------------------------------------
-This chapter gives a brief summary of the research contributions as well as providing an overall conclusion to the research presented in this thesis. 
-Some directions for future work related to these contributions are also identified.
+This thesis has presented techniques for implementing robust, low-power cognitive radios using modern FPGAs. We have shown that the computational performance of FPGAs allows us to develop techniques for more advanced synchronisation, leading to robustness in fading channels, that we can control spectral leakage to satisfy even very strict constraints defined by recent standards, and that a multi-standard radio can be built to minimise reconfiguration time by mixing the use of partial reconfiguration and parameterised modules. The contributions made serve as important building blocks in developing a functional dynamically reconfigurable OFDM cognitive radio.
 
-\section{Conclusion}
+This chapter concludes the thesis, highlighting the contributions and suggesting ideas for future research.
 
-This thesis began with a literature survey which investigates the power consumption of FPGA devices, along with some low-power design strategies suitable for OFDM-based radio systems. 
-The background discussion studied OFDM in terms of mathematical representation and functionality, while the performance of OFDM was analysed through its system model. 
-Within this framework, the advantages and limitations of OFDM were discussed, and several challenges identified. 
-The synchronisation issues related to OFDM systems were considered in depth, and the related work focusing on achieving good performance in terms of synchronisation was discussed on its merits as well as limitations. 
-Meanwhile, the issue of spectral leakage of the OFDM signal was also investigated along with its trade-off effects in terms of ICI, especially related to pulse shaping and filtering.  
-The challenges of implementing a MSCR in terms of improving bandwidth efficiency and avoiding spectrum congestion were identified and considered.
+\section{Summary of Contributions}
 
-In order to reduce computational complexity and power dissipation, a multiplierless design was adopted for the timing synchronisation correlator and compared to conventional approaches for performing correlation-based frame synchronisers that use DSP48E1 slices. 
-We discovered, in the context of synchronisation for IEEE802.16 OFDM systems, that simplified multiplierless designs offer comparable synchronisation performance, even for realistic models of channel conditions. 
-While the DSP48E1-based correlators can support higher clock speeds, this is only possible through a detailed pipelined design.
-Furthermore, the power consumption and resource usage of multiplierless designs are considerably reduced.
-Since low-power, low-cost devices such as the Xilinx Spartan-6 do not include sufficient DSP Slices, this suggests adopting multiplierless designs for low-power implementations using such devices.
-We have shown that while very low quantisation resolution does impact synchronisation performance, with a step size of just 0.5, synchronisation accuracy is on a par with multiplier-based correlation. 
-Multiplierless correlation on a Spartan-6 can save over 85\% power compared to  a DSP slice design on a Virtex-6 FPGA.
+This thesis has worked towards the implementation of dynamically configurable cognitive radios on FPGAs.
+With this goal in mind, we identified key challenges including robust synchronisation and shaping spectral leakage.
+We proposed novel contributions in the field to address these challenges, in each case focusing on applicability in efficient hardware implementations.
+We have also explored the system-level challenge of reconfiguration time in radios implemented with partial reconfiguration, and proposed a mixed parametrisation approach for minimising reconfiguration time.
 
-For OFDM's synchronisation performance, conventional schemes achieve good performance when the CFO is in the range of fractional CFO estimation. 
-Some methods employ cross-correlation for the time synchronisation; and these method are robust to large CFO and can obtain acceptable performance at low SNR.
-However, the much higher computational resources needed for cross-correlation tend to make such methods unsuitable for hardware implementation, despite their good performance. 
-Therefore, a new method was proposed to improve upon these drawbacks of previously reported works. 
-The proposed method takes advantage of period and energy distribution characteristics of the preamble. 
-The synchronisation performance results, obtained through simulation, demonstrate good performance and robustness to large CFO. 
-Moreover, the complexity of the timing metric is much less than that of cross-correlation-based methods, making the proposed method more suitable for hardware implementation.
-A novel IFO estimation was adopted using efficient and low cost circuitry based on a four-fold resource sharing architecture. 
-The novel IFO estimation method yields significant power and resource reduction that makes for an IFO estimation implementation on FPGA while also achieving excellent performance, similar to the theoretically achievable bound.
-Coupling the robust OFDM synchronisation and performing IFO estimation at baseband is important to allow the RF front-end
-specification to be relaxed, thus reducing system cost. In fact, for some multi-standard radios, and applications suffering significant Doppler shift, RF constraints may be infeasible
-without techniques such as this IFO estimation being applied.
+\subsection{Robust, Efficient Synchronisation}
 
-The novel method for shaping the OFDM leakage spectrum at baseband was also studied within a CR architecture, in order to meet stringent operational SEM requirements. 
-In particular, the research considered two relatively new standards, 802.11p and 802.11af, which specify physical layers which are largely based upon existing standards.
-In both cases, the extended physical layers are scaled to encourage reuse of existing hardware, devices and designs, but the resulting systems are then subject to much more stringent SEMs.
-To date, there have been no published implementation solutions for either system. 
-An architecture was proposed which is able to dynamically change the degree of spectral leakage filtering according to transmission power, in which the computation of filtering can be reduced when transmission power is low, but when transmission power is high, it is able to meet the strict SEM specification of both 802.11p and 802.11af. 
-Furthermore, the architecture has the ability to adjust clock rate, bandwidth, and frequency band on a symbol-by-symbol basis, in order to implement an agile CR solution.
+In Chapter~\ref{chap:BackgroundLiterature}, we presented the theory behind OFDM and demonstrated the importance of robust synchronisation, especially in complex channels like those in moving vehicles, or when building flexible radios with less tuned components.
+We proposed a multiplierless correlation method for basic timing synchronisation in Chapter~\ref{chap:multiplierlesscorrelator} that can reduce power and area while maintaining performance close to full cross correlation.
+We presented a more complex timing metric and its efficient implementation in Chapter~\ref{chap:Synchronisation}, showing robust CFO and STO synchronisation in frequency selective channels, and a computational complexity close to less robust standard methods.
+In Chapter~\ref{chap:CFO} we presented a novel method for CFO estimation that tolerates larger CFO variations than existing methods, allowing for flexible radios to be built with support for wide ranging frequency bands without overly expensive RF components.
+These methods together offer practical implementations that are more robust than any other published implementations.
 
-The research investigated the feasibility of MSRC as well as the possible techniques for designing multi-standard radios on FPGAs.
-Traditional implementations in custom ASICs cannot support such flexibility for MSCR systems with standards changing at a faster pace, while software implementations of baseband communication fail to achieve the performance required.
-Hence, FPGAs offer an ideal platform bringing together flexibility, performance, and efficiency.
-The mathematical analysis explores the performance of the proposed architecture for MSCR based on mixing the PR modules and parameterised modules.
-The PR modules provide the flexibility, easy implementation and low resource usage but require long configuration times.
-The parameterised modules can be employed to reduce configuration time of system but leads to the implementation complexity and increasing resource usage.
-The coupling of PR modules and parameterised modules of the proposed architecture for MSCR can achieve both the flexibility and significant decrease configuration time. 
-The calculated results based on the FPGA synthesis show that the proposed architecture achieves a significant reduction in terms of system latency compared to conventional structures. 
-The proposed method requires a very small FIFO in comparison to conventional structure. This allows a MSCR to be implemented on an FPGA platform for a low cost, low power systems.
+\subsection{OFDM Spectrum Shaping}
+We discussed in Chapter~\ref{chap:BackgroundLiterature} that OFDM suffers from large sidelobes due to the addition of sub carrier sync pulses.
+In the context of cognitive radios opportunistically accessing radio spectrum, typically leads to a reduction in usable bandwidth as some sub-carriers are switched off to reduce potential interference with adjacent channels.
+In Chapter~\ref{chap:SpectralLeakage}, we presented a novel method incorporating filtering at the baseband that can offer much better sidelobe suppression, meeting even very stringent requirements in modern CR standards. We demonstrated this approach applied to 802.11p and 802.11af waveforms, and demonstrated its feasibility in hardware.
+We also showed that the proposed architecture could flexibly adjust this shaping for moving bands in a CR setting.
 
-This thesis has worked towards the implementation of effective MSCR on an FPGA platform, utilising OFDM-based wireless standards and a careful balancing between partial reconfiguration and parameterisation. 
-In order to implement the MSCR demonstrator, which marks the endpoint of this research, several major challenges were identified in this research field, particularly in terms of timing synchronisation, frequency offset compensation and spectral emissions masks. 
-Each of these have been solved using novel contributions to the field. 
-The use of an FPGA platform has enabled this research to take different approaches, which have improved on the state-of-the-art solutions from other researchers, and have been recognised by being published in good journals and conferences, and have yielded solutions to these challenges which have enabled the eventual implementation of the final MSCR demonstrator.
+\subsection{Multi-Standard Radio Design}
 
-\section{Future Work}
-In this thesis, the feasible implementation of an OFDM-based MSCR was presented with proposed solutions to overcome challenges in terms of configuration time, synchronisation, and shaping spectrum leakage.
-A robust and efficient synchronisation method is proposed and evaluated. 
-The novel filtering scheme is presented to meet the strict specifications of recent standards for CRs. 
-The new architecture, based on coupling PR and parameterised modules, is investigated to reduce the reconfiguration time of MSCR  on FPGA. 
-The results presented in the research also introduce some interested research questions and potential future research directions that should be discussed as follows;
+In Chapter~\ref{chap:MSCR}, We presented a detailed analysis of incorporating partial reconfiguration for adapting an FPGA-based CR.
+We showed that while PR offered low resource utilisation, long reconfiguration time could be a concern. We showed that mixing PR modules with parametrised modules offered a significant reduction in reconfiguration time, allowing radios to be implemented with internal buffering to overcome data loss during reconfiguration.
+We also showed how a clock frequency tuning technique could offer seamless recovery following reconfiguration.
+
+\section{Future Research Directions}
+
+Our achievements in this thesis have helped us identify crucial questions to be explored in future along this line. And while we have been able to test our designs in hardware, building a fully functional radio system is something that still requires some engineering design effort.
 
 \subsection{Efficiently adaptive shaping spectral leakage}
-The static strict SEMs in radio systems can guarantee that the systems mitigate the effect of ICI. However, the implementation and power cost may be significant. 
-To meet a strict SEM, the number of subcarriers may need to be reduced, resulting in decreased the spectrum efficiency and throughput, otherwise the transmission power may be tuned down, leading to a reduction of communication range. 
+The static strict SEMs in radio systems can guarantee that the systems mitigate the effect of ICI. However, the implementation and power cost may be significant.
+To meet a strict SEM, the number of subcarriers may need to be reduced, resulting in decreased the spectrum efficiency and throughput, otherwise the transmission power may be tuned down, leading to a reduction of communication range.
 Moreover, the extending frequency guard can maintain the throughput and transmission power but involves increased computational cost.
-However, in practice, the adjacent channels are not always occupied and the communication range can change from time to time. Therefore, statically maintaining a very strict SEMs may be redundant. 
+However, in practice, the adjacent channels are not always occupied and the communication range can change from time to time. Therefore, statically maintaining a very strict SEMs may be redundant.
 An interesting research question is whether and how the CR can reduce this redundancy.
 The spectral sensing ability of the CR allows the system to recognise the performance of adjacent systems as well as currently allowed communication range.
-A novel method is demanded to calculate the dynamic SEM relied upon the performance of adjacent system as well as current allowed communication range. 
+A novel method is demanded to calculate the dynamic SEM relied upon the performance of adjacent system as well as current allowed communication range.
 The dynamic SEM could then be temporarily more relaxed than the static SEM while still guaranteeing it does not causing ICI to adjacent systems.
-In addition, the demand of an optimisation approach that takes into account the cost and advantage of the above reduced effort leakage methods can satisfy the dynamic SEM with the smallest cost in terms of throughput, computation and power consumption. 
+In addition, the demand of an optimisation approach that takes into account the cost and advantage of the above reduced effort leakage methods can satisfy the dynamic SEM with the smallest cost in terms of throughput, computation and power consumption.
 
 \subsection{Flexible and efficient MSCR platform}
 The interface to the higher layer processing is another important factor in building a radio platform for MSCR.
-While optimization of low level blocks is equally important, providing a general interface for implementing higher layer processing is important. 
+While optimization of low level blocks is equally important, providing a general interface for implementing higher layer processing is important.
 This allows radio experts to use the system to investigate cognitive radio techniques without the need for substantial low-level FPGA expertise.
 In future work, we aim to build a standardised software interface for this purpose that simplifies the process of retrieving systems status and initiating reconfiguration.
 The standardised software interface also allows the MSCR platform to be flexibly and rapidly extended to support new standards.
 In addition, in case of increasing the number of standards, pre-determining the next standard in a switching pattern, relies upon the global (or co-operative distributed) spectrum sensing.
-Dual PR regions for a PR module could be a good solution to reduce reconfiguration time. 
-One PR region contains the PR module for the current operating standard while the other region can be reconfigured ready for the standard in the switching pattern. 
+Dual PR regions for a PR module could be a good solution to reduce reconfiguration time.
+One PR region contains the PR module for the current operating standard while the other region can be reconfigured ready for the standard in the switching pattern.
 When frequency bands change, the processing band can therefore instantaneously be switched to the second standard's PR module.
 To do so, a new method needs to be studied to in pre-determining the next standard, based on spectrum sensing and this possibly makes use of a predictive system.
 The interface between the processing chain and dual PR regions and the switching mechanism also need to be investigated.
 
+\section{Summary}
 
-
-
+This thesis has presented key contributions to allow for the design of dynamically reconfigurable cognitive radios on FPGAs. FPGAs, especially recent devices like the Xilinx Zynq, offer an ideal platform for building radios with flexible baseband processing and high level software control. We are confident that these contributions will help make this vision a reality in the near future.

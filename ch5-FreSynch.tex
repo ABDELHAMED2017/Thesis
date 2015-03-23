@@ -1,3 +1,4 @@
+%!TEX root = main_thesis.tex
 %---------------------------------------------------------------------------------
 \chapter{A CFO Estimation Method for OFDM Synchronisation}
 \label{chap:CFO}
@@ -8,16 +9,16 @@
 %---------------------------------------------------------------------------------
 In the previous chapter, robust OFDM timing synchronisation was explored, leading to a proposed method that is able to perform well even in the case of large fractional CFO.
 However, the CFO estimation of that method was only estimate the fractional CFO rather than large integer CFO that can occur as a result of the Doppler Effect and/or due to local oscillator instabilities.
-CFO is usually normalised by subcarrier spacing and divided into an integer frequency offset (IFO) part, which is a whole multiple of subcarrier spacings, and a remainder which is referred to as fractional frequency offset (FFO). 
+CFO is usually normalised by subcarrier spacing and divided into an integer frequency offset (IFO) part, which is a whole multiple of subcarrier spacings, and a remainder which is referred to as fractional frequency offset (FFO).
 IFO causes a circular shift of the subcarrier in the frequency domain while FFO results in ICI because of lost orthogonality between subcarriers.
 \begin{figure}[b]
     \centerline{\includegraphics [width=0.9\columnwidth] {figures/Baseband.pdf} }
     \caption{Baseband processing block diagram.}
     \label{fig:baseband}
 \end{figure}
-Fig.~\ref{fig:baseband} illustrates the process of FFO and IFO estimation in the baseband processing of a typical OFDM system. 
-The IFO estimation is performed after the FFT, and relies upon cross-correlation, which consumes significant hardware resources. 
-A typical OFDM receiver avoids the need for IFO estimation by limiting CFO tolerance to be smaller than the range of allowable FFO estimation, resulting in a set of very strict constraints on the design of the RF front-end. However, if CFO exceeds the range of FFO estimation, IFO is present and the system cannot therefore function correctly. 
+Fig.~\ref{fig:baseband} illustrates the process of FFO and IFO estimation in the baseband processing of a typical OFDM system.
+The IFO estimation is performed after the FFT, and relies upon cross-correlation, which consumes significant hardware resources.
+A typical OFDM receiver avoids the need for IFO estimation by limiting CFO tolerance to be smaller than the range of allowable FFO estimation, resulting in a set of very strict constraints on the design of the RF front-end. However, if CFO exceeds the range of FFO estimation, IFO is present and the system cannot therefore function correctly.
 This is more pronounced in applications that subject the front-end to intensive Doppler (including rapidly mobile systems), for very high carrier frequencies, or systems which aim to support multiple frequency bands for different standards.
 
 In this chapter, a novel method is proposed for IFO estimation to overcome this challenge to efficient and low-power implementation. The basis of this method has also been discussed in:
@@ -29,9 +30,9 @@ In this chapter, a novel method is proposed for IFO estimation to overcome this 
 \section{Related Work}
 %---------------------------------------------------------------------------------
 As mentioned in the previous chapter, the estimation range of  fractional CFO has a limitation that is shown in (\ref{fractionalCFOlimitation}); for instance its range is up to $\pm$2 sub-carrier spacings in the case of the IEEE~802.16 preamble. The value of the IFO is a multiple of the coarse CFO's range.
-It is commonly estimated by performing cross-correlation \cite{Bang2001,Kim2008} in the frequency domain. 
+It is commonly estimated by performing cross-correlation \cite{Bang2001,Kim2008} in the frequency domain.
 
-Let us assume that the signal is transmitted over a frequency selective channel that has channel impulse response (CIR) $h$ with length, \emph{L} ($L<N_{CP}$), and which is corrupted by AWGN. 
+Let us assume that the signal is transmitted over a frequency selective channel that has channel impulse response (CIR) $h$ with length, \emph{L} ($L<N_{CP}$), and which is corrupted by AWGN.
 The received signal, suffering frequency and timing offsets, can be expressed in the time domain as
 \begin{equation}
 \label{xnfull}
@@ -63,7 +64,7 @@ Sign-bit cross-correlation \cite{Schwoerer2002} is a widely adopted approach to 
 Despite the adoption of such methods, cross-correlation remains computationally expensive, especially when dealing with a large FFT size.
 It should be noted here that several IFO estimation methods have been published which claim robustness to frequency selective channels and RTO. However, published FPGA implementations of these methods are lacking to date, possibly because the hardware costs are considerable -- even when adopting the sign-bit cross-correlation approach as mentioned.%}
 
-There are few practical implementations for IFO estimation and correction. 
+There are few practical implementations for IFO estimation and correction.
 A notable exception was presented in \cite{Kim2008}, in which time-domain cross correlation is performed between received samples and several pre-rotated versions of the preamble corresponding to possible IFO values. Although this method uses efficient sign-bit correlation to reduce hardware cost (at the cost of decreased estimation accuracy and increased sensitive to frequency
 selective channels), it is not efficient when the possible IFO range is large since it effectively performs an exhaustive search of possibilities.
 
@@ -105,7 +106,7 @@ However, we will demonstrate in Section \ref{sec:Sim} that the beneficial effect
 In fact the performance improvement reaches a plateau.
 We therefore propose making use of only a subset of pilots, while maintaining estimation accuracy as much as possible.
 Then, by spreading the chosen subset of pilots carefully in the time domain, it becomes possible to design a resource-sharing architecture for computing the cross-correlation, hence reducing area and power consumption.
-When the proposed method is applied to IEEE~802.16-2009 offset estimation, the pilots used for the IFO computation are selected at subcarrier indices that are multiples of 4, leading to a natural four-fold resource sharing architecture. 
+When the proposed method is applied to IEEE~802.16-2009 offset estimation, the pilots used for the IFO computation are selected at subcarrier indices that are multiples of 4, leading to a natural four-fold resource sharing architecture.
 Hence, the IFO estimation can be expressed as:
 \begin{equation}
 \label{integerCFOprop}
@@ -201,7 +202,7 @@ In addition, a randomly generated amount of STO is added in the range from 0 to 
 
 We first investigate the performance degradation compared to theoretical performance as a result of reducing the number of pilots as proposed. Next, we will investigate the effect of wordlength optimisation.
 In both cases, comparisons are made with established methods in the literature that can be simulated but are otherwise infeasible for hardware implementation, namely the conventional method in \cite{Park2002} (\emph{PCH}) that is applied to one training block with 100 pilots.
-In addition,  two state of the art methods are also simulated for comparison. 
+In addition,  two state of the art methods are also simulated for comparison.
 Firstly, metric \emph{SY} from \cite{Shim2006} as defined by,
 
 \begin{eqnarray}
@@ -553,7 +554,7 @@ Beyond IEEE 802.16-2009, the folded resource sharing architecture, which leverag
 \section{Summary}
 %---------------------------------------------------------------------------------
 
-This chapter investigated IFO estimation in OFDM-based systems such as IEEE 802.16. A technique is proposed for efficient implementation of IFO estimation, which aims in particular for a low power and low resource utilisation. 
-Since IFO estimation contributes significantly to the complexity of a robust synchroniser design, this work is important for multistandard radios, or applications where significant frequency variation is expected. Robust IFO estimation allows for relaxed analogue RF constraints, leading to reduced cost. A modified timing metric is derived which allows for resource sharing to reduce both resource requirements as well as power consumption. The proposed implementation makes use of a four-fold resource sharing architecture to significantly reduce hardware cost, while multiplierless correlation with optimised wordlength is used to improve estimation accuracy in comparison to a conventional implementation approach using signbit correlation. 
+This chapter investigated IFO estimation in OFDM-based systems such as IEEE 802.16. A technique is proposed for efficient implementation of IFO estimation, which aims in particular for a low power and low resource utilisation.
+Since IFO estimation contributes significantly to the complexity of a robust synchroniser design, this work is important for multistandard radios, or applications where significant frequency variation is expected. Robust IFO estimation allows for relaxed analogue RF constraints, leading to reduced cost. A modified timing metric is derived which allows for resource sharing to reduce both resource requirements as well as power consumption. The proposed implementation makes use of a four-fold resource sharing architecture to significantly reduce hardware cost, while multiplierless correlation with optimised wordlength is used to improve estimation accuracy in comparison to a conventional implementation approach using signbit correlation.
 The method is shown to perform as well as current state-of-the-art methods that employ multiplier-based correlation, and yet with significantly improved power and resource requirements. Dynamic power consumption is reduced by 78\% over even a sign-bit version of the conventional approach, yet it offers better estimation performance in both AWGN and frequency selective channels.
 Beyond IEEE 802.16-2009, the folded resource sharing method, which leverages sub-sample spaced OFDM pilots, can be adopted for use in other OFDM standards (including IEEE 802.11 and IEEE 802.22). Multiplierless correlation with word length optimisation is already used within communication systems, however the trade off between the number of pilots and computational accuracy for timing synchronisation is relatively unexplored in the research literature to date.

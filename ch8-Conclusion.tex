@@ -62,9 +62,13 @@ This allows radio experts to use the system to investigate cognitive radio techn
 In future work, we aim to build a standardised software interface for this purpose that simplifies the process of retrieving systems status and initiating reconfiguration.
 The standardised software interface also allows this radio platform to be flexibly and rapidly extended to support new standards.
 
-%\subsection{Multiple Multicarrier modulations radio platform}
-%This work explores the advantages of coupling PR and parameterised functional units in one architecture to offer
-%flexibility for OFDM-based baseband processing
+\subsection{Multiple Multicarrier modulations radio platform}
+Generalized frequency division multiplexing (GFDM) is a new concept for flexible multicarrier modulation that introduces additional attractive features to deal with the issues of traditional OFDM. 
+In GFDM, the out of band spectrum is compressed by an adjustable pulse shaping filter for individual subcarriers; the transmission efficiency is increased thank to a two-dimensional data process (grouping data symbols across subcarriers and time slots). 
+The good properties of GFDM are traded at the cost of higher bit error rates (because of the interference between subcarriers and time slots) and increased computational resources to perform prototype filter in comparison to OFDM. 
+Thank to the similar structure of OFDM and GFDM, a adaptive radio platform is built with ability of switching the performance between OFDM and GFDM to achieve the benefit of both techniques.
+Coupling PR modules and parameterised modules architecture can be further investigated for combining OFDM and GFDM technique in a flexible and reduced cost radio platform.
+The common functional operations between two techniques are required further research for effectively applying the coupling architecture.  
 
 \subsection{Improving Reconfiguration Time for Multiple Standard Radio Platform}
 In case of increasing the number of standards, reconfiguration time is significant increased because of increased size of PR modules.

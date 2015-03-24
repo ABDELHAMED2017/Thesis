@@ -42,7 +42,7 @@ OFDM is currently the dominant technique for multiple applications in high bit-r
 In terms of implementation, OFDM has relatively simple hardware requirements, and the ability to effectively parameterise key parameters to switch between OFDM-based standards.
 
  %The lower priority of CRs raises a challenge in term of transmission capability and quality of service. When the spectrum allowed for a CR system is fully occupied by PUs and IUs, the transmission of CRs can be blocked.
- Multiple Standard Cognitive Radios (MSCRs) are those with the agility to operate in multiple frequency bands with different specified standards and are hence a more flexible generalisation of CRs.% as they can operate across different bands and standards to increase transmission capability and enhance bandwidth efficiency.
+Multiple Standard Cognitive Radios (MSCRs) are those with the agility to operate in multiple frequency bands with different specified standards and are hence a more flexible generalisation of CRs. % as they can operate across different bands and standards to increase transmission capability and enhance bandwidth efficiency.
 Given the ability to perform spectral sensing, and handle flexible carrier allogation, OFDM is widely considered a suitable candidate for future MSCR systems.
 
 %---------------------------------------------------------------------------------
@@ -62,7 +62,6 @@ The feasibility of MSCR implementation depends on the ability to flexibly switch
 %As mentioned, MCM-based techniques have been widely investigated for next-generation wireless standards.
 %These techniques divide communication channels into multi-sub-channels that allow a system to perform parallel data transmission over smaller sub-channels.
 %This allows the techniques to effectively combat amplitude and phase distortion, impulse noise, multipath propagation and so on.
-
 Given the advantages and flexibility of OFDM modulation and the benefits of the FPGA platform, a combination of these technologies is likely to be a good candidate for MSCR implementation.
 The ability to perform PR in FPGA and allow effective parameterisation of OFDM modulation enable an MSCR to be built not only for current OFDM-based standards such as 802.11, 802.16, and 802.22, but also be potentially able to accept soft upgrades for future OFDM-based standards.
 %investigated for the feasibility of implementing the proposed low cost, low power MSCR system.
@@ -122,7 +121,7 @@ Each of these contributions solves one of the pressing challenges of implementin
 %---------------------------------------------------------------------------------
 
 This thesis is organized as follows:
-Chapter~\ref{chap:BackgroundLiterature} presents a comprehensive background on cognitive radio platforms and OFDM techniques. It also discusses relevant background knowledge relating to FPGAs and power considerations. Chapter~\ref{chap:multiplierlesscorrelator} presents the multiplierless correlation technique for OFDM synchronisation. In Chapter~\ref{chap:Synchronisation}, our combined CFO and STO synchronisation design is outlined and evaluated. Chapter~\ref{chap:SpectralLeakage} considers  spectral leakage for OFDM-based cognitive radios, and proposes a mitigation technique which is assessed for use with both 802.11p and 802.11af.
+Chapter~\ref{chap:BackgroundLiterature} presents a comprehensive background on cognitive radio platforms and OFDM techniques. It also discusses relevant background knowledge relating to FPGAs and power considerations. Chapter~\ref{chap:multiplierlesscorrelator} presents the multiplierless correlation technique for OFDM synchronisation. In Chapter~\ref{chap:Synchronisation}, our combined FFO and STO synchronisation design is outlined and evaluated. Chapter~{chap:CFO} presents an effective and low cost IFO estimation for implementing robust OFDM synchronisation against to large CFO. Chapter~\ref{chap:SpectralLeakage} considers  spectral leakage for OFDM-based cognitive radios, and proposes a mitigation technique which is assessed for use with both 802.11p and 802.11af.
 Chapter~\ref{chap:MSCR} discusses the system-level design approach for cognitive radio implementation on FPGAs, which combines the techniques discussed in earlier chapters into a cohesive MSCR approach.
 Finally, Chapter~\ref{chap:conclusion} concludes the thesis and presents several extensions for future work in this domain.
 

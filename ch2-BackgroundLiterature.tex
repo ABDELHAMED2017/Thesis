@@ -9,7 +9,7 @@
 %-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Software Defined Radios (SDRs) are radio communication systems in which the processing components (e.g. mixers, filters, modulators/demodulators, etc.) are realised by means of software on a computer or embedded system instead of in hardware circuits.
 SDR provides a flexible platform on which application-specific radio systems can be implemented. The rapidly increasing level of flexibility and functionality provided by software platforms has led to an increase in the variety of radio applications realizable by SDR.
-Cognitive Radio (CR) is an evolution of SDR incorporating intelligence in adapting the radio to a changing environment..
+Cognitive Radio (CR) is an evolution of SDR incorporating intelligence in adapting the radio to a changing environment.
 A significant portion of CR research, as in early work by Mitola \cite{Mitola1999}, focused primarily on upper layer adaptation, in which the radio platform can adapt to anticipated user or application requirements.
 According to Mitola~\cite{Mitola2006}, the evolution from SDR to CR can be illustrated by gaining three main capabilities~\cite{Recio2010a}: awareness, adaptation, and cognition.
 Awareness allows the radio to predict or enhance information from the environment. For example, RF-location awareness allows a wireless terminal to correlate information from different types of sensing to determine location.
@@ -61,7 +61,7 @@ Trinity College Dublin also worked on radio platform development with the Iris a
 Rutgers University developed the WiNC2R platform~\cite{Miljanic2007} that integrates FPGAs for both baseband and network layer implementation.
 The Berkeley Wireless Research Center developed a CR network emulator on FPGA~\cite{So2008}.
 WARP~\cite{amiri2007} is another well-established FPGA based platform developed at Rice University with a recent revision (v3) hosting a Xilinx Virtex 6 FPGA and up to 2 RF interfaces. The baseband can be implemented in the FPGA fabric, while the higher layers are coded in C as a standalone application on an embedded MicroBlaze processor.
-Microsoft Research Asia launched SORA~\cite{tan2011sora}, a PCI card designed to allow powerful radios to be implemented in Windows desktop computers
+Microsoft Research Asia launched SORA~\cite{tan2011sora}, a PCI card designed to allow powerful radios to be implemented in Windows desktop computers.
 A Xilinx Virtex 5 FPGA is used to provide high bandwidth deterministic communication between the PC and the radio front-end, but the physical layer is designed to be implemented in software on high performance desktop class processors.
 After much promise, little traction was gained due to the overhead of programming complex signal processing on general purpose processors.
 
@@ -150,9 +150,9 @@ Because the received symbols, having a length of $N+L-1$, are overlapped with th
 \end{figure}
 
 In order to avoid ISI, a guard interval (or cyclic prefix), having a length of $L_{CP}$, must be added before each OFDM symbol as demonstrated in Fig.~\ref{fig:CIR-CP}.
-If the length of CIR, $L$, is smaller than that of the guard interval, $L_{CP}$, adding the overlap of adjacent received symbols will not interfere with the succeeding received OFDM symbol.
+If the length of CIR is smaller than that of the guard interval, adding the overlap of adjacent received symbols will not interfere with the succeeding received OFDM symbol.
 The ISI is hence missing in the received symbol.
-The guard interval adopted in many OFDM standards can be commonly performed by a copy of the last $L_{CP}$ samples of the symbol as shown in Fig.~\ref{fig:CP}, that is called a cyclic prefix (CP).
+The guard interval adopted in many OFDM standards can be commonly performed by a copy of the last $L_{CP}$ samples of the symbol as shown in Fig.~\ref{fig:CP}, that is called a cyclic prefix~(CP).
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/CIR_CP.pdf} }
@@ -171,15 +171,12 @@ In addition, the use of a CP also guarantees the orthogonality of subcarriers av
 %---------------------------------------------------------------------------------
 \subsection{OFDM Radio System}
 %---------------------------------------------------------------------------------
-
-An OFDM system model can be considered as shown in Fig.~\ref{fig:OFDM-model}.
-
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/OFDM-model.pdf} }
 	\caption{An OFDM system model.}
 	\label{fig:OFDM-model}
 \end{figure}
-
+An OFDM system model can be considered as shown in Fig.~\ref{fig:OFDM-model}.
 In the transmitter, the data modulated symbols $X[n]$ are grouped in blocks of $N$ subcarrier symbols known as an OFDM symbol, expressed by a vector $X[n]=(X[1], X[2], ..., X[n])^T$.
 Next, the OFDM symbol signal in the time domain is modulated by performing the IDFT on each OFDM symbol, and a cyclic prefix of length $L_{CP}$ is inserted at the begin of OFDM signal.
 So, the complex signal of $m$, the OFDM-symbol in baseband discrete time, can be expressed as
@@ -196,8 +193,8 @@ The complete transmitted signal in the discrete time domain, $s[n]$, is given by
 s[n] =  \sum_{m=0}^{\infty} s_{m}[n-m(N+L_{CP})],
 \end{eqnarray}
 
-When transmitting OFDM signals over a multi-path channel, the received signal is obtained through the linear convolution of the transmitted symbol with the CIR $h[i]$ and adding additive white Gaussian noise (AWGN) $n$.
-Assuming that the synchronisation between the transmitter and receiver are perfectly achieved, the channel fading is slow enough to consider as a time invariant channel during one OFDM symbol interval, and the length of the cyclic prefix is longer than that of the CIR ($h[i] = 0$ for $i < 0 i > L_{CP}-1$),
+When transmitting OFDM signals over a multi-path channel, the received signal is obtained through the linear convolution of the transmitted symbol with the CIR, $h[i]$, and adding additive white Gaussian noise (AWGN), $n$.
+Assuming that the synchronisation between the transmitter and receiver are perfectly achieved, the channel fading is slow enough to consider as a time invariant channel during one OFDM symbol interval, and the length of the cyclic prefix is longer than that of the CIR ($h[i] = 0$ for $i < 0 or i > L_{CP}-1$),
 
 \begin{eqnarray}
 \label{equ:OFDMchannelsignal}
@@ -273,12 +270,9 @@ This must also be taken into account and compensated for in order to achieve goo
 When sampling a signal at the receiver, the different times of sampling between samples in the receiver and transmitter are referred as timing error.
 In a single carrier system, the symbol clock in the transmitter can be recovered at the receiver using a phase-lock loop (PLL)~\cite{farhang2008signal}.
 This can correct a timing error in the receiver relatively easily.
-
 In OFDM, however, timing errors comprise two categories: fractional and integer.
 Fractional timing error, that is errors that are smaller than one sample period, are caused by different phases between the sampling clock of the analogue to digital converter (ADC) in the receiver and the phase of the transmitted signal, while integer timing error is that which is greater than one sample period, causing index shifting, or offset, in the sample sequence.
-
 Timing error in the time domain is equivalent to a phase rotation in the frequency domain:
-
 \begin{eqnarray}
 \label{equ:timingoffset}
                s (t - \tau )   \Leftrightarrow  e^{-i2\pi f\tau} R(f),
@@ -297,11 +291,11 @@ where $R[n]$, $\widehat{R[n]}$ denotes received data symbols before and after co
 Moreover, the received samples in the receiver are synchronously grouped into blocks of OFDM symbols.
 Integer timing errors lead to a symbol timing offset (STO) referring to the difference between the correct sample index and the actual sample index of received samples that causes a misaligned window for DFT demodulation in the receiver.
 If the timing offset is late, the samples of the following symbol are used for the current symbol, resulting in ISI and hence degrading the performance of the OFDM system. The effect of ISI caused by later timing offsets on the OFDM received symbol is illustrated in Fig.~\ref{fig:Timingoffsetconstellation}(a) and Fig.~\ref{fig:Timingoffsetconstellation}(c).
-If the timing offset is early, some samples in the CP of the current symbol are used to calculate the DFT, leading to subcarrier rotation expressed in Equ.\ref{equ:timingoffset} in the frequency domain.
+If the timing offset is early, some samples in the CP of the current symbol are used to calculate the DFT, leading to subcarrier rotation expressed in Equ.\ref{equ:sto} in the frequency domain.
 The effect of subcarrier rotation caused by earlier timing offsets on the OFDM received symbol is illustrated in Fig.~\ref{fig:Timingoffsetconstellation}(b) and Fig.~\ref{fig:Timingoffsetconstellation}(d).
 
 \begin{eqnarray}
-\label{equ:rotationcompensation}
+\label{equ:sto}
               s[n - t_{\mathit{off}}]  \Leftrightarrow R[n] e^{\frac{i2\pi n t_{\mathit{off}}}{N}},
 \end{eqnarray}
 where $s[n]$, $R[n]$ denotes received data symbols in the timing domain and the frequency domain, respectively. $t_{\mathit{off}}$ is a timing offset, and N is the number of subcarriers.
@@ -356,16 +350,13 @@ In the discrete time domain, the signal sample sequence can be expressed:
 \end{eqnarray}
 where $s[n]'$ and $s[n]$ are the frequency offset samples and the original samples, respectively.
 $\Delta f$ denotes the frequency offset, and $N$ is the number of subcarriers.
-
-The effect of frequency offset is shown in Fig.~\ref{fig:freoff_1sym}. Each plot illustrates the constellation of QPSK symbols demodulated from one 256 subcarrier OFDM symbol based on the IEEE~802.16 standard.
-
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/freoff_1sym.pdf} }
 	\caption{The constellations of OFDM received symbol with frequency offets of 0.025, 0.5, 0.1 and 0.25 sub-carries spacing in a, b, c, d, respectively.}
 	\label{fig:freoff_1sym}
 \end{figure}
-
-As can be seen, OFDM performance is sensitive to even small frequency offsets.
+The effect of frequency offset is shown in Fig.~\ref{fig:freoff_1sym}. Each plot illustrates the constellation of QPSK symbols demodulated from one 256 subcarrier OFDM symbol based on the IEEE~802.16 standard.
+OFDM performance is sensitive to even small frequency offsets.
 The effect of CFO causes dispersion, similar to AWGN, and also phase rotation in the QPSK constellation demodulated from the OFDM symbol.
 If multiple data symbols are transmitted in a packet, the phase rotation of each OFDM symbol increases, and even small CFO will lead to a large drift of constellation points, shown in Fig.~\ref{fig:freoff_5sym}, degrading the performance of demodulation. CFO must be estimated and compensated for, in order to properly demodulate the OFDM symbol.
 
@@ -471,8 +462,7 @@ Within the baseband, OFDM symbols are constructed in the frequency domain and th
 A critically sampled construction process requires a sample rate of double the signal bandwidth.
 This signal is up-converted to IF using an interpolation process, during which images of the original OFDM frequency response are created at integer multiples of the original sampling rate.
 Image rejection filtering must then be performed on this signal prior to being output by the digital-to-analogue converters (DACs) and subsequent transmission, since the images lie out-of-band (OOB) and hence are a cause of ICI.
-
-However any such filtering induces time-domain smearing of the transmitted signals~\cite{Faulkner2000} which adds to the similar effects caused by the channel impulse response (CIR) between transmitter and receiver, all of which potentially induce inter-symbol interference (ISI).
+However, any such filtering induces time-domain smearing of the transmitted signals~\cite{Faulkner2000} which adds to the similar effects caused by the channel impulse response (CIR) between transmitter and receiver, all of which potentially induce inter-symbol interference (ISI).
 
 OFDM systems combat ISI by dividing information finely in the frequency domain across sub-channels to implement narrow (in frequency) but long (in time) transmitted symbols, and then providing a guard interval between successive symbol blocks.
 The guard interval is determined by the duration of the expected channel and filter impulse responses that are traversed by each symbol on the path from transmitter baseband to receiver baseband.
@@ -573,7 +563,6 @@ High power dissipation by a system introduces high operating temperatures and fo
 Power dissipation has thus come to be considered as one of the most important design metrics, along with area and performance.
 Reducing power consumption has been investigated at all levels of the digital design flow: from the system design stage to the layout stage.
 At every stage, the designer can act to optimise the power consumption of the design.
-
 However, small changes at the lower levels may require more work and time to update the higher level optimisations, thus increasing the complexity of the optimisation process.
 Moreover, at the system design level stage, the designer has more options to reduce power dissipation by a greater degree.
 At the lower level, the architecture of the system is designed in terms of data flow between registers, leaving few options to optimize the system.
@@ -586,7 +575,6 @@ In addition, low power design techniques must be investigated to optimise power 
 %Fast time-to-market, flexible programmability, and improving performance continue to render FPGAs an attractive platform for digital circuit implementation.
 %FPGAs have been gaining ground as an alternative implementation technology in a wide range of application domains, due primarily to the increased cost and diminished economies of scale when building custom ASICs.
 %However, power remains a key metric in which FPGAs lag behind custom ICs, although this gap is narrowing.
-
 Total FPGA power is calculated as follows:
 \begin{center}
 \begin{equation}
@@ -691,7 +679,7 @@ Furthermore, the long run time and and the complexity of synthesizing and valida
 
 The contemporary Xilinx FPGA design suite supports two power estimation tools: XPower Estimator (XPE) and  XPower Analyzer (XPA).
 These tools provide the power profile of a system in the early stages when the RTL description is being implemented that helps the designer improve power characteristics when implementing the system.
-XPE is a Microsoft Excel spreadsheet that is used to estimate power distribution typically used in the pre-design and pre-implementation phases of the design flow~\cite{XPowerEstimator2011} .
+XPE is a Microsoft Excel spreadsheet that is used to estimate power distribution typically used in the pre-design and pre-implementation phases of the design flow~\cite{XPowerEstimator2011}.
 XPE supports selecting the relevant power supply and thermal management components based on the system's architecture evaluation and device selection.
 XPE reads the resource usage of the implemented system, toggle rates, I/O loading, and many other factors from a designer's input and combines these with the appropriate device models to estimate power distribution.
 The appropriate device models are obtained from measurements, simulation, and/or extrapolation.

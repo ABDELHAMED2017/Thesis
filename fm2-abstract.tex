@@ -2,24 +2,4 @@
 \addcontentsline{toc}{section}{\numberline{}\hspace{-0.35in}{\bf
 Abstract}}  % Add the Abstract to the table of contents using the specified format
 
-
-%Objective
-The thesis studies and explores Orthogonal Frequency Division Multiplexing (OFDM) techniques for cognitive radio. A cognitive radio is a wireless node that is able to adapt its parameters to optimise performance based on interaction with the environment, as well as perform dynamic spectrum access that can improve the efficiency of using radio spectrum resources.
-OFDM has been adopted for implementation within the field of Cognitive Radio. It is an efficient multicarrier modulated technique that provides robustness to frequency selective channels and the possibility of employing spectrum pooling. Cognitive radios that support multiple standards and modify operation depending on environmental conditions are becoming more important as the demand for higher bandwidth. Multiple Standard Cognitive Radios (MSCRs) are hence a more flexible generalisation of CRs as they can operate across different bands with different specified standards to increase efficient spectrum usage and avoid the spectrum access congestion.
-%Importance
-Despite the advantages of OFDM, there are several issues related to this technique that would become more challenge in case of MSCRs. 
-OFDM performance is very sensitive to synchronisation. Frequency offset causes inter-subcarrier interference and errors in timing synchronisation can lead to inter-symbol interference.
-Particularly, MSCR should access a wide range of frequencies depending on the standard in operation leading to an increased CFO. Thus, the MSCR synchronisation has to be more robust to the large CFO.
-MSCR demands a flexible and strict spectral leakage filter for compressing inherent large side lobes, that are charactersitic of OFDM, to avoid Inter Channel Interference (ICI).
-Moreover, MSCR requires a short reconfiguration time when switching baseband processing from one standard to another to not interrupt the communication.
-%Contribution
-This research focuses on three critical challenges for implementing an MSCR baseband:
-
-First, A robust and efficient synchronisation is proposed with the aim of maximising the performance of OFDM-based systems, and reducing power dissipation of systems.
-The proposed method is robust to large CFO and displays more accurate fractional frequency offset (FFO) as well as accurate integer frequency offset (IFO) estimation compared to autocorrelation-based conventional schemes. 
-The multipliess technique is applied for the proposed method to achieve less complex computation, and lower resource ultilisation for hardware implementation, particularly when using reconfigurable logic devices.
-
-Second, The research proposes a novel method that embeds baseband filtering within a cognitive radio (CR) architecture, that is able to meet the most stringent specification of recent standards for spectral leakage. The proposed method, performed at baseband, relaxes the otherwise strict RF front-end filter requirements to significantly reduces total system cost.
-
-Last but not least, the research explores the feasibility of designing low power, low cost multi-standard radios to improve bandwidth efficiency and avoid spectrum congestion. The proposed system
-is based on OFDM and implemented on an FPGA, coupling parameterised modules and PR modules to achieve flexibility while minimising reconfiguration time.
+The thesis explores techniques for enabling cognitive radio design on field programmable gate arrays (FPGAs). We demonstrate the strengths of FPGAs in offering a high throughput, low-power baseband platform, and develop a flexible Orthogonal Frequency Division Multiplexing (OFDM) baseband chain with high-level control and support for multiple standards. We present contributions in OFDM synchronisation to enable more robust radios in harsher channels, and tolerating less precise RF components. We also present a novel technique for managing out of band leakage to enable more efficient spectral use in a dynamic spectrum allocation setting. For each of these approaches, we design, optimise, and characterise working hardware implementations of the required modules, with a focus on flexibility and low power. Finally, we present an approach for applying FPGA partial reconfiguration to minimise reconfiguration time when a radio switches modes, allowing intermediate data to be buffered and processed after reconfiguration is complete. These contributions form an important foundation in building a fully functional prototyping platform for cognitive radio systems.

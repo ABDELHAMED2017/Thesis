@@ -3,7 +3,9 @@
 \chapter{An Architecture for Multi-Standard Cognitive Radios}
 \label{chap:MSCR}
 %---------------------------------------------------------------------------------
-
+\definecolor{F1}{HTML}{a1dab4}
+\definecolor{F2}{HTML}{225ea8}
+\definecolor{F3}{HTML}{41b6c4}
 %---------------------------------------------------------------------------------
 \section{Introduction}
 %---------------------------------------------------------------------------------
@@ -50,8 +52,8 @@ However, by using low-level reconfiguration circumventing the official PR flow, 
 \section{Proposed OFDM Baseband for MSCR}
 %---------------------------------------------------------------------------------
 \begin{figure}
-\centering
-\includegraphics[width=1\columnwidth]{Figures/MSCRFig.pdf}
+%\centering
+\includegraphics[width=1.05\columnwidth]{Figures/MSCRFig.eps}
 \caption{The structure of a generic MSCR system}
 \label{fig:struc}
 \end{figure}
@@ -69,7 +71,6 @@ This system can perform with different OFDM symbol lengths and frame formats spe
 The main specifications of these standards are summarised in Table~\ref{Tab:spec}.
 
 \begin{table}[h]
-\label{Tab:spec}
 \centering
 \caption{System specifications of three supported OFDM-based standards.}{
 \renewcommand{\arraystretch}{1.3}
@@ -79,11 +80,12 @@ Specifications 			& IEEE~802.11 				& IEEE~802.16				& IEEE~802.22 		\\ \midrule
 Frequency band			& 2.4--2.5~GHz				& 5--6~GHz					& 54--862~MHz		\\
 Channel Width			& 10~MHz					& 10~MHz					& 8~MHz			\\
 Sampling Frequency		& 10~MHz					& 11.52~MHz				& 9.136~Mhz		\\
-FFT size ($N_{FFT}$)		& 64						& 256						& 2048			\\
+FFT size ($N$)		& 64						& 256						& 2048			\\
 CP Length				& 16						& 32						& 512				\\
 Number of data carriers		& 48						& 192						& 1440			\\
 Number of pilots			& 4						& 8						& 240				\\
 \end{tabular}
+\label{Tab:spec}
 }
 \end{table}
 
@@ -182,14 +184,14 @@ The timing metrics are calculated by using auto-correlation on received samples.
 \emph{Coarse Time} detects the new frame and roughly estimates the start of a frame using blind estimation that provides generality for application to multiple standards.
 By parameterising the length of $L$, the synchronisation module can effectively perform for three current supported standards as well as being extensible for future standards.
 
-This module is implemented as a parameterised version with parameter $L$ whose values are defined together with the length of FFT ($NFFT$), shown in Table~\ref{Tab:L}.
-Combinations of $L$, and $NFFT$ allow it to support multiple standards.
+This module is implemented as a parameterised version with parameter $L$ whose values are defined together with the length of FFT ($N$), shown in Table~\ref{Tab:L}.
+Combinations of $L$, and $N$ allow it to support multiple standards.
 The parameterised values consist not only of the required combinations for 802.11, 802.16, and 802.22, but also support other combinations for future standards.
 \begin{table}[h]
 \centering
 \caption{Parameterised values according to supported standards}{
 \begin{tabular}{|l||*{6}{c|}}\hline
-\theadset\theadfont\backslashbox[3em]{NFFT}{L}
+\theadset\theadfont\backslashbox[3em]{N}{L}
 &\makebox[2.3em]{\thead{16}}&\makebox[2.3em]{\thead{32}}&\makebox[2.3em]{\thead{64}} &\makebox[2.3em]{128}&\makebox[2.3em]{\thead{256}}&\makebox[2.3em]{\thead{512}}\\\hline\hline
 64 		& 802.11 & & & & & \\\hline
 128 	& & & & & & \\\hline
@@ -204,7 +206,7 @@ The parameterised values consist not only of the required combinations for 802.1
 
 \begin{figure}
 \centering
-\includegraphics [width=0.9\columnwidth]{Figures/MSCR_RX_Sync.pdf}
+\includegraphics [width=0.8\columnwidth]{Figures/MSCR_RX_Sync.pdf}
 \caption{Block diagram of Synchronisation module.}
 \label{fig:Sync}
 \end{figure}
@@ -214,11 +216,10 @@ The \emph{FreComp} module performs fractional CFO estimation based on the value 
 Fractional CFO estimation and compensation are mathematically expressed as:
 \begin{eqnarray}
 \label{fractionalCFO}
-\widehat{\Delta f } &=& \frac{\angle P}{2\pi L} \nonumber \\
-\widehat{r[d]} &=& r[d] e^{-j2\pi\widehat{\Delta f} d}
+\widehat{\Delta f } &=& \frac{\angle P}{2\pi \frac{L}{N}} \nonumber \\
+\widehat{r[d]} &=& r[d] e^{-j2\pi\widehat{\Delta f} \frac{d}{N}}
 \end{eqnarray}
-where $\widehat{\Delta f }$ is estimated fractional CFO, $\angle P$ denotes the angle of P and $N$ is number of FFT points.
-
+where $\widehat{\Delta f }$ is estimated fractional CFO, $\angle P$ denotes the angle of P.
 Fig.~\ref{fig:FFO} illustrates the process for frequency compensation.
 A phase rotation sub-module is used to compensate fractional CFO by rotating the received sample phase by the correct angle.
 This is calculated and accumulated based on estimated fractional CFO.
@@ -233,14 +234,14 @@ Assuming that $L$ is normally defined as a power of two value, the division by $
 Therefore, this module can be effectively implemented to support multiple standards by parameterising a right shifter according to the value of $L$.
 \begin{figure}
 \centering
-\includegraphics [width=0.5\columnwidth]{Figures/MSCR_RX_FFO.pdf}
+\includegraphics [width=0.4\columnwidth]{Figures/MSCR_RX_FFO.pdf}
 \caption{Block diagram of frequency compensation module.}
 \label{fig:FFO}
 \end{figure}
 
 \subsubsection{Fine STO Estimation}
 \emph{FineSTO\_Est} estimates the starting sample of each OFDM symbol.
-The RF front-end for MSCR need to access a wide range of frequencies, shown in Table~\ref{Tab:spec}\todo[inline]{WHere is this??}. Depending on the standard being used, the CFO may be large, resulting in the presence of IFO.
+The RF front-end for MSCR need to access a wide range of frequencies, shown in Table~\ref{Tab:spec}. Depending on the standard being used, the CFO may be large, resulting in the presence of IFO.
 Therefore, the implementation of \emph{FineSTO\_Est} is based on the algorithm presented in Chapter~\ref{chap:CFO} that is also robust to IFO.
 The metric for fine STO estimation is expressed as:
 \begin{equation}
@@ -252,13 +253,13 @@ when $|a[m]|$ denotes the normalised amplitude of the preamble at the transmitte
 Fig.~\ref{fig:STO} shows the block diagram of fine STO estimation.
 The metric is calculated based on a multiplierless correlation between received samples and transmitted preamble.
 \emph{Peak Detect} finds the maximum value of correlation that is employed to accurately estimate the STO and \emph{Fine Time} determines the exact first sample of the next OFDM symbol (long preamble symbol).
-Multiplierless correlation is not flexible, however, and the implementation depends on the preamble which is different for each standard.
+However, multiplierless correlation is not flexible and the implementation depends on the preamble which is different for each standard.
 Therefore, we employ PR module for the {FineSTO\_Est} module to obtain flexibility.
 Each supported standard is implemented separately to a bitstream to be reconfigured at runtime by the \emph{CR engine} when the underlying standard is switched.
 The PR region must be large enough to house the largest bitstream among the supported standards.
 \begin{figure}
 \centering
-\includegraphics [width=0.9\columnwidth]{Figures/MSCR_RX_STO.pdf}
+\includegraphics [width=0.6\columnwidth]{Figures/MSCR_RX_STO.pdf}
 \caption{Block diagram of fine STO estimation module.}
 \label{fig:STO}
 \end{figure}
@@ -279,10 +280,10 @@ IFO is determined based on the method in Chapter~\ref{chap:CFO}:
 
 \begin{equation}
 \label{integerCFO}
-\hat{\epsilon} =\underset{\tilde{\epsilon}}{\operatorname{argmax}}  \left|\sum_{k=0}^{N_{FFT}-1} Y^{*}[k-1] Y[k]  X^{*}[k-\tilde{\epsilon}]  X[k-1-\tilde{\epsilon}]\right|
+\hat{\epsilon} =\underset{\tilde{\epsilon}}{\operatorname{argmax}}  \left|\sum_{k=0}^{N-1} Y^{*}[k-1] Y[k]  X^{*}[k-\tilde{\epsilon}]  X[k-1-\tilde{\epsilon}]\right|
 \end{equation}
 where $\epsilon$ denotes the value of IFO, $\hat{\epsilon}$, $\tilde{\epsilon}$ are estimated and trial values of $\epsilon$, respectively,
-$Y(k)$ and $X(k)$ denote the $k^{th}$ frequency symbol index of the received subcarriers and the known transmitted preamble, respectively, and the OFDM symbol size $N_{FFT}$ is equal to the FFT size.
+$Y(k)$ and $X(k)$ denote the $k^{th}$ frequency symbol index of the received subcarriers and the known transmitted preamble, respectively, and the OFDM symbol size $N$ is equal to the FFT size.
 
 Fig.~\ref{fig:IFO} illustrates the block diagram of IFO estimation and channel equalisation.
 \emph{IFO Correction} is performed effectively by cyclically shifting OFDM symbol corresponding to the estimated IFO estimation.
@@ -309,7 +310,7 @@ This module depends on the second preamble that is specified differently for eac
 Therefore, PR is used for the \emph{IFO\_Est\&Ch\_EstEqu} module to obtain effective standard-specific implementations.
 \begin{figure}
 \centering
-\includegraphics [width=0.9\columnwidth]{Figures/MSCR_RX_IFOCh.pdf}
+\includegraphics [width=0.7\columnwidth]{Figures/MSCR_RX_IFOCh.pdf}
 \caption{The block diagram of IFO estimation and channel equalisation}
 \label{fig:IFO}
 \end{figure}
@@ -354,7 +355,7 @@ Negative pilot		&  11				\\
 \end{table}
 \begin{figure}
 \centering
-\includegraphics [width=0.9\columnwidth]{Figures/MSCR_RX_Phase.pdf}
+\includegraphics [width=0.7\columnwidth]{Figures/MSCR_RX_Phase.pdf}
 \caption{Block diagram of phase tracking module.}
 \label{fig:Phase}
 \end{figure}
@@ -373,8 +374,8 @@ All data symbols go through this module, and 2 bits are assigned to the output a
 
 %\begin{figure*}[!t]
 \begin{figure}
-\centering{\includegraphics[width=1\columnwidth]{Figures/CRTiming.pdf}}
-\caption{Comparison of system latency for a single and multiple PR modules.}
+\centering{\includegraphics[width=1\columnwidth]{Figures/CRTiming.eps}}
+\caption{Comparison of reconfiguration latency for a single and multiple PR modules.}
 \label{fig:timing}
 \end{figure}
 
@@ -385,9 +386,9 @@ A large FIFO would be required to store a stream of received samples long enough
 A longer reconfiguration time would demand a larger FIFO, resulting in significantly increased hardware resource and power consumption.
 
 We evaluate baseband latency for a monolithic PR module, as well as for a system employing a finer granularity with multiple PR modules, and a mix of PR and parameterised modules for the case when the system switches to a new baseband.
-Fig.~\ref{fig:timing} illustrates this latency. We consider a system consisting of $N$ modules. $T_{cfg}$ refers to the reconfiguration time.
+Fig.~\ref{fig:timing} illustrates this latency. We consider a system consisting of $N$ modules. $T_{c}$ refers to the reconfiguration time.
 We assume that a module can not process data during its reconfiguration time.
-$L_{i}$ is the computation latency of the $i^{th}$ module. Received data can, of course, be processed during the computation latency. In the case of a large monolithic PR module employed for the system, the system latency, $L_{sys}$, and halting time, $T_{hlt}$ that would require a FIFO to buffer received data which would otherwise be lost, is calculated as follow:
+$L_{i}$ is the computation latency of the $i^{th}$ module. Received data can, of course, be processed during the computation latency. In the case of a large monolithic PR module employed for the system, the system reconfiguration latency, $L_{sys}$, and halting time, $T_{hlt}$ that would require a FIFO to buffer received data which would otherwise be lost, is calculated as follow:
 
 \begin{eqnarray}
 \label{Mono}
@@ -395,7 +396,7 @@ L_{sys} &=& T_{c} + \sum_{i = 1}^{N}    (L_{i}) \nonumber \\
 T_{hlt} &=& T_{c},
 \end{eqnarray}
 
-Finer granularity is possible by dividing the system into multiple sub-modules, each of which is implemented in a separate PR region. When a module is completely configured, it can process the received data while the following module is configured. Therefore, the system latency and halting time for the case of multiple PR modules can be calculated as follow;
+Finer granularity is possible by dividing the system into multiple sub-modules, each of which is implemented in a separate PR region. When a module is completely configured, it can process the received data while the following module is configured. Therefore, the system reconfiguration latency and halting time for the case of multiple PR modules can be calculated as follow;
 
 \begin{eqnarray}
 \label{Gran}
@@ -423,17 +424,17 @@ L_{sys} &= & \sum_{i = 1}^{N}(T_{ci}) + L_{N} +   \nonumber \\
 T_{hlt} &= &\sum_{i = 1}^{N}(T_{ci})  -  \sum_{i = 2}^{N}  (min(T_{ci}, T_{di-1}+L_{i-1})),
 \end{eqnarray}
 
-We can see that system latency and halting time in the case of multiple PR modules is theoretically reduced thanks to being able to overlap the reconfiguration and data processing periods. Practically, the reconfiguration times are usually significantly greater than the processing latencies. This leads to $T_{di} = 0$ and  $min(T_{ci}, T_{di-1}+L_{i-1}) = L_{i-1}$ resulting in the approximated equations for (\ref{Gran2}) as below:
+We can see that system reconfiguration latency and halting time in the case of multiple PR modules is theoretically reduced thanks to being able to overlap the reconfiguration and data processing periods. Practically, the reconfiguration times are usually significantly greater than the processing latencies. This leads to $T_{di} = 0$ and  $min(T_{ci}, T_{di-1}+L_{i-1}) = L_{i-1}$ resulting in the approximated equations for (\ref{Gran2}) as below:
 \begin{eqnarray}
 \label{Gran3}
 L_{sys} &= & \sum_{i = 1}^{N}(T_{ci}) + L_{N}    \nonumber \\
 T_{hlt} &=  &\sum_{i = 1}^{N}(T_{ci})  -  \sum_{i = 1}^{N-1}  (L_{i}),
 \end{eqnarray}
 
-In addition, because of the optimisation in hardware compilation, the overhead of partitioning into multiple PR modules leads to the fact that $\sum_{i = 1}^{N}(T_{ci})$ is clearly greater than $T_{c}$, in (\ref{Mono}). Therefore, system latency, $L_{sys}$, and halting time, $T_{hlt}$ in (\ref{Gran2}) may be greater than that in (\ref{Mono}).
-Generally, the finer granularity approach is only efficient in terms of system latency and halting time if the gain of overlapping the reconfiguration and data processing is greater than the overhead of partitioning into multiple PR modules.
+In addition, because of the optimisation in hardware compilation, the overhead of partitioning into multiple PR modules leads to the fact that $\sum_{i = 1}^{N}(T_{ci})$ is clearly greater than $T_{c}$, in (\ref{Mono}). Therefore, system reconfiguration latency, $L_{sys}$, and halting time, $T_{hlt}$ in (\ref{Gran2}) may be greater than that in (\ref{Mono}).
+Generally, the finer granularity approach is only efficient in terms of system reconfiguration latency and halting time if the gain of overlapping the reconfiguration and data processing is greater than the overhead of partitioning into multiple PR modules.
 
-Through the above analysis and comparison, we propose a new method employing a mix of PR modules and parameterised modules to obtain a significant reduction in system latency and halting time. For each module in the processing chain, commonalities across different operation modes are analysed. For modules requiring only minor modifications, parameterised versions are created.
+Through the above analysis and comparison, we propose a new method employing a mix of PR modules and parameterised modules to obtain a significant reduction in system reconfiguration latency and halting time. For each module in the processing chain, commonalities across different operation modes are analysed. For modules requiring only minor modifications, parameterised versions are created.
 For the $i^{th}$ module to be parameterised, the configuration time of this module can be eliminated because the parameterised modules can switch operating mode within one clock period. This approximately results in the following simplified equations;
 \begin{eqnarray}
 \label{Pro}
@@ -442,7 +443,7 @@ T_{si} &\approx & 0 \nonumber \\
 T_{di} &\approx & T_{di-1} +  L_{i-1},
 \end{eqnarray}
 
-The above equations show the increasing efficiency of overlapping reconfiguration and data processing leading to a significant reduction in the system latency and halting time.
+The above equations show the increasing efficiency of overlapping reconfiguration and data processing leading to a significant reduction in the system reconfiguration latency and halting time.
 
 \subsection{Analysing the Proposed OFDM MSCR Approach}
 We analyse the results of applying this method to the full receiver baseband  implemented on a xilinc Virtex~6 FPGA (XC6VLX240T).
@@ -455,14 +456,15 @@ Similarly for the fine-grained approach, the configurations of the PR modules ar
 Table~\ref{tab:Resouces} reports the hardware resource usage for each sub-module and transmitter, receiver system for 802.22 on the Virtex~6 device. $M_1$, $M_2$, $M_3$, $M_4$, $M_5$, $M_6$, $M_7$, $M_8$ denote the functional modules of the OFDM based system: synchronisation, frequency compensation, fine STO estimation, remove CP, FFT, IFO estimation and channel equalisation, phase tracking, data symbol demodulation, respectively. $M_R$, $M_T$ are the monolithic receiver and transmitter sub-systems, respectively.
 %Because we employ the multiplyless correlation for Fine STO estimation, DSP blocks are not used in this module but resulting in increased number of used slides.
 
-We then determine the bitsteam size for each functional block. \todo[inline]{How?} Fig.~\ref{fig:Bitstream} illustrates the bitstream sizes of each PR module, which we use to calculate configuration time later. The bitstream sizes of the sub-modules are relatively small compared to the monolithic PR module for the receiver sub-system. The $M_3$ bitstream is the largest among the sub-modules. The bitstream of the receiver is nearly triple the size of the transmitter.
+We then determine the bitsteam size for each functional block according to the number of occupied CLB, DSP, BRAM columns that provide sufficient required resources for the block on FPGA floorplan. %\todo[inline]{How?} 
+Fig.~\ref{fig:Bitstream} illustrates the bitstream sizes of each PR module, which we use to calculate configuration time later. The bitstream sizes of the sub-modules are relatively small compared to the monolithic PR module for the receiver sub-system. The $M_3$ bitstream is the largest among the sub-modules. The bitstream of the receiver is nearly triple the size of the transmitter.
 \begin{table}[hb]
 	\centering
 	\caption{Resources for 802.22 OFDM-based implementation}
 	\label{tab:Resouces}
 	\begin{tabular}{l|c|c|c}
         \hline \hline
-    			  \makebox[1.2cm][c]{$modules$}	&  \makebox[1cm][c]{Slices}  &  {DSP} &  {BRAM} \\
+    			  \makebox[4.2cm][c]{$modules$}	&  \makebox[2cm][c]{Slices}  &   \makebox[2cm][c]{DSP} &   \makebox[2cm][c]{BRAM} \\
 	\hline
 		$M_1$(\textit{Synch})     				& 498 		& 5	& 0 \\
 		$M_2$(\textit{FreComp})				& 474		& 4 	& 0 \\
@@ -503,10 +505,11 @@ We then determine the bitsteam size for each functional block. \todo[inline]{How
 
 Processing latencies for functional modules are shown for the three standards in Fig.~\ref{fig:Latency}. We can see that 802.11 has the shortest latency because this standard uses the shortest FFT length, and hence the shortest symbol length for OFDM modulation.
 It should be noted that during this latency the module still receives input data for processing.
-The processing chain must be halted when the latency time has ended but the reconfiguration of the following module has not yet been completed. Therefore, the worst case halting time is a case of the shortest latency and the longest reconfiguration time.
-The latencies for 802.11 are used to calculate system halting time.
-The latency of the synchronisation module depends on the timing offset that is the duration from the time between receiving input samples and the time when the first sample of the coming frame is received. The synchronisation module does not output data if no frame is detected. Generally, the synchronisation latency is calculated as $L_{1} = \mathit{Offset} + \mathit{processing time}$ \todo[inline]{Don't you have a symbol for processing time defined earlier??}.
-To evaluate the processing latency of the synchronisation module, the timing offset is considered to be equal to 0. We will consider the presence of timing offset later for calculating the system halting time and FIFO requirements.
+The processing chain must be halted when the latency time has ended but the reconfiguration of the following module has not yet been completed. 
+The worst case halting time is a case of the shortest latency and the longest reconfiguration time.
+Therefore, the latencies for 802.11 are used to calculate system halting time.
+%The latency of the synchronisation module depends on the timing offset that is the duration from the time between receiving input samples and the time when the first sample of the coming frame is received. The synchronisation module does not output data if no frame is detected. Generally, the synchronisation latency is calculated as $L_{1} = \mathit{Offset} + \mathit{processing time}$ \todo[inline]{Don't you have a symbol for processing time defined earlier??}.
+%To evaluate the processing latency of the synchronisation module, the timing offset is considered to be equal to 0. We will consider the presence of timing offset later for calculating the system halting time and FIFO requirements.
 \begin{figure}
 \centering
 \begin{tikzpicture}
@@ -521,13 +524,13 @@ To evaluate the processing latency of the synchronisation module, the timing off
            symbolic x coords={$M_1$,$M_2$,$M_3$,$M_4$,$M_5$,$M_6$, $M_7$, $M_8$ },
 	enlargelimits=true,
   	ybar, x post scale=1.4]
-	\addplot[fill=red] coordinates {
+	\addplot[fill=F1] coordinates {
 		($M_1$,137) ($M_2$,45) ($M_3$,84) ($M_4$,17) ($M_5$,216) ($M_6$, 153) ($M_7$, 66) ($M_8$,11)
            };
-	\addplot[fill=green] coordinates {
+	\addplot[fill=F2] coordinates {
 		($M_1$,153) ($M_2$,61) ($M_3$,100) ($M_4$,33) ($M_5$,616) ($M_6$, 553) ($M_7$, 252) ($M_8$,11)
            };
- 	\addplot[fill=blue] coordinates {
+ 	\addplot[fill=F3] coordinates {
 		($M_1$,1048) ($M_2$,110) ($M_3$,1428) ($M_4$,513) ($M_5$,4226) ($M_6$, 4617) ($M_7$, 1273) ($M_8$,11)
             };
    	\legend{802.11, 802.16, 802.22}
@@ -538,33 +541,71 @@ To evaluate the processing latency of the synchronisation module, the timing off
 \end{figure}
 
 Partial reconfiguration is performed with a high throughput ICAP controller that supports a data rate of 380\,MBps, closet to the theoretical limit of the FPGA.
-We also factor in the required sampling frequency for each chosen standard.
-We use a sampling frequency of 10 MHz (i.e., the clock period = 0.1 us) that is typically defined for the 802.11p standard. \todo[inline]{These sentences contradict!}
+%We also factor in the required sampling frequency for each chosen standard.
+We use a sampling frequency of 10 MHz (i.e. the clock period = 0.1 us) that is typically defined for the 802.11p standard. %\todo[inline]{These sentences contradict!}
 Compute latency is calculated for the 802.11 standard, as shown in Fig.~\ref{fig:CfgLat}.
-The values of latency are scaled by a factor of 10 for better observation. As can be seen, the latency is very small in comparison to the configuration time.\todo[inline]{Does that mean the graph is wrong? if the scales are different, use different axes!}
+%The values of latency are scaled by a factor of 10 for better observation.
+As can be seen, the latency is very small in comparison to the configuration time.%\todo[inline]{Does that mean the graph is wrong? if the scales are different, use different axes!}
 It is clear that overlapping reconfiguration and data processing is not sufficient to hide reconfiguration delay, and so the finer granularity approach may not improve significantly over the monolithic PR module.
 \begin{figure}
 \centering
-\begin{tikzpicture}
-        \begin{axis}[
-           ylabel={Time (us)},
-	ylabel style={align=center},
+\begin{tikzpicture}[scale=0.9]
+%        \begin{axis}[
+%           ylabel={Time (us)},
+%	ylabel style={align=center},
+%           xtick = data,
+%	axis x line=center,
+%           bar width= 9pt,
+%%	nodes near coords,
+%	legend style={at={(0.5, 1)}, anchor=south, legend columns=-1},
+%           symbolic x coords={$M_1$,$M_2$,$M_3$,$M_4$,$M_5$,$M_6$, $M_7$, $M_8$ },
+%	enlargelimits=true,
+%  	ybar, x post scale=1.4]
+%	\addplot[fill=F1] coordinates {
+%		($M_1$,221.14) ($M_2$,221.14) ($M_3$, 986.61) ($M_4$, 38.27) ($M_5$, 518.82) ($M_6$, 527.33) ($M_7$, 259.41) ($M_8$,38.27)
+%           };
+%	\addplot[fill=F2] coordinates {
+%		($M_1$,137) ($M_2$,45) ($M_3$, 84) ($M_4$, 17) ($M_5$, 21.6) ($M_6$, 153) ($M_7$, 33) ($M_8$, 01)
+%           };
+%	\legend{Configuration Time, Latency}
+%        \end{axis}
+ 	\begin{axis}[
+           ylabel={Configuration Time (us)},
+	ylabel style={align=center, color=green},
+ 	ymin=0,
+	width= 0.6*\textwidth,
            xtick = data,
 	axis x line=center,
-           bar width= 9pt,
-%	nodes near coords,
-	legend style={at={(0.5, 1)}, anchor=south, legend columns=-1},
-           symbolic x coords={$M_1$,$M_2$,$M_3$,$M_4$,$M_5$,$M_6$, $M_7$, $M_8$ },
-	enlargelimits=true,
-  	ybar, x post scale=1.4]
-	\addplot[fill=red] coordinates {
-		($M_1$,221.14) ($M_2$,221.14) ($M_3$, 986.61) ($M_4$, 38.27) ($M_5$, 518.82) ($M_6$, 527.33) ($M_7$, 259.41) ($M_8$,38.27)
-           };
-	\addplot[fill=green] coordinates {
-		($M_1$,137) ($M_2$,45) ($M_3$, 84) ($M_4$, 17) ($M_5$, 21.6) ($M_6$, 153) ($M_7$, 33) ($M_8$, 01)
-           };
-	\legend{Configuration Time, Latency}
-        \end{axis}
+           bar width=10pt,
+           symbolic x coords={0, $M_1$,$M_2$,$M_3$,$M_4$,$M_5$,$M_6$, $M_7$, $M_8$ },
+	enlargelimits=0.15,
+    	axis y line*=none,
+  	ybar, x post scale=1.5]
+	\addplot[fill=F1,shift={(-8pt,0)}] coordinates {
+ 		($M_1$,221.14) ($M_2$,221.14) ($M_3$, 986.61) ($M_4$, 38.27) ($M_5$, 518.82) ($M_6$, 527.33) ($M_7$, 259.41) ($M_8$,38.27) 
+ 		};
+ 	\end{axis}
+
+	\begin{axis}[
+           ylabel={Latency (us)},
+	ylabel style={at={(1.05,0.5)}, color=blue},
+ 	ymin=0,
+	width= 0.6*\textwidth,
+           xtick = data,
+	axis x line=center,
+           bar width= 10pt,
+	legend style={at={(0.5, 1.1)}, anchor=south, legend columns=2},
+           symbolic x coords={0, $M_1$,$M_2$,$M_3$,$M_4$,$M_5$,$M_6$, $M_7$, $M_8$, 1},
+	enlargelimits=0.15,
+	axis y line*=right,
+  	ybar, x post scale=1.5]
+	\addplot [fill=F1] coordinates {($M_1$,0) ($M_2$,0) ($M_3$,0) ($M_4$, 0) ($M_5$, 0) ($M_6$, 0) ($M_7$, 0) ($M_8$, 0)};
+	\addplot [fill=F2] coordinates {
+ 		($M_1$,13.7) ($M_2$,4.5) ($M_3$, 8.4) ($M_4$, 1.7) ($M_5$, 2.16) ($M_6$, 15.3) ($M_7$, 3.3) ($M_8$, 0.1)
+		};
+ 	\legend{Configuration Time, Latency}
+ 	\end{axis}
+
 \end{tikzpicture}
 \caption{The configuration time and latency of sub-modules for OFDM-based MSCR system}
 \label{fig:CfgLat}
@@ -573,20 +614,20 @@ It is clear that overlapping reconfiguration and data processing is not sufficie
 The system halting time is an accumulated value of the halting time in each module described in (\ref{HaltTime}). During the halting time, the processing chain is halted and a FIFO is required to buffer input samples. Because the halting time of the synchronisation module depends on the time when a new frame is detected. The timing offset must be taken into account. Given a scenario of a transmission, shown in Fig.~\ref{fig:tx-rx} when a standard switch is required, Both the transmitter and receiver spend time to reconfigure the system for the new baseband standard. In the proposed receiver, the synchronisation module is a parameterised module, so this module can change its function within a clock period and hence quickly process input samples. However, a new frame cannot be sent so quickly because the transmitter is still being reconfigured, resulting in a timing offset in the receiver. It is thus reasonable that the minimum timing offset can be chosen as the configuration time of the transmitter whose hardware characteristics were reported in Table~\ref{tab:Resouces}.
 \begin{figure}
 \centering
-\includegraphics [width=1\columnwidth]{Figures/CR_Tx-Rx.pdf}
+\includegraphics [width=1\columnwidth]{Figures/CR_Tx-Rx.eps}
 \caption{A scenario of a transmission}
 \label{fig:tx-rx}
 \end{figure}
 
-\definecolor{M1}{HTML}{17191C}
-\definecolor{M2}{HTML}{67899C}
-\definecolor{M3}{HTML}{37793C}
-\definecolor{M4}{HTML}{77698C}
-\definecolor{M5}{HTML}{57595C}
-\definecolor{M6}{HTML}{27497C}
-\definecolor{M7}{HTML}{77392C}
-\definecolor{M8}{HTML}{47296C}
-\definecolor{MR}{HTML}{91194C}
+\definecolor{M1}{HTML}{FFFFd9}
+\definecolor{M2}{HTML}{edF8b1}
+\definecolor{M3}{HTML}{c7e9b4}
+\definecolor{M4}{HTML}{7Fcdbb}
+\definecolor{M5}{HTML}{41b6c4}
+\definecolor{M6}{HTML}{1d91c0}
+\definecolor{M7}{HTML}{225ea8}
+\definecolor{M8}{HTML}{253494}
+\definecolor{MR}{HTML}{081d58}
 \begin{figure}
 \centering
 \begin{tikzpicture}
@@ -621,57 +662,75 @@ The system halting time is an accumulated value of the halting time in each modu
 \caption{ The halting time comparison of the system for three different approaches.}
 \label{fig:Halt}
 \end{figure}
-\todo[inline]{Fix the colours so they print ok in black and white.}
+%\todo[inline]{Fix the colours so they print ok in black and white.}
 
-Fig.~\ref{fig:Halt} shows the system halting time of the three approaches. $Mon$, $Mul$, $Pro$ denote the halting time of the monolithic PR module approach, the multiple PR module approach, and the proposed approach, respectively. \todo[inline]{Why not put them in the same order in the graph?}
+Fig.~\ref{fig:Halt} shows the system halting time of the three approaches. $Mon$, $Mul$, $Pro$ denote the halting time of the monolithic PR module approach, the multiple PR module approach, and the proposed approach, respectively. %\todo[inline]{Why not put them in the same order in the graph?}
 $Ts_n$ is the halting time of the corresponding $M_n$ functional module. $Ts_R$ is the halting time of the monolithic receiver sub-system.
 
 We can see that the halting time of the multiple PR module approach is greater than that of the monolithic PR module approach, because the gain achieved by overlapping reconfiguration and data processing is less than the overhead incurred by partitioning into multiple PR modules. The proposed approach can significantly reduce the halting time to less than one-third of that of the monolithic PR module approach. This results in a reduction in FIFO buffering requirements.
-
 \begin{figure}
 \centering
 \begin{tikzpicture}[scale=0.9]
  	\begin{axis}[
-           ylabel={System latency (us)},
-	ylabel style={align=center, color=red},
+           ylabel={System reconfiguration latency (us)},
+	ylabel style={align=center, color=green},
  	ymin=0,
-	width= 0.4*\textwidth,
+	width= 0.6*\textwidth,
            xtick = data,
 	axis x line=center,
-           bar width= 12pt,
-           symbolic x coords={0, Mon, Mul, Pro},
-	enlargelimits=0.25,
+           bar width= 14pt,
+           symbolic x coords={0, $Mon$, $Mul$, $Pro$},
+	enlargelimits=0.2,
     	axis y line*=none,
-  	ybar, x post scale=1.4]
-	\addplot[fill=red,shift={(-8pt,0)}] coordinates {($Mon$,4190.82) ($Mul$,2811.12) ($Pro$,753.97)  };
+  	ybar, x post scale=1.2]
+	\addplot[fill=F1,shift={(-10pt,0)}] coordinates {($Mon$,4190.82) ($Mul$,2811.12) ($Pro$,753.97)  };
  	\end{axis}
 
 	\begin{axis}[
            ylabel={FIFO requirement (KSs)},
-	ylabel style={at={(1.25,0.5)}, color=blue},
+	ylabel style={at={(1.1,0.5)}, color=blue},
  	ymin=0,
-	width= 0.4*\textwidth,
+	width= 0.6*\textwidth,
            xtick = data,
 	axis x line=center,
-           bar width= 12pt,
+           bar width= 14pt,
 	legend style={at={(0.5, 1.1)}, anchor=south, legend columns=2},
            symbolic x coords={0, $Mon$, $Mul$, $Pro$, 1},
-	enlargelimits=0.25,
+	enlargelimits=0.2,
 	axis y line*=right,
-  	ybar, x post scale=1.4]
-	\addplot [fill=red] coordinates {($Mon$,0) ($Mul$,0) ($Pro$,0) };
-	\addplot [fill=blue] coordinates {($Mon$,64) ($Mul$,64) ($Pro$,16)  };
+  	ybar, x post scale=1.2]
+	\addplot [fill=F1] coordinates {($Mon$,0) ($Mul$,0) ($Pro$,0) };
+	\addplot [fill=F2] coordinates {($Mon$,64) ($Mul$,64) ($Pro$,16)  };
  	\legend{Latency, FIFO}
  	\end{axis}
 
 \end{tikzpicture}
-\caption{A comparison of the three approaches in terms of system latency and FIFO requirements.}
+\caption{A comparison of the three approaches in terms of system reconfiguration latency and FIFO requirements.}
 \label{fig:LatFIFO}
 \end{figure}
 
-Fig.~\ref{fig:Halt} compares the three approaches in terms of system latency and FIFO buffering requirements. The system latencies are computed in the worst case which is the latency for the 802.22 standard. The FIFO requirements are calculated based on multiplying the sampling frequency by the halting time, followed by rounding up to the next power of two. \todo[inline]{Why do you have to round up? FIFOs can be any length} The system latency of the proposed method is significantly reduced to 18~\% and 27~\% of the system latency of the monolithic PR module and the multiple PR module approaches, respectively. The FIFO requirement for the proposed approach is only 16 kilo-samples (KSs) while the other approaches require a FIFO to store up to 64~KSs.
-
-\todo[inline]{I thought we said we need actual FIFO implementation results?Also, I need to understand what this system latency number means.}
+\begin{table}[hb]
+	\centering
+	\caption{Memory resources for 32 bit AXI4 interface FIFOs implementation}
+	\label{tab:FIFOResouces}
+	\begin{tabular}{c|c|c}
+        \hline \hline
+    			  \makebox[4.2cm][c]{FIFO size (KSs)}	&  \makebox[3cm][c]{18K BRAM}  &  \makebox[3cm][c] {36K BRAM} \\
+	\hline
+%		4     		& 0 	&  4 \\
+		8			& 1	&  7 \\
+		16			& 1	&  14  \\
+		32			& 0 	&  29 \\
+		64	  		& 0  & 58 \\
+		128	  		& 0	 & 116 \\
+	\hline \hline
+    \end{tabular}
+\end{table}
+Fig.~\ref{fig:Halt} compares the three approaches in terms of system reconfiguration latency and FIFO buffering requirements. The system latencies are computed in the worst case which is the latency for the 802.22 standard. The FIFO requirements are calculated based on multiplying the sampling frequency by the halting time, followed by rounding up to the next power of two.  Table~\ref{tab:FIFOResouces} reports
+required resources for 32 bit AXI4 interface FIFO implementation with some different availabe size configurations. 
+%\todo[inline]{Why do you have to round up? FIFOs can be any length} 
+The system reconfiguration latency of the proposed method is significantly reduced to 18~\% and 27~\% of the system reconfiguration latency of the monolithic PR module and the multiple PR module approaches, respectively. The FIFO requirement for the proposed approach is only 16 kilo-samples (KSs) while the other approaches require a FIFO to store up to 64~KSs.
+%\todo[inline]{I thought we said we need actual FIFO implementation results?Also, I need to understand what this system latency number means.}
 
 %---------------------------------------------------------------------------------
 \section{Summary}

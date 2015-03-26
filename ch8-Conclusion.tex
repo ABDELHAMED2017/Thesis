@@ -1,6 +1,6 @@
 %!TEX root = main_thesis.tex
 %---------------------------------------------------------------------------------
-\chapter{Conclusion and Future Work}
+\chapter{Conclusions and Future Work}
 \label{chap:conclusion}
 %---------------------------------------------------------------------------------
 This thesis has presented techniques for implementing robust, low-power cognitive radios using modern FPGAs. We have shown that the computational performance of FPGAs allows us to develop techniques for more advanced synchronisation, leading to robustness in fading channels, that we can control spectral leakage to satisfy even very strict constraints defined by recent standards, and that a multi-standard radio can be built to minimise reconfiguration time by mixing the use of partial reconfiguration and parameterised modules. The contributions made serve as important building blocks in developing a functional dynamically reconfigurable OFDM cognitive radio.
@@ -38,46 +38,30 @@ We also showed how a clock frequency tuning technique could offer seamless recov
 
 Our achievements in this thesis have helped us identify crucial questions to be explored in future along this line. And while we have been able to test our designs in hardware, building a fully functional radio system is something that still requires some engineering design effort.
 
-\subsection{Increasing Spectrum Efficiency in Channel Shaping for NC-OFDM Signal}
-The novel approach presented in Chapter~\ref{chap:SpectralLeakage} allows increase roll-off factor of pulse shaping while avoiding the ISI.
-The work is limitted to investigate the out-of-band suppression to satisfy the strict specification of SEMs. 
-Furthermore, the approach is also potential to perform in-band shaping that can be applied for NC-OFDM system to reuse the spectrum of fractionated bands with high efficiency.
-Understanding how to use effectively the large roll-off factor pulse shaping to achieve more efficient spectrum usage of secondary NC-OFDM based system in case of reusing sparse narow bands requires further research.
+\subsection{Increasing Spectrum Efficiency with Shaping for NC-OFDM}
+The shaping approach presented in Chapter~\ref{chap:SpectralLeakage} offers high out of band attenuation, avoiding interference with neighbouring channels, while allowing use of sub-carriers close to adjacent channels.
+It could also be applied to in-band shaping in the context of con-contiguous OFDM signals, where some intermediate sub-carriers are switched off due to the presence of other uses in intermediate bands.
+This could result in significant efficiency improvements in the case of highly fragmented bands, since narrow spaces can still be used effectively
 
 \subsection{Efficiently Adaptive Shaping Spectral Leakage}
 The static strict SEMs in radio systems can guarantee that the systems mitigate the effect of ICI. However, the implementation and power cost may be significant.
-%To meet a strict SEM, the number of subcarriers may need to be reduced, resulting in decreased the spectrum efficiency and throughput, otherwise the transmission power may be tuned down, leading to a reduction of communication range.
-%Moreover, the extending frequency guard can maintain the throughput and transmission power but involves increased computational cost.
-However, in practice, the adjacent channels are not always occupied and the communication range can change from time to time. Therefore, statically maintaining a very strict SEMs may be redundant.
-An interesting question is how the CR can reduce this redundancy.
-The spectral sensing ability of the CR allows the system to recognise the performance of adjacent systems as well as currently allowed communication range that determines the suitable transmitted power level.
-A novel method is demanded to calculate the dynamic SEM relied upon the performance of adjacent system as well as current transmitted power level.
-The dynamic SEM could then be temporarily more relaxed than the static SEM while still guaranteeing it does not causing ICI to adjacent systems.
-In addition, the demand of an optimisation approach that takes into account the cost and advantage of the above reduced effort leakage methods can satisfy the dynamic SEM with the smallest cost in terms of throughput, computation and power consumption.
+In practice, adjacent channels are not always occupied and the communication range can change from time to time. Therefore, statically maintaining a very strict SEMs may be wasteful in terms of computation.
+One approach would be to dynamically modify the SEM based on occupancy of adjacent channels and current transmit power.
+This would mean that in some cases the SEM would be relaxed compared to the static implementation, allowing improved computational efficiency and lower computational power.
 
-\subsection{Standardised Software Interface for Multiple Standard Radio Platform}
-The interface to the higher layer processing is another important factor in building a radio platform for supporting multiple standards.
-While optimisation of low level blocks is equally important, providing a general interface for implementing higher layer processing is important.
-This allows radio experts to use the system to investigate cognitive radio techniques without the need for substantial low-level FPGA expertise.
-In future work, we aim to build a standardised software interface for this purpose that simplifies the process of retrieving systems status and initiating reconfiguration.
-The standardised software interface also allows this radio platform to be flexibly and rapidly extended to support new standards.
+\subsection{Standardised Software Interface for Multi-Standard Radio Platform}
+We have discussed that there are a variety of different cognitive radio platforms, many of which do include some FPGA capability. However, this interface between higher layers and hardware baseband processing is often implemented in an ad-hoc manner. Our group is exploring how a standardised interface might be proposed to allow higher layer cognitive stacks to be coupled with different baseband systems, including both the data stream interface, and the control. This must entail minimal latency, and enable the strengths of the baseband in terms of high data stream throughput.
 
-\subsection{Multiple Multicarrier modulations radio platform}
-Generalized frequency division multiplexing (GFDM) is a new concept for flexible multicarrier modulation that introduces additional attractive features to deal with the issues of traditional OFDM. 
-In GFDM, the out of band spectrum is compressed by an adjustable pulse shaping filter for individual subcarriers; the transmission efficiency is increased thank to a two-dimensional data process (grouping data symbols across subcarriers and time slots). 
-The good properties of GFDM are traded at the cost of higher bit error rates (because of the interference between subcarriers and time slots) and increased computational resources to perform prototype filter in comparison to OFDM. 
-Thank to the similar structure of OFDM and GFDM, a adaptive radio platform is built with ability of switching the performance between OFDM and GFDM to achieve the benefit of both techniques.
-Coupling PR modules and parameterised modules architecture can be further investigated for combining OFDM and GFDM technique in a flexible and reduced cost radio platform.
-The common functional operations between two techniques are required further research for effectively applying the coupling architecture.  
+\subsection{Alternative Multi-Carrier Modulations Techniques}
+While OFDM is well established, other multi-carrier schemes have been proposed which offer advantages. Demonstrating efficient mapping of these schemes to high performance baseband hardware is important for them to gain traction.
+Generalised Frequency Division Multiplexing (GFDM) is a new modulation scheme that overcomes some of OFDM's limitations.
+In GFDM, out of band spectrum is compressed by an adjustable pulse shaping filter for individual sub-carriers. Transmission efficiency is increased thanks to a two-dimensional data process (grouping data symbols across subcarriers and time slots).
+However, it suffers from higher bit error rates (because of the interference between subcarriers and time slots) and requires increased computational resources to implement the prototype filter.
+A similar structure means a radio supporting both OFDM and GFDM could be developed, allowing experimentation with this new standard, while offering backwards compatibility.
 
-\subsection{Improving Reconfiguration Time for Multiple Standard Radio Platform}
-In case of increasing the number of standards, reconfiguration time is significant increased because of increased size of PR modules.
-Dual PR regions for a PR module could be a good solution to reduce reconfiguration time.
-One PR region contains the PR module for the current operating standard while the other region can be reconfigured ready for the standard in the switching pattern.
-Pre-determining the next standard in a switching pattern relies upon the global (or co-operative distributed) spectrum sensing.
-When frequency bands change, the processing band can therefore instantaneously be switched to the second standard's PR module.
-A new method needs to be studied to in pre-determining the next standard, based on spectrum sensing and this possibly makes use of a predictive system.
-The interface between the processing chain and dual PR regions and the switching mechanism also need to be investigated.
+\subsection{Higher Layer Knowledge to Minimise Reconfiguration Time}
+As radios support more standards, switching between them can become time-consuming since many modules need to be reconfigured. One way of overcoming this is using knowledge about the most likely reconfiguration options to prepare the require partial bitstreams in advance, or even to drive the design decision to parameterise some modules that would otherwise use PR.
+This information could be forthcoming from higher layers through collaborative decision making or modelling of the dynamic properties of the channel.
 
 \section{Summary}
 

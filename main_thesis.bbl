@@ -1,24 +1,5 @@
 \begin{thebibliography}{100}
 
-\bibitem{farhang2008signal}
-B.~Farhang-Boroujeny, {\em Signal Processing Techniques for Software Radios}.
-\newblock Lulu Publishing House, 2008.
-
-\bibitem{Xilinx2011}
-``{Virtex-6 FPGA DSP48E1 Slice: User Guide}.'' Xilinx, San Jose, CA.
-  www.xilinx.com/support/documentation/user\_guides/ug369.pdf, 2011.
-
-\bibitem{Schmidl1997}
-T.~Schmidl and D.~Cox, ``Robust frequency and timing synchronization for
-  {OFDM},'' {\em IEEE Transactions on Communications}, vol.~45, pp.~1613--1621,
-  {Dec.} 1997.
-
-\bibitem{Kishore2006}
-C.~N. Kishore and V.~U. Reddy, ``A frame synchronization and frequency offset
-  estimation algorithm for {OFDM} system and its analysis,'' {\em EURASIP
-  Journal on Wireless Communications and Networking}, vol.~2006, pp.~1--16,
-  2006.
-
 \bibitem{FCC2002}
 {Federal Communications Commission}, ``Spectrum policy task force report,''
   Tech. Rep. No. 02–135, 2002.
@@ -172,6 +153,10 @@ A.~Love, W.~Zha, and P.~Athanas, ``{In pursuit of instant gratification for
   FPGA design},'' in {\em Proceedings of the International Conference on Field
   Programmable Logic and Applications (FPL)}, pp.~1--8, 2013.
 
+\bibitem{farhang2008signal}
+B.~Farhang-Boroujeny, {\em Signal Processing Techniques for Software Radios}.
+\newblock Lulu Publishing House, 2008.
+
 \bibitem{Dick2003}
 C.~Dick and F.~Harris, ``{FPGA} implementation of an {OFDM PHY},'' in {\em
   Conference Record of the Thirty-Seventh Asilomar Conference on Signals,
@@ -188,6 +173,17 @@ A.~Fort, J.-W. Weijers, V.~Derudder, W.~Eberle, and A.~Bourdoux, ``A
 K.~Wang, J.~Singh, and M.~Faulkner, ``{FPGA} implementation of an {OFDM-WLAN}
   synchronizer,'' in {\em IEEE International Workshop on Electronic Design,
   Test and Applications (DELTA)}, pp.~89 -- 94, Jan. 2004.
+
+\bibitem{Schmidl1997}
+T.~Schmidl and D.~Cox, ``Robust frequency and timing synchronization for
+  {OFDM},'' {\em IEEE Transactions on Communications}, vol.~45, pp.~1613--1621,
+  {Dec.} 1997.
+
+\bibitem{Kishore2006}
+C.~N. Kishore and V.~U. Reddy, ``A frame synchronization and frequency offset
+  estimation algorithm for {OFDM} system and its analysis,'' {\em EURASIP
+  Journal on Wireless Communications and Networking}, vol.~2006, pp.~1--16,
+  2006.
 
 \bibitem{Guffey2007}
 J.~Guffey, A.~Wyglinski, and G.~Minden, ``Agile radio implementation of {OFDM}
@@ -461,6 +457,10 @@ A.~Raghunathan, S.~Dey, and N.~K. Jha, ``High-level macro-modeling and
 K.-W. Yip, Y.-C. Wu, and T.-S. Ng, ``Design of multiplierless correlators for
   timing synchronization in {IEEE} 802.11a wireless {LANs},'' {\em IEEE
   Transactions on Consumer Electronics}, vol.~49, pp.~107 -- 114, {Feb.} 2003.
+
+\bibitem{Xilinx2011}
+``{Virtex-6 FPGA DSP48E1 Slice: User Guide}.'' Xilinx, San Jose, CA.
+  www.xilinx.com/support/documentation/user\_guides/ug369.pdf, 2011.
 
 \bibitem{Hanzo2006}
 L.~Hanzo and T.~Keller, {\em OFDM and MC-CDMA : A Primer}.

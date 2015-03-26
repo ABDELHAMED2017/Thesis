@@ -116,13 +116,13 @@ where $P(4k) = Y^{*}(4k-2) Y(4k)$ denotes the correlation of two consecutive rec
 
 Thirdly, although sign-bit cross-correlation is often used in conventional implementations~\cite{Kim2008,Schwoerer2002}, as it can significantly reduce computational complexity, it also leads to reduced precision and hence reduced estimation performance, especially in the case of frequency selective channels.
 For this reason, we instead apply multiplierless correlation to enhance the accuracy of estimation (i.e. using several bits for computation, rather than the existing extremes of either a single sign bit or a full word computation).
-In \cite{Pham2012}, we authors demonstrated a trade-off between cost and accuracy for multiplierless OFDM synchronisation.
+In \cite{Pham2012}, we demonstrated a trade-off between cost and accuracy for multiplierless OFDM synchronisation.
 We further investigate this effect in the current chapter in terms of the trade-off between cost and accuracy when reducing the wordlength used to represent $P(4k)$.
 
 \subsection{Proposed Architecture}
 \label{subsec:Imple}
 The proposed method divides IFO estimation into multiple repeated computations with resource sharing based upon the four-sample timing between selected spread pilots.
-The estimation of IFO in (\ref{integerCFO}) can now be rewritten as follows
+The estimation of IFO in (\ref{integerCFO}) can now be rewritten as follows:
 \begin{eqnarray}
 \label{proposedimplementIFO}
 \hat{\epsilon}  &=&\underset{\tilde{\epsilon} \in S'_{IFO}}{\operatorname{argmax}}  \left|V_{\tilde{\epsilon}}  \right|,	 \nonumber \\
@@ -162,7 +162,7 @@ Multiply accumulate blocks are shared for computing four sequential $V_{\tilde{\
 \end{figure}
 
 To design an optimised architecture for IFO estimation, the multiply-add formula of $V_{\tilde{\epsilon}}$ is mathematically manipulated into what is effectively a multiply-accumulate form.
-When one received sample is taken, $V_{\tilde{\epsilon}}$ can be expressed in the form of accumulations as in
+When one received sample is taken, $V_{\tilde{\epsilon}}$ can be expressed in the form of accumulations as follows:
 \begin{eqnarray}
 \label{complexVi}
 V_{\tilde{\epsilon}}(n)	&=&   A_{\tilde{\epsilon}}(n) P(n)  + V_{\tilde{\epsilon}}(n-1), \nonumber \\
@@ -487,7 +487,7 @@ The first uses only logic elements (LE) for computation, while the second uses X
 Considering (\ref{realimaginaryVi}), $\Re{\{V_{\tilde{\epsilon}}(n)\}}, \Im{\{V_{\tilde{\epsilon}}(n)\}}$ can be computed effectively using two DSP blocks as 3-input adders, instead of 4 blocks as would be usual.
 Fig.~\ref{fig:DSP48Acc} illustrates how this is done for $\Re{\{V_{\tilde{\epsilon}}(n)\}}$, and similarly for $\Im{\{V_{\tilde{\epsilon}}(n)\}}$.
 \begin{figure}
-	\centerline{\includegraphics [width=1\columnwidth] {figures/DSP48Acc.pdf} }
+	\centerline{\includegraphics [width=0.9\columnwidth] {figures/DSP48Acc.pdf} }
 	\caption{DSP block based 3-input adder for correlation.}
 	\label{fig:DSP48Acc}
 \end{figure}
@@ -500,14 +500,14 @@ The circuits were synthesised and fully implemented using Xilinx ISE 13.2, targe
 The results are reported in terms of the number of flip-flops (FF), look-up tables (LUT), and DSP48 blocks, along with dynamic power consumption, as summarised in Table~\ref{tab:Imp_Rpt}.
 \begin{table}[h]
 	\centering
-	\caption{Resource utilisation and dynamic power consumption of IFO estimators.}
+	\caption{Resource utilisation and dynamic power of IFO estimators.}
 	\label{tab:Imp_Rpt}
 	\renewcommand{\arraystretch}{1.2}
 
 	\begin{tabular}{r|r|r|r|r|r}
 
        \hline \hline
-    		  \makebox[1.1cm][c]{IFO est. Cir.} 	& \#FF & \#LUT  & \#DSP & Fre (MHz) & D. Power \\
+    		 IFO est. Cir. 	& \#FF & \#LUT  & \#DSP & Fre (MHz) & D. Power \\
     	\hline
 		\textbf{conv\_100p}		& 3270 (3\%)	& 1837 (3\%)	& 3 &  142 	&  42	mW \\
 		Prop\_1b\_LE			& 328 (1\%)		& 370 (1\%)		& 3 &  136 	&  9		mW\\
@@ -531,15 +531,12 @@ Referring to the table, the proposed implementation shows that significant impro
 
 The hardware resources used by \emph{Prop\_fb\_LE} and \emph{Prop\_fb\_DSP} increase gradually, in terms of FFs and LUTs, as the wordlength increases.
 The number of FFs used in \emph{Prop\_fb\_DSP} and \emph{Prop\_fb\_LE} is equal, while \emph{Prop\_fb\_DSP} uses fewer LUTs since the DSP blocks are used for the 3-input additions.
-
 The \emph{Prop\_fb\_LE} implementations use 3 DSP blocks to compute $P(n)$, while \emph{Prop\_fb\_DSP} require an additional 4 DSP blocks to perform the correlation.
 \emph{Prop\_fb\_LE}, \emph{Prop\_fb\_DSP} both consume far fewer LUT and FF resources than the conventional \emph{conv\_100p} implementation.
-
 For \emph{Prop\_2b\_LE}, the number of FFs and LUTs is reduced by 90\% and 79\% respectively compared to the conventional \emph{conv\_100p} approach.
 
 The maximum frequencies of circuits, reported after place and route, comfortably exceed the timing requirements for IEEE~802.16 synchronisation whose sampling frequency is below 25~MHz.
 A post-place-and-route simulation was used to estimate the power consumption of the system at a clock rate of 50{\thinspace}MHz, using the Xilinx XPower tool -- also shown in table \ref{tab:Imp_Rpt}.
-
 \emph{Prop\_fb\_LE} implementations consume less power than the equivalent \emph{Prop\_fb\_DSP} implementations.
 All implementations of the proposed method consume significantly less power than the conventional implementation.
 \emph{Prop\_2b\_LE} consumes just 22\% of the power consumed by \emph{conv\_100p}.

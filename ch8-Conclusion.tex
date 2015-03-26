@@ -39,8 +39,8 @@ We also showed how a clock frequency tuning technique could offer seamless recov
 Our achievements in this thesis have helped us identify crucial questions to be explored in future along this line. And while we have been able to test our designs in hardware, building a fully functional radio system is something that still requires some engineering design effort.
 
 \subsection{Increasing Spectrum Efficiency with Shaping for NC-OFDM}
-The shaping approach presented in Chapter~\ref{chap:SpectralLeakage} offers high out of band attenuation, avoiding interference with neighbouring channels, while allowing use of sub-carriers close to adjacent channels.
-It could also be applied to in-band shaping in the context of con-contiguous OFDM signals, where some intermediate sub-carriers are switched off due to the presence of other uses in intermediate bands.
+The shaping approach presented in Chapter~\ref{chap:SpectralLeakage} offers high out of band attenuation, avoiding interference with neighbouring channels, while allowing use of subcarriers close to adjacent channels.
+It could also be applied to in-band shaping in the context of con-contiguous OFDM signals, where some intermediate subcarriers are switched off due to the presence of other uses in intermediate bands.
 This could result in significant efficiency improvements in the case of highly fragmented bands, since narrow spaces can still be used effectively
 
 \subsection{Efficiently Adaptive Shaping Spectral Leakage}
@@ -52,10 +52,10 @@ This would mean that in some cases the SEM would be relaxed compared to the stat
 \subsection{Standardised Software Interface for Multi-Standard Radio Platform}
 We have discussed that there are a variety of different cognitive radio platforms, many of which do include some FPGA capability. However, this interface between higher layers and hardware baseband processing is often implemented in an ad-hoc manner. Our group is exploring how a standardised interface might be proposed to allow higher layer cognitive stacks to be coupled with different baseband systems, including both the data stream interface, and the control. This must entail minimal latency, and enable the strengths of the baseband in terms of high data stream throughput.
 
-\subsection{Alternative Multi-Carrier Modulations Techniques}
-While OFDM is well established, other multi-carrier schemes have been proposed which offer advantages. Demonstrating efficient mapping of these schemes to high performance baseband hardware is important for them to gain traction.
+\subsection{Alternative MultiCarrier Modulations Techniques}
+While OFDM is well established, other multicarrier schemes have been proposed which offer advantages. Demonstrating efficient mapping of these schemes to high performance baseband hardware is important for them to gain traction.
 Generalised Frequency Division Multiplexing (GFDM) is a new modulation scheme that overcomes some of OFDM's limitations.
-In GFDM, out of band spectrum is compressed by an adjustable pulse shaping filter for individual sub-carriers. Transmission efficiency is increased thanks to a two-dimensional data process (grouping data symbols across subcarriers and time slots).
+In GFDM, out of band spectrum is compressed by an adjustable pulse shaping filter for individual subcarriers. Transmission efficiency is increased thanks to a two-dimensional data process (grouping data symbols across subcarriers and time slots).
 However, it suffers from higher bit error rates (because of the interference between subcarriers and time slots) and requires increased computational resources to implement the prototype filter.
 A similar structure means a radio supporting both OFDM and GFDM could be developed, allowing experimentation with this new standard, while offering backwards compatibility.
 

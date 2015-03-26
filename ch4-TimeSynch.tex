@@ -150,7 +150,7 @@ The peak cross-correlation occurs when the received samples match the known prea
 Fine STO can thus be found by locating this peak within a search window. 
 In order to reduce the overhead of cross-correlation, a sign bit multiplier can be used instead of a real multiplier to calculate cross-correlation. However, this is much more sensitive to CFO in practice \cite{Schwoerer2002}. Some researchers employ enhanced methods based on cross-correlation for the time synchronisation. 
 For example, Kishore and Reddy \cite{Kishore2006} presented an algorithm using cross-correlation between the known transmitted and received preamble symbols. 
-The timing metrics for synchronisation using this method perform the normalised \emph{M(d)} calculation, and use the same denominator \emph{R} as in (\ref{MMetric}) and (\ref{RMetric}), however they refine the numerator \emph{P} as follows;
+The timing metrics for synchronisation using this method perform the normalised \emph{M[d]} calculation, and use the same denominator \emph{R} as in (\ref{MMetric}) and (\ref{RMetric}), however they refine the numerator \emph{P} as follows;
 \begin{center}
 \begin{equation}
 \label{PKishore}
@@ -185,16 +185,16 @@ Firstly, we define the autocorrelation between the two halves of the receiver wi
 
 \begin{equation}
 \label{ProposedP}
-P'[d] =\sum_{m =0}^{M-1}    (r^{*}[d+m] r[d+m+L] )
+P'[d] =\sum_{m =0}^{C-1}    (r^{*}[d+m] r[d+m+L] )
 \end{equation}
 
-where $d$ denotes a time index of received signal $r$ that now corresponds to the first sample in a window of \emph{L+M} samples of received signal, \emph{L} being the length of preamble period (64 for the IEEE802.16 preamble) and \emph{M} being the length of received samples for estimation, respectively. 
+where $d$ denotes a time index of received signal $r$ that now corresponds to the first sample in a window of \emph{L+C} samples of received signal, \emph{L} being the length of preamble period (64 for the IEEE802.16 preamble) and \emph{C} being the length of received samples for estimation, respectively. 
 
 Next, a power measure, \emph{R'} is proposed which takes account of both received and transmitted symbol power;
 
 \begin{equation}
 \label{ProposedR}
-R'[d] =\sum_{m =0}^{M-1}   |r[d+m+L]|^2  |a[m]|^2
+R'[d] =\sum_{m =0}^{C-1}   |r[d+m+L]|^2  |a[m]|^2
 \end{equation} 
 
 
@@ -271,7 +271,7 @@ Second, the fractional CFO estimation is presented in (\ref{proposedfractionalCF
 where $\hat{\lambda}$ is the estimated fractional CFO, $\angle P'[d]$ denotes the angle of \emph{P'[d]} and \emph{N} is the number of subcarriers.
 In this proposed method, the fractional CFO is estimated at the starting point of the preamble to guarantee that the correct angle of \emph{P'[d]} is taken for estimation. Using the conventional techniques, the inherent uncertainty in the coarse STO does not allow this to be achieved in practice.
 Thus, the estimated fractional CFO in the proposed method will, on average, tend to be more accurate.
-In addition, this method separates the length of preamble period \emph{L} and the length of received samples for estimation \emph{M}, and because of that \emph{L} can be small to extend the range of fractional CFO, and \emph{M} can be longer to increase the robustness to channel noise. For the IEEE~802.16 preamble, \emph{M} is set equal to \emph{2L} to improve the overall precision of synchronisation.
+In addition, this method separates the length of preamble period \emph{L} and the length of received samples for estimation \emph{C}, and because of that \emph{L} can be small to extend the range of fractional CFO, and \emph{C} can be longer to increase the robustness to channel noise. For the IEEE~802.16 preamble, \emph{C} is set equal to \emph{2L} to improve the overall precision of synchronisation.
 
 \subsection{Fractional CFO Compensation} 
 
@@ -612,7 +612,7 @@ The performance of the proposed method with $f2=6bit$, \textit{Prop-6b}, can be 
 The preceding results are now used to define four alternative implementations of the proposed method to  compare against the state-of-the-art method, \textit{SoA} which uses full length Q1.15 arithmetic. These alternatives are namely:
 \begin{itemize}
 \item \textit{Prop-A1}: a non-optimized instance of the proposed method with both $f1$ and $f2$ set to 15.
-\item \textit{Prop-A2}: only $P'$ is optimized with $f1$ = 7 while $f2$ remains set to15.
+\item \textit{Prop-A2}: only $P'$ is optimized with $f1$ = 7 while $f2$ remains set to 15.
 \item \textit{Prop-A3}: only $R'$ is optimized with  $f2$ = 6 while $f1$ remains set to 15.
 \item \textit{Prop-A4}: both $P'$ and $R'$ are optimized by setting $f1$ = 7 and $f2$ = 6.
 \end{itemize}
@@ -647,7 +647,7 @@ Table~\ref{tab:Imp_Rpt} details the comparison between \textit{SoA} and \textit{
 
 \begin{table}[h]
 	\centering
-	\caption{ Detailed resource comparison between two synchronisation methods.}
+	\caption{ Resource comparison between two synchronisation methods.}
 	\label{tab:Imp_Rpt}
 	\begin{tabular}{l|r|r|r|r|r}
        \hline \hline
@@ -660,8 +660,8 @@ Table~\ref{tab:Imp_Rpt} details the comparison between \textit{SoA} and \textit{
     						& Fine time			& 942  	& 1009  	& 32 	& 0	\\
 						& \textbf{Total} & \textbf{2898} & \textbf{3172} & \textbf{112} & \textbf{13}\\
 	\hline
-		\textit{Prop-}		& $|P'|$ metric		& 240 	& 323 	& 64 	& 3 \\
-		\textit{-A4}				& $R'$ metric		& 818 	& 600 	& 7		& 2 \\
+		\textit{Prop-A4}	& $|P'|$ metric		& 240 	& 323 	& 64 	& 3 \\
+						& $R'$ metric		& 818 	& 600 	& 7		& 2 \\
 						& CFO comp		& 1467 	& 1515 	& 0 		& 8 \\
 						& Time sync			& 66	& 98	& 6 		& 1 \\
 						& \textbf{Total} & \textbf{2591} & \textbf{2536} & \textbf{77} & \textbf{14}\\

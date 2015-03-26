@@ -206,7 +206,7 @@ The parameterised values consist not only of the required combinations for 802.1
 
 \begin{figure}
 \centering
-\includegraphics [width=0.8\columnwidth]{Figures/MSCR_RX_Sync.pdf}
+\includegraphics [width=0.7\columnwidth]{Figures/MSCR_RX_Sync.pdf}
 \caption{Block diagram of Synchronisation module.}
 \label{fig:Sync}
 \end{figure}
@@ -374,7 +374,7 @@ All data symbols go through this module, and 2 bits are assigned to the output a
 
 %\begin{figure*}[!t]
 \begin{figure}
-\centering{\includegraphics[width=1\columnwidth]{Figures/CRTiming.eps}}
+\centering{\includegraphics[width=0.8\columnwidth]{Figures/CRTiming.eps}}
 \caption{Comparison of reconfiguration latency for a single and multiple PR modules.}
 \label{fig:timing}
 \end{figure}
@@ -456,7 +456,7 @@ Similarly for the fine-grained approach, the configurations of the PR modules ar
 Table~\ref{tab:Resouces} reports the hardware resource usage for each sub-module and transmitter, receiver system for 802.22 on the Virtex~6 device. $M_1$, $M_2$, $M_3$, $M_4$, $M_5$, $M_6$, $M_7$, $M_8$ denote the functional modules of the OFDM based system: synchronisation, frequency compensation, fine STO estimation, remove CP, FFT, IFO estimation and channel equalisation, phase tracking, data symbol demodulation, respectively. $M_R$, $M_T$ are the monolithic receiver and transmitter sub-systems, respectively.
 %Because we employ the multiplyless correlation for Fine STO estimation, DSP blocks are not used in this module but resulting in increased number of used slides.
 
-We then determine the bitsteam size for each functional block according to the number of occupied CLB, DSP, BRAM columns that provide sufficient required resources for the block on FPGA floorplan. %\todo[inline]{How?} 
+We then determine the bitsteam size for each functional block according to the number of occupied CLB, DSP, BRAM columns that provide sufficient required resources for the block on FPGA floorplan. %\todo[inline]{How?}
 Fig.~\ref{fig:Bitstream} illustrates the bitstream sizes of each PR module, which we use to calculate configuration time later. The bitstream sizes of the sub-modules are relatively small compared to the monolithic PR module for the receiver sub-system. The $M_3$ bitstream is the largest among the sub-modules. The bitstream of the receiver is nearly triple the size of the transmitter.
 \begin{table}[hb]
 	\centering
@@ -505,7 +505,7 @@ Fig.~\ref{fig:Bitstream} illustrates the bitstream sizes of each PR module, whic
 
 Processing latencies for functional modules are shown for the three standards in Fig.~\ref{fig:Latency}. We can see that 802.11 has the shortest latency because this standard uses the shortest FFT length, and hence the shortest symbol length for OFDM modulation.
 It should be noted that during this latency the module still receives input data for processing.
-The processing chain must be halted when the latency time has ended but the reconfiguration of the following module has not yet been completed. 
+The processing chain must be halted when the latency time has ended but the reconfiguration of the following module has not yet been completed.
 The worst case halting time is a case of the shortest latency and the longest reconfiguration time.
 Therefore, the latencies for 802.11 are used to calculate system halting time.
 %The latency of the synchronisation module depends on the timing offset that is the duration from the time between receiving input samples and the time when the first sample of the coming frame is received. The synchronisation module does not output data if no frame is detected. Generally, the synchronisation latency is calculated as $L_{1} = \mathit{Offset} + \mathit{processing time}$ \todo[inline]{Don't you have a symbol for processing time defined earlier??}.
@@ -582,7 +582,7 @@ It is clear that overlapping reconfiguration and data processing is not sufficie
     	axis y line*=none,
   	ybar, x post scale=1.5]
 	\addplot[fill=F1,shift={(-8pt,0)}] coordinates {
- 		($M_1$,221.14) ($M_2$,221.14) ($M_3$, 986.61) ($M_4$, 38.27) ($M_5$, 518.82) ($M_6$, 527.33) ($M_7$, 259.41) ($M_8$,38.27) 
+ 		($M_1$,221.14) ($M_2$,221.14) ($M_3$, 986.61) ($M_4$, 38.27) ($M_5$, 518.82) ($M_6$, 527.33) ($M_7$, 259.41) ($M_8$,38.27)
  		};
  	\end{axis}
 
@@ -715,7 +715,7 @@ We can see that the halting time of the multiple PR module approach is greater t
 	\label{tab:FIFOResouces}
 	\begin{tabular}{c|c|c}
         \hline \hline
-    			  \makebox[4.2cm][c]{FIFO size (KSs)}	&  \makebox[3cm][c]{18K BRAM}  &  \makebox[3cm][c] {36K BRAM} \\
+    			  FIFO size (KSs)&  18Kb BRAMs  & 36Kb BRAMs \\
 	\hline
 %		4     		& 0 	&  4 \\
 		8			& 1	&  7 \\
@@ -727,8 +727,8 @@ We can see that the halting time of the multiple PR module approach is greater t
     \end{tabular}
 \end{table}
 Fig.~\ref{fig:Halt} compares the three approaches in terms of system reconfiguration latency and FIFO buffering requirements. The system latencies are computed in the worst case which is the latency for the 802.22 standard. The FIFO requirements are calculated based on multiplying the sampling frequency by the halting time, followed by rounding up to the next power of two.  Table~\ref{tab:FIFOResouces} reports
-required resources for 32 bit AXI4 interface FIFO implementation with some different availabe size configurations. 
-%\todo[inline]{Why do you have to round up? FIFOs can be any length} 
+required resources for 32 bit AXI4 interface FIFO implementation with some different availabe size configurations.
+%\todo[inline]{Why do you have to round up? FIFOs can be any length}
 The system reconfiguration latency of the proposed method is significantly reduced to 18~\% and 27~\% of the system reconfiguration latency of the monolithic PR module and the multiple PR module approaches, respectively. The FIFO requirement for the proposed approach is only 16 kilo-samples (KSs) while the other approaches require a FIFO to store up to 64~KSs.
 %\todo[inline]{I thought we said we need actual FIFO implementation results?Also, I need to understand what this system latency number means.}
 

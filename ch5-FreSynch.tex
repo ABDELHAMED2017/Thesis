@@ -1,6 +1,6 @@
 %!TEX root = main_thesis.tex
 %---------------------------------------------------------------------------------
-\chapter{A IFO Estimation Method for OFDM Synchronisation}
+\chapter{IFO Estimation Method for OFDM Frequency Synchronisation}
 \label{chap:CFO}
 %---------------------------------------------------------------------------------
 
@@ -140,7 +140,7 @@ These sets of $A_{\tilde{\epsilon}}$ can be pre-computed and stored separately.
 Thanks to the spreading of the computed pilots, the $A_{\tilde{\epsilon}}$ sets have many identical pilots -- this naturally allows sharing between pre-rotated pilot sets -- so that only 64 memory locations are required instead of 400. Thus, an 84\% reduction in the memory used to store $A_{\tilde{\epsilon}}$ sets is achieved.
 Fig.~\ref{fig:Pilots} illustrates the $A_{\tilde{\epsilon}}$ sets and circuitry for combining all $A_{\tilde{\epsilon}}$ sets.
 \begin{figure}
-	\centerline{\includegraphics [width=1\columnwidth] {figures/Pilots.pdf} }
+	\centerline{\includegraphics [width=0.8\columnwidth] {figures/Pilots.pdf} }
 	\caption{Circuit for the known-pilots shift register.}
 	\label{fig:Pilots}
 \end{figure}
@@ -149,14 +149,14 @@ Fig.~\ref{fig:Pilots} illustrates the $A_{\tilde{\epsilon}}$ sets and circuitry 
 Multiply accumulate blocks are shared for computing four sequential $V_{\tilde{\epsilon}}$ values over four successive clock periods. Fig.~\ref{fig:subsampling} demonstrates how this is done. $P_k$ is received in every clock cycle. $P_{4k}$ is the subsampling of $P_k$, taking a subset of the most significant bits from $P_k$ every four cycles. The cross-correlation is performed with the values of $P_{4k}$. Two multipliers, \emph{M1} and \emph{M2} are used to compute the values of 8 cross-correlations $V_{\tilde{\epsilon}}$ in parallel. Each multiplier performs multiplications sequentially between $P_{4k}$ and the corresponding transmitted pilots in 4 sets of $A_{\tilde{\epsilon}}$. The products are accumulated to the values of $V_{\tilde{\epsilon}}$. When all pilots are computed, the maximum operation, $argmax|V|$, is performed on 8 $V_{\tilde{\epsilon}}$ values to estimate the IFO.
 
 \begin{figure}
-	\centerline{\includegraphics [width=1\columnwidth] {figures/Subsampling.pdf} }
+	\centerline{\includegraphics [width=0.8\columnwidth] {figures/Subsampling.pdf} }
 	\caption{Resource sharing approach for computing $V_{\tilde{\epsilon}}$.}
 	\label{fig:subsampling}
 \end{figure}
 
 
 \begin{figure}
-	\centerline{\includegraphics [width=0.95\columnwidth] {figures/ProposedStruc2.pdf} }
+	\centerline{\includegraphics [width=0.8\columnwidth] {figures/ProposedStruc2.pdf} }
 	\caption{Architecture of proposed IFO estimator.}
 	\label{fig:ProposedStruc}
 \end{figure}
@@ -487,7 +487,7 @@ The first uses only logic elements (LE) for computation, while the second uses X
 Considering (\ref{realimaginaryVi}), $\Re{\{V_{\tilde{\epsilon}}(n)\}}, \Im{\{V_{\tilde{\epsilon}}(n)\}}$ can be computed effectively using two DSP blocks as 3-input adders, instead of 4 blocks as would be usual.
 Fig.~\ref{fig:DSP48Acc} illustrates how this is done for $\Re{\{V_{\tilde{\epsilon}}(n)\}}$, and similarly for $\Im{\{V_{\tilde{\epsilon}}(n)\}}$.
 \begin{figure}
-	\centerline{\includegraphics [width=0.9\columnwidth] {figures/DSP48Acc.pdf} }
+	\centerline{\includegraphics [width=0.7\columnwidth] {figures/DSP48Acc.pdf} }
 	\caption{DSP block based 3-input adder for correlation.}
 	\label{fig:DSP48Acc}
 \end{figure}

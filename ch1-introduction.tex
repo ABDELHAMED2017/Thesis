@@ -49,44 +49,46 @@ Given the ability to perform spectral sensing, and handle flexible carrier allog
 \section{Motivation}
 %---------------------------------------------------------------------------------
 
-In practice, implementing an MSCR requires a technology platform to provides sufficient flexibility, high computational throughput, and ideally power efficiency.
+In practice, implementing an MSCR requires a technology platform that provides sufficient flexibility, high computational throughput, and ideally power efficiency.
 While most practical CRs are built using powerful general purpose processors to achieve flexibility through software, these often fail to achieve the required computational throughput and suffer from high power consumption.
-Multiple processor-on-chip (MPoC) architectures can meet the throughput needs, however these platforms require algorithms to be formulated in a way suitable for parallel programming. 
+Multi-processor Systems-on-chip (MPSoC) architectures can meet the throughput needs, however these platforms require algorithms to be formulated in a way suitable for parallel programming.
 They also tend to rely upon additional memory elements to buffer data being transferred between parallel processes, driving up implementation cost and power consumption.
 By contrast, custom hardware designs such as application specific integrated circuits (ASICs) offer highly efficient computation, high data throughput and potentially low power dissipation; however, they suffer from a lack of flexibility, in that many operating parameters will need to be fixed at design time.
 In an application area characterised by multiple fast moving standards, ASICs are likely to be inefficient in terms of both time and cost for MSCR.
 However, modern FPGAs which support partial reconfiguration (PR), are an attractive candidate for cognitive radios.
 They not only achieve the high performance of a custom data-path implementation, but also offer design flexibility and the potential for low power dissipation.
 
-The feasibility of MSCR implementation depends on the ability to flexibly switch system parameters from those specified for one standard to those specified for another.
+The feasibility of dynamic cognitive radio implementation depends on the ability to flexibly switch system parameters from those specified for one standard to those specified for another.
 %As mentioned, MCM-based techniques have been widely investigated for next-generation wireless standards.
 %These techniques divide communication channels into multi-sub-channels that allow a system to perform parallel data transmission over smaller sub-channels.
 %This allows the techniques to effectively combat amplitude and phase distortion, impulse noise, multipath propagation and so on.
-Given the advantages and flexibility of OFDM modulation and the benefits of the FPGA platform, a combination of these technologies is likely to be a good candidate for MSCR implementation.
-The ability to perform PR in FPGA and allow effective parameterisation of OFDM modulation enable an MSCR to be built not only for current OFDM-based standards such as 802.11, 802.16, and 802.22, but also be potentially able to accept soft upgrades for future OFDM-based standards.
+Given the advantages and flexibility of OFDM modulation and the benefits of the FPGA platform, a combination of these technologies is likely to be a good candidate for such systems.
+The ability to perform PR in FPGA and allow effective parameterisation of OFDM modulation enable a dynamic radio to be built not only for current OFDM-based standards such as 802.11, 802.16, and 802.22, but also be potentially able to accept soft upgrades for future OFDM-based standards.
 %investigated for the feasibility of implementing the proposed low cost, low power MSCR system.
 
 %---------------------------------------------------------------------------------
 \section{Objectives}
 %---------------------------------------------------------------------------------
 
-Despite having several advantages for MSCR, OFDM has two particular disadvantages related to synchronisation and spectral leakage. These become critical challenges when OFDM is used for MSCR.
-Firstly, the state of the art OFDM synchronisation methods can only tolerate a small carrier frequency offset (CFO),  leading to very strict constraints for RF front-end design.
-In MSCR systems, an RF front-end is required to have the ability to rapidly switch frequency carriers across a wide frequency range.
+Despite several advantages, OFDM has two particular disadvantages related to synchronisation and spectral leakage. These become critical challenges when OFDM is used for cognitive radio.
+Firstly, state of the art OFDM synchronisation methods can only tolerate a small carrier frequency offset (CFO),  leading to very strict constraints for RF front-end design.
+In a radio that supports multiple standards, the RF front-end is required to have the ability to rapidly switch carrier frequency across a wide frequency range.
 Such agility is difficult to achieve while ensuring that CFO is tightly constrained.
-New synchronisation methods are therefore required for use in OFDM-based MSCR systems that are robust to large CFO: one such novel method is introduced in this thesis.
+New synchronisation methods are therefore required for use in OFDM-based  systems that are robust to large CFO
+While a number of techniques have been explored theoretically, most implementations we are aware of use only basic synchronisation, and the computational cost of more advanced methods is high.
+In this thesis, we present a novel method that is both robust, and computationally efficient.
 
 Secondly, CRs normally demand small spectral leakage for both in-band and out-of-band of transmitted signals, whereas OFDM is well known to induce significant amounts of spectral leakage.
 Pulse shaping techniques that are able to limit OFDM spectral leakage have been widely researched, but pulse shaping cannot help to effectively filter out-of-band spectrum when only small frequency guards are present, because of the influence of an image spectrum caused by interpolation or DAC operation.
-Fortunately, MSCR systems provide flexible parameterisation, allowing the proposal in this thesis of a frequency guard extending technique which can meet the spectral leakage requirements.
+We propose, in this thesis, a frequency guard extending technique which can meet the spectral leakage requirements, offering good out of band attenuation allowing deployments for dynamic spectrum access.
 
-The overriding objective for this research is a low power and agile architecture for MSCR, based on coupling PR modules and parameterised modules, incorporating the spectral leakage and synchronization methods mentioned above.
+The overriding objective for this research is a low power and agile architecture for multi-standard cognitive radios on FPGAs, based on coupling PR modules and parameterised modules, incorporating the spectral leakage and synchronization methods mentioned above.
 
 %---------------------------------------------------------------------------------
 \section{Research Contributions}
 %---------------------------------------------------------------------------------
 
-This thesis addresses the design of flexible MSCRs on FPGAs. This includes contributions at a platform level, algorithm level and signal processing techniques, creating a general OFDM-based FPGA architecture with a high level of adaptation and parameterization. In detail, the research contributions include:
+This thesis includes contributions at a platform level, algorithm level and signal processing techniques, creating a general OFDM-based FPGA architecture with a high level of adaptation and parameterisation. In detail, the research contributions include:
 \begin{enumerate}
 \item A multipilerless cross-correlation technique for OFDM timing synchronisation, demonstrating low power and low resource utilisation on modern FPGA devices.
 We show that DSP blocks, while functionally suited to such tasks, increase power consumption and do not offer improved synchronisation accuracy.
@@ -121,7 +123,7 @@ Each of these contributions solves one of the pressing challenges of implementin
 %---------------------------------------------------------------------------------
 
 This thesis is organized as follows:
-Chapter~\ref{chap:BackgroundLiterature} presents a comprehensive background on cognitive radio platforms and OFDM techniques. It also discusses relevant background knowledge relating to FPGAs and power considerations. Chapter~\ref{chap:multiplierlesscorrelator} presents the multiplierless correlation technique for OFDM synchronisation. In Chapter~\ref{chap:Synchronisation}, our combined FFO and STO synchronisation design is outlined and evaluated. Chapter~{chap:CFO} presents an effective and low cost IFO estimation for implementing robust OFDM synchronisation against to large CFO. Chapter~\ref{chap:SpectralLeakage} considers  spectral leakage for OFDM-based cognitive radios, and proposes a mitigation technique which is assessed for use with both 802.11p and 802.11af.
+Chapter~\ref{chap:BackgroundLiterature} presents a comprehensive background on cognitive radio platforms and OFDM techniques. It also discusses relevant background knowledge relating to FPGAs and power considerations. Chapter~\ref{chap:multiplierlesscorrelator} presents the multiplierless correlation technique for OFDM synchronisation. In Chapter~\ref{chap:Synchronisation}, our combined FFO and STO synchronisation design is outlined and evaluated. Chapter~\ref{chap:CFO} presents an effective and low cost IFO estimation for implementing robust OFDM synchronisation against to large CFO. Chapter~\ref{chap:SpectralLeakage} considers  spectral leakage for OFDM-based cognitive radios, and proposes a mitigation technique which is assessed for use with both 802.11p and 802.11af.
 Chapter~\ref{chap:MSCR} discusses the system-level design approach for cognitive radio implementation on FPGAs, which combines the techniques discussed in earlier chapters into a cohesive MSCR approach.
 Finally, Chapter~\ref{chap:conclusion} concludes the thesis and presents several extensions for future work in this domain.
 

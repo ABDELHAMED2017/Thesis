@@ -126,7 +126,7 @@ X[k] = \sum_{n=0}^{N-1} s[n] e^{-i2\pi\frac{k}{N}n},
 In order to achieve efficient computation, The inverse Fast Fourier Transform (IFFT) and Fast Fourier Transform (FFT) are implemented in OFDM systems to modulate and demodulate the signal instead of the IDFT and DFT, respectively. These optimised algorithms generally rely on the number of points, and hence carriers, being a power of 2.
 
 %---------------------------------------------------------------------------------
-\subsection{The Cyclic Prefix}
+\subsection{Cyclic Prefix}
 %---------------------------------------------------------------------------------
 
 When transmitting OFDM symbols over a delay-dispersive multi-path channel, the received signal is the linear convolution of the transmitted symbol with the channel impulse response (CIR)
@@ -169,7 +169,7 @@ The guard interval adopted in many OFDM standards can be commonly performed by a
 In addition, the use of a CP also guarantees the orthogonality of subcarriers avoiding ICI. Performing the DFT operation and a single-tap equaliser per subcarrier allows recovery of the transmitted symbols~\cite{farhang2008signal}.
 
 %---------------------------------------------------------------------------------
-\subsection{OFDM Radio System}
+\subsection{OFDM Radio Systems}
 %---------------------------------------------------------------------------------
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/OFDM-model.pdf} }
@@ -211,7 +211,7 @@ R_{m}[n] =  \sum_{n=0}^{N-1} y_{m}[n]e^{-i2\pi \frac{nk}{N}},
 \end{eqnarray}
 
 \begin{figure}
-	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/OFDM-block.pdf} }
+	\centerline{\includegraphics [width=\columnwidth] {Figures/OFDM-block.pdf} }
 	\caption{Block diagram of an OFDM radio system.}
 	\label{fig:OFDM-block}
 \end{figure}

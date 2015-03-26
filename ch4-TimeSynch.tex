@@ -1,15 +1,15 @@
 %---------------------------------------------------------------------------------
-\chapter{A Method for OFDM Timing Synchronisation}
+\chapter{Method for OFDM Timing Synchronisation}
 \label{chap:Synchronisation}
 %---------------------------------------------------------------------------------
 
 %---------------------------------------------------------------------------------
 \section{Introduction}
 %---------------------------------------------------------------------------------
-OFDM performance is sensitive to receiver synchronisation \cite{Hanzo2006}. 
-Frequency offset causes inter-subcarrier interference, and errors in timing synchronisation can lead to inter-symbol interference. 
-Therefore, accurate synchronisation is critical to the performance of OFDM systems.  
-This section summarises conventional synchronisation methods used with OFDM, discussing their merits and drawbacks, before the following sections present a new and efficient method that is robust to large frequency offset, obtains accurate  and robust synchronisation and requires relatively low computational complexity. In particular, it is designed to be suitable for hardware implementation on reconfigurable systems. 
+OFDM performance is sensitive to receiver synchronisation \cite{Hanzo2006}.
+Frequency offset causes inter-subcarrier interference, and errors in timing synchronisation can lead to inter-symbol interference.
+Therefore, accurate synchronisation is critical to the performance of OFDM systems.
+This section summarises conventional synchronisation methods used with OFDM, discussing their merits and drawbacks, before the following sections present a new and efficient method that is robust to large frequency offset, obtains accurate  and robust synchronisation and requires relatively low computational complexity. In particular, it is designed to be suitable for hardware implementation on reconfigurable systems.
 
 The method presented in this chapter has also been discussed in:
 \begin{itemize}
@@ -26,7 +26,7 @@ Autocorrelation-based methods are commonly chosen for implementing synchronisati
 \label{MMetric}
 M[d] = \frac{|P[d]|^2} {(R[d])^2},
 \end{equation}
-\end{center} 
+\end{center}
 
 where $d$ denotes a time index corresponding to the first sample in a search space comprising $2L$ samples of received signal $r$. The power measure \emph{R}, which represents the energy of the second half of the receiver search window, is defined as:
 
@@ -35,7 +35,7 @@ where $d$ denotes a time index corresponding to the first sample in a search spa
 \label{RMetric}
 R[d] =\sum_{m =0}^{L-1}   |r[d+m+L]|^2,
 \end{equation}
-\end{center} 
+\end{center}
 
 and the normalisation parameter \emph{P} computes the correlation between two periodic halves in the search window as:
 
@@ -44,11 +44,11 @@ and the normalisation parameter \emph{P} computes the correlation between two pe
 \label{PMetric}
 P[d] =\sum_{m =0}^{L-1}    (r^{*}[d+m] r[d+m+L] ),
 \end{equation}
-\end{center} 
+\end{center}
 
 %where superscript \textquotedblleft$*$\textquotedblright  denotes complex conjugation.
 
-The metric \emph{M[d]} is illustrated for a typical channel in Fig.~\ref{fig:M1-10dB}, where it can be seen to form a distinct plateau in the region were the preamble is presented within a received window. 
+The metric \emph{M[d]} is illustrated for a typical channel in Fig.~\ref{fig:M1-10dB}, where it can be seen to form a distinct plateau in the region were the preamble is presented within a received window.
 Clearly, \emph{M[d]} accurately detects the preamble, however the nature of the plateau having a flat top presents an uncertainty in terms of exact positioning, and hence reduced accuracy in determining the exact start of the frame, compared to a metric which peaks.
 
 \begin{figure}
@@ -57,41 +57,41 @@ Clearly, \emph{M[d]} accurately detects the preamble, however the nature of the 
 	\label{fig:M1-10dB}
 \end{figure}
 
-In order to improve the accuracy of synchronisation, a scheme is often used as in \cite{Schwoerer2002,Manavi2004,Guffey2007,Huang2010,Recio2010} based on combining the above metric for detecting the frame, estimated coarse STO and fractional CFO, and additional cross-correlation operations for computing fine STO and integer CFO as we will explore below. 
+In order to improve the accuracy of synchronisation, a scheme is often used as in \cite{Schwoerer2002,Manavi2004,Guffey2007,Huang2010,Recio2010} based on combining the above metric for detecting the frame, estimated coarse STO and fractional CFO, and additional cross-correlation operations for computing fine STO and integer CFO as we will explore below.
 
 %---------------------------------------------------------------------------------
 \subsection{Coarse STO and Fractional CFO Estimation}
 %---------------------------------------------------------------------------------
 
-First, the plateau of the \emph{M[d]} metric is used to detect a frame start and estimate coarse STO by comparing the magnitude of \emph{M[d]} to a given threshold. After this, the CFO is estimated using the \emph{P} metric in (\ref{PMetric}). 
-We now assume that we are receiving a signal \emph{s[d]} which has a normalised carrier frequency offset $\xi$ with respect to \emph{r[d]}: 
+First, the plateau of the \emph{M[d]} metric is used to detect a frame start and estimate coarse STO by comparing the magnitude of \emph{M[d]} to a given threshold. After this, the CFO is estimated using the \emph{P} metric in (\ref{PMetric}).
+We now assume that we are receiving a signal \emph{s[d]} which has a normalised carrier frequency offset $\xi$ with respect to \emph{r[d]}:
 \begin{center}
 \begin{equation}
 \label{freoffsignal}
 s[d] =  e^{j2\pi\xi \frac{d}{N}}*r[d].
 \end{equation}
-\end{center} 
-where \emph{N} is the numbers of subcarriers of the OFDM symbol. At the plateau of \emph{M[d]}, the received samples in the window will be periodic:  
+\end{center}
+where \emph{N} is the numbers of subcarriers of the OFDM symbol. At the plateau of \emph{M[d]}, the received samples in the window will be periodic:
 \begin{center}
 \begin{equation}
 \label{signalperiodic}
 r[d] =  r[d+L].
 \end{equation}
-\end{center} 
+\end{center}
 
 Substituting (\ref{freoffsignal}) and  (\ref{signalperiodic}) in (\ref{PMetric}) we find that
 
 \begin{eqnarray}
 \label{PMetricfreoffset}
 P[d] &=& \sum_{m =0}^{L-1}  (s^{*}[d+m] s[d+m+L] ) \nonumber \\
- &=& e^{j2\pi \xi \frac{L}{N}} \sum_{m =0}^{L-1}  |r[d+m]|^2 
+ &=& e^{j2\pi \xi \frac{L}{N}} \sum_{m =0}^{L-1}  |r[d+m]|^2
 \end{eqnarray}
 The CFO can be determined as follows;
 \begin{equation}
 \label{fractionalCFO}
 \xi = \frac{\angle P[d] + 2\pi z}{2\pi \frac{L}{N}}
 \end{equation}
-where  $\angle P[d]$ is the angle of \emph{P[d]} within the range -$\pi$ to $\pi$. 
+where  $\angle P[d]$ is the angle of \emph{P[d]} within the range -$\pi$ to $\pi$.
 The CFO consists of 2 parts: the fractional part, $\hat{\lambda} = \frac{\angle P[d]}{2\pi \frac{L}{N}}$, can be estimated replied on $\angle P[d]$ and the integer part (IFO) is represented by an integer \emph{z}, $\hat{\epsilon} = \frac{z N}{L}$.
 The fractional CFO estimation has a range limitation as follows:
 \begin{eqnarray}
@@ -99,24 +99,24 @@ The fractional CFO estimation has a range limitation as follows:
  -\frac{N}{2L} & <  \hat{\lambda}   < & \frac{N}{2L}
 \end{eqnarray}
 
-Clearly, the range over which fractional CFO can be estimated may be increased by decreasing the length of period \emph{L}. 
+Clearly, the range over which fractional CFO can be estimated may be increased by decreasing the length of period \emph{L}.
 However, because of the influence of channel noise, a smaller \emph{L} would also degrade the accuracy of estimation of the fractional CFO $\hat{\lambda}$.
-In the case of the IEEE~802.16-2009 preamble~\cite{IEEE80216}, the number of subcarriers \emph{N} and length of period \emph{L} are commonly chosen to be 512 and 64 samples respectively \cite{Kim2008}. 
+In the case of the IEEE~802.16-2009 preamble~\cite{IEEE80216}, the number of subcarriers \emph{N} and length of period \emph{L} are commonly chosen to be 512 and 64 samples respectively \cite{Kim2008}.
 Hence the fractional CFO estimation range is limited to within -2 to +2 subcarrier spacings. Meanwhile, the value of IFO parts $\hat{\epsilon}$ is estimated as an integer multiple of 4.
 
-The method outlined above is fast and robust for estimating coarse STO and fractional CFO. 
-However it has some drawbacks. 					
-First, the coarse STO is estimated by comparing the metric to a threshold. 
+The method outlined above is fast and robust for estimating coarse STO and fractional CFO.
+However it has some drawbacks.
+First, the coarse STO is estimated by comparing the metric to a threshold.
 It is not certain that the samples for estimating the fractional CFO are within the plateau of \emph{M[d]} in which the received samples in the window will be periodic.
 This degrades the performance of fractional CFO estimation.
-Second, the CFO estimation can only be performed correctly in the limited range of the fractional CFO shown in (\ref{fractionalCFOlimitation}). 
+Second, the CFO estimation can only be performed correctly in the limited range of the fractional CFO shown in (\ref{fractionalCFOlimitation}).
 If the actual CFO lies outside this range, it is necessary to estimate the integer CFO separately.
 
 %---------------------------------------------------------------------------------
 \subsection{Fractional CFO Compensation}
 %---------------------------------------------------------------------------------
 
-Fine STO estimation, accomplished using cross-correlation, is sensitive to CFO. 
+Fine STO estimation, accomplished using cross-correlation, is sensitive to CFO.
 Thus the estimated fractional CFO must fist be used for frequency offset compensation.
 This is done by phase de-rotating the received samples in the time domain:
 
@@ -141,30 +141,30 @@ When compensating the fractional CFO, the fine STO has still not been estimated.
 %---------------------------------------------------------------------------------
 
 The purpose of timing synchronisation is to find the correct starting point for receiver demodulation.
-This starting point will generally mark the beginning of a discrete Fourier transform (DFT) window. 
-Coarse time synchronisation is commonly based on auto-correlation as mentioned above, leading to relatively simple hardware implementation. 
+This starting point will generally mark the beginning of a discrete Fourier transform (DFT) window.
+Coarse time synchronisation is commonly based on auto-correlation as mentioned above, leading to relatively simple hardware implementation.
 However, with purely coarse STO, it is almost impossible to achieve sufficient accuracy to correctly detect the starting point.
-Thus,  fine STO estimation is necessary to refine the accuracy of timing synchronisation. 
-To obtain more accurate fine STO estimation, cross-correlation is usually performed between the received samples and known transmitted preamble. 
-The peak cross-correlation occurs when the received samples match the known preamble. 
-Fine STO can thus be found by locating this peak within a search window. 
-In order to reduce the overhead of cross-correlation, a sign bit multiplier can be used instead of a real multiplier to calculate cross-correlation. However, this is much more sensitive to CFO in practice \cite{Schwoerer2002}. Some researchers employ enhanced methods based on cross-correlation for the time synchronisation. 
-For example, Kishore and Reddy \cite{Kishore2006} presented an algorithm using cross-correlation between the known transmitted and received preamble symbols. 
+Thus,  fine STO estimation is necessary to refine the accuracy of timing synchronisation.
+To obtain more accurate fine STO estimation, cross-correlation is usually performed between the received samples and known transmitted preamble.
+The peak cross-correlation occurs when the received samples match the known preamble.
+Fine STO can thus be found by locating this peak within a search window.
+In order to reduce the overhead of cross-correlation, a sign bit multiplier can be used instead of a real multiplier to calculate cross-correlation. However, this is much more sensitive to CFO in practice \cite{Schwoerer2002}. Some researchers employ enhanced methods based on cross-correlation for the time synchronisation.
+For example, Kishore and Reddy \cite{Kishore2006} presented an algorithm using cross-correlation between the known transmitted and received preamble symbols.
 The timing metrics for synchronisation using this method perform the normalised \emph{M[d]} calculation, and use the same denominator \emph{R} as in (\ref{MMetric}) and (\ref{RMetric}), however they refine the numerator \emph{P} as follows;
 \begin{center}
 \begin{equation}
 \label{PKishore}
 P[d] =\sum_{m =0}^{L-1}    (r[d+m] a[m])^{*} (r[d+m+L] a[m]),
 \end{equation}
-\end{center} 
+\end{center}
 where $d$ again denotes the time index corresponding to the first sample in a window of \emph{2L} samples of received signal $r$ and superscript \textquotedblleft$*$\textquotedblright again denotes complex conjugation. In (\ref{PKishore}) the samples $a$ are now the known, transmitted, time domain preamble samples.
 
-The cross correlation now produces distinct peaks at the times when received samples match the known transmitted samples of the preamble. Fig.~\ref{fig:M2-10dB} illustrates this by plotting \emph{M} versus the sample index $d$ for an example channel in AWGN with SNR~=~10{\thinspace}dB. 
-A frame is detected when \emph{M} crosses a threshold and the start of frame is found by searching the peaks of \emph{M}. 
-This can accurately determine the start of frame even at low SNRs. 
-Moreover, this method is robust to large CFO for time synchronisation. 
+The cross correlation now produces distinct peaks at the times when received samples match the known transmitted samples of the preamble. Fig.~\ref{fig:M2-10dB} illustrates this by plotting \emph{M} versus the sample index $d$ for an example channel in AWGN with SNR~=~10{\thinspace}dB.
+A frame is detected when \emph{M} crosses a threshold and the start of frame is found by searching the peaks of \emph{M}.
+This can accurately determine the start of frame even at low SNRs.
+Moreover, this method is robust to large CFO for time synchronisation.
 Simulations \cite{Kishore2006} show that time synchronisation can be performed effectively with CFO~=~10.5 subcarrier spacings.
-However, the cross-correlation operation requires complex computation. 
+However, the cross-correlation operation requires complex computation.
 Although the complexity of cross-correlation can be reduced using multiplierless correlation \cite{Yip2003}, the multiplierless correlator degrades the precision of metric \emph{P}, used for estimating frequency offset.
 In general, this method is appropriate for time synchronisation but requires significant hardware resources for implementing the cross-correlation.
 
@@ -178,7 +178,7 @@ In general, this method is appropriate for time synchronisation but requires sig
 \section{Proposed Fractional CFO Estimation and Synchronisation}
 %---------------------------------------------------------------------------------
 
-Considering the limitations of previous work, we propose new timing metrics to take advantage of preamble characteristics such as period and energy distribution. 
+Considering the limitations of previous work, we propose new timing metrics to take advantage of preamble characteristics such as period and energy distribution.
 Again, the proposed method is illustrated for the specific case of the IEEE~802.16-2009 preamble, as shown in Fig.\ref{fig:SyncFlow}.
 
 Firstly, we define the autocorrelation between the two halves of the receiver window for normalisation purposes;
@@ -188,14 +188,14 @@ Firstly, we define the autocorrelation between the two halves of the receiver wi
 P'[d] =\sum_{m =0}^{C-1}    (r^{*}[d+m] r[d+m+L] )
 \end{equation}
 
-where $d$ denotes a time index of received signal $r$ that now corresponds to the first sample in a window of \emph{L+C} samples of received signal, \emph{L} being the length of preamble period (64 for the IEEE802.16 preamble) and \emph{C} being the length of received samples for estimation, respectively. 
+where $d$ denotes a time index of received signal $r$ that now corresponds to the first sample in a window of \emph{L+C} samples of received signal, \emph{L} being the length of preamble period (64 for the IEEE802.16 preamble) and \emph{C} being the length of received samples for estimation, respectively.
 
 Next, a power measure, \emph{R'} is proposed which takes account of both received and transmitted symbol power;
 
 \begin{equation}
 \label{ProposedR}
 R'[d] =\sum_{m =0}^{C-1}   |r[d+m+L]|^2  |a[m]|^2
-\end{equation} 
+\end{equation}
 
 
 \begin{figure}
@@ -213,21 +213,21 @@ R'[d] =\sum_{m =0}^{C-1}   |r[d+m+L]|^2  |a[m]|^2
 \end{figure}
 
 
-In common with the metric developed by Schmidl and Cox \cite{Schmidl1997}, our proposed \emph{P'[d]} detects the periodic characteristic of the preamble and can thus be used for estimating fractional CFO. 
-\emph{P'} forms a plateau as evident in Fig.\ref{fig:ProposedMetric-10dB} when the preamble is present within the receiver window. 
-\emph{R'} is then used to find the starting point of the preamble based on its energy distribution. 
-\emph{R'} causes peaks shown in Fig.\ref{fig:ProposedMetric-10dB} at the point where the energy distribution of the received samples matches that of the transmitted preamble.  
+In common with the metric developed by Schmidl and Cox \cite{Schmidl1997}, our proposed \emph{P'[d]} detects the periodic characteristic of the preamble and can thus be used for estimating fractional CFO.
+\emph{P'} forms a plateau as evident in Fig.\ref{fig:ProposedMetric-10dB} when the preamble is present within the receiver window.
+\emph{R'} is then used to find the starting point of the preamble based on its energy distribution.
+\emph{R'} causes peaks shown in Fig.\ref{fig:ProposedMetric-10dB} at the point where the energy distribution of the received samples matches that of the transmitted preamble.
 Since the \emph{R'} metric that is used to estimate time synchronisation is computed on the square of the amplitude of received samples, the time synchronisation is insensitive to the CFO that effects the phase of the received samples.
 Moreover, computing on amplitude squared, a real number, requires less resources than using complex numbers as in alternative approaches such as \cite{Kishore2006}.
-In addition, the time synchronisation is performed based on the peak value of \emph{R'} rather than its absolute value. 
-Therefore, \emph{R'} is a good candidate for implementation using a multiplierless correlator to reduce computational complexity. 
+In addition, the time synchronisation is performed based on the peak value of \emph{R'} rather than its absolute value.
+Therefore, \emph{R'} is a good candidate for implementation using a multiplierless correlator to reduce computational complexity.
 \begin{figure}
 	\centerline{\includegraphics [width=1\columnwidth] {figures/SynFlow_IVMannotated.pdf}}
 	\caption{The synchronisation flow according to the received samples within the preamble showing its packet format above the conventional synchronisation scheme flow (middle), and proposed scheme (bottom). With the packet timing illustrated above.}
 	\label{fig:SyncFlow}
 \end{figure}
 Fig.\ref{fig:SyncFlow} illustrates the flow of the proposed synchronisation method according to the received samples of the preamble, compared to that of the conventional scheme.
-As can be seen in the conventional scheme, the coarse STO and fractional CFO estimation are performed in the two first periods of the short training symbol from (i) to (iii), and then the estimated fractional CFO is used for compensation. 
+As can be seen in the conventional scheme, the coarse STO and fractional CFO estimation are performed in the two first periods of the short training symbol from (i) to (iii), and then the estimated fractional CFO is used for compensation.
 The fine STO is estimated in the last period of the short training symbol from (iv) to (vi), and integer CFO should be computed in the long training symbol from (vii) to (viii).
 By contrast, the proposed method performs STO synchronisation and fractional CFO estimation in the three first periods of the short training symbol from (i) to (iv), and the start of frame will be detected at (ii).
 Then, the fractional CFO compensation is computed, and integer CFO estimation is performed in the long training symbol from (vii) to (viii).
@@ -240,27 +240,27 @@ First, frame detection is performed by comparing the metric \emph{P'} to \emph{R
 \begin{equation}
 \label{framedetection}
 |P'[d]| > thr * R'[d].
-\end{equation} 
+\end{equation}
 
 The threshold is different for each channel and needs to be determined empirically by simulation (in common with other systems such as \cite{Kishore2006}).
 Fig.\ref{fig:TimeSyn_thr_AWGN} shows the performance of the frame synchronisation in the given channel for different threshold values.
-With each threshold value, 1000 frame detections are simulated. 
+With each threshold value, 1000 frame detections are simulated.
 \begin{figure}
-	\centerline{\includegraphics [width=1\columnwidth] {figures/ThresholdEffect.pdf}}
+	\centerline{\includegraphics [width=0.9\columnwidth] {figures/ThresholdEffect.pdf}}
 	\caption{Performance of the frame synchronisation method versus the selection threshold for an AWGN channel (with SNR =10dB).}
 	\label{fig:TimeSyn_thr_AWGN}
 \end{figure}
 The number of correct detections indicates how often the time synchronisation has been found correctly at the start of the frame.
 The number of false detections indicate that the time synchronisation gets the wrong start of the frame.
-Otherwise, the frame is not detected (i.e. $|P'[d]|$ can be not greater than $thr * R'[d]$), and a miss detection is declared. 
-From the results plotted,  the optimum value can be seen to be around 0.55. 
+Otherwise, the frame is not detected (i.e. $|P'[d]|$ can be not greater than $thr * R'[d]$), and a miss detection is declared.
+From the results plotted,  the optimum value can be seen to be around 0.55.
 If the threshold is too small, noise may cause a failure of detection.
-On the other hand, when the threshold is large, the frame detection may be missed if the noise reduces the amplitude of the timing metric, which consequentially does not cross the threshold. 
+On the other hand, when the threshold is large, the frame detection may be missed if the noise reduces the amplitude of the timing metric, which consequentially does not cross the threshold.
 Assuming the channel is known, the threshold can be selected from a look-up table. In the simulations reported in this chapter, each channel threshold has been pre-computed, based upon the current channel model and conditions.
 
 After a frame is detected, the starting point of the short preamble is found by searching for the peaks in \emph{R'[d]}.
-As can be seen in Fig. \ref{fig:ProposedMetric-10dB}, two peaks in \emph{R'[d]} will bracket the transition to the plateau in \emph{P'[d]} shown at sample indices of -31 and 33, respectively. 
-The second peak is used as the starting point for the DFT window. 
+As can be seen in Fig. \ref{fig:ProposedMetric-10dB}, two peaks in \emph{R'[d]} will bracket the transition to the plateau in \emph{P'[d]} shown at sample indices of -31 and 33, respectively.
+The second peak is used as the starting point for the DFT window.
 This is accomplished for the maximum values of $R'[d] + R'[d - L]$ over the next \emph{L} samples after frame detection.
 Second, the fractional CFO estimation is presented in (\ref{proposedfractionalCFO}) based on the \emph{P'[d]} metric similarly to other work such as \cite{Schmidl1997,Schwoerer2002,Manavi2004,Guffey2007,Huang2010,Recio2010};
 
@@ -273,7 +273,7 @@ In this proposed method, the fractional CFO is estimated at the starting point o
 Thus, the estimated fractional CFO in the proposed method will, on average, tend to be more accurate.
 In addition, this method separates the length of preamble period \emph{L} and the length of received samples for estimation \emph{C}, and because of that \emph{L} can be small to extend the range of fractional CFO, and \emph{C} can be longer to increase the robustness to channel noise. For the IEEE~802.16 preamble, \emph{C} is set equal to \emph{2L} to improve the overall precision of synchronisation.
 
-\subsection{Fractional CFO Compensation} 
+\subsection{Fractional CFO Compensation}
 
 Compensating the fractional CFO is performed in the traditional way by phase de-rotating the received samples in the time domain;
 
@@ -283,7 +283,7 @@ Compensating the fractional CFO is performed in the traditional way by phase de-
 &=&  e^{-j2\pi\xi \frac{d}{N}}*e^{j2\pi\xi \frac{d}{N}}*r[d] \nonumber \\
 &=& r[d].
 \end{eqnarray}
-However, in this proposed method, the frame synchronisation is achieved before performing fractional CFO compensation, therefore, $t_{off}$ is removed, and thus, the common phase errors caused by fractional CFO compensation are missing. 
+However, in this proposed method, the frame synchronisation is achieved before performing fractional CFO compensation, therefore, $t_{off}$ is removed, and thus, the common phase errors caused by fractional CFO compensation are missing.
 The compensated received samples are then demodulated using the DFT to obtain the received symbols in the frequency domain.
 
 %---------------------------------------------------------------------------------
@@ -311,10 +311,10 @@ First, the performance of each method is found for AWGN channels beginning with 
 \begin{figure}[h]
 \centering
     	\begin{tikzpicture}
-	\begin{semilogyaxis}[ xlabel=SNR(dB), ylabel=Fail rate of frame synchronisation (\%), legend columns=3,	legend style={at={(0.5,1.02)}, anchor=south, cells={anchor=west}, draw=none}, 
+	\begin{semilogyaxis}[ xlabel=SNR(dB), ylabel=Fail rate of frame synchronisation (\%), legend columns=3,	legend style={at={(0.5,1.02)}, anchor=south, cells={anchor=west}, draw=none},
 						 xmax=16, ymin=0.001, ymax=100, x post scale=1.4]
 		\addplot+[style={dashed, thick},every mark/.append style={mark=square, style=solid}] table [x index=0, y index=4] {./Dat/FailRate_AWGN.dat};
-		\addlegendentry{ \textit{Prop3}};		
+		\addlegendentry{ \textit{Prop3}};
 		\addplot+[style={solid, thick},every mark/.append style={mark=diamond*, style=solid}] table [x index=0, y index=3] {./Dat/FailRate_AWGN.dat};
 		\addlegendentry{ \textit{Prop2}};
 		\addplot+[style={dotted, thick},every mark/.append style={mark=triangle, style=solid}] table [x index=0, y index=2] {./Dat/FailRate_AWGN.dat};
@@ -416,7 +416,7 @@ Increasing the length of received samples for estimation achieves an improvement
 \begin{figure}[h]
 \centering
 	\begin{tikzpicture}
-	\begin{semilogyaxis}[ xlabel=SNR(dB), ylabel=Fail rate of frame synchronisation (\%), legend columns=3,	legend style={at={(0.5,1.02)}, anchor=south, cells={anchor=west}, draw=none},  
+	\begin{semilogyaxis}[ xlabel=SNR(dB), ylabel=Fail rate of frame synchronisation (\%), legend columns=3,	legend style={at={(0.5,1.02)}, anchor=south, cells={anchor=west}, draw=none},
 						 xmax=16, ymin=0.001, ymax=100, x post scale=1.4]
 		\addplot+[style={dashed,thick},every mark/.append style={mark=square, style=solid}] table [x index=0, y index=8] {./Dat/FailRate_AWGN.dat};
 		\addlegendentry{\textit{Prop3}};
@@ -440,8 +440,8 @@ This experiment is specifically designed to investigate the robustness of STO es
 This robustness against large CFO is because the proposed metric is computed on magnitude values that are insensitive to phase errors.
 CFO estimation is not evaluated here because large CFO estimation requires an integer CFO estimator that is investigated in the subsequent section.
 
-In summary, simulation results show that \textit{Prop3} and \textit{Prop2} have better STO and CFO estimation accuracy compared to other methods. 
-\textit{Prop3} enjoys just a small improvement in terms of STO estimation compared to \textit{Prop2} but this improvement incurs a significant hardware cost because the length of received samples for estimation must increase from \emph{2L} to \emph{3L}. 
+In summary, simulation results show that \textit{Prop3} and \textit{Prop2} have better STO and CFO estimation accuracy compared to other methods.
+\textit{Prop3} enjoys just a small improvement in terms of STO estimation compared to \textit{Prop2} but this improvement incurs a significant hardware cost because the length of received samples for estimation must increase from \emph{2L} to \emph{3L}.
 Given the results described in this sub-section, \textit{Prop2} is selected as an implementation candidate in the subsequent sub-section, where the trade-off between accuracy and hardware cost is explored in more detail.
 
 \subsection{Hardware Implementation}
@@ -455,7 +455,7 @@ First, let us consider a conventional synchroniser. We have implemented this as 
 The \emph{P} and \emph{R} timing metrics in (\ref{PMetric}) and (\ref{RMetric}), respectively are computed using delay and summation, whilst a very efficient signed bit multiplier \cite{Schwoerer2002} is used to significantly reduce the computational overhead of the cross correlation for fine timing synchronisation.
 
 \begin{figure}[h]
-	\centerline{\includegraphics [width=1\columnwidth] {figures/Con_Sync.pdf}}
+	\centerline{\includegraphics [width=0.8\columnwidth] {figures/Con_Sync.pdf}}
 	\caption{Architecture of the conventional synchronisation FPGA implementation.}
 	\label{fig:Con-Sync}
 \end{figure}
@@ -478,7 +478,7 @@ These compensated samples are now used to determine fine timing synchronisation.
 		\subsubsection{Implementation of Proposed Synchroniser}
 
 \begin{figure}[h]
-	\centerline{\includegraphics [width=1\columnwidth] {figures/Pro_Sync.pdf}}
+	\centerline{\includegraphics [width=0.8\columnwidth] {figures/Pro_Sync.pdf}}
 	\caption{Architecture for the proposed synchronisation method implemented on FPGA.}
 	\label{fig:Pro-Sync}
 \end{figure}
@@ -503,7 +503,7 @@ where \emph{I} is the squared amplitude of the received sample and $A_n$ denotes
 Following this, a multiplierless correlator, as described in detail in \cite{Pham2012}, is used to compute the output, shown in block diagram form in Fig.~\ref{fig:ML-Cor}.
 
 \begin{figure}[h]
-	\centerline{\includegraphics [width=1\columnwidth] {figures/ML_Cor.pdf}}
+	\centerline{\includegraphics [width=0.6\columnwidth] {figures/ML_Cor.pdf}}
 	\caption{Implementation of energy correlator on FPGA.}
 	\label{fig:ML-Cor}
 \end{figure}
@@ -640,7 +640,7 @@ Table~\ref{tab:Int_Imp_Rpt} reports the overall hardware resources required for 
 It should be noted that the CFO estimation and frame synchronisation performance of these instances can be seen by choosing the corresponding word length from plots of \emph{P'} \& \emph{R'} in Figs. \ref{fig:Fest_AWGN_PQ} \& \ref{fig:STO_AWGN_RQ} respectively. In other words, all instances have been simulated and reported in the previous plots.
 From the table, it is evident that reducing word length can yield a significant reduction in both hardware requirement and power consumption.
 The fully optimized alternative, \textit{Prop-A4}, achieves a reduction of 16.4\%, 31.2\%, and 14.6\% in the number of occupied slices, BRAMs, and in dynamic power consumption, when compared to \textit{SoA}.
-The maximum frequencies of the SoA and proposed method implementations are also reported. 
+The maximum frequencies of the SoA and proposed method implementations are also reported.
 The required frequency for baseband processing in IEEE~802.16 ranges from from 5.6 to 22.4~MHz, and this requirement is easily met by all tested implementations.
 
 Table~\ref{tab:Imp_Rpt} details the comparison between \textit{SoA} and \textit{Prop-A4} in terms of their constituent building block resources (where the function names in this table correspond to the block diagrams of Figs.~\ref{fig:Con-Sync} and \ref{fig:Pro-Sync}).
@@ -676,11 +676,11 @@ The \emph{R'} metric computation in \textit{Prop-A4} uses more hardware than the
 \section{Summary}
 %---------------------------------------------------------------------------------
 
-Although the state of the art synchronisation methods achieve good performance when the CFO is in the range of fractional CFO estimation, they can not work with larger CFO. 
+Although the state of the art synchronisation methods achieve good performance when the CFO is in the range of fractional CFO estimation, they can not work with larger CFO.
 Some methods employ cross-correlation for the time synchronisation; these methods are robust to large CFO and can obtain acceptable performance at low SNR.
 However, the much higher computational resources needed for cross-correlation tend to make such methods unsuitable for hardware implementation.
-The methods have been presented to improve upon these drawbacks of previous reported works. 
-The method takes the advantage of period and energy distribution characteristics of the preamble to perform time synchronisation. 
+The methods have been presented to improve upon these drawbacks of previous reported works.
+The method takes the advantage of period and energy distribution characteristics of the preamble to perform time synchronisation.
 The synchronisation performance results, obtained through simulation, demonstrate good performance and robustness to large CFO.
-Although the method just estimates and compensates the fractional CFO, the method still performs well with larger CFO values. 
+Although the method just estimates and compensates the fractional CFO, the method still performs well with larger CFO values.
 An enhanced OFDM synchronisation method that provides an efficient and low cost IFO estimation will be presented in the next chapter.

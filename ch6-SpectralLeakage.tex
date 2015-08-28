@@ -10,7 +10,7 @@
 %---------------------------------------------------------------------------------
 
 This chapter is concerned with the OFDM spectral leakage challenge for OFDM-based CRs.
-OFDM signals typically cause large amounts spectral leakage, whereas CRs demand a shaped spectrum confined within the allocated channel in order to reuse free spectral bands without causing ICI to other users occupying adjacent bands.
+OFDM signals typically cause large amounts of spectral leakage, whereas CRs demand a shaped spectrum confined within the allocated channel in order to reuse free spectral bands without causing ICI to other users occupying adjacent bands.
 Some recent OFDM-based standards are defined with the requirements on spectral leakage that are extremely stringent in an effort  to avoid ICI.
 Spectral leakage filtering may cause some effects on transmitted signals that lead to a reduction in the effective timing guard.
 Therefore, the implementations of spectral leakage filtering need to be able to take into account the parameters of the underlying OFDM signal and its channel characteristics to avoid causing negative effects on the transmitted signal such as distortion and ISI.
@@ -24,7 +24,7 @@ This allows the RF subsystem to be implemented using much less stringent 802.11a
 The work presented in this chapter has also been discussed in:
 \begin{itemize}
 \item  T. H. Pham, I. V. McLoughlin, and S. A. Fahmy, ``Shaping Spectral Leakage for IEEE 802.11p Vehicular Communications,'' in \textit{Proceedings of IEEE Vehicular Technology Conference (VTC Spring)}, Seoul, Korea, May 2014~\cite{PhamMay2014}.
-\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Spectrally Efficient Emission Mask Shaping for OFDM Cognitive Radios,''  under review for \textit{IEEE Transactions on Communications (TCOM)}.
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Spectrally Efficient Emission Mask Shaping for OFDM Cognitive Radios,''  under review for \textit{Digital Signal Processing}.
 \end{itemize}
 
 %---------------------------------------------------------------------------------
@@ -129,9 +129,9 @@ The first smoothing function, denoted $p_1$, is present in the IEEE~802.11a stan
 %{\small
 \begin{eqnarray}
 \label{p1m}
-&p_1 &=\begin{cases}	sin^2( \frac{\pi}{2}(0.5+\frac{m}{2\beta N_{T}}) ), 			& 0 \leq m < \beta N_{T} \\
-					 	1, 															& \beta N_{T} \leq m < N_{T}  \\
-					 	sin^2( \frac{\pi}{2}(0.5-\frac{m-N_{T}}{2\beta N_{T}}) ), 	& N_{T} \leq m < (1+\beta)N_{T} \end{cases}
+&p_1 &=\begin{cases}	sin^2( \frac{\pi}{2}(0.5+\frac{m}{2\beta N_{T}}) ), 		& -\frac{\beta N_{T}}{2} \leq m < \frac{\beta N_{T}}{2} \\
+					 	1, 															& \frac{\beta N_{T}}{2} \leq m < N_{T} - \frac{\beta N_{T}}{2} \\
+					 	sin^2( \frac{\pi}{2}(0.5-\frac{m-N_{T}}{2\beta N_{T}}) ), 	&  N_{T} - \frac{\beta N_{T}}{2} \leq m <  N_{T} + \frac{\beta N_{T}}{2} \end{cases}
 \end{eqnarray}
 %}
 
@@ -188,17 +188,17 @@ The three smoothing functions are simulated for otherwise identical channels and
 		\addlegendentry{Class D};
 		\addplot+[black, style={solid, color=gray}, every mark/.append style={mark=none}]  table [x index=0, y index=1] {./Dat/PulseshapeM10.dat};
 		\addlegendentry{os};
-		\addplot+[black, style={dotted, color=blue, thick}, every mark/.append style={mark=none}]	 table [x index=0, y index=2] {./Dat/PulseshapeM2.dat};
+		\addplot+[black, style={solid, color=blue, thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=2] {./Dat/PulseshapeM2.dat};
 		\addlegendentry{$p_1\_\beta$1};
-		\addplot+[black, style={dotted, color=violet, thick}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/PulseshapeM2.dat};
+		\addplot+[black, style={dotted, color=violet, thin}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/PulseshapeM2.dat};
 		\addlegendentry{$p_2\_\beta$1};
 		\addplot+[black, style={dotted,  color=red, thick}, every mark/.append style={mark=none}]	 table [x index=0, y index=4] {./Dat/PulseshapeM2.dat};
 		\addlegendentry{$p_3\_\beta$1};
-		\addplot+[black, style={solid, color=blue, thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=2] {./Dat/PulseshapeM10.dat};
+		\addplot+[black, style={solid, color=blue, thick}, every mark/.append style={mark=none}]	 table [x index=0, y index=2] {./Dat/PulseshapeM10.dat};
 		\addlegendentry{$p_1\_\beta$5};
-		\addplot+[black, style={solid, color=violet, thin}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/PulseshapeM10.dat};
+		\addplot+[black, style={solid, color=violet, thick}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/PulseshapeM10.dat};
 		\addlegendentry{$p_2\_\beta$5};
-		\addplot+[black, style={solid, color=red, thin}, every mark/.append style={mark=none}]	 table [x index=0, y index=4] {./Dat/PulseshapeM10.dat};
+		\addplot+[black, style={solid, color=red, thick}, every mark/.append style={mark=none}]	 table [x index=0, y index=4] {./Dat/PulseshapeM10.dat};
 		\addlegendentry{$p_3\_\beta$5};
 	\end{axis}
 %	\end{semilogyaxis}
@@ -211,10 +211,10 @@ The three smoothing functions are simulated for otherwise identical channels and
 %
 In Fig.~\ref{fig:Spec_PS}, \emph{os} shows the original OFDM spectrum without applying pulse shaping.
 $p_1\_\beta1$, $p_2\_\beta1$, $p_3\_\beta1$ show the spectra of the OFDM signal using smoothing functions $p_1(m)$ to $p_3(m)$, respectively, and roll-off factor $\beta N_{T}=1$. Plots are also shown for the same functions with roll-of factor $\beta N_{T}=5$.
-In the case of using one guard interval sample, the spectral leakage is reduced compared to the original OFDM signal, and  $p_1(m)$ obtains better results than the other two methods, however, the shaped spectra do not meet the emission requirement of class C.
+In the case of using one guard interval sample, the spectral leakage is reduced compared to the original OFDM signal, and  $p_1\_\beta1$ obtains better results than the other two methods (i.e., $p_2\_\beta1$, $p_3\_\beta1$), however, the shaped spectra do not meet the emission requirement of class C.
 When 5 CP samples are used for pulse shaping, $p_2(m)$ and $p_3(m)$ achieve a significant improvement, and in fact, $p_2\_\beta5$ satisfies class C and almost meets the requirement of class D.
 
-Thus, we can state that, ignoring the presence of an image spectrum as noted previously, the pulse shaping method can take part of the guard interval to apply a smoothing function in order to shape the spectral leakage and nearly meet  stringent SEM requirements.
+Thus, we can state that, ignoring the presence of an image spectrum as noted previously, the pulse shaping method can use the part of the guard interval to apply a smoothing function in order to shape the spectral leakage and nearly meet  stringent SEM requirements.
 
 \begin{figure}
 	\centering
@@ -235,7 +235,7 @@ Thus, we can state that, ignoring the presence of an image spectrum as noted pre
 		\addplot+[black, style={solid, color=red}, every mark/.append style={mark=none}]  table [x index=0, y index=3] {./Dat/PulseshapeM10_inter.dat};
 		\addlegendentry{ps2\_$\beta$5};
 		\addplot+[black, style={solid,  color=black}, every mark/.append style={mark=none}]	 table [x index=0, y index=4] {./Dat/PulseshapeM10_inter.dat};
-		\addlegendentry{ps2\_$\beta$5};
+		\addlegendentry{ps3\_$\beta$5};
 	\end{axis}
 	\end{tikzpicture}
 	}
@@ -250,7 +250,7 @@ The plot shows that pulse shaping yields a response that is similar to, but slig
 However, when the image spectrum is considered, pulse shaping clearly can not achieve meaningful adjacent channel signal compression.
 In fact, the band gap between the main spectrum and the image spectrum is insufficient for pulse shaping to achieve any significant spectral leakage decay.
 
-In a practical system, the consequence is that almost all of the side-lobe attenuation may need to be contributed by sharp and hence both high order and accurate analogue filters.
+In a practical system, the consequence is that almost all of the side-lobe attenuation may need to be contributed by sharp, and hence both high order, and accurate analogue filters.
 Such filters contribute design complexity, increased component count, manufacturing difficulty, and additional cost to a product.
 
 \subsection{Image Spectrum Cancellation By FIR Filter}
@@ -258,10 +258,11 @@ Such filters contribute design complexity, increased component count, manufactur
 The critical issue for 802.11p signals to meet the stringent mask requirements is that the frequency guards are narrow and the carrier frequency is relatively high (5.9\,GHz) compared to 802.11a.
 Similarly, the 802.11af guard bands are even narrower, and the sub-channels are also much narrower.
 Interpolation can be used at baseband to increase sampling frequency, and thereby expand the baseband bandwidth.
-This then provides a wider frequency transition band, which is easier to fit a filter roll-off response into, however the resulting image spectra (repeats of the original baseband spectrum) must then be removed by filtering.
+This then provides a wider frequency transition band, which is easier to fit a filter roll-off response into, but the resulting image spectra (repeats of the original baseband spectrum) must then be removed by filtering.
 %, commonly implemented as an FIR filter, may be used to cancel image spectra.
 Such filters are commonly implemented using finite impulse response (FIR) form.
-A cascaded integrator comb (CIC) implementation is sometimes chosen, since this can combine the interpolation and filtering steps, however while it is computationally efficient it lacks flexibility,
+A cascaded integrator comb (CIC) implementation is sometimes chosen, since this can combine the interpolation and filtering steps.
+However while it is computationally efficient, it lacks flexibility.
 Since this chapter is concerned with the tradeoff between the filter order, duration of impulse response, degree of oversampling, and filter transition band sharpness, flexibility is important and thus general FIR form filters are assumed.
 
 The tradeoff mentioned above exists because the narrow band gap between main and adjacent image spectra mandates a high order filter to remove ICI, which generally implies a high order and thus long impulse response filter.
@@ -269,7 +270,7 @@ Unfortunately the long impulse response of the filter has a similar effect to th
 Thus the FIR filter also reduces the effective guard interval of OFDM symbols~\cite{farhang2008signal}.
 Consequently, its design must contribute to the wider tradeoff between ISI avoidance, spectral efficiency (the transition band width), and degree of filter attenuation needed to meet the SEM requirement.
 
-Several widely used FIR implementation filters are listed in Table~\ref{tab:lengthFIR}. These are all be investigated for image spectrum attenuation, as applied to 802.11p symbols initially, and then evaluated for 802.11af.
+Several widely used FIR implementation filters are listed in Table~\ref{tab:lengthFIR}. These are all being investigated for image spectrum attenuation, as applied to 802.11p symbols initially, and then evaluated for 802.11af.
 %The table lists their attenuation, and length (in taps) in the first two columns.
 An empirical formula~\cite{Kapadia2012} is used to estimate the length of each filter in terms of attenuation $A$ and transition band $\Delta\omega$.
 The specifications of the stringent 802.11p class D SEM are used to calculate the required number of taps with L-fold interpolation, in terms of L.
@@ -421,9 +422,35 @@ In particular, \emph{CR\_Ctrl} is invoked to change the IFFT length to $M$ times
 Moreover, \emph{CR\_Ctrl} changes \emph{PulseShaping} to use a large roll-off factor, reduces the $L$-fold interpolation (since $L'\times M$ is constant) and shortens the FIR length to meet the more stringent SEMs.
 On the other hand, when a device and access point are in closer proximity, the transmission power can be reduced such that the spectral leakage is small, and thus filtering can be relaxed.
 In this case, \emph{CR\_Ctrl} is invoked to change the IFFT length back to the original, and employ \emph{PulseShaping} with a small roll-off factor. Moreover, \emph{L-Fold Inter\&FIR} switches back to a normal range in order to reduce the amount of computation.
-It should be noted that the additional computation needed for signal processing in the baseband (which uses low cost, low power components), can be more than compensated for by relaxing the specification of the RF front-end design since the analogue filtering requirements are so much less strict.
 
-The following Section presents the application of the proposed CR architecture in performing stringent filtering to achieve the SEM specifications of both 802.11p and 802.11af respectively.
+\todo[inline]{begin of amendment for the discussion on computation cost}
+\begin{table}
+	\centering
+	\caption{Hardware Usage for spectral shaping}
+	\label{tab:HardwareUsage}
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{lcccc}
+		\toprule
+		Method		& Module	& IFFT+CPInsert  & PulseShaping  & L-FoldInter\&FIR \\
+		\midrule	
+		& DSPs		& 18	& 0		& 10	\\
+		FixedArch		& Slilces	& 613	& 36	& 139	\\
+		& BRAM		& 1	 	& 0		& 0 	\\	
+		\midrule
+		& DSPs		& 34	& 2		& 12	\\
+		FlexArch		& Slilces	& 1282	& 41	& 189	\\
+		& BRAM		& 1	 	& 0		& 0 	\\	
+		
+		\bottomrule
+	\end{tabular}
+\end{table} 
+
+In order to provide the flexibility for dynamic shaping spectral leakage, the processing modules (i.e. \emph{IFFT+CPInsert}, \emph{Pulseshaping}, \emph{L-FoldInter\&FIR}) are implemented with the ability to switch operating mode at run time. This in turn involves an increase in hardware resources compared to a fixed implementation. Table~\ref{tab:HardwareUsage} compares the hardware usage of the modules for the proposed flexible method, \emph{FlexArch}, and fixed architecture, \emph{FixedArch}. 
+\emph{FlexArch} requires a remarkable further amount of hardware resource compared to the \emph{FixedArch}.
+However, it should be noted that the additional computation needed for signal processing in the baseband (which uses low cost, low power components), can be more than compensated for by relaxing the specification of the RF front-end design, since the analogue filtering requirements are so much less strict.
+\todo[inline]{end of amendment for the discussion on computation cost}
+
+The following Section presents the application of the proposed CR architecture in performing stringent filtering to achieve the SEM specifications of both 802.11p and 802.11af, respectively.
 
 %---------------------------------------------------------------------------------
 \section{Simulation Results and Discussion}

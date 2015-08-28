@@ -62,7 +62,7 @@ If such a design was implemented blindly, with no consideration for the FPGA arc
 The DSP48E1 primitives on the Virtex-6 FPGAs have additional circuitry within them that enables the design of optimised datapaths, but this must be done manually, through writing code in a particular style.
 Otherwise, the synthesis tools cannot always infer the most efficient structure.
 In our design, we have taken into account the internal structure of the DSP block, and made the design as lean as possible.
-The multiplierless design is specified manually, and cannot be inferred by the tools from a higher level description.
+\todo[inline]{The correlator designs must be specified manually, and cannot be inferred by the tools from higher level descriptions such as high level synthesis (HLS) or Simulink that allows designing system at high level abstraction.}
 
 %---------------------------------------------------------------------------------
 \subsection{Design of DSP48E1 Based Correlator}
@@ -115,7 +115,7 @@ To explore this, four alternative multiplierless correlators are implemented usi
 The coefficient sets are found by quantising the 64 normalised preamble samples with quantisations of 1, 0.5, 0.25, and 0.125.
 
 The proposed structure for multiplierless correlators is shown in Fig.~\ref{fig:ML_correlator}.
-This structure is based on the transposed direct form in Fig.~\ref{fig:str_corr}.
+This structure is based on the transposed direct form shown in Fig.~\ref{fig:str_corr}.
 Instead of using multipliers to multiply input samples by coefficients, the \emph{Shift\_Add} block and multiplexers are used to perform the equivalent operation without an actual multiplication.
 The \emph{Shift\_Add} block, multiplexers and value of $Pr[n]$ are different depending upon the quantised coefficient set being used, and these perform shifts and additions on received samples according to the degree of quantisation that is applied.
 To optimise resources in the case of small numbers of bit quantisation, one common \emph{Shift\_Add} block is used for all 64 coefficients instead of 64 separate \emph{Shift\_Add} blocks.
@@ -154,6 +154,7 @@ The results of implementation are reported in terms of the number of occupied sl
 
 \emph{DSPc}, \emph{DSP\_pp} are correlator designs using DSP Slices, in non-pipelined and pipelined structures, respectively.
 \emph{ML1}, \emph{ML2}, \emph{ML3}, \emph{ML4} are multiplierless correlators with coefficient quantisations of 1, 0.5, 0.25, 0.125, respectively.
+\todo[inline]{To obtain precise computation, DSP48 version is used for typical multiplication of fixed point format, Q1.15. Because the DSP48 is a hardcore, it is impossible to optimise the internal components of DSP48 for the case of reducing number of quantised bits. The static power of DSP based correlator is not drop significantly when reducing the number of quantised bits. The use of DSP48 for less number of quantised bits is wasteful and reduced precision. Hence, the DSP48 version for small number of quantised bits are not necessary to be evaluated. }
 
 Table~\ref{tab:Imp_Rpt} reveals that the \emph{DSP\_pp} uses more logic slices due to its pipelined structure.
 The slices in DSP48E1 based designs are used for registers and route-thrus while the slices in the multiplierless designs are mostly used as logic.
@@ -167,6 +168,7 @@ This shows an ideal scenario where multiplierless correlation makes sense, and h
 The maximum frequencies, reported after place and route, decrease for multiplierless designs according to the degree of coefficient quantisation.
 Meanwhile the non-pipelined DSP48E1 design is slower than the multiplierless designs.
 However, the pipelined DSP48E1 design can achieve significantly higher frequency.
+\todo[inline]{The multiplierless correlator and the DSP-based correlator can be performed at the speed of multiple times higher than desired operation speed of baseband modulation. Both of them can apply the structure of time multiplexing to obtain the trade-off between resource usage and operating speed. It should be noted that increased operating speed leads to significantly increased power. The power consumption is proportional to the square of operating speed. To have the fair comparison, both of the multiplierless correlator and the DSP-based correlator are investigated on the same transposed direction form. The structure of time multiplexing for correlator is beyond the scope of the investigation.}
 
 A post-place-and-route simulation in ModelSim was used to estimate the power consumption of the system using the Xilinx XPower tool.
 Table~\ref{tab:PWR} shows the power dissipation of the designs running at 50\,MHz.

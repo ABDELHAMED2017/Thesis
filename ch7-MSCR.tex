@@ -14,7 +14,9 @@ Traditional implementations in custom ASICs cannot support such flexibility, wit
 Hence, FPGAs offer an ideal platform bringing together flexibility, performance, and efficiency.
 In this chapter, we show how we can incorporate our contributions in previous chapters into a flexible architecture for multi-standard cognitive radios (MSCR).
 We show that combining partial reconfiguration (PR) with parameterised  modules offers flexibility while minimising reconfiguration time.
-To the best of our knowledge, we have not encountered work on dynamically reconfigurable OFDM baseband processing for multiple standards.
+\todo[inline]{When the system adapts to a new condition (i.e., switching the operating standard), the reconfiguration operation is performed that may suspend the data processing in a duration. The received packet of data may be lost. 
+The reconfiguration is required as fast as that the input data buffered during reconfiguration do not caused the buffer overflow that leads to the packet of data dropping. Even there are higher-level protocols that manage the retransmission of lost or dropped packet of data, but performing these mechanisms are wasteful and significant increase the cost in terms of computation and power consumption.
+To the best of our knowledge, we have not encountered work on dynamically reconfigurable OFDM baseband processing for multiple standards.}
 
 The work presented in this chapter has also been discussed in:
 \begin{itemize}
@@ -138,7 +140,8 @@ We explore how to optimise this mix in Section~\ref{sec:7module}.
 Now smaller FIFOs can be used and reconfiguration can be applied at a finer granularity to minimise the impact of reconfiguration on buffer storage requirements.
 After reconfiguration is complete, it is necessary to flush the FIFOs and ``catch up'' with the received samples.
 This can be done by increasing the processing clock rate until the FIFOs are no longer full.
-A Mixed-Mode Clock Manager (MMCM) is used for this purpose, modifying the processing clock (rec\_clk) to a higher frequency.
+%A Mixed-Mode Clock Manager (MMCM) is used for this purpose, modifying the processing clock (rec\_clk) to a higher frequency.
+\todo[inline]{Increasing operating speed is done basically by controlling the a Mixed-Mode Clock Manager (MMCM) module that adjusts the speed of input clock of received modules, rx\_clk. Because the received modules implemented on FPGA fabric are able to work with clock that is higher than 2X the operating clock, designing these modules supporting 2X the operating clock do not consume more resources compared to the case of 1x clock speed.}
 It is then reduced back to the sampling rate (sys\_clk) to reduce power consumption.
 The MMCM module is also required to change the processing rate of data plane according to the different sampling rates specified in different standards, shown in Table~\ref{Tab:spec}.
 
@@ -176,7 +179,7 @@ Since the FIFO IP cores support independent write and read clocks, this function
 
 \subsubsection{Synchronisation (Synch)}
 Our CR system communicates in burst mode.
-Hence, is must detect the presence of a frame and estimate the frequency offset required, based upon the preamble of the received frame.
+Hence, it must detect the presence of a frame and estimate the frequency offset required, based upon the preamble of the received frame.
 The \emph{Synch} module performs estimation as discussed in Chapter~\ref{chap:Synchronisation}.
 Fig.~\ref{fig:Sync} shows a block diagram of its implementation.
 
@@ -448,6 +451,10 @@ The above equations show the increasing efficiency of overlapping reconfiguratio
 \subsection{Analysing the Proposed OFDM MSCR Approach}
 We analyse the results of applying this method to the full receiver baseband  implemented on a xilinc Virtex~6 FPGA (XC6VLX240T).
 We compare a large monolithic PR module, finer granularity PR, and the proposed mixture of PR and parameterisation.
+\todo[inline]{ Because the slot based PR is widely used and supported by Xilinx tool, we assume that slot-based PR is employed for performing PR.
+All of the resource in the slot are consumed by the component, regardless of whether they are used in the computation or not. The configuration time for a component of a given slot is constant, even if it small component.
+There are some researches~\cite{Sohanghpurwala2011} to reduce the wasted resource from unused logic in PR slot for the small component that may reduce the reconfiguration time of small component. However, these approach are just for the limited FPGA devises and requires more expert work to implement the design.  
+Furthermore, this improvement still does not help for overall reconfiguration latency because the overall latency have to take into account the worst case latency (i.e., the reconfiguration time of largest components) when the system adapts from a standard to another.}
 To compute the configuration time of a PR module, we generate bitstreams for all modes.
 The area of a PR region must satisfy the needs of the largest implementation it will house.
 For the monolithic PR module, it is required that the PR module be able to contain the 802.22 OFDM baseband implementation, which is the largest receiver implementation among the three target implementations.
@@ -737,7 +744,7 @@ The system reconfiguration latency of the proposed method is significantly reduc
 %---------------------------------------------------------------------------------
 We have shown that configuring a radio baseband composed of multiple modules can be made more efficient in terms of time, and buffering requirements, by mixing parameterisation and PR.
 Implement the whole baseband as a single PR module leads to long reconfiguration time, during which no processing can be performed, and hence significant FIFO buffering to prevent loss of samples in the receiver.
-Breaking the baseband chain into multiple PR modules could be beneficial as it would allow individual modules to start processing as the complete their reconfiguration, overlapping this processing with the reconfiguration of the next module. However, since reconfiguration time is significantly higher than the computational latency, we find that the benefit is outweighed by the overhead of multiple PR modules.
+Breaking the baseband chain into multiple PR modules could be beneficial as it would allow individual modules to start processing as they complete their reconfiguration, overlapping this processing with the reconfiguration of the next module. However, since reconfiguration time is significantly higher than the computational latency, we find that the benefit is outweighed by the overhead of multiple PR modules.
 Our proposed approach only applies PR to modules where different modes are very different in hardware, with other modules designed to be parameterisable. As a result, overall halting time is reduced by more than half.
 The FIFO buffering requirement of the proposed method is also decreased to 25~\% of that required for the other methods.
 We are working on finalising a demonstrator for this approach.

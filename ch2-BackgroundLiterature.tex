@@ -37,14 +37,46 @@ If the spectrum bands allowed for a CR are fully occupied by PUs and IUs transmi
 Multi-standard cognitive radios can operate in multiple frequency bands with different specified standards, providing greater flexibility.
 
 Multicarrier modulation techniques offer an ideal opportunity for such systems due to their regularity and parameterisation. OFDM and Filter Bank MultiCarrier (FBMC) are two types of multicarrier modulations.
-OFDM modulation has been the dominant technique adopted for many wireless standards and has been investigated in terms of spectral sensing and carrier allocation for CRs.
-Furthermore, OFDM system implementation is simple, low cost, and can be more effectively parameterised in comparison to FBMC systems.
-A single baseband implementation can be made to flexibly support multiple standards like 802.11~\cite{IEEE80211}, 802.16~\cite{IEEE80216}, and 802.22~\cite{IEEE80222}, as well as supporting future OFDM-based standards.
+\todo[inline]{Begin of amendment to provide more comprehensive comparison between OFDM and FBMC}
+In order to understand FBMC and its distinctness from OFDM, it is best to study multicarrier systems, in which the output signal can be expressed in the continuous time domain as Equ.\ref{equ:multicarriermodulation}. 
+This can be a unified formulation for both OFDM and FBMC.
+ 
+\begin{eqnarray}
+\label{equ:multicarriermodulation}
+s(t) = \sum_{n}\sum_{k  = 0}^{N-1} x_{k}[n] h(t-nT)e^{i2\pi (t-nT)f_{k}},
+\end{eqnarray}	
+where $x_{k}[n]$ denotes the sample of the $k_{th}$ subcarrier data symbol in $n_{th}$ symbol of continuous multicarrier symbols, $f_{k}$ is the $k_{th}$ subcarrier in a set of $N$ used subcarriers, $T$ is the multicarrier symbol duration, and $h(t)$ is a prototype filter.
+ 
+\begin{figure}
+	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/multucarrier_system} }
+ 	\caption{Block diagram of a multicarrier modulated system, (a) in the countinuous-time and (b) in discrete-time}
+ 	\label{fig:multicarrier-block}
+\end{figure}
+ 
+This transceiver of multicarrier system can be modelled as a block diagram, shown in Fig.~\ref{fig:multicarrier-block}.
+As can be seen in the discrete-time domain, $N$ data symbols at synthesis are up sampled by a factor of $L$, which is calculated by $\frac{T}{T_{S}}$, $T_{S}$ denotes sample period of output sequence $s[n]$, and then filtered by a prototype filter $h[n]$. The output of each data stream will be modulated by frequency of multi-carriers and the summed for transmission. 
+The signal in the receiver is demodulated and then filtered by a bank of matched filters $h'[n]$, and down sampled by a factor of $L$. 
+When critical sampling applies $L = N$ and the prototype filter $h[n]$ is selected as a rectangular pulse in the time domain, i.e. a $sinc$ pulse in the frequency, this multicarrier system becomes a conventional OFDM system.
+ 
+FBMC is different from OFDM in the selection of the prototype filters $h[n]$, and matched filters $h'[n]$. Also, the $h[n]$ and $h'[n]$ filters are chosen and designed depending on the adopted FBMC modulation technique.
+%FBMC systems can be categorised into two distinct classes \cite{Farhang-Boroujeny2011}. 
+%The first class are designed to transmit complex-valued (i.e. quadrature amplitude-modulated (QAM)) data symbols. 
+%The second class are for transmission of real-valued (i.e. pulse amplitude-modulated (PAM)) data symbols.
+%FBMC systems were originally introduced in the 1960s even before the development of OFDM systems.
+%A number of recent research papers have shown the potential of FBMC for efficient broadband spectrum usage in multiple access applications, including cognitive radios.
 
-This requires the ability to switch baseband processing from one standard to another. This in turn means perform variable length FFT/IFFT operations, insert cyclic prefixes of configurable length, and handling different pilot vectors as well as different preambles. As a result, the processing modules should be designed to support all requirements of the different standards.
+By using the well-designed filters for each subcarrier, FBMC could be a more effective solution in comparison to OFDM in term of ICI cancelation and spectral leakage suppression because nonadjacent subcarriers are almost completely separated by a bank of filters. 
+On the other hand, OFDM has been the dominant technique adopted for broadband multicarrier communication.
+OFDM has many important and desirable features over the FBMC. OFDM was originally developed focusing on a low-complexity implementation. The low complexity of OFDM is achieved thanks to a fundamental assumption in which subcarriers of OFDM symbol are perfectly synchronized and orthogonal with the consecutive subcarriers. Thus the subcarriers are used for modulation at the transmitter using an IFFT block; inversely, they are separated by using an FFT block at the receiver. By contrast, FBMC may be more complex than OFDM. The demand for well-designed filters in FBMC results in increasing complexity and resource requirements. Moreover, while employing MIMO technique in OFDM to increase the system's capacity and resulting in high spectral efficiency is a straightforward work, unfortunately, the development of MIMO-FBMC systems is relatively more complex.
+OFDM modulation has been the dominant technique adopted for many wireless standards and has been investigated in terms of spectral sensing and carrier allocation for CRs.
+OFDM system implementation is simple, low cost, and can be more effectively parameterised.
+A single baseband implementation can be made to flexibly support multiple standards like 802.11~\cite{IEEE80211}, 802.16~\cite{IEEE80216}, and 802.22~\cite{IEEE80222}, as well as supporting future OFDM-based standards.
+\todo[inline]{End of amendment to provide more comprehensive comparison between OFDM and FBMC}
+
+This capability requires the ability to switch baseband processing from one standard to another. This in turn means the need to perform variable length FFT/IFFT operations, insert cyclic prefixes of configurable length, and handling different pilot vectors as well as different preambles. As a result, the processing modules should be designed to support all requirements of the different standards.
 
 Two additional challenges must be addressed.
-OFDM systems typically tolerate a small carrier frequency offset (CFO) leading to strict constraints on the design of the RF front-end.
+OFDM systems typically can only tolerate a small carrier frequency offset (CFO) leading to strict constraints on the design of the RF front-end.
 In a multi-standard system, the RF front-end accesses a wide range of frequencies depending on the standard in operation. Such a precise and yet wide ranging frequency requirement makes RF front-end design difficult and requires very expensive components.
 CRs also demand small spectral leakage for both in-band and out-of-band transmitted signals to avoid causing harmful interference to primary users, while OFDM signals have intrinsically large side lobes leading to a potentially large degree of spectral leakage.
 Hence, synchronisation and leakage management are more pressing issues in multi-standard radios.
@@ -57,7 +89,7 @@ Our work tries to offer well-designed and documented parameterised signal proces
 %-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 There have been comprehensive efforts at many research institutions and labs in the areas of SDR and CR.
 The Kansas University Agile Radio (KUAR) hardware platform~\cite{Minden2007} is a mature radio platform built around a fully-featured Pentium PC with a Xilinx Virtex II FPGA.
-Trinity College Dublin also worked on radio platform development with the Iris architecture for cognitive systems~\cite{Sutton2006}. Iris~\cite{Sutton2010} received some limited support for FPGAs and partial reconfiguration~\cite{fahmy2009,lotze2009} but the hardware-software interface had significant overhead. More recently, they have shown a desire to use support the Zynq architecture~\cite{Belt2013}.
+Trinity College Dublin also worked on radio platform development with the Iris architecture for cognitive systems~\cite{Sutton2006}. Iris~\cite{Sutton2010} received some limited support for FPGAs and partial reconfiguration~\cite{fahmy2009,lotze2009} but the hardware-software interface had significant overhead. More recently, they have shown a desire to support the Zynq architecture~\cite{Belt2013}.
 Rutgers University developed the WiNC2R platform~\cite{Miljanic2007} that integrates FPGAs for both baseband and network layer implementation.
 The Berkeley Wireless Research Center developed a CR network emulator on FPGA~\cite{So2008}.
 WARP~\cite{amiri2007} is another well-established FPGA based platform developed at Rice University with a recent revision (v3) hosting a Xilinx Virtex 6 FPGA and up to 2 RF interfaces. The baseband can be implemented in the FPGA fabric, while the higher layers are coded in C as a standalone application on an embedded MicroBlaze processor.
@@ -72,9 +104,9 @@ The radio systems are modeled by flowgraphs that represent the flow of moving da
 These are designed by connecting processing blocks in the GNU Radio Companion (GRC) graphical tool~\cite{GRC2009}.
 GReasy is a extension of GNU Radio that supports the computational benefits of FPGA acceleration targeting to reduce FPGA compile times~\cite{Marlow2014}. Within the GReasy environment, FPGA-based processing units are added to the GNU Radio library allowing a user to arbitrarily insert optimized hardware and software modules into a given design. GReasy employs TFlow, a  toolset developed at Virginia Tech that allows the rapid assembly of FPGA accelerator modules through a pre-compiled hardware library, for back-end bitstream generation, which places and routes parameterized pre-compiled modules into a final FPGA bitstream~\cite{Love2013}.
 
-FPGAs have gained wider traction in SDR and CR frameworks in recent years
+FPGA devices have gained wider traction in SDR and CR frameworks in recent years
 Recent devices can process at rates of over 5000 GMAC/s (integer multiply accumulates) per second. This enables highly advanced baseband systems to be implemented at a low power budget compared with other programmable architectures.
-The dynamic reconfiguration ability of FPGAs offers an opportunity to take this integration to the next level with flexible baseband processing.
+The dynamic reconfiguration ability of recent FPGAs offers an opportunity to take this integration to the next level with flexible baseband processing.
 Most platforms described here see the FPGA as a platform for static baseband implementation.
 We believe that partial reconfiguration offers the flexibility required for CR implementation with the performance benefits of hardware processing.
 
@@ -136,23 +168,23 @@ When transmitting OFDM symbols over a delay-dispersive multi-path channel, the r
 y[n] = h*s[n],
 \end{eqnarray}
 
-where $h$, assuming it has a length of $L$, denotes the equivalent impulse response of the channel. and $*$ is the convolution operation.
+where $h$, assuming it has a length of $L$, denotes the equivalent impulse response of the channel, and $*$ is the convolution operation.
 The received symbols $y[n]$ are the result of convolution between CIR $h$ and transmitted symbols $s[n]$ which has a length of $N$.
 So, $y[n]$ has a length of $N+L-1$.
 In addition, the received signal is obtained by concatenating the received OFDM symbols.
-Because the received symbols, having a length of $N+L-1$, are overlapped with the adjacent received symbols, adding the overlap of adjacent received symbols leads to the introduction of inter-symbol interference (ISI) in the received signal, shown in Fig.~\ref{fig:CIR-noCP}.
+Because the received symbols, having a length of $N+L-1$, overlap with the adjacent received symbols, adding the overlap of adjacent received symbols leads to the introduction of inter-symbol interference (ISI) in the received signal, shown in Fig.~\ref{fig:CIR-noCP}.
 
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/CIR_noCP.pdf} }
-	\caption{OFDM transmission without cyclic prefix results ISI among adjacent symbol.}
+	\caption{OFDM transmission without cyclic prefix results in ISI among adjacent symbol.}
 	\label{fig:CIR-noCP}
 \end{figure}
 
 In order to avoid ISI, a guard interval (or cyclic prefix), having a length of $L_{CP}$, must be added before each OFDM symbol as demonstrated in Fig.~\ref{fig:CIR-CP}.
 If the length of CIR is smaller than that of the guard interval, adding the overlap of adjacent received symbols will not interfere with the succeeding received OFDM symbol.
 The ISI is hence missing in the received symbol.
-The guard interval adopted in many OFDM standards can be commonly performed by a copy of the last $L_{CP}$ samples of the symbol as shown in Fig.~\ref{fig:CP}, that is called a cyclic prefix~(CP).
+The guard interval adopted in many OFDM standards can be commonly performed by a copy of the last $L_{CP}$ samples of the symbol as shown in Fig.~\ref{fig:CP}, which is called a cyclic prefix~(CP).
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/CIR_CP.pdf} }
@@ -176,7 +208,7 @@ In addition, the use of a CP also guarantees the orthogonality of subcarriers av
 	\caption{An OFDM system model.}
 	\label{fig:OFDM-model}
 \end{figure}
-An OFDM system model can be considered as shown in Fig.~\ref{fig:OFDM-model}.
+An OFDM system model can be represented as shown in Fig.~\ref{fig:OFDM-model}.
 In the transmitter, the data modulated symbols $X[n]$ are grouped in blocks of $N$ subcarrier symbols known as an OFDM symbol, expressed by a vector $X[n]=(X[1], X[2], ..., X[n])^T$.
 Next, the OFDM symbol signal in the time domain is modulated by performing the IDFT on each OFDM symbol, and a cyclic prefix of length $L_{CP}$ is inserted at the begin of OFDM signal.
 So, the complex signal of $m$, the OFDM-symbol in baseband discrete time, can be expressed as
@@ -218,12 +250,12 @@ R_{m}[n] =  \sum_{n=0}^{N-1} y_{m}[n]e^{-i2\pi \frac{nk}{N}},
 
 Fig.~\ref{fig:OFDM-block} presents a common block diagram of an OFDM radio system.
 OFDM is perform in the baseband, IFFT and FFT blocks are used to compute the IDFT and DFT for OFDM modulation and demodulation, respectively.
-In the transceiver, the channel coded data from higher abstracted layers is modulated to data symbols (BPSK, QPSK, QAM, ...). The data symbols are then grouped together with the pilots to form $N$ FFT points in parallel.
+In the transmitter, the channel coded data from higher abstracted layers is modulated to data symbols (BPSK, QPSK, QAM, ...). The data symbols are then grouped together with the pilots to form $N$ FFT points in parallel.
 After performing the IFFT, the CP is inserted, and then the OFDM samples are serialised and split in to in-phase (I) and quadrature (Q) channels corresponding to the real and imaginary parts of  the OFDM sample.
 The digital to analogue converted signals of the I and Q channels are modulated by an intermediate frequency, $f_{IF}$, then the signal is up-converted to high frequency by an RF carrier, $f_{C}$.
 Before transmitting, the signal should be amplified by an low noise amplifier (LNA).
 
-In the receiver, after down-converting and I/Q demodulation, the signal is sampled. The samples are formed from I and Q channels corresponding to the real and imaginary parts of the OFDM sample.
+In the receiver, after down-converting and I/Q demodulation, the signal is sampled. The samples are formed from I and Q channels, corresponding to the real and imaginary parts of the OFDM sample.
 The timing and frequency synchronisation blocks detect the frame start, recover timing of the frame and estimate the frequency offset.
 The received samples are then compensated with estimated frequency offset in the discrete time domain.
 After demodulating an OFDM symbol using the FFT, the channel is estimated and channel equalisation as well as phase error compensation are performed to improve performance.
@@ -245,10 +277,10 @@ Thus, performing the DFT and a single-tap equaliser per subcarrier allows recove
 
 On the other hand, OFDM has some disadvantages.
 Firstly, an OFDM signal is the sum of multiple modulated subcarriers, and thus suffers a high peak-to-average power ratio (PAPR).
-This results in demand on high power and wide range linearity in amplifiers increasing the cost of OFDM systems.
+This results in demand on high power and wide range linearity in amplifiers, increasing the cost of OFDM systems.
 Secondly, the use of a guard period reduces bandwidth efficiency.
 Last but not least, OFDM performance is sensitive to receiver synchronisation. Frequency offset causes inter-subcarrier interference and errors in timing synchronisation can lead to inter-symbol interference.
-Much effort is needed to improve the accuracy of both frequency and time synchronisers for OFDM.
+Much effort is hence needed to improve the accuracy of both frequency and time synchronisers for OFDM.
 
 
 
@@ -290,16 +322,7 @@ where $R[n]$, $\widehat{R[n]}$ denotes received data symbols before and after co
 
 Moreover, the received samples in the receiver are synchronously grouped into blocks of OFDM symbols.
 Integer timing errors lead to a symbol timing offset (STO) referring to the difference between the correct sample index and the actual sample index of received samples that causes a misaligned window for DFT demodulation in the receiver.
-If the timing offset is late, the samples of the following symbol are used for the current symbol, resulting in ISI and hence degrading the performance of the OFDM system. The effect of ISI caused by later timing offsets on the OFDM received symbol is illustrated in Fig.~\ref{fig:Timingoffsetconstellation}(a) and Fig.~\ref{fig:Timingoffsetconstellation}(c).
-If the timing offset is early, some samples in the CP of the current symbol are used to calculate the DFT, leading to subcarrier rotation expressed in Equ.\ref{equ:sto} in the frequency domain.
-The effect of subcarrier rotation caused by earlier timing offsets on the OFDM received symbol is illustrated in Fig.~\ref{fig:Timingoffsetconstellation}(b) and Fig.~\ref{fig:Timingoffsetconstellation}(d).
-
-\begin{eqnarray}
-\label{equ:sto}
-              s[n - t_{\mathit{off}}]  \Leftrightarrow R[n] e^{\frac{i2\pi n t_{\mathit{off}}}{N}},
-\end{eqnarray}
-where $s[n]$, $R[n]$ denotes received data symbols in the timing domain and the frequency domain, respectively. $t_{\mathit{off}}$ is a timing offset, and N is the number of subcarriers.
-
+If the timing offset is late, the samples of the following symbol are used for the current symbol, resulting in ISI and hence degrading the performance of the OFDM system. 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/timeoff.pdf} }
 	\caption{OFDM received symbol with timing offsets of -1, 1, -5 and 5 in a, b, c, d, respectively.}
@@ -307,8 +330,18 @@ where $s[n]$, $R[n]$ denotes received data symbols in the timing domain and the 
 \end{figure}
 
 Fig.~\ref{fig:Timingoffsetconstellation} illustrates the effect of timing offset on a single 256 subcarrier OFDM symbol utilizing QPSK subcarriers (based on the IEEE~802.16 standard).
+Four blue points represent the constellation diagram of an ideal OFDM received signals.
 As can be seen, the earlier timing, for instance timing offsets of 1 and 5, shown respectively in Figs.~\ref{fig:Timingoffsetconstellation}(b) and~\ref{fig:Timingoffsetconstellation}(d), cause a carriers rotation similar to that of fractional timing errors, and fading that can be estimated by a channel estimator.
+If the timing offset is early, some samples in the CP of the current symbol are used to calculate the DFT, leading to subcarrier rotation expressed in Equ.~\ref{equ:sto} in the frequency domain.
 However, the later timing, for instance timing offsets of 1 and 5, as shown in Figs.~\ref{fig:Timingoffsetconstellation}(a) and~\ref{fig:Timingoffsetconstellation}(c), lead to ISI that prevents the OFDM constellation from being recovered.
+%The effect of ISI caused by later timing offsets on the OFDM received symbol is illustrated in Fig.~\ref{fig:Timingoffsetconstellation}(a) and Fig.~\ref{fig:Timingoffsetconstellation}(c).
+%The effect of subcarrier rotation caused by earlier timing offsets on the OFDM received symbol is illustrated in Fig.~\ref{fig:Timingoffsetconstellation}(b) and Fig.~\ref{fig:Timingoffsetconstellation}(d).
+
+\begin{eqnarray}
+\label{equ:sto}
+              s[n - t_{\mathit{off}}]  \Leftrightarrow R[n] e^{\frac{i2\pi n t_{\mathit{off}}}{N}},
+\end{eqnarray}
+where $s[n]$, $R[n]$ denotes received data symbols in the timing domain and the frequency domain, respectively. $t_{\mathit{off}}$ is a timing offset, and N is the number of subcarriers.
 
 Therefore, timing synchronisation is required to correct the timing offset, and avoid ISI.
 Correlation is commonly performed to estimate timing offset~\cite{Dick2003,Fort2003,Wang2004}. One of the contributions in the thesis proposes a novel low-power correlation for OFDM synchronisation. The related work and proposed correlation are discussed in Chapter~\ref{chap:multiplierlesscorrelator}.
@@ -318,7 +351,7 @@ The accuracy of timing synchronisation also depends on the timing metrics and th
 %---------------------------------------------------------------------------------
 
 Carrier frequency offset (CFO) refers to a difference in frequency between the receiver clock with respect to the `correct' frequency of carriers in a transmitted OFDM symbol.
-CFO is introduced due to an imperfect clock in the RF front-end, as well as by frequency variation caused by the Doppler effect when a signal is transmitted through a frequency selective channel.
+CFO is caused by an imperfect clock in the RF front-end, as well as by frequency variation caused by the Doppler effect when a signal is transmitted through a frequency selective channel.
 This leads to the misalignment of sampling in subcarriers in the frequency domain that causes a loss of orthogonality because at the point of frequency offset in the subcarrier, the other subcarriers are not null as expected (shown in Fig.~\ref{fig:OFDM-subcarrier-freoff}).
 CFO is normalised by subcarrier spacing and usually divided into an integer part (IFO), as a multiple of subcarrier spacings, and a fractional part (FFO).
 IFO causes a circular shift of the subcarrier in the frequency domain while FFO results in ICI because of lost orthogonality between subcarriers.
@@ -330,7 +363,7 @@ IFO causes a circular shift of the subcarrier in the frequency domain while FFO 
 \end{figure}
 
 With no frequency offset, the frequency bin of the DFT will be sampled at  the peak of each subcarrier, $sinc(x)$ pulse, and other adjacent pulses are null at this point.
-However, if frequency offset is introduced, the frequency bin of the DFT will sum the energy from other subcarriers.
+However, if frequency offset occurs, the frequency bin of the DFT will sum the energy from other subcarriers.
 This means that the adjacent subcarrier introduces an interference component resulting in ICI.
 
 As can be seen, the adjacent subcarrier introduces an interference component that is about half the amplitude of the subcarrier of interest.
@@ -356,6 +389,7 @@ $\Delta f$ denotes the frequency offset, and $N$ is the number of subcarriers.
 	\label{fig:freoff_1sym}
 \end{figure}
 The effect of frequency offset is shown in Fig.~\ref{fig:freoff_1sym}. Each plot illustrates the constellation of QPSK symbols demodulated from one 256 subcarrier OFDM symbol based on the IEEE~802.16 standard.
+Four blue points represent the constellation diagram of an ideal OFDM received signals.
 OFDM performance is sensitive to even small frequency offsets.
 The effect of CFO causes dispersion, similar to AWGN, and also phase rotation in the QPSK constellation demodulated from the OFDM symbol.
 If multiple data symbols are transmitted in a packet, the phase rotation of each OFDM symbol increases, and even small CFO will lead to a large drift of constellation points, shown in Fig.~\ref{fig:freoff_5sym}, degrading the performance of demodulation. CFO must be estimated and compensated for, in order to properly demodulate the OFDM symbol.
@@ -367,7 +401,7 @@ If multiple data symbols are transmitted in a packet, the phase rotation of each
 \end{figure}
 
 Most published OFDM implementations limit their synchronisation to dealing with small CFO that can be corrected along with FFO.
-Although IFO estimation methods have been explored in theory~\cite{Shim2006,Morelli2008,You2010,Lee2013,Morelli2014}, their implementation in hardware has not been published in the research literature primarily due to high computational complexity. In Chapter~\ref{chap:CFO}, we present a low cost, low power IFO estimation architecture for more robust OFDM synchronisation.
+Although IFO estimation methods have been explored in theory~\cite{Shim2006,Morelli2008,You2010,Lee2013,Morelli2014}, their implementations in hardware have not been published in the research literature primarily due to high computational complexity. In Chapter~\ref{chap:CFO}, we present a low cost, low power IFO estimation architecture for more robust OFDM synchronisation.
 
 %---------------------------------------------------------------------------------
 \subsubsection{Phase Noise}
@@ -379,7 +413,7 @@ Phase noise can be considered in two different parts: common phase error and int
 \label{equ:}
             s[n]' = s[n] e^{i\phi[n]},
 \end{eqnarray}
-where $s[n]’$ and $s[n]$ are the frequency offset samples and the original samples, respectively.
+where $s[n]$' and $s[n]$ are the frequency offset samples and the original samples, respectively.
 $\phi[n]$ denotes the phase noise.
 
 If the phase noise is varying more slowly than the OFDM symbol interval, it can be considered a constant phase term added to each sample resulting in CPE~\cite{Armada1998}.
@@ -391,7 +425,8 @@ Fig.~\ref{fig:phasenoise} illustrates the effect of phase noise on baseband data
 	\label{fig:phasenoise}
 \end{figure}
 
-As can be seen in Fig.~\ref{fig:phasenoise}, the degradation of OFDM demodulation includes two different phenomena affected by phase noise.
+As can be seen in Fig.~\ref{fig:phasenoise}, four blue points represent the constellation diagram of an ideal OFDM received signals.
+The degradation of OFDM demodulation includes two different phenomena affected by phase noise.
 First, the constellations of the data symbol are rotated similarly to the effect of fractional timing error or residual frequency offset.
 Second, the constellations of data symbols are dispersed like the effect of AWGN, causing a loss of orthogonality between subcarriers.
 However, the difference from the effect of frequency offset will be a constant constellation rotation for all OFDM symbol instead of a different constellation rotation for each symbol in the case of frequency offset.
@@ -412,7 +447,13 @@ IEEE~802.11af was developed under the 802.11 Working Group as a standard that en
 The scope of the standard is to define amendments to the high throughput 802.11's PHY and MAC layers to meet the requirements for channel access and coexistence in the TVWS regions.
 One of the main challenges is the stringent spectral emission mask (SEM) requirements that are mandated by the FCC for these services.
 Re-using existing 802.11 standards means hardware can be cheap, but the high throughput 802.11 scaled SEM is significantly inferior to the required spectral emissions shape for TVWS~\cite{Shellhammer2009}.
-For instance, the 802.11 scaled SEM requires an attenuation of 20\,dB at the edge of the channel whereas the equivalent requirement for portable TV band devices (TVBD) is 55\,dB.
+For instance, as can be seen in Fig.~\ref{fig:SEMCompare}, the 802.11 scaled SEM requires an attenuation of 20\,dB at the edge of the channel whereas the equivalent requirement for portable TV band devices (TVBD) is 55\,dB.
+
+\begin{figure}
+	\centerline{\includegraphics [width=0.7\columnwidth] {figures/802_11a_afSEM.pdf} }
+	\caption{The comparison between TVBD SEM and 802.11 scaled SEM.}
+	\label{fig:SEMCompare}
+\end{figure}
 
 In 2010, the IEEE defined a standard for PHY and MAC layers~\cite{802-11p2010}, named IEEE~802.11p, for Dedicated Short-Range Communications (DSRC), the wireless channel for new vehicular safety applications through vehicle-to-vehicle (V2V) and Road to Vehicle (RTV) communications.
 The PHY in 802.11p is largely inherited from the well-established IEEE~802.11a OFDM PHY, with several changes aimed at improving performance in vehicular environments.
@@ -434,7 +475,7 @@ Shaping 802.11p spectral leakage is thus potentially important in helping to eli
 \subsubsection{Dynamic Channel Requirements}
 For static wireless devices operating in licensed spectral regions, the characteristics of communication systems that are licensed to occupy adjacent bands may be known.
 Hence, spectral leakage masks for ICI avoidance in neighbouring systems can be statically specified.
-However, in the case of shared and reused spectrum, the authors of SEMs should be defined in a more general and flexible way~\cite{Macaluso2014}.
+However, in the case of shared and reused spectrum, the requirements of SEMs should be defined in a more general and flexible way~\cite{Macaluso2014}.
 In other words, CRs operating in dynamic spectrum access (DSA) environments must adapt their current transmission SEMs based upon their current operating region -- another argument for baseband digital filtering.
 More sophisticated examples of SEMs are studied in \cite{Forde2010}, which deals with the broader concept of dynamic SEMs.
 
@@ -449,6 +490,7 @@ A combined approach was presented in \cite{Kryszkiewicz2013} where some subcarri
 \label{sec:how_ofdm_works}
 
 Modern OFDM implementations tend to favour subsuming as much processing as possible within the baseband digital components, in order to simplify the front-end RF hardware.
+Fig.\ref{fig:DUCFrontEnd} illustrates the comparison between traditional Front-end (above) and DUC Front-end (below).
 Although many alternative transmitter designs exist, direct up-conversion (DUC) architectures are commonly selected due to inherent implementation, cost and performance advantages~\cite{masse2006direct}.
 Within the transmitter, orthogonal intermediate frequency (IF) signals are generated directly by digital baseband hardware, high-pass filtered and then quadrature up-converted to RF for transmission.
 This contrasts with more traditional digital radio implementations in which the digital hardware generates baseband signals which are up-converted to IF in one or more analogue steps before conversion to RF.
@@ -458,16 +500,22 @@ Typically, this enables a relaxation of stringent IF and RF filtering requiremen
 A further advantage of baseband filtering is agility and flexibility.
 In a CR context in particular, both channel and time agility are required, and this can be best achieved in the digital domain.
 
+\begin{figure}
+	\centerline{\includegraphics [width=0.7\columnwidth] {figures/DUCFrontEnd.pdf} }
+	\caption{The comparison between traditional and DUC Front-end.}
+	\label{fig:DUCFrontEnd}
+\end{figure}
+
 Within the baseband, OFDM symbols are constructed in the frequency domain and then transformed to a complex time domain representation through the IFFT.
 A critically sampled construction process requires a sample rate of double the signal bandwidth.
 This signal is up-converted to IF using an interpolation process, during which images of the original OFDM frequency response are created at integer multiples of the original sampling rate.
 Image rejection filtering must then be performed on this signal prior to being output by the digital-to-analogue converters (DACs) and subsequent transmission, since the images lie out-of-band (OOB) and hence are a cause of ICI.
 However, any such filtering induces time-domain smearing of the transmitted signals~\cite{Faulkner2000} which adds to the similar effects caused by the channel impulse response (CIR) between transmitter and receiver, all of which potentially induce inter-symbol interference (ISI).
-
-OFDM systems combat ISI by dividing information finely in the frequency domain across sub-channels to implement narrow (in frequency) but long (in time) transmitted symbols, and then providing a guard interval between successive symbol blocks.
+%OFDM systems combat ISI by dividing information finely in the frequency domain across sub-channels to implement narrow (in frequency) but long (in time) transmitted symbols, and then providing a guard interval between successive symbol blocks.
 The guard interval is determined by the duration of the expected channel and filter impulse responses that are traversed by each symbol on the path from transmitter baseband to receiver baseband.
-The guard interval typically contains a cyclic prefix (CP) which is inserted to combat another cause of ISI: received frequency components ringing during the CIR due to the abrupt onset of modulation at the beginning of each symbol.
+%The guard interval typically contains a cyclic prefix (CP) which is inserted to combat another cause of ISI: received frequency components ringing during the CIR due to the abrupt onset of modulation at the beginning of each symbol.
 %
+
 The nearly rectangular OFDM symbols in the time domain naturally have a frequency domain response consisting of overlapping Sinc shapes, complete with large side lobes that lie outside the main frequency channel.
 These are another source of OOB interference which contributes to ICI.
 As noted previously, both 802.11p and 802.11af (in common with most OFDM-based standards) specify an SEM which requires that ICI is controlled.
@@ -532,10 +580,10 @@ This results in a bitstream that can be loaded into the configuration memory to 
 %---------------------------------------------------------------------------------
 \subsection{FPGAs for Radio Platforms}
 %---------------------------------------------------------------------------------
-FPGAs have a long history of use in digital signal processing (DSP) applications.
+FPGAs have a long history of being used in digital signal processing (DSP) applications.
 They offer a way of exploiting the inherent parallelism in many DSP algorithms through custom architectures, resulting in significant speedup and efficiency compared to software based implementations.
 On recent FPGAs, additional components like DSP blocks for high-performance signal processing improve performance further.
-Generally, the designer will describe the architecture generally, and the implementation tools will decide when to use these components~\cite{Xilinx2013d}.
+Normally, the designer will describe the architecture generally, and the implementation tools will decide when to use these components~\cite{Xilinx2013d}.
 
 An exciting recent development is the emergence of new platforms that couple high-performance processors with a flexible FPGA fabric.
 For example, the Xilinx Zynq family is a new generation of reconfigurable devices, which has a tightly coupled hardened 1 GHz dual-core ARM Cortex-A9 processor and reconfigurable fabric architecture along with several built-in peripherals~\cite{Xilinx2013}.
@@ -543,17 +591,16 @@ In such systems, the ARM can host a fully functioning software stack while the b
 A number of research groups are exploring ways to use these platforms in cognitive radios~\cite{Dobson2014}.
 
 Partial reconfiguration (PR) is also an advanced technique available in recent FPGAs which further provides the flexibility \cite{Sedcole2006,McDonald2008}.
-By modifying only a portion of the configuration memory, it is possible to modify only some system functionality while the remainder continues to operate without interruption.
+By modifying only a portion of the configuration memory, it is possible to only modify some system functionality while the remainder continues to operate without interruption.
 This allows portions of a circuit to be changed at runtime, and is ideally suited to applications like cognitive radio~\cite{Delahaye2007,Delorme2008}.
-It is clear that PR has significant benefits for dynamic systems like cognitive radios.
-However, the design process remains suitable only for FPGA experts.
-Recent efforts have begun to bridge this gap, allowing a modular approach to PR design, with automated partitioning and floorplanning of the FPGA~\cite{Vipin2012,Vipin2013}.
-Combined with the improving efficiency of high-level synthesis, this will enable radio designers with minimal FPGA experience to leverage their power and flexibility in the design of cognitive radios.
-
 Reduced power consumption is another benefit of PR that is important in radio systems.
 FPGA based systems consume power in proportion to the size of the device, resource utilisation and operating frequency.
 PR based designs save resources, and may even allow use of a smaller FPGA, hence saving power.
 
+It is clear that PR has significant benefits for dynamic systems like cognitive radios.
+However, the design process remains suitable only for FPGA experts.
+Recent efforts have begun to bridge this gap, allowing a modular approach to PR design, with automated partitioning and floorplanning of the FPGA~\cite{Vipin2012,Vipin2013}.
+Combined with the improving efficiency of high-level synthesis, this will enable radio designers with minimal FPGA experience to leverage their power and flexibility in the design of cognitive radios.
 
 %---------------------------------------------------------------------------------
 \subsection{Power Dissipation on FPGA}
@@ -563,15 +610,16 @@ High power dissipation by a system introduces high operating temperatures and fo
 Power dissipation has thus come to be considered as one of the most important design metrics, along with area and performance.
 Reducing power consumption has been investigated at all levels of the digital design flow: from the system design stage to the layout stage.
 At every stage, the designer can act to optimise the power consumption of the design.
+At the lower level, the architecture of the system is designed in terms of data flow between registers, leaving few options to optimize the system.
 However, small changes at the lower levels may require more work and time to update the higher level optimisations, thus increasing the complexity of the optimisation process.
 Moreover, at the system design level stage, the designer has more options to reduce power dissipation by a greater degree.
-At the lower level, the architecture of the system is designed in terms of data flow between registers, leaving few options to optimize the system.
 Thus, most power saving opportunities may exist at higher level of the design abstraction~\cite{Raghunathan1998}.
 
 FPGAs, with their highly parallel architecture, are suitable for the increasing computational requirement of signal processing in wireless communication systems.
-In order to optimise the power dissipation of systems on FPGAs, the power consumption of FPGAs needs to be clearly understood, and accurate, flexible power estimation tools are needed in order to provide power profiles of the system to help the designer makes the best decisions.
+In order to optimise the power dissipation of systems on FPGAs, the power consumption of FPGAs needs to be clearly understood. 
+Accurate and flexible power estimation tools are hence needed in order to provide power profiles of the system to help the designer makes the best decisions.
 In addition, low power design techniques must be investigated to optimise power consumption when a system design is implemented.
-%
+
 %Fast time-to-market, flexible programmability, and improving performance continue to render FPGAs an attractive platform for digital circuit implementation.
 %FPGAs have been gaining ground as an alternative implementation technology in a wide range of application domains, due primarily to the increased cost and diminished economies of scale when building custom ASICs.
 %However, power remains a key metric in which FPGAs lag behind custom ICs, although this gap is narrowing.
@@ -579,11 +627,11 @@ Total FPGA power is calculated as follows:
 \begin{center}
 \begin{equation}
 \label{Equ:Ptotal}
- P_{\mathit{total}} = P_{\mathit{device static}} + P_{\mathit{design static}} + P_{\mathit{dynamic}},
+ P_{\mathit{total}} = P_{\mathit{device static}} + P_{\mathit{design static}} + P_{\mathit{dynamic}}
 \end{equation}
 \end{center}
-where $P_{\mathit{total}}$ represents the total power consumption, $P_{\mathit{device static}}$ refers to the leakage power which is proportional to the size of the device and resource utilisation when the device is powered, $P_{\mathit{design static}}$ is the additional power dissipation when the design is configured on the device and has no switching activity. Leakage current is the only source of this static power dissipation.
-$P_{\mathit{dynamic}}$ represents the additional average power consumption from user logic utilisation and switching activity caused by signal transitions in the design. Increasing operating frequency leads to a rise in switching activity and thus results in increased dynamic power consumption. The most significant source of dynamic power dissipation is the charging and discharging of parasitic capacitance as a result of signal transitions.
+where $P_{\mathit{total}}$ represents the total power consumption. $P_{\mathit{device static}}$ refers to the leakage power that is proportional to the size of the device and resource utilisation when the device is powered. $P_{\mathit{design static}}$ is the additional power dissipation when the design is configured on the device and has no switching activity. Leakage current is the only source of this static power dissipation.
+$P_{\mathit{dynamic}}$ represents the additional average power consumption due to user logic utilisation and switching activity caused by signal transitions in the design. Increasing operating frequency leads to a rise in switching activity and thus results in increased dynamic power consumption. The most significant source of dynamic power dissipation is the charging and discharging of parasitic capacitance as a result of signal transitions.
 
 Efficient power-aware designs for FPGA-based systems require estimation tools that gauge power consumption at an early stage in the design flow.
 These tools allow design tradeoffs to be considered at a high level of abstraction, thus reducing design effort and cost.
@@ -608,8 +656,7 @@ When delays are accounted for, the presence of glitches, which are spurious logi
 The additional activity due to glitching actually causes a significant increase in dynamic power~\cite{Anderson2004a}.
 The path delays in FPGAs are also significantly dominated by interconnects, which have a different delay, compared to primitive logic delays. Therefore, the result of glitching on total power consumption may be more severe in FPGAs versus ASICs.
 
-It is generally accepted that the dominant source of optimising power dissipation on FPGA is optimising dynamic power dissipation.
-Dynamic power dissipation is proportional to switching activity and the equivalent capacitance of the circuit.
+It is generally accepted that the dominant source of optimising power dissipation on FPGA is to optimise dynamic power dissipation, which is proportional to switching activity and the equivalent capacitance of the circuit.
 There are many techniques and strategies to reduce the power dissipation in FPGA presented in the literature~\cite{Danckaert1999,Kovacs2000,Czapski2007,Liu2009,Ahuja2010}.
 However, only the strategies which appear to be suitable for wireless systems are discussed here.
 These strategies will be discussed in detail for specific implementations in the following chapters, but the general approach is discussed here.
@@ -625,7 +672,7 @@ Power estimation tools should be used to evaluate the power dissipation of the s
 This provides information to assist in making decisions for reducing power dissipation.
 
 %---------------------------------------------------------------------------------
-\subsection{Power Estimation}
+\subsection{Power Estimation Tools}
 %---------------------------------------------------------------------------------
 
 Several studies investigating power estimation techniques at different levels from the circuit level up to the system level have appeared in the literature.
@@ -641,7 +688,7 @@ At the circuit level, a circuit simulator such as SPICE~\cite{Deng1994} provides
 
 %With increasing system complexity, several studies have recently paid attention to power estimation and optimization at higher level and earlier stages of the design such as the register-transfer and behavioural levels. The large run-times required by lower level power analysis tools, and the need to synthesize and validate a gate- or transistor-level netlist make previous techniques highly inefficient for exploring high-level design tradeoffs, and infeasible for use in automatic high-level and system-level synthesis and optimization tools.
 
-Several studies have shown that the efficiency of power optimisation is significantly better at the higher levels~\cite{Landman1996,Gupta2000,Raghunathan2003,Reimer2006}.
+Other studies have shown that the efficiency of power optimisation is significantly better at the higher levels~\cite{Landman1996,Gupta2000,Raghunathan2003,Reimer2006}.
 High-level power estimation is needed to conveniently validate power budgets for the different parts of the design and identify the most power hungry parts in the design and to quickly evaluate the effects of optimisations on the overall system power budget.
 Furthermore, the long run time and and the complexity of synthesizing and validating a gate-level netlist makes lower level estimation approaches highly inefficient for exploring high-level design abstraction tradeoffs.
 
@@ -709,12 +756,13 @@ Finally it is possible to measure power of a design loaded and functioning in an
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Summary}
 %------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+This chapter provides the background of OFDM in terms of its mathematical representation and functionality, and then the advantages and limitations of OFDM are also discussed.
+The concept of multistandard radio based on OFDM techniques is presented. The challenges of implementing this kind of radio system are introduced regarding the architecture and its performance.
+The synchronisation effects on the OFDM performance are also considered.
+In addition, the challenge in terms of OFDM spectral leakage are discussed in case of the strict requirements imposed by recent wireless standards.
 
-Reducing power dissipation has become a crucial issue in wireless communication systems, especially for portable devices.
+Last but not least, reducing power dissipation has become a crucial issue in wireless communication systems, especially for portable devices.
 In this chapter, the power consumption of FPGA systems is discussed.
 The power estimation and analysis tools of Xilinx are also studied and employed in this research to evaluate the power dissipation of the researched system for power consumption optimisation.
 Some low-power design strategies are suggested.
-This chapter also provides the background of OFDM in terms of its mathematical representation and functionality, and then the advantages and limitations of OFDM are also discussed.
-The concept of multistandard radio based on OFDM techniques is presented. The challenges of implementing this kind of radio system are introduced regarding the architecture and its performance.
-The synchronisation effects on the OFDM performance are also considered.
-Last but not least, the challenge in terms of OFDM spectral leakage are discussed in case of the strict requirements imposed by recent wireless standards.
+

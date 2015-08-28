@@ -1,5 +1,24 @@
 \begin{thebibliography}{100}
 
+\bibitem{farhang2008signal}
+B.~Farhang-Boroujeny, {\em Signal Processing Techniques for Software Radios}.
+\newblock Lulu Publishing House, 2008.
+
+\bibitem{Xilinx2011}
+``{Virtex-6 FPGA DSP48E1 Slice: User Guide}.'' Xilinx, San Jose, CA.
+  www.xilinx.com/support/documentation/user\_guides/ug369.pdf, 2011.
+
+\bibitem{Schmidl1997}
+T.~Schmidl and D.~Cox, ``Robust frequency and timing synchronization for
+  {OFDM},'' {\em IEEE Transactions on Communications}, vol.~45, pp.~1613--1621,
+  {Dec.} 1997.
+
+\bibitem{Kishore2006}
+C.~N. Kishore and V.~U. Reddy, ``A frame synchronization and frequency offset
+  estimation algorithm for {OFDM} system and its analysis,'' {\em EURASIP
+  Journal on Wireless Communications and Networking}, vol.~2006, pp.~1--16,
+  2006.
+
 \bibitem{FCC2002}
 {Federal Communications Commission}, ``Spectrum policy task force report,''
   Tech. Rep. No. 02–135, 2002.
@@ -23,6 +42,44 @@ R.~Rajbanshi, A.~M. Wyglinski, and G.~J. Minden, ``An efficient implementation
   of {NC-OFDM} transceivers for cognitive radios,'' in {\em Proceedings of the
   1st International Conference on Cognitive Radio Oriented Wireless Networks
   and Communications}, June 2006.
+
+\bibitem{gnuradio}
+{Free Software Foundation, Inc.}, ``{GNU Radio - The GNU Software Radio},''
+  2009.
+
+\bibitem{Sutton2010}
+P.~Sutton, J.~Lotze, H.~Lahlou, S.~Fahmy, K.~Nolan, B.~{\"O}zg{\"u}l,
+  T.~Rondeau, J.~Noguera, and L.~Doyle, ``Iris -- an architecture for cognitive
+  radio networking testbeds,'' {\em IEEE Communications Magazine}, vol.~48,
+  pp.~114--122, Sep 2010.
+
+\bibitem{tan2011sora}
+K.~Tan, H.~Liu, J.~Zhang, Y.~Zhang, J.~Fang, and G.~M. Voelker, ``Sora:
+  high-performance software radio using general-purpose multi-core
+  processors,'' {\em Communications of the ACM}, vol.~54, no.~1, pp.~99--107,
+  2011.
+
+\bibitem{Kim2008}
+T.-H. Kim and I.-C. Park, ``Low-power and high-accurate synchronization for
+  {IEEE} 802.16d systems,'' {\em IEEE Transactions on Very Large Scale
+  Integration (VLSI) Systems}, vol.~16, pp.~1620 --1630, {Dec.} 2008.
+
+\bibitem{Guffey2007}
+J.~Guffey, A.~Wyglinski, and G.~Minden, ``Agile radio implementation of {OFDM}
+  physical layer for dynamic spectrum access research,'' in {\em Proceedings of
+  IEEE Global Telecommunications Conference (GLOBECOM)}, pp.~4051--4055, Nov.
+  2007.
+
+\bibitem{Recio2010}
+A.~Recio and P.~Athanas, ``Physical layer for spectrum-aware reconfigurable
+  {OFDM} on an {FPGA},'' in {\em Proceedings of the Euromicro Conference on
+  Digital System Design: Architectures, Methods and Tools (DSD)}, pp.~321--327,
+  Sep. 2010.
+
+\bibitem{PhamMay2014}
+T.~H. Pham, I.~V. McLoughlin, and S.~A. Fahmy, ``{Shaping Spectral Leakage for
+  IEEE 802.11p Vehicular Communications},'' in {\em IEEE Vehicular Technology
+  Conference (VTC)}, May 2014.
 
 \bibitem{Mitola1999}
 J.~Mitola and G.~Q.~M. Jr., ``{Cognitive radio: making software radios more
@@ -92,12 +149,6 @@ P.~Sutton, L.~Doyle, and K.~Nolan, ``{A reconfigurable platform for cognitive
   networks},'' in {\em Proceeding of the International Conference on Cognitive
   Radio Oriented Wireless Network Communications (CROWNCOM)}, 2006.
 
-\bibitem{Sutton2010}
-P.~Sutton, J.~Lotze, H.~Lahlou, S.~Fahmy, K.~Nolan, B.~{\"O}zg{\"u}l,
-  T.~Rondeau, J.~Noguera, and L.~Doyle, ``Iris -- an architecture for cognitive
-  radio networking testbeds,'' {\em IEEE Communications Magazine}, vol.~48,
-  pp.~114--122, Sep 2010.
-
 \bibitem{fahmy2009}
 S.~Fahmy, J.~Lotze, J.~Noguera, L.~Doyle, and R.~Esser, ``Generic software
   framework for adaptive applications on {FPGAs},'' in {\em Proceedings of IEEE
@@ -130,16 +181,6 @@ K.~Amiri, Y.~Sun, P.~Murphy, C.~Hunter, J.~R. Cavallaro, and A.~Sabharwal,
   {\em Proceedings of IEEE International Conference on Microelectronic Systems
   Education (MSE)}, pp.~53--54, June 2007.
 
-\bibitem{tan2011sora}
-K.~Tan, H.~Liu, J.~Zhang, Y.~Zhang, J.~Fang, and G.~M. Voelker, ``Sora:
-  high-performance software radio using general-purpose multi-core
-  processors,'' {\em Communications of the ACM}, vol.~54, no.~1, pp.~99--107,
-  2011.
-
-\bibitem{gnuradio}
-{Free Software Foundation, Inc.}, ``{GNU Radio - The GNU Software Radio},''
-  2009.
-
 \bibitem{GRC2009}
 {Free Software Foundation, Inc.}, ``{GNU Radio Companion},'' 2009.
 
@@ -152,10 +193,6 @@ R.~Marlow, C.~Dobson, and P.~Athanas, ``{An Enhanced and Embedded GNU Radio
 A.~Love, W.~Zha, and P.~Athanas, ``{In pursuit of instant gratification for
   FPGA design},'' in {\em Proceedings of the International Conference on Field
   Programmable Logic and Applications (FPL)}, pp.~1--8, 2013.
-
-\bibitem{farhang2008signal}
-B.~Farhang-Boroujeny, {\em Signal Processing Techniques for Software Radios}.
-\newblock Lulu Publishing House, 2008.
 
 \bibitem{Dick2003}
 C.~Dick and F.~Harris, ``{FPGA} implementation of an {OFDM PHY},'' in {\em
@@ -174,33 +211,10 @@ K.~Wang, J.~Singh, and M.~Faulkner, ``{FPGA} implementation of an {OFDM-WLAN}
   synchronizer,'' in {\em IEEE International Workshop on Electronic Design,
   Test and Applications (DELTA)}, pp.~89 -- 94, Jan. 2004.
 
-\bibitem{Schmidl1997}
-T.~Schmidl and D.~Cox, ``Robust frequency and timing synchronization for
-  {OFDM},'' {\em IEEE Transactions on Communications}, vol.~45, pp.~1613--1621,
-  {Dec.} 1997.
-
-\bibitem{Kishore2006}
-C.~N. Kishore and V.~U. Reddy, ``A frame synchronization and frequency offset
-  estimation algorithm for {OFDM} system and its analysis,'' {\em EURASIP
-  Journal on Wireless Communications and Networking}, vol.~2006, pp.~1--16,
-  2006.
-
-\bibitem{Guffey2007}
-J.~Guffey, A.~Wyglinski, and G.~Minden, ``Agile radio implementation of {OFDM}
-  physical layer for dynamic spectrum access research,'' in {\em Proceedings of
-  IEEE Global Telecommunications Conference (GLOBECOM)}, pp.~4051--4055, Nov.
-  2007.
-
 \bibitem{Huang2010}
 Z.~Huang, B.~Li, and M.~Liu, ``A proposed timing synchronization method for
   802.16e downlink,'' in {\em International Symposium on Intelligent Signal
   Processing and Communication Systems (ISPACS)}, pp.~1--4, Dec. 2010.
-
-\bibitem{Recio2010}
-A.~Recio and P.~Athanas, ``Physical layer for spectrum-aware reconfigurable
-  {OFDM} on an {FPGA},'' in {\em Proceedings of the Euromicro Conference on
-  Digital System Design: Architectures, Methods and Tools (DSD)}, pp.~321--327,
-  Sep. 2010.
 
 \bibitem{Shim2006}
 E.-S. Shim and Y.-H. You, ``{OFDM integer frequency offset estimator in rapidly
@@ -458,10 +472,6 @@ K.-W. Yip, Y.-C. Wu, and T.-S. Ng, ``Design of multiplierless correlators for
   timing synchronization in {IEEE} 802.11a wireless {LANs},'' {\em IEEE
   Transactions on Consumer Electronics}, vol.~49, pp.~107 -- 114, {Feb.} 2003.
 
-\bibitem{Xilinx2011}
-``{Virtex-6 FPGA DSP48E1 Slice: User Guide}.'' Xilinx, San Jose, CA.
-  www.xilinx.com/support/documentation/user\_guides/ug369.pdf, 2011.
-
 \bibitem{Hanzo2006}
 L.~Hanzo and T.~Keller, {\em OFDM and MC-CDMA : A Primer}.
 \newblock Wiley-IEEE Press, 2006.
@@ -481,11 +491,6 @@ F.~Manavi and Y.~Shayan, ``Implementation of {OFDM} modem for the physical
   layer of {IEEE} 802.11a standard based on {Xilinx Virtex-II} fpga,'' in {\em
   Proceedings of IEEE Vehicular Technology Conference (VTC)}, vol.~3, pp.~1768
   -- 1772, May 2004.
-
-\bibitem{Kim2008}
-T.-H. Kim and I.-C. Park, ``Low-power and high-accurate synchronization for
-  {IEEE} 802.16d systems,'' {\em IEEE Transactions on Very Large Scale
-  Integration (VLSI) Systems}, vol.~16, pp.~1620 --1630, {Dec.} 2008.
 
 \bibitem{V.ErcegJuly2003}
 V.~Erceg, K.~V.~S. Hari, and M.~S. Smith, ``Channel models for fixed wireless
@@ -511,11 +516,6 @@ M.~Park, N.~Cho, J.~Cho, and D.~Hong, ``Robust integer frequency offset
 
 \bibitem{ug389}
 Xilinx Inc., {\em UG389: Spartan-6 FPGA DSP48A1 Slice}, August 2009.
-
-\bibitem{PhamMay2014}
-T.~H. Pham, I.~V. McLoughlin, and S.~A. Fahmy, ``{Shaping Spectral Leakage for
-  IEEE 802.11p Vehicular Communications},'' in {\em IEEE Vehicular Technology
-  Conference (VTC)}, May 2014.
 
 \bibitem{Acosta-Marum2007}
 G.~Acosta-Marum and M.-A. Ingram, ``{Six time and frequency selective empirical
@@ -576,5 +576,11 @@ A.~Troya, K.~Maharatna, M.~Krstic, E.~Grass, U.~Jagdhold, and R.~Kraemer,
   ``{Efficient Inner Receiver Design for OFDM-Based WLAN Systems: Algorithm and
   Architecture},'' {\em {IEEE} Transactions on Wireless Communications},
   vol.~6, pp.~1374--1385, April 2007.
+
+\bibitem{Sohanghpurwala2011}
+A.~Sohanghpurwala, P.~Athanas, T.~Frangieh, and A.~Wood, ``{OpenPR: An
+  Open-Source Partial-Reconfiguration Toolkit for Xilinx FPGAs},'' in {\em IEEE
+  International Symposium on Parallel and Distributed Processing Workshops and
+  Phd Forum (IPDPSW)}, pp.~228--235, May 2011.
 
 \end{thebibliography}

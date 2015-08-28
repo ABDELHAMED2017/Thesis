@@ -17,10 +17,12 @@ A cognitive radio can modify parameters such as transmit power, coding rate, fra
 The radio baseband should also be reconfigurable to enable support for multiples standards such as WiFi, WiMAX, GSM, WCDMA, and other defined access schemes.
 More advanced adaptive standards are intrinsically flexible and this flexibility should be managed to optimise performance in the channel.
 
-This thesis explores techniques for enabling the mapping and implementation of dynamic cognitive radios on FPGA platforms.
+\todo[inline]{This thesis explores techniques for enabling the mapping and implementation of dynamic cognitive radios on FPGA platforms.
 By dynamic, we are referring to the ability to modify baseband processing to suit difference transmission standards and scenarios.
+The decision making and spectral sensing aspects of cognitive radio are not addressed in this dissertation.
 The cognitive portion of a radio is where decisions are made to modify properties of the communication.
 In the context of our work, we are interested in providing a generalised interface for cognitive radio designers to be able to leverage the dynamic capabilities of the hardware platform at a higher level.
+}
 
 FPGAs are silicon devices that allow us to build customised hardware datapaths for a variety of applications.
 By exploiting parellelism inherent in many algorithms, it is possible to develop implementations that are significantly faster than equivalent software running on general purpose processors.
@@ -50,8 +52,8 @@ Given the ability to perform spectral sensing, and handle flexible carrier allog
 %---------------------------------------------------------------------------------
 
 In practice, implementing an MSCR requires a technology platform that provides sufficient flexibility, high computational throughput, and ideally power efficiency.
-While most practical CRs are built using powerful general purpose processors to achieve flexibility through software, these often fail to achieve the required computational throughput and suffer from high power consumption.
-Multi-processor Systems-on-chip (MPSoC) architectures can meet the throughput needs, however these platforms require algorithms to be formulated in a way suitable for parallel programming.
+While most practical CRs~\cite{gnuradio,Sutton2010} are built using powerful general purpose processors to achieve flexibility through software, these often fail to achieve the required computational throughput and suffer from high power consumption.
+Multi-processor Systems-on-chip (MPSoC) architectures~\cite{tan2011sora} can meet the throughput needs, however these platforms require algorithms to be formulated in a way suitable for parallel programming.
 They also tend to rely upon additional memory elements to buffer data being transferred between parallel processes, driving up implementation cost and power consumption.
 By contrast, custom hardware designs such as application specific integrated circuits (ASICs) offer highly efficient computation, high data throughput and potentially low power dissipation; however, they suffer from a lack of flexibility, in that many operating parameters will need to be fixed at design time.
 In an application area characterised by multiple fast moving standards, ASICs are likely to be inefficient in terms of both time and cost for MSCR.
@@ -71,15 +73,15 @@ The ability to perform PR in FPGA and allow effective parameterisation of OFDM m
 %---------------------------------------------------------------------------------
 
 Despite several advantages, OFDM has two particular disadvantages related to synchronisation and spectral leakage. These become critical challenges when OFDM is used for cognitive radio.
-Firstly, state of the art OFDM synchronisation methods can only tolerate a small carrier frequency offset (CFO),  leading to very strict constraints for RF front-end design.
+Firstly, state of the art OFDM synchronisation methods can only tolerate a small carrier frequency offset (CFO)~\cite{Kim2008},  leading to very strict constraints for RF front-end design.
 In a radio that supports multiple standards, the RF front-end is required to have the ability to rapidly switch carrier frequency across a wide frequency range.
 Such agility is difficult to achieve while ensuring that CFO is tightly constrained.
 New synchronisation methods are therefore required for use in OFDM-based  systems that are robust to large CFO
-While a number of techniques have been explored theoretically, most implementations we are aware of use only basic synchronisation, and the computational cost of more advanced methods is high.
+While a number of techniques have been explored theoretically, most implementations we are aware of use only basic synchronisation~\cite{Guffey2007,Recio2010}, and the computational cost of more advanced methods is high.
 In this thesis, we present a novel method that is both robust, and computationally efficient.
 
 Secondly, CRs normally demand small spectral leakage for both in-band and out-of-band of transmitted signals, whereas OFDM is well known to induce significant amounts of spectral leakage.
-Pulse shaping techniques that are able to limit OFDM spectral leakage have been widely researched, but pulse shaping cannot help to effectively filter out-of-band spectrum when only small frequency guards are present, because of the influence of an image spectrum caused by interpolation or DAC operation.
+Pulse shaping techniques that are able to limit OFDM spectral leakage have been widely researched, but pulse shaping cannot help to effectively filter out-of-band spectrum when only small frequency guards are present~\cite{PhamMay2014}, because of the influence of an image spectrum caused by interpolation or DAC operation.
 We propose, in this thesis, a frequency guard extending technique which can meet the spectral leakage requirements, offering good out of band attenuation allowing deployments for dynamic spectrum access.
 
 The overriding objective for this research is a low power and agile architecture for multi-standard cognitive radios on FPGAs, based on coupling PR modules and parameterised modules, incorporating the spectral leakage and synchronization methods mentioned above.
@@ -142,9 +144,9 @@ Some of the work presented in the thesis has been written up in a number of publ
 
 \item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Multi-Standard Cognitive Radios on FPGAs,'' PhD Forum Poster in \textit{Proceedings of the International Conference on Field Programmable Logic and Applications (FPL)}, Munich, Germany, September 2014.
 
-\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Integer Frequency Offset Estimation Architecture for Enhanced OFDM Synchronisation,'' under review for \textit{IEEE Transactions on Very Large Scale Integration (VLSI) Systems}.
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Integer Frequency Offset Estimation Architecture for Enhanced OFDM Synchronisation,'' in \textit{IEEE Transactions on Very Large Scale Integration (VLSI) Systems}, vol.PP, no.99, pp.1-1, 2015.
 
-\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Spectrally Efficient Emission Mask Shaping for OFDM Cognitive Radios,'' under review for \textit{IEEE Transactions on Communications (TCOM)}.
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Spectrally Efficient Emission Mask Shaping for OFDM Cognitive Radios,'' under review for \textit{Digital Signal Processing}.
 
 \item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient OFDM-based baseband processing for Multi-Standard Cognitive Radios on FPGAs,'' in preparation for submission to \emph{ACM Transactions on Embedded Computing Systems}.
 

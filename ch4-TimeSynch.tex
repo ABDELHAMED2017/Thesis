@@ -48,7 +48,7 @@ P[d] =\sum_{m =0}^{L-1}    (r^{*}[d+m] r[d+m+L] ),
 
 %where superscript \textquotedblleft$*$\textquotedblright  denotes complex conjugation.
 
-The metric \emph{M[d]} is illustrated for a typical channel in Fig.~\ref{fig:M1-10dB}, where it can be seen to form a distinct plateau in the region were the preamble is presented within a received window.
+The metric \emph{M[d]} is illustrated for a typical channel in Fig.~\ref{fig:M1-10dB}, where it can be seen to form a distinct plateau in the region when the preamble is presented within a received window.
 Clearly, \emph{M[d]} accurately detects the preamble, however the nature of the plateau having a flat top presents an uncertainty in terms of exact positioning, and hence reduced accuracy in determining the exact start of the frame, compared to a metric which peaks.
 
 \begin{figure}
@@ -117,7 +117,7 @@ If the actual CFO lies outside this range, it is necessary to estimate the integ
 %---------------------------------------------------------------------------------
 
 Fine STO estimation, accomplished using cross-correlation, is sensitive to CFO.
-Thus the estimated fractional CFO must fist be used for frequency offset compensation.
+Thus the estimated fractional CFO must first be used for frequency offset compensation.
 This is done by phase de-rotating the received samples in the time domain:
 
 \begin{eqnarray}
@@ -232,7 +232,7 @@ The fine STO is estimated in the last period of the short training symbol from (
 By contrast, the proposed method performs STO synchronisation and fractional CFO estimation in the three first periods of the short training symbol from (i) to (iv), and the start of frame will be detected at (ii).
 Then, the fractional CFO compensation is computed, and integer CFO estimation is performed in the long training symbol from (vii) to (viii).
 
-The method used for synchronisation based upon these metrics is as follows:
+The method used for synchronisation based upon these metrics is described in the following sub-sections.
 
 \subsection{Frame Synchronisation and Fractional CFO Estimation}
 
@@ -242,7 +242,7 @@ First, frame detection is performed by comparing the metric \emph{P'} to \emph{R
 |P'[d]| > thr * R'[d].
 \end{equation}
 
-The threshold is different for each channel and needs to be determined empirically by simulation (in common with other systems such as \cite{Kishore2006}).
+%The threshold is different for each channel and needs to be determined empirically by simulation (in common with other systems such as \cite{Kishore2006}).
 Fig.\ref{fig:TimeSyn_thr_AWGN} shows the performance of the frame synchronisation in the given channel for different threshold values.
 With each threshold value, 1000 frame detections are simulated.
 \begin{figure}
@@ -250,13 +250,13 @@ With each threshold value, 1000 frame detections are simulated.
 	\caption{Performance of the frame synchronisation method versus the selection threshold for an AWGN channel (with SNR =10dB).}
 	\label{fig:TimeSyn_thr_AWGN}
 \end{figure}
-The number of correct detections indicates how often the time synchronisation has been found correctly at the start of the frame.
-The number of false detections indicate that the time synchronisation gets the wrong start of the frame.
+The number of correct detections indicates how often the time synchronisation has been found correctly at the start of the frame, while the number of false detections indicate that the time synchronisation gets the wrong start of the frame.
 Otherwise, the frame is not detected (i.e. $|P'[d]|$ can be not greater than $thr * R'[d]$), and a miss detection is declared.
 From the results plotted,  the optimum value can be seen to be around 0.55.
 If the threshold is too small, noise may cause a failure of detection.
 On the other hand, when the threshold is large, the frame detection may be missed if the noise reduces the amplitude of the timing metric, which consequentially does not cross the threshold.
-Assuming the channel is known, the threshold can be selected from a look-up table. In the simulations reported in this chapter, each channel threshold has been pre-computed, based upon the current channel model and conditions.
+\todo[inline]{The threshold value depends on operating channel and needs to be determined empirically by simulation (in common with other systems such as [36]). Assuming the set of various channels are known, the threshold for these channels can be pre-determined by simulation. The performance of synchronisation is evaluated with increased threshold within a given channel model. The threshold value corresponding to the best performance is selected for the channel model. The determined values of threshold are stored in a look-up table. Based upon the current channel model and conditions, the corresponding threshold has been selected from the look-up table}
+
 
 After a frame is detected, the starting point of the short preamble is found by searching for the peaks in \emph{R'[d]}.
 As can be seen in Fig. \ref{fig:ProposedMetric-10dB}, two peaks in \emph{R'[d]} will bracket the transition to the plateau in \emph{P'[d]} shown at sample indices of -31 and 33, respectively.
@@ -445,7 +445,7 @@ In summary, simulation results show that \textit{Prop3} and \textit{Prop2} have 
 Given the results described in this sub-section, \textit{Prop2} is selected as an implementation candidate in the subsequent sub-section, where the trade-off between accuracy and hardware cost is explored in more detail.
 
 \subsection{Hardware Implementation}
-This sub-section discusses the implementation of, and investigates the hardware optimisation of, the proposed method in terms of word size. The target FPGA is a low-power Xilinx Spartan-6 XC6SLX45 device, with ISE 13.2 used to evaluate both hardware resource and power consumption.
+This sub-section discusses the implementation of, and presents the hardware optimisation of, the proposed method in terms of word size. The target FPGA is a low-power Xilinx Spartan-6 XC6SLX45 device, with ISE 13.2 used to evaluate both hardware resource and power consumption.
 The results illustrate the trade-off between hardware consumption and the accuracy of the proposed method.
 The above sub-section already revealed that the performance of \textit{K\&R} is generally worse than the other methods, moreover it requires many complex multiply operations to compute the cross-correlation for the \emph{P} Metric. For this reason, \textit{K\&R} is not implemented, only the proposed method and \textit{SoA} are compared here, in terms of hardware resources, power consumption, and accuracy. As mentioned above we set  $C=2L$ since \textit{Prop2} consistently showed performance close to \textit{Prop3}, and significantly better than \textit{Prop1}. It  therefore offers a good balance between increased hardware cost and performance.
 
@@ -487,6 +487,8 @@ The architecture for our proposed method is shown in Fig.~\ref{fig:Pro-Sync}.
 The format of received samples is similar to the conventional design.
 The \emph{R'} metric is determined using an energy correlator as illustrated in Fig.~\ref{fig:ML-Cor}.
 The number of samples used to compute it is 128 and since the 128 samples of the short preamble are arranged in two identical spans of 64 samples each, the correlator only needs 64 taps.
+\todo[inline]{The needed computation of proposed architecture compared to the full cross-correlation techniques is minimised by not only taking advantage of the periodic nature of preamble. 
+It should be noted that profiting from the real number computation of proposed metrics instead of complex numbers, and from using multiplierless correlator also obtain a significant computational cost.}
 Eqn.~(\ref{ProposedR-imp}) shows the derived equations of this optimisation:
 \begin{eqnarray}
 \label{ProposedR-imp}
@@ -519,7 +521,7 @@ So, the moving summation uses a delay buffer of 128 samples, and the result valu
 Let $f1$ and $f2$ be the number of bits representing the fractional part for computing \emph{P'}  and \emph{R'} respectively. Thus \emph{P'} has fixed point format Q8.$f1$ and \emph{R'} has fixed point format Q6.$f2$.
 The effects of reducing the number of bits used to represent these fractional components of  \emph{P'}  and \emph{R'}  will now be investigated, with the aim of optimising the reduced precision against hardware savings.
 
-Recall the results of CFO estimation in the simulation sub-section where \textit{Prop2} exhibited a significant improvement in CFO estimation accuracy compared to \textit{SoA} thanks to an increase in the evaluation window size obtained by setting $C=2L$. This requires more multiplications, leading to increased hardware cost to compute the \emph{P'} metric. Reducing $f1$ allows a reduction in this extra hardware cost by making each individual computation simpler. The question is to determine how much reduction in $f1$ can be sustained without losing the performance advantage enjoyed by \textit{Prop2}.
+Recall the results of CFO estimation in the simulation sub-section where \textit{Prop2} exhibited a significant improvement in CFO estimation accuracy compared to \textit{SoA} due to an increase in the evaluation window size obtained by setting $C=2L$. This requires more multiplications, leading to increased hardware cost to compute the \emph{P'} metric. Reducing $f1$ allows a reduction in this extra hardware cost by making each individual computation simpler. The question is to determine how much reduction in $f1$ can be sustained without losing the performance advantage enjoyed by \textit{Prop2}.
 
 \begin{table}[hb]
 	\centering

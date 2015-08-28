@@ -23,7 +23,7 @@ This is more pronounced in applications that subject the front-end to intensive 
 
 In this chapter, a novel method is proposed for IFO estimation to overcome this challenge to efficient and low-power implementation. The basis of this method has also been discussed in:
 \begin{itemize}
-\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Integer Frequency Offset Estimation Architecture for Enhanced OFDM Synchronisation,'' to be submitted to \textit{IEEE Transactions on Very Large Scale Integration (VLSI) Systems}.
+\item T. H. Pham, S. A. Fahmy, and I. V. McLoughlin, ``Efficient Integer Frequency Offset Estimation Architecture for Enhanced OFDM Synchronisation,'' in \textit{IEEE Transactions on Very Large Scale Integration (VLSI) Systems, vol.PP, no.99, pp.1-1, 2015}.
 \end{itemize}
 
 %---------------------------------------------------------------------------------
@@ -132,12 +132,12 @@ where $A_{\tilde{\epsilon}}$ denotes the correlation of two consecutive pre-rota
 Since the pilots of the long preamble are distributed on two sides of the OFDM symbol in the frequency domain, at even subcarrier spacings from 2 to 100 and 156 to 254, \emph{L} denotes the index of the first pilots in second half.
 In the case of IEEE~802.16, \emph{L} equals 156.
 Each value, $V_{\tilde{\epsilon}}$, can be computed simultaneously and separately using a multi-add accumulation scheme.
-The challenge in implementation is find a way to efficiently share resources when computing $V_{\tilde{\epsilon}}$.
+The challenge in implementation is to find a way to efficiently share resources when computing $V_{\tilde{\epsilon}}$.
 The pilots that are used to compute the correlation arrive every four cycles so there are four spare cycles between two consecutive computed pilots, allowing one multiply accumulate block to sequentially compute 4 separate correlations.
 
 There are 8 sets of $A_{\tilde{\epsilon}}$ corresponding to 8 possible IFOs.
 These sets of $A_{\tilde{\epsilon}}$ can be pre-computed and stored separately.
-Thanks to the spreading of the computed pilots, the $A_{\tilde{\epsilon}}$ sets have many identical pilots -- this naturally allows sharing between pre-rotated pilot sets -- so that only 64 memory locations are required instead of 400. Thus, an 84\% reduction in the memory used to store $A_{\tilde{\epsilon}}$ sets is achieved.
+Due to the spreading of the computed pilots, the $A_{\tilde{\epsilon}}$ sets have many identical pilots -- this naturally allows sharing between pre-rotated pilot sets -- so that only 64 memory locations are required instead of 400. Thus, an 84\% reduction in the memory used to store $A_{\tilde{\epsilon}}$ sets is achieved.
 Fig.~\ref{fig:Pilots} illustrates the $A_{\tilde{\epsilon}}$ sets and circuitry for combining all $A_{\tilde{\epsilon}}$ sets.
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {figures/Pilots.pdf} }
@@ -185,7 +185,7 @@ The real and imaginary parts of $V_{\tilde{\epsilon}}$ can then be computed as
 
 The proposed resource sharing architecture for the IFO estimator is shown in Fig.~\ref{fig:ProposedStruc}. The \emph{ArgMax} module finds the maximum of the 8 $V_{\tilde{\epsilon}}$ values in order to identify the corresponding IFO estimate.
 The novelty of this IFO estimator is in terms of algorithmic improvements and architecture optimisation. This is achieved by firstly reformulating the equation into an expression that is computable with efficient shared resource circuitry.
-Thanks to the significant hardware reduction achieved, this IFO estimator can be feasibly implemented on a low-power, limited hardware resource FPGA, while simultaneously ensuring that performance is maintained by a trade off between number of pilots against word length.
+Because of the significant hardware reduction achieved, this IFO estimator can be feasibly implemented on a low-power, limited hardware resource FPGA, while simultaneously ensuring that performance is maintained by a trade off between number of pilots against word length.
 
 We are able to demonstrate that the algorithm and structure optimisations mentioned above retain competitive estimation accuracy compared to conventional approaches, while also offering significant reductions in hardware resource usage.
 This makes it possible to implement a high-performance OFDM receiver on a low-power FPGA, especially where the available number of DSP blocks is limited.
@@ -535,7 +535,7 @@ The \emph{Prop\_fb\_LE} implementations use 3 DSP blocks to compute $P(n)$, whil
 \emph{Prop\_fb\_LE}, \emph{Prop\_fb\_DSP} both consume far fewer LUT and FF resources than the conventional \emph{conv\_100p} implementation.
 For \emph{Prop\_2b\_LE}, the number of FFs and LUTs is reduced by 90\% and 79\% respectively compared to the conventional \emph{conv\_100p} approach.
 
-The maximum frequencies of circuits, reported after place and route, comfortably exceed the timing requirements for IEEE~802.16 synchronisation whose sampling frequency is below 25~MHz.
+The maximum frequencies of the various circuits, reported after place and route, comfortably exceed the timing requirements for IEEE~802.16 synchronisation whose sampling frequency is below 25~MHz.
 A post-place-and-route simulation was used to estimate the power consumption of the system at a clock rate of 50{\thinspace}MHz, using the Xilinx XPower tool -- also shown in table \ref{tab:Imp_Rpt}.
 \emph{Prop\_fb\_LE} implementations consume less power than the equivalent \emph{Prop\_fb\_DSP} implementations.
 All implementations of the proposed method consume significantly less power than the conventional implementation.

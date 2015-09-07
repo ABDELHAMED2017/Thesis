@@ -62,7 +62,7 @@ If such a design was implemented blindly, with no consideration for the FPGA arc
 The DSP48E1 primitives on the Virtex-6 FPGAs have additional circuitry within them that enables the design of optimised datapaths, but this must be done manually, through writing code in a particular style.
 Otherwise, the synthesis tools cannot always infer the most efficient structure.
 In our design, we have taken into account the internal structure of the DSP block, and made the design as lean as possible.
-\todo[inline]{The correlator designs must be specified manually, and cannot be inferred by the tools from higher level descriptions such as high level synthesis (HLS) or Simulink that allows designing system at high level abstraction.}
+\todo[inline]{The correlator designs must be specified manually, and cannot be inferred by the tools from higher level descriptions such as high level synthesis (HLS) or Simulink that allow designing system at high level abstraction.}
 
 %---------------------------------------------------------------------------------
 \subsection{Design of DSP48E1 Based Correlator}

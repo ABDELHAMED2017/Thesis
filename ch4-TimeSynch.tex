@@ -487,8 +487,7 @@ The architecture for our proposed method is shown in Fig.~\ref{fig:Pro-Sync}.
 The format of received samples is similar to the conventional design.
 The \emph{R'} metric is determined using an energy correlator as illustrated in Fig.~\ref{fig:ML-Cor}.
 The number of samples used to compute it is 128 and since the 128 samples of the short preamble are arranged in two identical spans of 64 samples each, the correlator only needs 64 taps.
-\todo[inline]{The needed computation of proposed architecture compared to the full cross-correlation techniques is minimised by not only taking advantage of the periodic nature of preamble. 
-It should be noted that profiting from the real number computation of proposed metrics instead of complex numbers, and from using multiplierless correlator that also obtains a significant computational cost.}
+\todo[inline]{The needed computation of the proposed architecture for frame synchronization compared to the use of a full cross-correlation technique is minimised by not only taking advantage of the periodic nature of the preamble. It should be noted that profiting from the real number computation of the proposed metrics, instead of requiring complex computations, and from using a multiplierless correlator, also yield a significant computational saving.}
 Eqn.~(\ref{ProposedR-imp}) shows the derived equations of this optimisation:
 \begin{eqnarray}
 \label{ProposedR-imp}

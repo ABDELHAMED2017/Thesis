@@ -14,9 +14,8 @@ Traditional implementations in custom ASICs cannot support such flexibility, wit
 Hence, FPGAs offer an ideal platform bringing together flexibility, performance, and efficiency.
 In this chapter, we show how we can incorporate our contributions in previous chapters into a flexible architecture for multi-standard cognitive radios (MSCR).
 We show that combining partial reconfiguration (PR) with parameterised  modules offers flexibility while minimising reconfiguration time.
-\todo[inline]{When the system adapts to a new condition (i.e., switching the operating standard), the reconfiguration operation is performed that may suspend the data processing in a duration. The received packet of data may be lost. 
-The reconfiguration is required as fast as that the input data buffered during reconfiguration does not caused the buffer overflow that leads to the packet of data dropping. Even there are higher-level protocols that manage the retransmission of lost or dropped packet of data, but performing these mechanisms are wasteful and significant increase the cost in terms of computation and power consumption.
-To the best of our knowledge, we have not encountered work on dynamically reconfigurable OFDM baseband processing for multiple standards.}
+\todo[inline]{When the system adapts to a new condition (i.e., switching the operating standard), a reconfiguration operation is performed which may pause or suspend data processing for the duration of the reconfiguration. Received packets of data may therefore be lost. 
+The reconfiguration is required to operate fast enough that the input data buffered during reconfiguration does not overflow the buffer, leading to entire packets of data being dropped. Even though there are higher-level protocols available to manage the retransmission of lost or dropped packet of data, performing these mechanisms is wasteful and may significantly increase the cost in terms of computation and power consumption.'}
 
 The work presented in this chapter has also been discussed in:
 \begin{itemize}
@@ -141,7 +140,7 @@ Now smaller FIFOs can be used and reconfiguration can be applied at a finer gran
 After reconfiguration is complete, it is necessary to flush the FIFOs and ``catch up'' with the received samples.
 This can be done by increasing the processing clock rate until the FIFOs are no longer full.
 %A Mixed-Mode Clock Manager (MMCM) is used for this purpose, modifying the processing clock (rec\_clk) to a higher frequency.
-\todo[inline]{Increasing operating speed is done basically by controlling the a Mixed-Mode Clock Manager (MMCM) module that adjusts the speed of input clock of received modules, rx\_clk. Because the received modules implemented on FPGA fabric are able to work with clock that is higher than 2X the operating clock, designing these modules supporting 2X the operating clock do not consume more resources compared to the case of 1x clock speed.}
+\todo[inline]{Increasing operating speed is done basically by controlling the MMCM module to adjust the speed of the input clock of the receiving modules, rx\_clk. Because these modules implemented on FPGA fabric are able to work with a clock that is higher than 2X the operating clock, designing these modules to support twice the normal operating clock does not consume more resources compared to the case of the normal clock speed.}
 It is then reduced back to the sampling rate (sys\_clk) to reduce power consumption.
 The MMCM module is also required to change the processing rate of data plane according to the different sampling rates specified in different standards, shown in Table~\ref{Tab:spec}.
 
@@ -451,10 +450,11 @@ The above equations show the increasing efficiency of overlapping reconfiguratio
 \subsection{Analysing the Proposed OFDM MSCR Approach}
 We analyse the results of applying this method to the full receiver baseband  implemented on a xilinc Virtex~6 FPGA (XC6VLX240T).
 We compare a large monolithic PR module, finer granularity PR, and the proposed mixture of PR and parameterisation.
-\todo[inline]{ Because the slot based PR is widely used and supported by Xilinx tool, we assume that slot-based PR is employed for performing PR.
-All of the resource in the slot are consumed by the component, regardless of whether they are used in the computation or not. The configuration time for a component of a given slot is constant, even if it small component.
-There are some researches~\cite{Sohanghpurwala2011} to reduce the wasted resource from unused logic in PR slot for the small component that may reduce the reconfiguration time of small component. However, these approach are just for the limited FPGA devises and requires more expert work to implement the design.  
-Furthermore, this improvement still does not help for overall reconfiguration latency because the overall latency have to take into account the worst case latency (i.e., the reconfiguration time of largest components) when the system adapts from a standard to another.}
+\todo[inline]{Because slot based PR is widely used as well as being supported by Xilinx tools, we assume that slot-based PR is employed for performing PR.
+All of the resources in the slot are consumed by the component, regardless of whether they are used in the computation or not. The configuration time for a component of a given slot is thus also constant, even if it small component.
+There is some research~\cite{Sohanghpurwala2011} on reducing the wasted resources from unused logic in PR slots for small components that may reduce the reconfiguration time of such components. However, these approaches are just for limited FPGA devises, and require substantially more expert work to implement the designs.  
+Furthermore, this improvement still does not help the overall reconfiguration latency because the overall latency has to take into account the worst case latency (i.e., the reconfiguration time of the largest components) when the system adapts from a standard to another.
+}
 To compute the configuration time of a PR module, we generate bitstreams for all modes.
 The area of a PR region must satisfy the needs of the largest implementation it will house.
 For the monolithic PR module, it is required that the PR module be able to contain the 802.22 OFDM baseband implementation, which is the largest receiver implementation among the three target implementations.
@@ -742,16 +742,15 @@ The system reconfiguration latency of the proposed method is significantly reduc
 \section{System Verification}
 \label{sec:SysVer}
 
-In this Section, we present the works to check the correctness and performance of system.
-
+This Section presents further evidence to demonstrate the correctness and performance of the Verilog HDL implementation. 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.9\columnwidth]{Figures/Veirification.pdf}
 	\caption{The verification framework.}
 	\label{fig:Ver}
 \end{figure}
-Fig.~\ref{fig:Ver} illustrates the verification framework. The comprehensive verifications are performed based on the comparison of the signal vectors of implemented system using Verilog HDL and the corresponding signal vectors of a system golden model simulated using Matlab.
-In addition, Matlab is used to generate random data as input vectors. The common input vectors are used to perform OFDM modulation by both of the system simulation and the system implementation. Test bench scripts are wrote to send the input vectors from database to the implemented system. Moreover, test bench scripts are also used to monitor the signals generated by the system and store it to a database as output vectors. Then the output vectors are read to the Matlab for comparison to the corresponding vectors generated by simulation.
+The overall framework, illustrated in Fig.~\ref{fig:Ver} is to work with parallel MATLAB and Verilog HDL implementations. The golden model simulation in MATLAB is used as the prototype with which the Verilog HDL code needs to comply, as well as providing a source for both random and non-random test vectors for each component of the FPGA code.
+Common input vectors are used to perform OFDM modulation by both the system simulation and the system implementation. Test bench scripts have been written to send the input vectors from a database to the implemented system. Moreover, test bench scripts are also used to monitor the signals generated by the implementation and store them to a database as output vectors. These output vectors are then read by the MATLAB system for comparison against the corresponding vectors generated by the simulation.
 
 \begin{figure}
 	\centering
@@ -760,10 +759,11 @@ In addition, Matlab is used to generate random data as input vectors. The common
 	\label{fig:VerSys}
 \end{figure}
 
-Fig.~\ref{fig:VerSys} shows the block diagram od the baseband system under verification. The necessary components are connected to a transmitter and a receiver. The output of the transmitter is buffered and connected to the receiver. There are many intermediate check points at the output of sub-modules that are observed from implementation and simulation for verification.
+Fig.~\ref{fig:VerSys} shows a block diagram of the baseband system under verification. The necessary components are connected to a transmitter and a receiver. The output of the transmitter is buffered and connected to the receiver. It is immediately obvious that there are many intermediate check points located at the output of sub-modules that are observed within the implementation and compared to the simulation for verification.
 
-The results of verification shown in Fig.~\ref{fig:TX_Ver}, Fig.~\ref{fig:RX_Ver}, and Fig.~\ref{fig:Sys_Ver} verify the system performing baseband modulation of 802.11 signal for an instance. It's similar to the verification for other standards. \emph{MM\_sim},
-\emph{MM\_rtl} denote the output of \emph{MM} submodule in simulation and rtl implementation, respectively. The waveforms of simulation and rtl implementation are almost identical that proves the correctness of the implemented system.	
+The results of some of these verifications are shown in Fig.~\ref{fig:TX_Ver}, Fig.~\ref{fig:RX_Ver}, and Fig.~\ref{fig:Sys_Ver}.
+These verify the system performing baseband modulation for one instance of an 802.11 signal. The nomenclature used is emph{MM\_sim} and \emph{MM\_rtl} which denote the output of the submodule named MM from the simulation and implementation respectively. Note from the waveforms plotted, the very close correspondence of the signal shapes illustrates the underlying correctness of the implementation.
+
 
 \begin{figure}
 	%\centering
@@ -772,7 +772,7 @@ The results of verification shown in Fig.~\ref{fig:TX_Ver}, Fig.~\ref{fig:RX_Ver
 	\label{fig:TX_Ver}
 \end{figure}
 
-Fig.~\ref{fig:TX_Ver} illustrates the verification results of the transmitter. At the left hand side figure, we can see that the data symbols and the pilots are inserted in the OFDM symbols. The right hand side figure  shows an OFDM signal at the output of transmitter including preambles and OFDM symbols.
+To consider more closely, Fig.~\ref{fig:TX_Ver} illustrates verification results from the transmitter. The left hand side figure compares the data symbols and the pilots being inserted into the OFDM symbols (i.e. the module input) while the right hand side shows a resulting OFDM signal (i.e. the module output). This includes the preamble as well as the OFDM symbols.
 
 \begin{figure}
 	%\centering
@@ -781,7 +781,7 @@ Fig.~\ref{fig:TX_Ver} illustrates the verification results of the transmitter. A
 	\label{fig:RX_Ver}
 \end{figure}
 
-Fig.~\ref{fig:RX_Ver} presents the verification results of the receiver. At the top-left  figure, synchronised signal is illustrated, while the top-right figure shows the signal removing symbol cyclic prefix. The bottom-left plots the demodulated data symbols after performing FFT. The output of FFT contains a long preamble that is employed by the subsequent module that perfroms IFO estmation and Channel equalisation. The output of this module is shown in bottom-right figure.
+Fig.~\ref{fig:RX_Ver} presents verification results from the receiver in a similar way. The top-left figure shows the synchronised signal, the top-right figure shows the signal with the cyclic prefix stripped. The bottom-left figure plots the demodulated data symbols after performing FFT. The output of the FFT contains a long preamble that is employed by the subsequent module which performs IFO estimation and channel equalisation. The output of this module is shown in bottom-right figure. Again all plots illustrate a close correspondence between simulation and implementation.
 
 \begin{figure}
 	%\centering
@@ -790,9 +790,9 @@ Fig.~\ref{fig:RX_Ver} presents the verification results of the receiver. At the 
 	\label{fig:Sys_Ver}
 \end{figure}
 
-Fig.~\ref{fig:Sys_Ver} presents the observation of the bit streams at system input and system output. At the left hand side figure, we can see that comparison of output bit stream between rtl implementation and simulation. Because the QPSK is applied for data modulation, A data symbol is modulated for 2 data bits. Therefore, the value is presented from 0 to 3 corresponding to 00, 01, 10, 11 in binary numbers. The right hand side figure shows the comparison between input and output bit streams of rtl implementation. The data bit stream is modulated at OFDM based band and then demodulated. The input and output streams are identical each other.
-
-Based on the verification framework, the performance of system implementation is verified with regard to the golden model. The results prove the correctness of the implementation.
+Fig.~\ref{fig:Sys_Ver} presents the observation of the bit streams at the system input and system output. The left hand figure shows the comparison of output bit streams from simulation and implementation. Because QPSK is used for data modulation, a data symbol is modulated with 2 data bits. Therefore, the value is presented from 0 to 3 corresponding to 00, 01, 10, 11 in binary. The right hand figure compares the input and output bit streams. The data bit stream is modulated at OFDM based band and then demodulated. The input and output streams are identical to each other.
+ 
+Through this careful verification framework, and making use of extensive test benches  the performance of the system implementation is verified with regard to the golden reference model in MATLAB.  
 
 %---------------------------------------------------------------------------------
 \section{Summary}

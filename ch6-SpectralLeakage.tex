@@ -423,7 +423,6 @@ Moreover, \emph{CR\_Ctrl} changes \emph{PulseShaping} to use a large roll-off fa
 On the other hand, when a device and access point are in closer proximity, the transmission power can be reduced such that the spectral leakage is small, and thus filtering can be relaxed.
 In this case, \emph{CR\_Ctrl} is invoked to change the IFFT length back to the original, and employ \emph{PulseShaping} with a small roll-off factor. Moreover, \emph{L-Fold Inter\&FIR} switches back to a normal range in order to reduce the amount of computation.
 
-\todo[inline]{begin of amendment for the discussion on computation cost}
 \begin{table}
 	\centering
 	\caption{Hardware Usage for spectral shaping}
@@ -432,25 +431,24 @@ In this case, \emph{CR\_Ctrl} is invoked to change the IFFT length back to the o
 	\begin{tabular}{lcccc}
 		\toprule
 		Method		& Module	& IFFT+CPInsert  & PulseShaping  & L-FoldInter\&FIR \\
-		\midrule	
+		\midrule
 		& DSPs		& 18	& 0		& 10	\\
 		FixedArch		& Slilces	& 613	& 36	& 139	\\
-		& BRAM		& 1	 	& 0		& 0 	\\	
+		& BRAM		& 1	 	& 0		& 0 	\\
 		\midrule
 		& DSPs		& 34	& 2		& 12	\\
 		FlexArch		& Slilces	& 1282	& 41	& 189	\\
-		& BRAM		& 1	 	& 0		& 0 	\\	
-		
+		& BRAM		& 1	 	& 0		& 0 	\\
+
 		\bottomrule
 	\end{tabular}
-\end{table} 
+\end{table}
 
-In order to provide the flexibility for dynamic shaping spectral leakage, the processing modules (i.e. \emph{IFFT+CPInsert}, \emph{Pulseshaping}, \emph{L-FoldInter\&FIR}) are implemented with the ability to switch operating mode at run time. This in turn involves an increase in hardware resources compared to a fixed implementation. Table~\ref{tab:HardwareUsage} compares the hardware usage of the modules for the proposed flexible method, \emph{FlexArch}, and fixed architecture, \emph{FixedArch}. 
+In order to provide the flexibility for dynamic shaping spectral leakage, the processing modules (i.e. \emph{IFFT+CPInsert}, \emph{Pulseshaping}, \emph{L-FoldInter\&FIR}) are implemented with the ability to switch operating mode at run time. This in turn involves an increase in hardware resources compared to a fixed implementation. Table~\ref{tab:HardwareUsage} compares the hardware usage of the modules for the proposed flexible method, \emph{FlexArch}, and fixed architecture, \emph{FixedArch}.
 \emph{FlexArch} requires a remarkable further amount of hardware resource compared to the \emph{FixedArch}.
 However, it should be noted that the additional computation needed for signal processing in the baseband (which uses low cost, low power components), can be more than compensated for by relaxing the specification of the RF front-end design, since the analogue filtering requirements are so much less strict.
-\todo[inline]{end of amendment for the discussion on computation cost}
 
-The following Section presents the application of the proposed CR architecture in performing stringent filtering to achieve the SEM specifications of both 802.11p and 802.11af, respectively.
+The following section presents the application of the proposed CR architecture in performing stringent filtering to achieve the SEM specifications of both 802.11p and 802.11af, respectively.
 
 %---------------------------------------------------------------------------------
 \section{Simulation Results and Discussion}

@@ -62,7 +62,7 @@ If such a design was implemented blindly, with no consideration for the FPGA arc
 The DSP48E1 primitives on the Virtex-6 FPGAs have additional circuitry within them that enables the design of optimised datapaths, but this must be done manually, through writing code in a particular style.
 Otherwise, the synthesis tools cannot always infer the most efficient structure.
 In our design, we have taken into account the internal structure of the DSP block, and made the design as lean as possible.
-\todo[inline]{The correlator designs must be specified manually, and cannot be inferred by the tools from higher level descriptions such as high level synthesis (HLS) or Simulink that allow designing system at high level abstraction.}
+The correlator designs must be specified manually, and cannot be inferred by the tools from higher level descriptions such as high level synthesis (HLS) or Simulink. We instead use Verilog with wordlengths and schedules selected to mirror the structure of the DSP block.
 
 %---------------------------------------------------------------------------------
 \subsection{Design of DSP48E1 Based Correlator}
@@ -154,7 +154,7 @@ The results of implementation are reported in terms of the number of occupied sl
 
 \emph{DSPc}, \emph{DSP\_pp} are correlator designs using DSP Slices, in non-pipelined and pipelined structures, respectively.
 \emph{ML1}, \emph{ML2}, \emph{ML3}, \emph{ML4} are multiplierless correlators with coefficient quantisations of 1, 0.5, 0.25, 0.125, respectively.
-\todo[inline]{To obtain a precise computation, the DSP48 is typically used for multiplication in fixed point format, Q1.15. Because the DSP48 is a hardcore, it is impossible to optimise the internal components of DSP48 in the case of reducing the number of bits used in the computation. The static power of the DSP based correlator will then not drop significantly when reducing the number of bits in the words being computed. Thus the use of DSP48 for calculation of words with fewer bits is wasteful as well as having reduced precision. Hence, it is not necessary to evaluate the DSP48 version when comparing a system that employs just a small number of  bits for computation}
+The DSP48 is typically used for multiplication in fixed point format, Q1.15 (1 integer and 15 fractional bits). Because the DSP48 is a hard core, it is impossible to optimise the internal components of the DSP48 by reducing the number of bits used in the computation. The static power of the DSP block based correlator does not drop significantly in this case. Thus the use of DSP48 for calculation of words with fewer bits is wasteful in terms of resources and results in reduced precision. Hence, we do not consider the DSP48 version when comparing implementations with a small number of bits.
 
 Table~\ref{tab:Imp_Rpt} reveals that the \emph{DSP\_pp} uses more logic slices due to its pipelined structure.
 The slices in DSP48E1 based designs are used for registers and route-thrus while the slices in the multiplierless designs are mostly used as logic.
@@ -168,7 +168,7 @@ This shows an ideal scenario where multiplierless correlation makes sense, and h
 The maximum frequencies, reported after place and route, decrease for multiplierless designs according to the degree of coefficient quantisation.
 Meanwhile the non-pipelined DSP48E1 design is slower than the multiplierless designs.
 However, the pipelined DSP48E1 design can achieve significantly higher frequency.
-\todo[inline]{The multiplierless correlator and the DSP-based correlator can operate at a speed which is multiple times higher than the desired operating speed for baseband modulation. Both of them can therefore make use of time multiplexing to obtain a trade-off between resource usage and operating speed. However, it should be noted that increased operating speed leads to significantly increased power since the power consumption is proportional to the square of operating speed. To provide a fair comparison, both the multiplierless correlator and the DSP-based correlator are investigated on the same transposed direction form}
+The multiplierless correlator and the DSP-based correlator can both operate at frequencies multiple times higher than required for baseband modulation. Therefore, both designs could use time multiplexing of the computational resources to trade-off resource usage and operating frequency. However, it should be noted that increased operating frequency leads to significantly increased power consumption since the power consumption is proportional to the square of switching frequency. To provide a fair comparison, both the multiplierless correlator and the DSP-based correlator are investigated using the same transposed direct form.
 
 A post-place-and-route simulation in ModelSim was used to estimate the power consumption of the system using the Xilinx XPower tool.
 Table~\ref{tab:PWR} shows the power dissipation of the designs running at 50\,MHz.

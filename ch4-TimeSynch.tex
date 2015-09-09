@@ -255,7 +255,8 @@ Otherwise, the frame is not detected (i.e. $|P'[d]|$ can be not greater than $th
 From the results plotted,  the optimum value can be seen to be around 0.55.
 If the threshold is too small, noise may cause a failure of detection.
 On the other hand, when the threshold is large, the frame detection may be missed if the noise reduces the amplitude of the timing metric, which consequentially does not cross the threshold.
-\todo[inline]{The threshold value depends on operating channels and needs to be determined empirically by simulation (in common with other systems such as [36]). Assuming the set of various channels is known, the threshold for these channels can be pre-determined by simulation. The performance of synchronisation is evaluated with increasing threshold value within a given channel model. The threshold value corresponding to the best performance is selected for the channel model. The determined values of threshold are stored in a look-up table. Based upon the current channel model and conditions, the corresponding threshold value has been selected from the look-up table}
+The threshold values depend on the operating channel and are determined empirically by simulation (in common with other systems such as in [36]). Assuming the set of possible channels is known, the thresholds for these channels can be pre-determined by simulation. The performance of synchronisation is evaluated with increased thresholds for a given channel model. The threshold value corresponding to the best performance is selected for the channel model. The determined threshold values are stored in a look-up table. Based upon current channel model and conditions, a threshold is selected from the look-up table.
+
 
 
 After a frame is detected, the starting point of the short preamble is found by searching for the peaks in \emph{R'[d]}.
@@ -487,7 +488,7 @@ The architecture for our proposed method is shown in Fig.~\ref{fig:Pro-Sync}.
 The format of received samples is similar to the conventional design.
 The \emph{R'} metric is determined using an energy correlator as illustrated in Fig.~\ref{fig:ML-Cor}.
 The number of samples used to compute it is 128 and since the 128 samples of the short preamble are arranged in two identical spans of 64 samples each, the correlator only needs 64 taps.
-\todo[inline]{The needed computation of the proposed architecture for frame synchronization compared to the use of a full cross-correlation technique is minimised by not only taking advantage of the periodic nature of the preamble. It should be noted that profiting from the real number computation of the proposed metrics, instead of requiring complex computations, and from using a multiplierless correlator, also yield a significant computational saving.}
+The proposed method improves upon full cross-correlation not just by taking advantage of the periodic nature of the preamble, but also profiting from the real number computation of the proposed metrics, instead of requiring complex computation, and through enabling the use of a multiplierless correlator, yielding a significant computational saving.
 Eqn.~(\ref{ProposedR-imp}) shows the derived equations of this optimisation:
 \begin{eqnarray}
 \label{ProposedR-imp}

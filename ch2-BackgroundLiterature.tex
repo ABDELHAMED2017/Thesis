@@ -37,41 +37,41 @@ If the spectrum bands allowed for a CR are fully occupied by PUs and IUs transmi
 Multi-standard cognitive radios can operate in multiple frequency bands with different specified standards, providing greater flexibility.
 
 Multicarrier modulation techniques offer an ideal opportunity for such systems due to their regularity and parameterisation. OFDM and Filter Bank MultiCarrier (FBMC) are two types of multicarrier modulations.
-\todo[inline]{Begin of amendment to provide more comprehensive comparison between OFDM and FBMC}
-In order to understand FBMC and its distinctness from OFDM, it is best to study multicarrier systems, in which the output signal can be expressed in the continuous time domain as Equ.\ref{equ:multicarriermodulation}. 
+In order to understand how FBMC is distinct from OFDM, it is best to study multicarrier systems in which the output signal can be expressed in the continuous time domain as in Equ.~\ref{equ:multicarriermodulation}.
 This can be a unified formulation for both OFDM and FBMC.
- 
+
 \begin{eqnarray}
 \label{equ:multicarriermodulation}
 s(t) = \sum_{n}\sum_{k  = 0}^{N-1} x_{k}[n] h(t-nT)e^{i2\pi (t-nT)f_{k}},
-\end{eqnarray}	
-where $x_{k}[n]$ denotes the sample of the $k_{th}$ subcarrier data symbol in $n_{th}$ symbol of continuous multicarrier symbols, $f_{k}$ is the $k_{th}$ subcarrier in a set of $N$ used subcarriers, $T$ is the multicarrier symbol duration, and $h(t)$ is a prototype filter.
- 
+\end{eqnarray}
+where $x_{k}[n]$ denotes the sample of the $k$th subcarrier data symbol in the $n$th symbol of continuous multicarrier symbols, $f_{k}$ is the $k$th subcarrier in a set of $N$ used subcarriers, $T$ is the multicarrier symbol duration, and $h(t)$ is a prototype filter.
+
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/multucarrier_system} }
  	\caption{Block diagram of a multicarrier modulated system, (a) in the countinuous-time and (b) in discrete-time}
  	\label{fig:multicarrier-block}
 \end{figure}
- 
-This transceiver of multicarrier system can be modelled as a block diagram, shown in Fig.~\ref{fig:multicarrier-block}.
-As can be seen in the discrete-time domain, $N$ data symbols at synthesis are up sampled by a factor of $L$, which is calculated by $\frac{T}{T_{S}}$, $T_{S}$ denotes sample period of output sequence $s[n]$, and then filtered by a prototype filter $h[n]$. The output of each data stream will be modulated by frequency of multi-carriers and the summed for transmission. 
-The signal in the receiver is demodulated and then filtered by a bank of matched filters $h'[n]$, and down sampled by a factor of $L$. 
-When critical sampling applies $L = N$ and the prototype filter $h[n]$ is selected as a rectangular pulse in the time domain, i.e. a $sinc$ pulse in the frequency, this multicarrier system becomes a conventional OFDM system.
- 
-FBMC is different from OFDM in the selection of the prototype filters $h[n]$, and matched filters $h'[n]$. Also, the $h[n]$ and $h'[n]$ filters are chosen and designed depending on the adopted FBMC modulation technique.
-%FBMC systems can be categorised into two distinct classes \cite{Farhang-Boroujeny2011}. 
-%The first class are designed to transmit complex-valued (i.e. quadrature amplitude-modulated (QAM)) data symbols. 
+
+This transceiver in a multicarrier system can be modelled as a block diagram, shown in Fig.~\ref{fig:multicarrier-block}.
+As can be seen in the discrete-time domain, $N$ data symbols at synthesis are up sampled by a factor of $L$, which is calculated by $\frac{T}{T_{S}}$, with $T_{S}$ denoting the sample period of the output sequence $s[n]$. They are then filtered by a prototype filter $h[n]$. The output of each data stream is modulated by the frequency of multiple carriers and summed for transmission.
+The signal in the receiver is demodulated and then filtered by a bank of matched filters $h'[n]$, and down sampled by a factor of $L$.
+When critical sampling applies $L = N$ and the prototype filter $h[n]$ is selected as a rectangular pulse in the time domain, i.e. a $sinc$ pulse in the frequency domain, this multicarrier system becomes a conventional OFDM system.
+
+FBMC is different from OFDM in the selection of the prototype filters $h[n]$, and matched filters $h'[n]$ which are chosen and designed depending on the adopted FBMC modulation technique.
+%FBMC systems can be categorised into two distinct classes \cite{Farhang-Boroujeny2011}.
+%The first class are designed to transmit complex-valued (i.e. quadrature amplitude-modulated (QAM)) data symbols.
 %The second class are for transmission of real-valued (i.e. pulse amplitude-modulated (PAM)) data symbols.
 %FBMC systems were originally introduced in the 1960s even before the development of OFDM systems.
 %A number of recent research papers have shown the potential of FBMC for efficient broadband spectrum usage in multiple access applications, including cognitive radios.
 
-By using the well-designed filters for each subcarrier, FBMC could be a more effective solution in comparison to OFDM in term of ICI cancelation and spectral leakage suppression because nonadjacent subcarriers are almost completely separated by a bank of filters. 
-On the other hand, OFDM has been the dominant technique adopted for broadband multicarrier communication.
-OFDM has many important and desirable features over the FBMC. OFDM was originally developed focusing on a low-complexity implementation. The low complexity of OFDM is achieved thanks to a fundamental assumption in which subcarriers of OFDM symbol are perfectly synchronized and orthogonal with the consecutive subcarriers. Thus the subcarriers are used for modulation at the transmitter using an IFFT block; inversely, they are separated by using an FFT block at the receiver. By contrast, FBMC may be more complex than OFDM. The demand for well-designed filters in FBMC results in increasing complexity and resource requirements. Moreover, while employing MIMO technique in OFDM to increase the system's capacity and resulting in high spectral efficiency is a straightforward work, unfortunately, the development of MIMO-FBMC systems is relatively more complex.
+By using well-designed filters for each subcarrier, FBMC can be a more effective solution in comparison to OFDM in term of ICI cancellation and spectral leakage suppression because non-adjacent subcarriers are almost completely separated by the bank of matched filters.
+OFDM has many important and desirable features over the FBMC. OFDM was originally developed focusing on a low-complexity implementation. The low complexity of OFDM is achieved thanks to a fundamental assumption in which subcarriers of the OFDM symbol are perfectly synchronized and orthogonal with consecutive subcarriers. Thus the subcarriers are used for modulation at the transmitter using an IFFT block; inversely, they are separated by using an FFT block at the receiver. By contrast, FBMC is more complex than OFDM. The demand for well-designed filters in FBMC results in increasing complexity and resource requirements.
+Moreover, while employing MIMO in OFDM to increase the system's capacity and spectral efficiency is somewhat straightforward, the development of MIMO-FBMC systems is relatively more complex.
+
 OFDM modulation has been the dominant technique adopted for many wireless standards and has been investigated in terms of spectral sensing and carrier allocation for CRs.
 OFDM system implementation is simple, low cost, and can be more effectively parameterised.
 A single baseband implementation can be made to flexibly support multiple standards like 802.11~\cite{IEEE80211}, 802.16~\cite{IEEE80216}, and 802.22~\cite{IEEE80222}, as well as supporting future OFDM-based standards.
-\todo[inline]{End of amendment to provide more comprehensive comparison between OFDM and FBMC}
+
 
 This capability requires the ability to switch baseband processing from one standard to another. This in turn means the need to perform variable length FFT/IFFT operations, insert cyclic prefixes of configurable length, and handling different pilot vectors as well as different preambles. As a result, the processing modules should be designed to support all requirements of the different standards.
 
@@ -322,7 +322,7 @@ where $R[n]$, $\widehat{R[n]}$ denotes received data symbols before and after co
 
 Moreover, the received samples in the receiver are synchronously grouped into blocks of OFDM symbols.
 Integer timing errors lead to a symbol timing offset (STO) referring to the difference between the correct sample index and the actual sample index of received samples that causes a misaligned window for DFT demodulation in the receiver.
-If the timing offset is late, the samples of the following symbol are used for the current symbol, resulting in ISI and hence degrading the performance of the OFDM system. 
+If the timing offset is late, the samples of the following symbol are used for the current symbol, resulting in ISI and hence degrading the performance of the OFDM system.
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/timeoff.pdf} }
 	\caption{OFDM received symbol with timing offsets of -1, 1, -5 and 5 in a, b, c, d, respectively.}
@@ -616,7 +616,7 @@ Moreover, at the system design level stage, the designer has more options to red
 Thus, most power saving opportunities may exist at higher level of the design abstraction~\cite{Raghunathan1998}.
 
 FPGAs, with their highly parallel architecture, are suitable for the increasing computational requirement of signal processing in wireless communication systems.
-In order to optimise the power dissipation of systems on FPGAs, the power consumption of FPGAs needs to be clearly understood. 
+In order to optimise the power dissipation of systems on FPGAs, the power consumption of FPGAs needs to be clearly understood.
 Accurate and flexible power estimation tools are hence needed in order to provide power profiles of the system to help the designer makes the best decisions.
 In addition, low power design techniques must be investigated to optimise power consumption when a system design is implemented.
 

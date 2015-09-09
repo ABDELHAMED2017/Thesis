@@ -17,12 +17,13 @@ A cognitive radio can modify parameters such as transmit power, coding rate, fra
 The radio baseband should also be reconfigurable to enable support for multiples standards such as WiFi, WiMAX, GSM, WCDMA, and other defined access schemes.
 More advanced adaptive standards are intrinsically flexible and this flexibility should be managed to optimise performance in the channel.
 
-\todo[inline]{This thesis explores techniques for enabling the mapping and implementation of dynamic cognitive radios on FPGA platforms.
+This thesis explores techniques for enabling the mapping and implementation of dynamic cognitive radios on FPGA platforms.
 By dynamic, we are referring to the ability to modify baseband processing to suit difference transmission standards and scenarios.
-The decision making and spectral sensing aspects of cognitive radio are not addressed in this dissertation.
+The decision making and spectral sensing aspects of cognitive radio are not addressed in this thesis.
 %The cognitive portion of a radio is where decisions are made to modify properties of the communication.
 In the context of our work, we are interested in providing a generalised interface for cognitive radio designers to be able to leverage the dynamic capabilities of the hardware platform at a higher level.
-}
+By generalising the interface, we allow arbitrarily complex cognitive engines to leverage the flexibility of the baseband
+
 
 FPGAs are silicon devices that allow us to build customised hardware datapaths for a variety of applications.
 By exploiting parellelism inherent in many algorithms, it is possible to develop implementations that are significantly faster than equivalent software running on general purpose processors.

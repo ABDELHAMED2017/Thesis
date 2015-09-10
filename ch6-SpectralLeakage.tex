@@ -118,7 +118,7 @@ One way to avoid the distortion is to add extending parts, i.e. CP and cyclic su
 While the CP in conventional OFDM is used as a guard interval, here it is also occupied, along with the CS, for pulse shaping.
 
 Pulse shaping extends the  $N_{T}$ length of the OFDM signal by a roll-off factor, $\beta$.
-One effect of extending the symbol is to reduce spectral efficiency, and thus the CP and CS of consecutive symbols can be overlapped, as shown in Fig.~\ref{fig:PS}. This, in turn, causes ISI in the overlapped region.
+One effect of extending the symbol is to reduce spectral efficiency, and thus the CP and CS of consecutive symbols can be overlapped, as shown in Figure~\ref{fig:PS}. This, in turn, causes ISI in the overlapped region.
 
 In practical terms, pulse shaping using the overlapping method is effectively shortening the OFDM guard interval.
 A larger $\beta$ means reduced spectral leakage, at the cost of reducing the effective guard interval since a number of guard interval samples are taken for pulse shaping.
@@ -164,7 +164,7 @@ This assumption is noted because the band gap between the desired spectrum and i
 Thus the overlapping image spectrum can influence the effectiveness of the shaped spectral leakage.
 The issue will be discussed later in the chapter, where image cancellation is presented separately for 802.11p and 802.11af.
 
-The three smoothing functions are simulated for otherwise identical channels and signals, and compared in Fig.~\ref{fig:Spec_PS}. The figure reveals the spectral envelope attenuation achieved using the three smoothing functions. %, with respect to the transmitted OFDM symbol.
+The three smoothing functions are simulated for otherwise identical channels and signals, and compared in Figure~\ref{fig:Spec_PS}. The figure reveals the spectral envelope attenuation achieved using the three smoothing functions. %, with respect to the transmitted OFDM symbol.
 
 \begin{figure}[t]
     \centerline{\includegraphics [width=0.7\columnwidth] {Figures/w-ofdm} }
@@ -209,7 +209,7 @@ The three smoothing functions are simulated for otherwise identical channels and
 \vspace{-4mm}
 \end{figure}
 %
-In Fig.~\ref{fig:Spec_PS}, \emph{os} shows the original OFDM spectrum without applying pulse shaping.
+In Figure~\ref{fig:Spec_PS}, \emph{os} shows the original OFDM spectrum without applying pulse shaping.
 $p_1\_\beta1$, $p_2\_\beta1$, $p_3\_\beta1$ show the spectra of the OFDM signal using smoothing functions $p_1(m)$ to $p_3(m)$, respectively, and roll-off factor $\beta N_{T}=1$. Plots are also shown for the same functions with roll-of factor $\beta N_{T}=5$.
 In the case of using one guard interval sample, the spectral leakage is reduced compared to the original OFDM signal, and  $p_1\_\beta1$ obtains better results than the other two methods (i.e., $p_2\_\beta1$, $p_3\_\beta1$), however, the shaped spectra do not meet the emission requirement of class C.
 When 5 CP samples are used for pulse shaping, $p_2(m)$ and $p_3(m)$ achieve a significant improvement, and in fact, $p_2\_\beta5$ satisfies class C and almost meets the requirement of class D.
@@ -244,7 +244,7 @@ Thus, we can state that, ignoring the presence of an image spectrum as noted pre
 \vspace{-4mm}
 \end{figure}
 
-To investigate further, Fig.~\ref{fig:Inter_Spec_PS} plots simulation results for pulse shaped 802.11p OFDM symbols with the presence of the image spectrum included.
+To investigate further, Figure~\ref{fig:Inter_Spec_PS} plots simulation results for pulse shaped 802.11p OFDM symbols with the presence of the image spectrum included.
 The image is a consequence of interpolation or DAC response.
 The plot shows that pulse shaping yields a response that is similar to, but slightly better than, the original OFDM signal.
 However, when the image spectrum is considered, pulse shaping clearly can not achieve meaningful adjacent channel signal compression.
@@ -350,7 +350,7 @@ For comparison between the proposed and conventional approaches, $L$ should also
 \end{figure}
 
 To visualise the spectral performance, a simulation is performed, with $L=8$, to evaluate filtered spectra using each window function, for 802.11p symbols.
-The spectral responses are plotted in Fig.~\ref{fig:FirSpec}, where the same OFDM signal as in Fig.~\ref{fig:Inter_Spec_PS} has been filtered by the FIR interpolation filters, and compared to the SEMs.
+The spectral responses are plotted in Figure~\ref{fig:FirSpec}, where the same OFDM signal as in Figure~\ref{fig:Inter_Spec_PS} has been filtered by the FIR interpolation filters, and compared to the SEMs.
 In the figure, the filtered spectra obtained by using Kaiser, Hamming, Hanning, Blackman, and Chebyshev windows are compared (denoted using the abbreviations in Table~\ref{tab:lengthFIR}).
 In each case, two prominent auxiliary peaks, visible beside the main spectrum, are the biggest impediments to satisfying the SEM criteria.
 In detail, the Blackman filtered spectrum slightly exceeds the class A limits, whereas the remaining filters are able to meet the requirements of classes A and B but not of classes C and D. In fact, none of the filters are even close to class C and D compliance.
@@ -395,7 +395,7 @@ For the purposes of this chapter, a CR architecture is developed which combines 
 In particular, the architecture adaptively extends the frequency guard as required, and performs both pulse shaping and FIR interpolation filtering to meet the most strict SEM requirements of both standards.
 It should be understood that this CR architecture is designed to demonstrate compliance with the more difficult standards: it could trivially be de-rated to the much less stringent 802.11a and 802.11ac parent standards.
 
-The proposed CR-based transmitter architecture structure is presented in Fig.~\ref{fig:Struc}, as implemented on a Xilinx FPGA for experimental purposes.
+The proposed CR-based transmitter architecture structure is presented in Figure~\ref{fig:Struc}, as implemented on a Xilinx FPGA for experimental purposes.
 \begin{figure}[t]
     \centerline{\includegraphics [width=0.9\columnwidth] {Figures/CRTx_shaping} }
 	\vspace{-2mm}
@@ -465,7 +465,7 @@ Based on this configuration, two optional systems, denoted as \emph{Prop1} and \
 
 Based on the results in subsection~\ref{subsec:Pulse}, $p_2(m)$ is employed with $\beta N_{T}=5 \times M$. i.e.\ equivalent to the length of 5 samples of the original CP, i.e., 500\,ns.
 It should be noted that, after extending the frequency guard, the number of samples in the symbol, including CP, is increased $M$ times.
-Fig.~\ref{fig:OverSpec} plots the shaped spectrum of the proposed method after interpolation in the baseband, at a sample frequency of 80\,MHz.
+Figure~\ref{fig:OverSpec} plots the shaped spectrum of the proposed method after interpolation in the baseband, at a sample frequency of 80\,MHz.
 The original spectrum denoted \emph{Conv}, and the specifications for classes C and D are also shown.
 The main spectrum of \emph{Prop1} and \emph{Prop2} almost satisfy class D.
 The image spectrum of \emph{Prop1} is present at $\pm$20\,MHz and $\pm$40\,MHz whereas \emph{Prop2} has an image spectrum at $\pm$40\,MHz only.
@@ -503,12 +503,12 @@ The remaining guard interval for the transmitter filter and matched filter is 50
 Therefore, the maximum impulse response available for the image rejection FIR filter is 250\,ns, which is equivalent to $2.5 \times M.L'$ samples at the 80\,MHz sampling frequency.
 
 FIR filters are designed for \emph{Prop1} and \emph{Prop2} respectively, using a Kaiser window. For \emph{Prop1}, since the frequency guard is still relatively narrow, an FIR filter with an impulse length of 20 samples is required to cancel the image spectrum.
-Fig.~\ref{fig:OptSpec1} shows the result of spectrum filtering for \emph{Prop1}, with the original OFDM spectrum (\emph{Conv}) and SEMs for classes C and D overlaid.
+Figure~\ref{fig:OptSpec1} shows the result of spectrum filtering for \emph{Prop1}, with the original OFDM spectrum (\emph{Conv}) and SEMs for classes C and D overlaid.
 It can be seen that there are still two small peaks caused by the image spectrum, but these are compressed by the FIR filter to meet the class D requirement.
 Some distortion is noticeable in the main spectrum due to the effects of the FIR filter.
 
 \emph{Prop2} has a wider frequency guard compared to \emph{Prop1} and thus its FIR filter only requires a length of 12 samples to cancel the image spectrum. A remaining effective guard interval of 200\,ns is reserved.
-Fig.~\ref{fig:OptSpec2} plots the result of this degree of spectral filtering for \emph{Prop2} and with respect to the class C and D SEMs.
+Figure~\ref{fig:OptSpec2} plots the result of this degree of spectral filtering for \emph{Prop2} and with respect to the class C and D SEMs.
 Clearly the image spectrum of \emph{Prop2} can be cancelled by a short-length FIR filter, while suffering less distortion (rounding) to the main passband.
 %whilst that for $\mathit{Prop}1$ still remains too large in magnitude.
 %Hence, $\mathit{Prop}2$ meets the class D specification.
@@ -587,7 +587,7 @@ Our proposed method quadruples the size of the IFFT (i.e. $M=4$), to extend the 
 Pulse shaping is configured to employ $p_2(m)$ from Subsection~\ref{subsec:Pulse}, with $\beta N_{T}=20 \times M$. That is equivalent to the length of 20 samples of the original CP.
 Then 2-fold interpolation (i.e. $L'=2$), is required to obtain the sampling frequency of 48\,MHz.
 The maximum allowed FIR filter length for cancelling the image spectrum without inducing ISI is equivalent to 3 samples of the original CP.
-Fig.~\ref{fig:80211af} illustrates the results of shaping the spectral leakage for 802.11af using this proposed CR architecture.
+Figure~\ref{fig:80211af} illustrates the results of shaping the spectral leakage for 802.11af using this proposed CR architecture.
 
 \begin{figure}
 	\centering
@@ -619,13 +619,13 @@ This can extend the frequency guard, but clearly results in a loss of spectral e
 Reducing transmission power is also possible, but is similarly unattractive since it would adversely impact range -- in fact the power reduction needed to bring the \emph{Conv} transmission within the SEM envelope is not small.
 For example, the 802.11af prototype hardware in \cite{Lan2013} requires the transmitted power to be attenuated by 20dB to satisfy the SEM specifications.
 
-On the other hand, the spectrum of the proposed CR architecture, denoted in Fig. ~\ref{fig:80211af} as \emph{Prop}, comfortably meets the SEM specification without impacting either range or spectral efficiency.
+On the other hand, the spectrum of the proposed CR architecture, denoted in Figure~\ref{fig:80211af} as \emph{Prop}, comfortably meets the SEM specification without impacting either range or spectral efficiency.
 
 \subsection{802.11af Spectral Efficiency}
 
 Another way of investigating performance is to compute spectral efficiency, given a flexible allocation of subcarriers.
 In other words to adjust the number of occupied subcarriers until the transmission profile fits within the 802.11af SEM, and using the unoccupied subcarrier space for filter roll off.
-In the conventional method (Fig. ~\ref{fig:80211af}), about 35~dBc additional filtering would be needed to suppress the image spectrum at the edge of the channel bandwidth (3\,MHz), from -20\,dBc, to -55\,dBc.
+In the conventional method (Figure~\ref{fig:80211af}), about 35~dBc additional filtering would be needed to suppress the image spectrum at the edge of the channel bandwidth (3\,MHz), from -20\,dBc, to -55\,dBc.
 
 With a 96th order FIR filter as mentioned above for \emph{Conv}, the transition band needed to achieve such suppression is estimated, based on the Kaiser window formula in Table~\ref{tab:lengthFIR}, as being 0.83\,MHz.
 This is equivalent to 21 subcarrier spacings which would need to be trimmed from each side of the 802.11af channel.
@@ -633,12 +633,12 @@ Thus the number of occupied subcarriers would need to be reduced from the standa
 
 However, the window formula is only an estimate, and hence the system is simulated here to explore further.
 In this case, the number of subcarriers is reduced step-wise in pairs, from the edges working inwards, until the SEM is just satisfied.
-Fig.~\ref{fig:80211af2} plots results with 94 and 92 subcarriers occupied (\emph{Conv\_92s} and \emph{Conv\_92s}), showing that 92 subcarriers meets the SEM requirement whereas 94 subcarriers does not, by a small margin.
+Figure~\ref{fig:80211af2} plots results with 94 and 92 subcarriers occupied (\emph{Conv\_92s} and \emph{Conv\_92s}), showing that 92 subcarriers meets the SEM requirement whereas 94 subcarriers does not, by a small margin.
 
-Referring back to Fig.~\ref{fig:80211af}, we also see a clear frequency gap between the spectrum of the proposed approach and the SEM.
+Referring back to Figure~\ref{fig:80211af}, we also see a clear frequency gap between the spectrum of the proposed approach and the SEM.
 This gap could potentially be exploited to pack in several more occupied subcarriers.
 We therefore undertake simulations to explore this phenomenon, and find that the proposed method is able to pack in up to 124 employed subcarriers while still satisfying the SEM.
-This is also illustrated in Fig.~\ref{fig:80211af2} as \emph{Prop\_124s}.
+This is also illustrated in Figure~\ref{fig:80211af2} as \emph{Prop\_124s}.
 
 The results demonstrate that the proposed CR architecture can not only meet the stringent SEM requirement of 802.11af but could also be used to enhance spectral efficiency beyond that.
 Compared to the approach of trimming off edge carriers needed by an equivalent transmission power conventional system in order to satisfy the SEM, the proposed approach to CR spectrum shaping increases spectral efficiency by 32\%.

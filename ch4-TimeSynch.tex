@@ -48,7 +48,7 @@ P[d] =\sum_{m =0}^{L-1}    (r^{*}[d+m] r[d+m+L] ),
 
 %where superscript \textquotedblleft$*$\textquotedblright  denotes complex conjugation.
 
-The metric \emph{M[d]} is illustrated for a typical channel in Fig.~\ref{fig:M1-10dB}, where it can be seen to form a distinct plateau in the region when the preamble is presented within a received window.
+The metric \emph{M[d]} is illustrated for a typical channel in Figure~\ref{fig:M1-10dB}, where it can be seen to form a distinct plateau in the region when the preamble is presented within a received window.
 Clearly, \emph{M[d]} accurately detects the preamble, however the nature of the plateau having a flat top presents an uncertainty in terms of exact positioning, and hence reduced accuracy in determining the exact start of the frame, compared to a metric which peaks.
 
 \begin{figure}
@@ -159,7 +159,7 @@ P[d] =\sum_{m =0}^{L-1}    (r[d+m] a[m])^{*} (r[d+m+L] a[m]),
 \end{center}
 where $d$ again denotes the time index corresponding to the first sample in a window of \emph{2L} samples of received signal $r$ and superscript \textquotedblleft$*$\textquotedblright again denotes complex conjugation. In (\ref{PKishore}) the samples $a$ are now the known, transmitted, time domain preamble samples.
 
-The cross correlation now produces distinct peaks at the times when received samples match the known transmitted samples of the preamble. Fig.~\ref{fig:M2-10dB} illustrates this by plotting \emph{M} versus the sample index $d$ for an example channel in AWGN with SNR~=~10{\thinspace}dB.
+The cross correlation now produces distinct peaks at the times when received samples match the known transmitted samples of the preamble. Figure~\ref{fig:M2-10dB} illustrates this by plotting \emph{M} versus the sample index $d$ for an example channel in AWGN with SNR~=~10{\thinspace}dB.
 A frame is detected when \emph{M} crosses a threshold and the start of frame is found by searching the peaks of \emph{M}.
 This can accurately determine the start of frame even at low SNRs.
 Moreover, this method is robust to large CFO for time synchronisation.
@@ -179,7 +179,7 @@ In general, this method is appropriate for time synchronisation but requires sig
 %---------------------------------------------------------------------------------
 
 Considering the limitations of previous work, we propose new timing metrics to take advantage of preamble characteristics such as period and energy distribution.
-Again, the proposed method is illustrated for the specific case of the IEEE~802.16-2009 preamble, as shown in Fig.\ref{fig:SyncFlow}.
+Again, the proposed method is illustrated for the specific case of the IEEE~802.16-2009 preamble, as shown in Figure\ref{fig:SyncFlow}.
 
 Firstly, we define the autocorrelation between the two halves of the receiver window for normalisation purposes;
 
@@ -214,9 +214,9 @@ R'[d] =\sum_{m =0}^{C-1}   |r[d+m+L]|^2  |a[m]|^2
 
 
 In common with the metric developed by Schmidl and Cox \cite{Schmidl1997}, our proposed \emph{P'[d]} detects the periodic characteristic of the preamble and can thus be used for estimating fractional CFO.
-\emph{P'} forms a plateau as evident in Fig.\ref{fig:ProposedMetric-10dB} when the preamble is present within the receiver window.
+\emph{P'} forms a plateau as evident in Figure\ref{fig:ProposedMetric-10dB} when the preamble is present within the receiver window.
 \emph{R'} is then used to find the starting point of the preamble based on its energy distribution.
-\emph{R'} causes peaks shown in Fig.\ref{fig:ProposedMetric-10dB} at the point where the energy distribution of the received samples matches that of the transmitted preamble.
+\emph{R'} causes peaks shown in Figure\ref{fig:ProposedMetric-10dB} at the point where the energy distribution of the received samples matches that of the transmitted preamble.
 Since the \emph{R'} metric that is used to estimate time synchronisation is computed on the square of the amplitude of received samples, the time synchronisation is insensitive to the CFO that effects the phase of the received samples.
 Moreover, computing on amplitude squared, a real number, requires less resources than using complex numbers as in alternative approaches such as \cite{Kishore2006}.
 In addition, the time synchronisation is performed based on the peak value of \emph{R'} rather than its absolute value.
@@ -226,7 +226,7 @@ Therefore, \emph{R'} is a good candidate for implementation using a multiplierle
 	\caption{The synchronisation flow according to the received samples within the preamble showing its packet format above the conventional synchronisation scheme flow (middle), and proposed scheme (bottom). With the packet timing illustrated above.}
 	\label{fig:SyncFlow}
 \end{figure}
-Fig.\ref{fig:SyncFlow} illustrates the flow of the proposed synchronisation method according to the received samples of the preamble, compared to that of the conventional scheme.
+Figure\ref{fig:SyncFlow} illustrates the flow of the proposed synchronisation method according to the received samples of the preamble, compared to that of the conventional scheme.
 As can be seen in the conventional scheme, the coarse STO and fractional CFO estimation are performed in the two first periods of the short training symbol from (i) to (iii), and then the estimated fractional CFO is used for compensation.
 The fine STO is estimated in the last period of the short training symbol from (iv) to (vi), and integer CFO should be computed in the long training symbol from (vii) to (viii).
 By contrast, the proposed method performs STO synchronisation and fractional CFO estimation in the three first periods of the short training symbol from (i) to (iv), and the start of frame will be detected at (ii).
@@ -243,7 +243,7 @@ First, frame detection is performed by comparing the metric \emph{P'} to \emph{R
 \end{equation}
 
 %The threshold is different for each channel and needs to be determined empirically by simulation (in common with other systems such as \cite{Kishore2006}).
-Fig.\ref{fig:TimeSyn_thr_AWGN} shows the performance of the frame synchronisation in the given channel for different threshold values.
+Figure\ref{fig:TimeSyn_thr_AWGN} shows the performance of the frame synchronisation in the given channel for different threshold values.
 With each threshold value, 1000 frame detections are simulated.
 \begin{figure}
 	\centerline{\includegraphics [width=0.9\columnwidth] {figures/ThresholdEffect.pdf}}
@@ -260,7 +260,7 @@ The threshold values depend on the operating channel and are determined empirica
 
 
 After a frame is detected, the starting point of the short preamble is found by searching for the peaks in \emph{R'[d]}.
-As can be seen in Fig. \ref{fig:ProposedMetric-10dB}, two peaks in \emph{R'[d]} will bracket the transition to the plateau in \emph{P'[d]} shown at sample indices of -31 and 33, respectively.
+As can be seen in Figure \ref{fig:ProposedMetric-10dB}, two peaks in \emph{R'[d]} will bracket the transition to the plateau in \emph{P'[d]} shown at sample indices of -31 and 33, respectively.
 The second peak is used as the starting point for the DFT window.
 This is accomplished for the maximum values of $R'[d] + R'[d - L]$ over the next \emph{L} samples after frame detection.
 Second, the fractional CFO estimation is presented in (\ref{proposedfractionalCFO}) based on the \emph{P'[d]} metric similarly to other work such as \cite{Schmidl1997,Schwoerer2002,Manavi2004,Guffey2007,Huang2010,Recio2010};
@@ -350,12 +350,12 @@ First, the performance of each method is found for AWGN channels beginning with 
 \label{fig:Fest_AWGN}
 \end{figure}
 
-Fig.~\ref{fig:STO_AWGN} and  Fig.~\ref{fig:Fest_AWGN} plot the performance results of STO and CFO estimation in AWGN with a frequency offset of 0.5 subcarrier spacings, respectively.
+Figure~\ref{fig:STO_AWGN} and  Figure~\ref{fig:Fest_AWGN} plot the performance results of STO and CFO estimation in AWGN with a frequency offset of 0.5 subcarrier spacings, respectively.
 \textit{SoA} and the proposed methods have much better performance than \textit{K\&R} in these tests, achieving perfect synchronisation when SNR exceeds 5{\thinspace}dB.
 \textit{Prop1}'s STO estimation has slightly better accuracy with SNR below 3{\thinspace}dB but is worse at higher SNR than \textit{SoA}.
 Increasing the length of received samples for estimation, i.e., setting $C = 2L$, allows \textit{Prop2} to obtain a remarkable improvement in STO estimation, clearly better than the estimation achievable by \textit{SoA}.
 \textit{Prop3}, with $C = 3L$, demonstrates decreasing gains: it is not able to enhance accuracy as much as \textit{Prop2}, despite a considerable hardware cost incurred when increasing \emph{C}.
-In addition, the CFO of \textit{Prop3} and \textit{Prop2} achieve significant improvement compared to the other methods in Fig.~\ref{fig:Fest_AWGN}, while the accuracy of \textit{Prop1} and \textit{SoA} are identical (the curve for \textit{Prop1} is hidden behind the curve for \textit{SoA} as a result).
+In addition, the CFO of \textit{Prop3} and \textit{Prop2} achieve significant improvement compared to the other methods in Figure~\ref{fig:Fest_AWGN}, while the accuracy of \textit{Prop1} and \textit{SoA} are identical (the curve for \textit{Prop1} is hidden behind the curve for \textit{SoA} as a result).
 
 The gap between \textit{Prop1} and \textit{Prop2} is much larger than that between \textit{Prop2} and \textit{Prop3}, again demonstrating decreasing gains as \emph{C} is extended. Thus, increasing \emph{C} from \emph{L} to \emph{2L} is a more effective improvement than extending \emph{C} from \emph{2L} to \emph{3L}.
 The accuracy of CFO estimation in \textit{Prop2} is improved by about 5{\thinspace}dB in comparison to \textit{SoA} and \textit{K\&R}.
@@ -406,9 +406,9 @@ These results show the proposed method to be competitive with state of the art m
 \label{fig:STO_SUI2}
 \end{figure}
 
-Fig.~\ref{fig:STO_SUI1} and  Fig.~\ref{fig:STO_SUI2} present the performance results of STO estimation in SUI1 and SUI2 channels, respectively.
+Figure~\ref{fig:STO_SUI1} and  Figure~\ref{fig:STO_SUI2} present the performance results of STO estimation in SUI1 and SUI2 channels, respectively.
 The proposed methods are seen to achieve much better accuracy than the \textit{K\&R} method.
-Compared to \textit{SoA}, Fig.~\ref{fig:STO_SUI1} reveals that the estimation of \textit{Prop1}, \textit{Prop2} and \textit{Prop3} is more accurate when SNR is below 3{\thinspace}dB.
+Compared to \textit{SoA}, Figure~\ref{fig:STO_SUI1} reveals that the estimation of \textit{Prop1}, \textit{Prop2} and \textit{Prop3} is more accurate when SNR is below 3{\thinspace}dB.
 However, for higher SNRs, the accuracy of \textit{SoA} is slightly better than that of the proposed method.
 Increasing the length of received samples for estimation achieves an improvement when SNR is below about 5{\thinspace}dB, although the results for \textit{Prop1}, \textit{Prop2} and \textit{Prop3} saturate and become almost identical at higher SNRs, as does \textit{K\&R}.
 
@@ -436,7 +436,7 @@ Increasing the length of received samples for estimation achieves an improvement
 \end{figure}
 
 The proposed method is designed to work even with large frequency offsets.
-Fig.~\ref{fig:STO_AWGN_Fre} explores performance over 100,000 tests where the frequency offset is chosen randomly (with uniform distribution) from -10 to +10 times the subcarrier spacing for each test, in an AWGN channel.
+Figure~\ref{fig:STO_AWGN_Fre} explores performance over 100,000 tests where the frequency offset is chosen randomly (with uniform distribution) from -10 to +10 times the subcarrier spacing for each test, in an AWGN channel.
 This experiment is specifically designed to investigate the robustness of STO estimation in large CFO conditions and shows that the proposed methods still maintain good performance. \textit{K\&R} exhibits some accuracy degradation, however, all methods are seen to outperform \textit{SoA}. The proposed methods are therefore seen to offer robustness of STO estimation against large CFO.
 This robustness against large CFO is because the proposed metric is computed on magnitude values that are insensitive to phase errors.
 CFO estimation is not evaluated here because large CFO estimation requires an integer CFO estimator that is investigated in the subsequent section.
@@ -452,7 +452,7 @@ The above sub-section already revealed that the performance of \textit{K\&R} is 
 
 		\subsubsection{Implementation of Conventional Synchroniser}
 
-First, let us consider a conventional synchroniser. We have implemented this as shown in Fig.~\ref{fig:Con-Sync}, following the efficient implementation methods presented in \cite{Manavi2004,Wang2004,Guffey2007,Liu2009}.
+First, let us consider a conventional synchroniser. We have implemented this as shown in Figure~\ref{fig:Con-Sync}, following the efficient implementation methods presented in \cite{Manavi2004,Wang2004,Guffey2007,Liu2009}.
 The \emph{P} and \emph{R} timing metrics in (\ref{PMetric}) and (\ref{RMetric}), respectively are computed using delay and summation, whilst a very efficient signed bit multiplier \cite{Schwoerer2002} is used to significantly reduce the computational overhead of the cross correlation for fine timing synchronisation.
 
 \begin{figure}[h]
@@ -484,9 +484,9 @@ These compensated samples are now used to determine fine timing synchronisation.
 	\label{fig:Pro-Sync}
 \end{figure}
 
-The architecture for our proposed method is shown in Fig.~\ref{fig:Pro-Sync}.
+The architecture for our proposed method is shown in Figure~\ref{fig:Pro-Sync}.
 The format of received samples is similar to the conventional design.
-The \emph{R'} metric is determined using an energy correlator as illustrated in Fig.~\ref{fig:ML-Cor}.
+The \emph{R'} metric is determined using an energy correlator as illustrated in Figure~\ref{fig:ML-Cor}.
 The number of samples used to compute it is 128 and since the 128 samples of the short preamble are arranged in two identical spans of 64 samples each, the correlator only needs 64 taps.
 The proposed method improves upon full cross-correlation not just by taking advantage of the periodic nature of the preamble, but also profiting from the real number computation of the proposed metrics, instead of requiring complex computation, and through enabling the use of a multiplierless correlator, yielding a significant computational saving.
 Eqn.~(\ref{ProposedR-imp}) shows the derived equations of this optimisation:
@@ -502,7 +502,7 @@ R'(z) &=& I(z)A_{127} + I(z) z^{-1}A_{126} + ... + I(z) z^{-63}A_{64} \nonumber 
 	  &	&						 + z^{-1 }( ...+z^{-1}I(z)(1+z^{-64})A_{0}))),
 \end{eqnarray}
 where \emph{I} is the squared amplitude of the received sample and $A_n$ denotes the normalised squared amplitude of known preambles.
-Following this, a multiplierless correlator, as described in detail in \cite{Pham2012}, is used to compute the output, shown in block diagram form in Fig.~\ref{fig:ML-Cor}.
+Following this, a multiplierless correlator, as described in detail in \cite{Pham2012}, is used to compute the output, shown in block diagram form in Figure~\ref{fig:ML-Cor}.
 
 \begin{figure}[h]
 	\centerline{\includegraphics [width=0.6\columnwidth] {figures/ML_Cor.pdf}}
@@ -540,7 +540,7 @@ Recall the results of CFO estimation in the simulation sub-section where \textit
     \end{tabular}
 \end{table}
 
-To understand precisely how $f1$ reduction can save hardware, Table~\ref{tab:P-Metric} details the hardware resource required for implementing five representative word sizes. Meanwhile, Fig. \ref{fig:Fest_AWGN_PQ} plots CFO performance curves for the corresponding sizes of $f1$. It is clear from the graph that all degraded precision computations perform well -- even the lowest Q1.4 precision computation (\textit{Prop-4b}) can outperform \textit{SoA} below about 7dB.
+To understand precisely how $f1$ reduction can save hardware, Table~\ref{tab:P-Metric} details the hardware resource required for implementing five representative word sizes. Meanwhile, Figure~\ref{fig:Fest_AWGN_PQ} plots CFO performance curves for the corresponding sizes of $f1$. It is clear from the graph that all degraded precision computations perform well -- even the lowest Q1.4 precision computation (\textit{Prop-4b}) can outperform \textit{SoA} below about 7dB.
 The optimal choice for this range of SNRs is probably $f1=7bits$ (\textit{Prop-7b}) which suffers just a slight decrease in accuracy compared to the `full length' 15 bit version (\textit{Prop-15b}). This allows a reduction of 21\%, 24\%, and 33\% in the number of flipflops (FF), Look-up-tables (LUT), and BRAM blocks, respectively. Moreover, \textit{Prop-7b} still achieves excellent performance when compared to the state of the art method, \textit{SoA}.
 
 \begin{figure}[h]
@@ -606,7 +606,7 @@ The optimal choice for this range of SNRs is probably $f1=7bits$ (\textit{Prop-7
 
 
 Similarly, the optimized tradeoff between the accuracy of STO estimation and hardware usage for computation of the \emph{R'} metric is obtained based on reducing $f2$. In this case,
-Table~\ref{tab:R-Metric} reveals the corresponding reduction achieved in computation resources and Fig.~\ref{fig:STO_AWGN_RQ} plots the frame synchronisation fail rate with SNR for several values of $f2$.
+Table~\ref{tab:R-Metric} reveals the corresponding reduction achieved in computation resources and Figure~\ref{fig:STO_AWGN_RQ} plots the frame synchronisation fail rate with SNR for several values of $f2$.
 The performance of the proposed method with $f2=6bit$, \textit{Prop-6b}, can be seen to be almost identical to the `full length' computation using 15 fractional bits, \textit{Prop-15b}. Overall, \textit{Prop-6b} achieves much more accurate estimation compared to the state of the art method, \textit{SoA}. Reducing $f2$ to 6 bits allows a reduction of 41\%, 42\%, and 56\% in the number of FFs, LUTs, and BRAM blocks.
 
 		\subsubsection{Optimized Alternatives}

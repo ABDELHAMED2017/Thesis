@@ -43,7 +43,7 @@ Each of the methods has been implemented using FPGA development tools in a modul
 In fact a carefully-designed testbench has been generated for each module, following industry standard practices for FPGA development.
 Furthermore, the captured data streams were cross-compared with a MATLAB simulation to ensure correctness. In other words, the output of a module is compared to the MATLAB simulation output for that module. This data then forms the input of the next module (whose output is also checked against the MATLAB data).
 
-Regarding real-time effects, chapter 7 analyses the ability of the proposed architecture in a multi-standard context specifically with regard to the adaptation time when switching from one standard to another. %As can be seen in Fig. 7.1, building up a prototype for demonstration requires a lot of hard engineering works.
+Regarding real-time effects, chapter 7 analyses the ability of the proposed architecture in a multi-standard context specifically with regard to the adaptation time when switching from one standard to another. %As can be seen in Figure 7.1, building up a prototype for demonstration requires a lot of hard engineering works.
 
 Please note also that a prototype CR implementation is beyond the scope of this work (and requires many practical issues to be solved, as well as having a working CR engine, RF or IF digital front-end, and MCMM).
 While we did begin to pursue this through employment of a Research Associate, they departed before completing the project.
@@ -74,7 +74,7 @@ where $x_{k}[n]$ denotes the sample of the $k_{th}$ subcarrier data symbol in $n
 	\caption{Block diagram of a multicarrier modulated system, (a) in the countinuous-time and (b) in discrete-time}
 	\label{fig:multicarrier-block}
 \end{figure}
-This transceiver of multicarrier system can be modelled as a block diagram, shown in Fig.~\ref{fig:multicarrier-block}.
+This transceiver of multicarrier system can be modelled as a block diagram, shown in Figure~\ref{fig:multicarrier-block}.
 As can be seen in the discrete-time domain, $N$ data symbols at synthesis are up sampled by a factor of $L$, which is calculated by $\frac{T}{T_{S}}$, $T_{S}$ denotes sample period of output sequence $s[n]$, and then filtered by a prototype filter $h[n]$. The output of each data stream will be modulated by frequency of multi-carriers and the summed for transmission.
 The signal in the receiver is demodulated and then filtered by a bank of matched filters $h'[n]$, and down sampled by a factor of $L$.
 When critical sampling applies, $L = N$ and the prototype filter $h[n]$ is selected as a rectangular pulse in the time domain, i.e. a $sinc$ pulse in the frequency, this multicarrier system becomes a conventional OFDM system.

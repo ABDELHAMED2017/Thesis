@@ -59,7 +59,7 @@ However, by using low-level reconfiguration circumventing the official PR flow, 
 \label{fig:struc}
 \end{figure}
 
-Fig.~\ref{fig:struc} illustrates the proposed structure of baseband modulation for our OFDM-based MSCR.
+Figure~\ref{fig:struc} illustrates the proposed structure of baseband modulation for our OFDM-based MSCR.
 A mix of partially reconfigurable and parameterised modules make up the baseband implementation.
 FIFOs are included to help overcome the reconfiguration latency when PR modules are reconfigured.
 While a sink module is reconfiguring, these FIFOs store samples from the source until the module is ready to process data.
@@ -147,7 +147,7 @@ The MMCM module is also required to change the processing rate of data plane acc
 
 \subsection{Module Description}\label{sec:7module}
 
-In this section, we detail the design of each functional module shown in Fig.~\ref{fig:struc}, showing how to build a multi-standard implementation.
+In this section, we detail the design of each functional module shown in Figure~\ref{fig:struc}, showing how to build a multi-standard implementation.
 There is a tradeoff between the simplicity, flexibility, but long reconfiguration latency of a PR module and the increased hardware overhead, complexity, but faster configuration of a parameterised module.
 The comparison between the hardware usage of parameterised modules for multiple standards and that of individual specified standard modules is evaluated.
 In cases where the hardware overhead for parameterisation is a threshold of the maximum area of a stand-alone module, it is judged as better parameterised.
@@ -166,7 +166,7 @@ Because the system performs in burst mode, the transmitter streams are not conti
 The data buffer is not a critical issue for the transmitter side.
 
 The receiver must, however, process continuously to detect incoming frames, and so, there is no spare time to flush data that has been buffered in the FIFOs during reconfiguration.
-Therefore, the receiver FIFO is configured with independent clocks as shown in Fig.~\ref{fig:FIFO}.
+Therefore, the receiver FIFO is configured with independent clocks as shown in Figure~\ref{fig:FIFO}.
 In order to flush stored data in the received FIFO after reconfiguration, the MMCM increases the receiver processing rate (rx\_clk) to be higher than the sampling rate of the RF front end to help empty the FIFO faster.
 Once the receiver FIFO is almost empty the processing rate is returned to the sampling rate to minimise power consumption.
 Since the FIFO IP cores support independent write and read clocks, this functionality is seamless to the stream processing.
@@ -181,7 +181,7 @@ Since the FIFO IP cores support independent write and read clocks, this function
 Our CR system communicates in burst mode.
 Hence, it must detect the presence of a frame and estimate the frequency offset required, based upon the preamble of the received frame.
 The \emph{Synch} module performs estimation as discussed in Chapter~\ref{chap:Synchronisation}.
-Fig.~\ref{fig:Sync} shows a block diagram of its implementation.
+Figure~\ref{fig:Sync} shows a block diagram of its implementation.
 
 The timing metrics are calculated by using auto-correlation on received samples.
 \emph{Coarse Time} detects the new frame and roughly estimates the start of a frame using blind estimation that provides generality for application to multiple standards.
@@ -223,7 +223,7 @@ Fractional CFO estimation and compensation are mathematically expressed as:
 \widehat{r[d]} &=& r[d] e^{-j2\pi\widehat{\Delta f} \frac{d}{N}}
 \end{eqnarray}
 where $\widehat{\Delta f }$ is estimated fractional CFO, $\angle P$ denotes the angle of P.
-Fig.~\ref{fig:FFO} illustrates the process for frequency compensation.
+Figure~\ref{fig:FFO} illustrates the process for frequency compensation.
 A phase rotation sub-module is used to compensate fractional CFO by rotating the received sample phase by the correct angle.
 This is calculated and accumulated based on estimated fractional CFO.
 \begin{eqnarray}
@@ -253,7 +253,7 @@ S[d] =\sum_{m =0}^{L-1}   |r[d+m+L]|^2  |a[m]|^2,
 \end{equation}
 when $|a[m]|$ denotes the normalised amplitude of the preamble at the transmitter.
 
-Fig.~\ref{fig:STO} shows the block diagram of fine STO estimation.
+Figure~\ref{fig:STO} shows the block diagram of fine STO estimation.
 The metric is calculated based on a multiplierless correlation between received samples and transmitted preamble.
 \emph{Peak Detect} finds the maximum value of correlation that is employed to accurately estimate the STO and \emph{Fine Time} determines the exact first sample of the next OFDM symbol (long preamble symbol).
 However, multiplierless correlation is not flexible and the implementation depends on the preamble which is different for each standard.
@@ -288,7 +288,7 @@ IFO is determined based on the method in Chapter~\ref{chap:CFO}:
 where $\epsilon$ denotes the value of IFO, $\hat{\epsilon}$, $\tilde{\epsilon}$ are estimated and trial values of $\epsilon$, respectively,
 $Y(k)$ and $X(k)$ denote the $k^{th}$ frequency symbol index of the received subcarriers and the known transmitted preamble, respectively, and the OFDM symbol size $N$ is equal to the FFT size.
 
-Fig.~\ref{fig:IFO} illustrates the block diagram of IFO estimation and channel equalisation.
+Figure~\ref{fig:IFO} illustrates the block diagram of IFO estimation and channel equalisation.
 \emph{IFO Correction} is performed effectively by cyclically shifting OFDM symbol corresponding to the estimated IFO estimation.
 
 After compensating for IFO, the effects of the channel and residual STO must be taken into account to compensate the received sub-carriers.
@@ -336,7 +336,7 @@ cos\theta_{l} &=& \frac{1}{N_P} \sum_{k \in S_P} \Re\{P_{k,l}\}, \\ \nonumber
 sin\theta_{l} &=& \frac{1}{N_P} \sum_{k \in S_P} \Im\{P_{k,l}\}, \\ \nonumber
 \end{eqnarray}
 where $N_P$ denotes the number of received pilots employed for estimation, $S_P$ is a set of used pilot frequency indices.
-The Fig.~\ref{fig:Phase} shows the block diagram of PhaseTrack. \emph{Pilot Extract} finds the employed pilots for phase tracking in the OFDM symbol based on allocation vector ($Alloc.~Bits$).
+The Figure~\ref{fig:Phase} shows the block diagram of PhaseTrack. \emph{Pilot Extract} finds the employed pilots for phase tracking in the OFDM symbol based on allocation vector ($Alloc.~Bits$).
 \emph{Phase Accumulator} computes the residual common phase error according to (\ref{CPE}).
 The phase error is compensated for by multiplying the data carriers by the complex conjugate of the estimated common phase error.
 To support multiple standards, $N_P$ is parameterised and $S_P$ can be determined through the allocation vector with the value shown in Table~\ref{tab:alloc_vec}
@@ -389,7 +389,7 @@ A large FIFO would be required to store a stream of received samples long enough
 A longer reconfiguration time would demand a larger FIFO, resulting in significantly increased hardware resource and power consumption.
 
 We evaluate baseband latency for a monolithic PR module, as well as for a system employing a finer granularity with multiple PR modules, and a mix of PR and parameterised modules for the case when the system switches to a new baseband.
-Fig.~\ref{fig:timing} illustrates this latency. We consider a system consisting of $N$ modules. $T_{c}$ refers to the reconfiguration time.
+Figure~\ref{fig:timing} illustrates this latency. We consider a system consisting of $N$ modules. $T_{c}$ refers to the reconfiguration time.
 We assume that a module can not process data during its reconfiguration time.
 $L_{i}$ is the computation latency of the $i^{th}$ module. Received data can, of course, be processed during the computation latency. In the case of a large monolithic PR module employed for the system, the system reconfiguration latency, $L_{sys}$, and halting time, $T_{hlt}$ that would require a FIFO to buffer received data which would otherwise be lost, is calculated as follow:
 
@@ -467,7 +467,7 @@ Table~\ref{tab:Resouces} reports the hardware resource usage for each sub-module
 %Because we employ the multiplyless correlation for Fine STO estimation, DSP blocks are not used in this module but resulting in increased number of used slides.
 
 We then determine the bitsteam size for each functional block according to the number of occupied CLB, DSP, BRAM columns that provide sufficient required resources for the block on FPGA floorplan. %\todo[inline]{How?}
-Fig.~\ref{fig:Bitstream} illustrates the bitstream sizes of each PR module, which we use to calculate configuration time later. The bitstream sizes of the sub-modules are relatively small compared to the monolithic PR module for the receiver sub-system. The $M_3$ bitstream is the largest among the sub-modules. The bitstream of the receiver is nearly triple the size of the transmitter.
+Figure~\ref{fig:Bitstream} illustrates the bitstream sizes of each PR module, which we use to calculate configuration time later. The bitstream sizes of the sub-modules are relatively small compared to the monolithic PR module for the receiver sub-system. The $M_3$ bitstream is the largest among the sub-modules. The bitstream of the receiver is nearly triple the size of the transmitter.
 \begin{table}[hb]
 	\centering
 	\caption{Resources for 802.22 OFDM-based implementation}
@@ -513,7 +513,7 @@ Fig.~\ref{fig:Bitstream} illustrates the bitstream sizes of each PR module, whic
 \label{fig:Bitstream}
 \end{figure}
 
-Processing latencies for functional modules are shown for the three standards in Fig.~\ref{fig:Latency}. We can see that 802.11 has the shortest latency because this standard uses the shortest FFT length, and hence the shortest symbol length for OFDM modulation.
+Processing latencies for functional modules are shown for the three standards in Figure~\ref{fig:Latency}. We can see that 802.11 has the shortest latency because this standard uses the shortest FFT length, and hence the shortest symbol length for OFDM modulation.
 It should be noted that during this latency the module still receives input data for processing.
 The processing chain must be halted when the latency time has ended but the reconfiguration of the following module has not yet been completed.
 The worst case halting time is a case of the shortest latency and the longest reconfiguration time.
@@ -553,7 +553,7 @@ Therefore, the latencies for 802.11 are used to calculate system halting time.
 Partial reconfiguration is performed with a high throughput ICAP controller that supports a data rate of 380\,MBps, closet to the theoretical limit of the FPGA.
 %We also factor in the required sampling frequency for each chosen standard.
 We use a sampling frequency of 10 MHz (i.e. the clock period = 0.1 us) that is typically defined for the 802.11p standard. %\todo[inline]{These sentences contradict!}
-Compute latency is calculated for the 802.11 standard, as shown in Fig.~\ref{fig:CfgLat}.
+Compute latency is calculated for the 802.11 standard, as shown in Figure~\ref{fig:CfgLat}.
 %The values of latency are scaled by a factor of 10 for better observation.
 As can be seen, the latency is very small in comparison to the configuration time.%\todo[inline]{Does that mean the graph is wrong? if the scales are different, use different axes!}
 It is clear that overlapping reconfiguration and data processing is not sufficient to hide reconfiguration delay, and so the finer granularity approach may not improve significantly over the monolithic PR module.
@@ -621,7 +621,7 @@ It is clear that overlapping reconfiguration and data processing is not sufficie
 \label{fig:CfgLat}
 \end{figure}
 
-The system halting time is an accumulated value of the halting time in each module described in (\ref{HaltTime}). During the halting time, the processing chain is halted and a FIFO is required to buffer input samples. Because the halting time of the synchronisation module depends on the time when a new frame is detected. The timing offset must be taken into account. Given a scenario of a transmission, shown in Fig.~\ref{fig:tx-rx} when a standard switch is required, Both the transmitter and receiver spend time to reconfigure the system for the new baseband standard. In the proposed receiver, the synchronisation module is a parameterised module, so this module can change its function within a clock period and hence quickly process input samples. However, a new frame cannot be sent so quickly because the transmitter is still being reconfigured, resulting in a timing offset in the receiver. It is thus reasonable that the minimum timing offset can be chosen as the configuration time of the transmitter whose hardware characteristics were reported in Table~\ref{tab:Resouces}.
+The system halting time is an accumulated value of the halting time in each module described in (\ref{HaltTime}). During the halting time, the processing chain is halted and a FIFO is required to buffer input samples. Because the halting time of the synchronisation module depends on the time when a new frame is detected. The timing offset must be taken into account. Given a scenario of a transmission, shown in Figure~\ref{fig:tx-rx} when a standard switch is required, Both the transmitter and receiver spend time to reconfigure the system for the new baseband standard. In the proposed receiver, the synchronisation module is a parameterised module, so this module can change its function within a clock period and hence quickly process input samples. However, a new frame cannot be sent so quickly because the transmitter is still being reconfigured, resulting in a timing offset in the receiver. It is thus reasonable that the minimum timing offset can be chosen as the configuration time of the transmitter whose hardware characteristics were reported in Table~\ref{tab:Resouces}.
 \begin{figure}
 \centering
 \includegraphics [width=1\columnwidth]{Figures/CR_Tx-Rx.eps}
@@ -674,7 +674,7 @@ The system halting time is an accumulated value of the halting time in each modu
 \end{figure}
 %\todo[inline]{Fix the colours so they print ok in black and white.}
 
-Fig.~\ref{fig:Halt} shows the system halting time of the three approaches. $Mon$, $Mul$, $Pro$ denote the halting time of the monolithic PR module approach, the multiple PR module approach, and the proposed approach, respectively. %\todo[inline]{Why not put them in the same order in the graph?}
+Figure~\ref{fig:Halt} shows the system halting time of the three approaches. $Mon$, $Mul$, $Pro$ denote the halting time of the monolithic PR module approach, the multiple PR module approach, and the proposed approach, respectively. %\todo[inline]{Why not put them in the same order in the graph?}
 $Ts_n$ is the halting time of the corresponding $M_n$ functional module. $Ts_R$ is the halting time of the monolithic receiver sub-system.
 
 We can see that the halting time of the multiple PR module approach is greater than that of the monolithic PR module approach, because the gain achieved by overlapping reconfiguration and data processing is less than the overhead incurred by partitioning into multiple PR modules. The proposed approach can significantly reduce the halting time to less than one-third of that of the monolithic PR module approach. This results in a reduction in FIFO buffering requirements.
@@ -736,7 +736,7 @@ We can see that the halting time of the multiple PR module approach is greater t
 	\hline \hline
     \end{tabular}
 \end{table}
-Fig.~\ref{fig:Halt} compares the three approaches in terms of system reconfiguration latency and FIFO buffering requirements. The system latencies are computed in the worst case which is the latency for the 802.22 standard. The FIFO requirements are calculated based on multiplying the sampling frequency by the halting time, followed by rounding up to the next power of two.  Table~\ref{tab:FIFOResouces} reports
+Figure~\ref{fig:Halt} compares the three approaches in terms of system reconfiguration latency and FIFO buffering requirements. The system latencies are computed in the worst case which is the latency for the 802.22 standard. The FIFO requirements are calculated based on multiplying the sampling frequency by the halting time, followed by rounding up to the next power of two.  Table~\ref{tab:FIFOResouces} reports
 required resources for 32 bit AXI4 interface FIFO implementation with some different availabe size configurations.
 %\todo[inline]{Why do you have to round up? FIFOs can be any length}
 The system reconfiguration latency of the proposed method is significantly reduced to 18~\% and 27~\% of the system reconfiguration latency of the monolithic PR module and the multiple PR module approaches, respectively. The FIFO requirement for the proposed approach is only 16 kilo-samples (KSs) while the other approaches require a FIFO to store up to 64~KSs.
@@ -751,7 +751,7 @@ We now discuss how we verified the correctness and performance of our radio syst
 	\caption{Verification framework.}
 	\label{fig:Ver}
 \end{figure}
-The overall framework, illustrated in Fig.~\ref{fig:Ver}, evaluates our hardware design against a MATLAB ``golden reference''. The MATLAB prototype serves to provide the implementation definition as well as providing a source for both random and non-random test vectors for each hardware component.
+The overall framework, illustrated in Figure~\ref{fig:Ver}, evaluates our hardware design against a MATLAB ``golden reference''. The MATLAB prototype serves to provide the implementation definition as well as providing a source for both random and non-random test vectors for each hardware component.
 Common input vectors are used to perform OFDM modulation in both implementations. Testbench scripts send the input vectors from a database to the implemented system. Moreover, testbench scripts are also used to monitor the signals generated by the implementation and store them to a database as output vectors. These output vectors are then read into MATLAB for comparison against the corresponding vectors generated by golden reference.
 
 \begin{figure}
@@ -761,9 +761,9 @@ Common input vectors are used to perform OFDM modulation in both implementations
 	\label{fig:VerSys}
 \end{figure}
 
-Fig.~\ref{fig:VerSys} shows a block diagram of the baseband system under verification. The necessary components are connected to a transmitter and a receiver. The output of the transmitter is buffered and connected to the receiver. It is immediately obvious that there are many intermediate checkpoints located at the output of sub-modules that are observed within the implementation and compared to the simulation for verification.
+Figure~\ref{fig:VerSys} shows a block diagram of the baseband system under verification. The necessary components are connected to a transmitter and a receiver. The output of the transmitter is buffered and connected to the receiver. It is immediately obvious that there are many intermediate checkpoints located at the output of sub-modules that are observed within the implementation and compared to the simulation for verification.
 
-The results of some of these verifications are shown in Fig.~\ref{fig:TX_Ver}, Fig.~\ref{fig:RX_Ver}, and Fig.~\ref{fig:Sys_Ver}.
+The results of some of these verifications are shown in Figure~\ref{fig:TX_Ver}, Figure~\ref{fig:RX_Ver}, and Figure~\ref{fig:Sys_Ver}.
 These verify the system performing baseband modulation for one instance of an 802.11 signal. The nomenclature used is emph{MM\_sim} and \emph{MM\_rtl} which denote the output of the submodule named MM from the simulation and implementation respectively. Note from the waveforms plotted, the very close correspondence of the signal shapes illustrates the underlying correctness of the implementation.
 
 
@@ -774,7 +774,7 @@ These verify the system performing baseband modulation for one instance of an 80
 	\label{fig:TX_Ver}
 \end{figure}
 
-To consider more closely, Fig.~\ref{fig:TX_Ver} illustrates verification results from the transmitter. The left figure compares the data symbols and pilots being inserted into the OFDM symbols (i.e. the module input) while the right figure shows a resulting OFDM signal (i.e. the module output). This includes the preamble as well as the OFDM symbols.
+To consider more closely, Figure~\ref{fig:TX_Ver} illustrates verification results from the transmitter. The left figure compares the data symbols and pilots being inserted into the OFDM symbols (i.e. the module input) while the right figure shows a resulting OFDM signal (i.e. the module output). This includes the preamble as well as the OFDM symbols.
 
 \begin{figure}
 	%\centering
@@ -783,7 +783,7 @@ To consider more closely, Fig.~\ref{fig:TX_Ver} illustrates verification results
 	\label{fig:RX_Ver}
 \end{figure}
 
-Fig.~\ref{fig:RX_Ver} presents verification results from the receiver in a similar way. The top-left figure shows the synchronised signal, the top-right figure shows the signal with the cyclic prefix stripped. The bottom-left figure plots the demodulated data symbols after performing FFT. The output of the FFT contains a long preamble that is employed by the subsequent module which performs IFO estimation and channel equalisation. The output of this module is shown in the bottom-right. Again, all plots illustrate a close correspondence between simulation and implementation.
+Figure~\ref{fig:RX_Ver} presents verification results from the receiver in a similar way. The top-left figure shows the synchronised signal, the top-right figure shows the signal with the cyclic prefix stripped. The bottom-left figure plots the demodulated data symbols after performing FFT. The output of the FFT contains a long preamble that is employed by the subsequent module which performs IFO estimation and channel equalisation. The output of this module is shown in the bottom-right. Again, all plots illustrate a close correspondence between simulation and implementation.
 
 \begin{figure}
 	%\centering
@@ -792,7 +792,7 @@ Fig.~\ref{fig:RX_Ver} presents verification results from the receiver in a simil
 	\label{fig:Sys_Ver}
 \end{figure}
 
-Fig.~\ref{fig:Sys_Ver} presents the observed bit streams at the system input and output. The left hand figure shows the comparison of output bit streams from simulation and implementation. Because QPSK is used for data modulation, a data symbol is modulated with 2 data bits. Therefore, the value is presented from 0 to 3 corresponding to 00, 01, 10, 11 in binary. The right hand figure compares the input and output bit streams. The data bit stream is modulated at OFDM baseband and then demodulated. The input and output streams are identical to each other.
+Figure~\ref{fig:Sys_Ver} presents the observed bit streams at the system input and output. The left hand figure shows the comparison of output bit streams from simulation and implementation. Because QPSK is used for data modulation, a data symbol is modulated with 2 data bits. Therefore, the value is presented from 0 to 3 corresponding to 00, 01, 10, 11 in binary. The right hand figure compares the input and output bit streams. The data bit stream is modulated at OFDM baseband and then demodulated. The input and output streams are identical to each other.
 
 Through this careful verification framework, and making use of extensive testbenches the performance of the system implementation is verified with regard to the golden reference model in MATLAB.
 Full implementation on a physical test platform with over-the-air tests is ongoing work in the research group requiring a significant engineering effort.

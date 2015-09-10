@@ -16,7 +16,7 @@ IFO causes a circular shift of the subcarrier in the frequency domain while FFO 
     \caption{Baseband processing block diagram.}
     \label{fig:baseband}
 \end{figure}
-Fig.~\ref{fig:baseband} illustrates the process of FFO and IFO estimation in the baseband processing of a typical OFDM system.
+Figure~\ref{fig:baseband} illustrates the process of FFO and IFO estimation in the baseband processing of a typical OFDM system.
 The IFO estimation is performed after the FFT, and relies upon cross-correlation, which consumes significant hardware resources.
 A typical OFDM receiver avoids the need for IFO estimation by limiting CFO tolerance to be smaller than the range of allowable FFO estimation, resulting in a set of very strict constraints on the design of the RF front-end. However, if CFO exceeds the range of FFO estimation, IFO is present and the system cannot therefore function correctly.
 This is more pronounced in applications that subject the front-end to intensive Doppler (including rapidly mobile systems), for very high carrier frequencies, or systems which aim to support multiple frequency bands for different standards.
@@ -76,7 +76,7 @@ This strict timing requirement leads to an increase in total system cost. Partic
 %---------------------------------------------------------------------------------
 In this section, we propose a novel method in which hardware resources and power consumption are reduced by determining IFO estimates for only a subset of possible IFO values. This in turn enables an efficient resource sharing folded architecture to be adopted. Adjusting the precision of individual correlation computations within this novel architecture leads to a fine degree of control on the trade-off between performance and power consumption.
 The implementation uses the long preamble of IEEE~802.16-2009~\cite{IEEE80216} for estimating IFO values.
-This preamble has a symbol size of 256 with 100 pilots, as illustrated in Fig.~\ref{fig:long_pre}.
+This preamble has a symbol size of 256 with 100 pilots, as illustrated in Figure~\ref{fig:long_pre}.
 These 100 pilots are distributed, 50 pilots per side, at even subcarrier spacings from 2 to 100 and from 156 to 254. The remaining subcarriers are null.
 \begin{figure}[b]
     \centerline{\includegraphics [width=1\columnwidth] {figures/long_pre.pdf} }
@@ -138,7 +138,7 @@ The pilots that are used to compute the correlation arrive every four cycles so 
 There are 8 sets of $A_{\tilde{\epsilon}}$ corresponding to 8 possible IFOs.
 These sets of $A_{\tilde{\epsilon}}$ can be pre-computed and stored separately.
 Due to the spreading of the computed pilots, the $A_{\tilde{\epsilon}}$ sets have many identical pilots -- this naturally allows sharing between pre-rotated pilot sets -- so that only 64 memory locations are required instead of 400. Thus, an 84\% reduction in the memory used to store $A_{\tilde{\epsilon}}$ sets is achieved.
-Fig.~\ref{fig:Pilots} illustrates the $A_{\tilde{\epsilon}}$ sets and circuitry for combining all $A_{\tilde{\epsilon}}$ sets.
+Figure~\ref{fig:Pilots} illustrates the $A_{\tilde{\epsilon}}$ sets and circuitry for combining all $A_{\tilde{\epsilon}}$ sets.
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {figures/Pilots.pdf} }
 	\caption{Circuit for the known-pilots shift register.}
@@ -146,7 +146,7 @@ Fig.~\ref{fig:Pilots} illustrates the $A_{\tilde{\epsilon}}$ sets and circuitry 
 \end{figure}
 %Due to the 4 sample offset between consecutive pilots used for computation, four-fold resource sharing can naturally be performed at the same clock rate for computation of $V_{i}$.
 
-Multiply accumulate blocks are shared for computing four sequential $V_{\tilde{\epsilon}}$ values over four successive clock periods. Fig.~\ref{fig:subsampling} demonstrates how this is done. $P_k$ is received in every clock cycle. $P_{4k}$ is the subsampling of $P_k$, taking a subset of the most significant bits from $P_k$ every four cycles. The cross-correlation is performed with the values of $P_{4k}$. Two multipliers, \emph{M1} and \emph{M2} are used to compute the values of 8 cross-correlations $V_{\tilde{\epsilon}}$ in parallel. Each multiplier performs multiplications sequentially between $P_{4k}$ and the corresponding transmitted pilots in 4 sets of $A_{\tilde{\epsilon}}$. The products are accumulated to the values of $V_{\tilde{\epsilon}}$. When all pilots are computed, the maximum operation, $argmax|V|$, is performed on 8 $V_{\tilde{\epsilon}}$ values to estimate the IFO.
+Multiply accumulate blocks are shared for computing four sequential $V_{\tilde{\epsilon}}$ values over four successive clock periods. Figure~\ref{fig:subsampling} demonstrates how this is done. $P_k$ is received in every clock cycle. $P_{4k}$ is the subsampling of $P_k$, taking a subset of the most significant bits from $P_k$ every four cycles. The cross-correlation is performed with the values of $P_{4k}$. Two multipliers, \emph{M1} and \emph{M2} are used to compute the values of 8 cross-correlations $V_{\tilde{\epsilon}}$ in parallel. Each multiplier performs multiplications sequentially between $P_{4k}$ and the corresponding transmitted pilots in 4 sets of $A_{\tilde{\epsilon}}$. The products are accumulated to the values of $V_{\tilde{\epsilon}}$. When all pilots are computed, the maximum operation, $argmax|V|$, is performed on 8 $V_{\tilde{\epsilon}}$ values to estimate the IFO.
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {figures/Subsampling.pdf} }
@@ -183,7 +183,7 @@ The real and imaginary parts of $V_{\tilde{\epsilon}}$ can then be computed as
 								& &+ \Im{\{V_{\tilde{\epsilon}}(n-1)\}}
 \end{eqnarray}
 
-The proposed resource sharing architecture for the IFO estimator is shown in Fig.~\ref{fig:ProposedStruc}. The \emph{ArgMax} module finds the maximum of the 8 $V_{\tilde{\epsilon}}$ values in order to identify the corresponding IFO estimate.
+The proposed resource sharing architecture for the IFO estimator is shown in Figure~\ref{fig:ProposedStruc}. The \emph{ArgMax} module finds the maximum of the 8 $V_{\tilde{\epsilon}}$ values in order to identify the corresponding IFO estimate.
 The novelty of this IFO estimator is in terms of algorithmic improvements and architecture optimisation. This is achieved by firstly reformulating the equation into an expression that is computable with efficient shared resource circuitry.
 Because of the significant hardware reduction achieved, this IFO estimator can be feasibly implemented on a low-power, limited hardware resource FPGA, while simultaneously ensuring that performance is maintained by a trade off between number of pilots against word length.
 
@@ -485,13 +485,13 @@ $V_{\tilde{\epsilon}}$  is represented accordingly in Q7.1, Q7.2, Q7.7, and Q7.1
 In order to obtain a comprehensive optimised implementation, these circuits are each implemented using two different structures.
 The first uses only logic elements (LE) for computation, while the second uses Xilinx DSP48A1 \cite{ug389} primitives.
 Considering (\ref{realimaginaryVi}), $\Re{\{V_{\tilde{\epsilon}}(n)\}}, \Im{\{V_{\tilde{\epsilon}}(n)\}}$ can be computed effectively using two DSP blocks as 3-input adders, instead of 4 blocks as would be usual.
-Fig.~\ref{fig:DSP48Acc} illustrates how this is done for $\Re{\{V_{\tilde{\epsilon}}(n)\}}$, and similarly for $\Im{\{V_{\tilde{\epsilon}}(n)\}}$.
+Figure~\ref{fig:DSP48Acc} illustrates how this is done for $\Re{\{V_{\tilde{\epsilon}}(n)\}}$, and similarly for $\Im{\{V_{\tilde{\epsilon}}(n)\}}$.
 \begin{figure}
 	\centerline{\includegraphics [width=0.7\columnwidth] {figures/DSP48Acc.pdf} }
 	\caption{DSP block based 3-input adder for correlation.}
 	\label{fig:DSP48Acc}
 \end{figure}
-Note that the solution presented in Fig.~\ref{fig:DSP48Acc} is optimised for QPSK modulated pilots (since their amplitudes are identical) as specified in IEEE~802.16, as well as in most OFDM-based standards.
+Note that the solution presented in Figure~\ref{fig:DSP48Acc} is optimised for QPSK modulated pilots (since their amplitudes are identical) as specified in IEEE~802.16, as well as in most OFDM-based standards.
 The normalisation performed in (\ref{realimaginaryVi}) allows the correlation to be reduced to two DSP blocks operating as 3-input adders (instead of 4 DSP blocks with multipliers as would be usual).
 These methods correspond to \emph{Prop\_1b}, \emph{Prop\_2b}, \emph{Prop\_7b}, and \emph{Prop\_15b} that were investigated for estimation accuracy in Section~\ref{sec:Sim}.
 

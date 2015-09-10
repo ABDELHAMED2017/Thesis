@@ -52,7 +52,7 @@ where $x_{k}[n]$ denotes the sample of the $k$th subcarrier data symbol in the $
  	\label{fig:multicarrier-block}
 \end{figure}
 
-This transceiver in a multicarrier system can be modelled as a block diagram, shown in Fig.~\ref{fig:multicarrier-block}.
+This transceiver in a multicarrier system can be modelled as a block diagram, shown in Figure~\ref{fig:multicarrier-block}.
 As can be seen in the discrete-time domain, $N$ data symbols at synthesis are up sampled by a factor of $L$, which is calculated by $\frac{T}{T_{S}}$, with $T_{S}$ denoting the sample period of the output sequence $s[n]$. They are then filtered by a prototype filter $h[n]$. The output of each data stream is modulated by the frequency of multiple carriers and summed for transmission.
 The signal in the receiver is demodulated and then filtered by a bank of matched filters $h'[n]$, and down sampled by a factor of $L$.
 When critical sampling applies $L = N$ and the prototype filter $h[n]$ is selected as a rectangular pulse in the time domain, i.e. a $sinc$ pulse in the frequency domain, this multicarrier system becomes a conventional OFDM system.
@@ -121,7 +121,7 @@ OFDM is a multicarrier modulation scheme used in both wireline and wireless comm
 The adjacent modulated subcarriers are theoretically orthogonal with zero mutual interfere to each other.
 OFDM signals are modulated using subcarriers across the frequency range similar to frequency division multiplexing (FDM).
 But the main difference is that FDM conventionally multiplexes the signals into separate small bands in which the signal in each band is modulated using a specific sinusoidal carrier, while OFDM signals are modulated using orthogonal subcarriers.
-Each subcarrier is mathematically represented by a sinc pulse, which is overlapped with other subcarriers in the frequency domain as shown in Fig.~\ref{fig:OFDM-subcarrier}.
+Each subcarrier is mathematically represented by a sinc pulse, which is overlapped with other subcarriers in the frequency domain as shown in Figure~\ref{fig:OFDM-subcarrier}.
 Note that the subcarrier of the sinc pulses will null at the centre points where the other subcarriers are located. Ideally, there is thus zero intercarrier interference (ICI) in an OFDM signal.
 
 \begin{figure}
@@ -172,7 +172,7 @@ where $h$, assuming it has a length of $L$, denotes the equivalent impulse respo
 The received symbols $y[n]$ are the result of convolution between CIR $h$ and transmitted symbols $s[n]$ which has a length of $N$.
 So, $y[n]$ has a length of $N+L-1$.
 In addition, the received signal is obtained by concatenating the received OFDM symbols.
-Because the received symbols, having a length of $N+L-1$, overlap with the adjacent received symbols, adding the overlap of adjacent received symbols leads to the introduction of inter-symbol interference (ISI) in the received signal, shown in Fig.~\ref{fig:CIR-noCP}.
+Because the received symbols, having a length of $N+L-1$, overlap with the adjacent received symbols, adding the overlap of adjacent received symbols leads to the introduction of inter-symbol interference (ISI) in the received signal, shown in Figure~\ref{fig:CIR-noCP}.
 
 
 \begin{figure}
@@ -181,10 +181,10 @@ Because the received symbols, having a length of $N+L-1$, overlap with the adjac
 	\label{fig:CIR-noCP}
 \end{figure}
 
-In order to avoid ISI, a guard interval (or cyclic prefix), having a length of $L_{CP}$, must be added before each OFDM symbol as demonstrated in Fig.~\ref{fig:CIR-CP}.
+In order to avoid ISI, a guard interval (or cyclic prefix), having a length of $L_{CP}$, must be added before each OFDM symbol as demonstrated in Figure~\ref{fig:CIR-CP}.
 If the length of CIR is smaller than that of the guard interval, adding the overlap of adjacent received symbols will not interfere with the succeeding received OFDM symbol.
 The ISI is hence missing in the received symbol.
-The guard interval adopted in many OFDM standards can be commonly performed by a copy of the last $L_{CP}$ samples of the symbol as shown in Fig.~\ref{fig:CP}, which is called a cyclic prefix~(CP).
+The guard interval adopted in many OFDM standards can be commonly performed by a copy of the last $L_{CP}$ samples of the symbol as shown in Figure~\ref{fig:CP}, which is called a cyclic prefix~(CP).
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/CIR_CP.pdf} }
@@ -208,7 +208,7 @@ In addition, the use of a CP also guarantees the orthogonality of subcarriers av
 	\caption{An OFDM system model.}
 	\label{fig:OFDM-model}
 \end{figure}
-An OFDM system model can be represented as shown in Fig.~\ref{fig:OFDM-model}.
+An OFDM system model can be represented as shown in Figure~\ref{fig:OFDM-model}.
 In the transmitter, the data modulated symbols $X[n]$ are grouped in blocks of $N$ subcarrier symbols known as an OFDM symbol, expressed by a vector $X[n]=(X[1], X[2], ..., X[n])^T$.
 Next, the OFDM symbol signal in the time domain is modulated by performing the IDFT on each OFDM symbol, and a cyclic prefix of length $L_{CP}$ is inserted at the begin of OFDM signal.
 So, the complex signal of $m$, the OFDM-symbol in baseband discrete time, can be expressed as
@@ -248,7 +248,7 @@ R_{m}[n] =  \sum_{n=0}^{N-1} y_{m}[n]e^{-i2\pi \frac{nk}{N}},
 	\label{fig:OFDM-block}
 \end{figure}
 
-Fig.~\ref{fig:OFDM-block} presents a common block diagram of an OFDM radio system.
+Figure~\ref{fig:OFDM-block} presents a common block diagram of an OFDM radio system.
 OFDM is perform in the baseband, IFFT and FFT blocks are used to compute the IDFT and DFT for OFDM modulation and demodulation, respectively.
 In the transmitter, the channel coded data from higher abstracted layers is modulated to data symbols (BPSK, QPSK, QAM, ...). The data symbols are then grouped together with the pilots to form $N$ FFT points in parallel.
 After performing the IFFT, the CP is inserted, and then the OFDM samples are serialised and split in to in-phase (I) and quadrature (Q) channels corresponding to the real and imaginary parts of  the OFDM sample.
@@ -329,13 +329,13 @@ If the timing offset is late, the samples of the following symbol are used for t
 	\label{fig:Timingoffsetconstellation}
 \end{figure}
 
-Fig.~\ref{fig:Timingoffsetconstellation} illustrates the effect of timing offset on a single 256 subcarrier OFDM symbol utilizing QPSK subcarriers (based on the IEEE~802.16 standard).
+Figure~\ref{fig:Timingoffsetconstellation} illustrates the effect of timing offset on a single 256 subcarrier OFDM symbol utilizing QPSK subcarriers (based on the IEEE~802.16 standard).
 Four blue points represent the constellation diagram of an ideal OFDM received signals.
 As can be seen, the earlier timing, for instance timing offsets of 1 and 5, shown respectively in Figs.~\ref{fig:Timingoffsetconstellation}(b) and~\ref{fig:Timingoffsetconstellation}(d), cause a carriers rotation similar to that of fractional timing errors, and fading that can be estimated by a channel estimator.
 If the timing offset is early, some samples in the CP of the current symbol are used to calculate the DFT, leading to subcarrier rotation expressed in Equ.~\ref{equ:sto} in the frequency domain.
 However, the later timing, for instance timing offsets of 1 and 5, as shown in Figs.~\ref{fig:Timingoffsetconstellation}(a) and~\ref{fig:Timingoffsetconstellation}(c), lead to ISI that prevents the OFDM constellation from being recovered.
-%The effect of ISI caused by later timing offsets on the OFDM received symbol is illustrated in Fig.~\ref{fig:Timingoffsetconstellation}(a) and Fig.~\ref{fig:Timingoffsetconstellation}(c).
-%The effect of subcarrier rotation caused by earlier timing offsets on the OFDM received symbol is illustrated in Fig.~\ref{fig:Timingoffsetconstellation}(b) and Fig.~\ref{fig:Timingoffsetconstellation}(d).
+%The effect of ISI caused by later timing offsets on the OFDM received symbol is illustrated in Figure~\ref{fig:Timingoffsetconstellation}(a) and Figure~\ref{fig:Timingoffsetconstellation}(c).
+%The effect of subcarrier rotation caused by earlier timing offsets on the OFDM received symbol is illustrated in Figure~\ref{fig:Timingoffsetconstellation}(b) and Figure~\ref{fig:Timingoffsetconstellation}(d).
 
 \begin{eqnarray}
 \label{equ:sto}
@@ -352,7 +352,7 @@ The accuracy of timing synchronisation also depends on the timing metrics and th
 
 Carrier frequency offset (CFO) refers to a difference in frequency between the receiver clock with respect to the `correct' frequency of carriers in a transmitted OFDM symbol.
 CFO is caused by an imperfect clock in the RF front-end, as well as by frequency variation caused by the Doppler effect when a signal is transmitted through a frequency selective channel.
-This leads to the misalignment of sampling in subcarriers in the frequency domain that causes a loss of orthogonality because at the point of frequency offset in the subcarrier, the other subcarriers are not null as expected (shown in Fig.~\ref{fig:OFDM-subcarrier-freoff}).
+This leads to the misalignment of sampling in subcarriers in the frequency domain that causes a loss of orthogonality because at the point of frequency offset in the subcarrier, the other subcarriers are not null as expected (shown in Figure~\ref{fig:OFDM-subcarrier-freoff}).
 CFO is normalised by subcarrier spacing and usually divided into an integer part (IFO), as a multiple of subcarrier spacings, and a fractional part (FFO).
 IFO causes a circular shift of the subcarrier in the frequency domain while FFO results in ICI because of lost orthogonality between subcarriers.
 
@@ -388,11 +388,11 @@ $\Delta f$ denotes the frequency offset, and $N$ is the number of subcarriers.
 	\caption{The constellations of OFDM received symbol with frequency offets of 0.025, 0.5, 0.1 and 0.25 sub-carries spacing in a, b, c, d, respectively.}
 	\label{fig:freoff_1sym}
 \end{figure}
-The effect of frequency offset is shown in Fig.~\ref{fig:freoff_1sym}. Each plot illustrates the constellation of QPSK symbols demodulated from one 256 subcarrier OFDM symbol based on the IEEE~802.16 standard.
+The effect of frequency offset is shown in Figure~\ref{fig:freoff_1sym}. Each plot illustrates the constellation of QPSK symbols demodulated from one 256 subcarrier OFDM symbol based on the IEEE~802.16 standard.
 Four blue points represent the constellation diagram of an ideal OFDM received signals.
 OFDM performance is sensitive to even small frequency offsets.
 The effect of CFO causes dispersion, similar to AWGN, and also phase rotation in the QPSK constellation demodulated from the OFDM symbol.
-If multiple data symbols are transmitted in a packet, the phase rotation of each OFDM symbol increases, and even small CFO will lead to a large drift of constellation points, shown in Fig.~\ref{fig:freoff_5sym}, degrading the performance of demodulation. CFO must be estimated and compensated for, in order to properly demodulate the OFDM symbol.
+If multiple data symbols are transmitted in a packet, the phase rotation of each OFDM symbol increases, and even small CFO will lead to a large drift of constellation points, shown in Figure~\ref{fig:freoff_5sym}, degrading the performance of demodulation. CFO must be estimated and compensated for, in order to properly demodulate the OFDM symbol.
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/freoff_5sym.pdf} }
@@ -418,14 +418,14 @@ $\phi[n]$ denotes the phase noise.
 
 If the phase noise is varying more slowly than the OFDM symbol interval, it can be considered a constant phase term added to each sample resulting in CPE~\cite{Armada1998}.
 However, if the phase noise is varying much faster than the OFDM interval, different phase noise is added to each sample causing the loss of orthogonality, and thus, intercarrier interference.
-Fig.~\ref{fig:phasenoise} illustrates the effect of phase noise on baseband data symbol demodulation in an OFDM received symbol and 5 consecutive OFDM received symbols.
+Figure~\ref{fig:phasenoise} illustrates the effect of phase noise on baseband data symbol demodulation in an OFDM received symbol and 5 consecutive OFDM received symbols.
 \begin{figure}
 	\centerline{\includegraphics [width=0.8\columnwidth] {Figures/phasenoise.pdf} }
 	\caption{The constellations of an OFDM received symbol and 5 consecutive OFDM received symbols with phase noise variance of 0.25 $rad^2$ in (a), (b) respectively.}
 	\label{fig:phasenoise}
 \end{figure}
 
-As can be seen in Fig.~\ref{fig:phasenoise}, four blue points represent the constellation diagram of an ideal OFDM received signals.
+As can be seen in Figure~\ref{fig:phasenoise}, four blue points represent the constellation diagram of an ideal OFDM received signals.
 The degradation of OFDM demodulation includes two different phenomena affected by phase noise.
 First, the constellations of the data symbol are rotated similarly to the effect of fractional timing error or residual frequency offset.
 Second, the constellations of data symbols are dispersed like the effect of AWGN, causing a loss of orthogonality between subcarriers.
@@ -447,7 +447,7 @@ IEEE~802.11af was developed under the 802.11 Working Group as a standard that en
 The scope of the standard is to define amendments to the high throughput 802.11's PHY and MAC layers to meet the requirements for channel access and coexistence in the TVWS regions.
 One of the main challenges is the stringent spectral emission mask (SEM) requirements that are mandated by the FCC for these services.
 Re-using existing 802.11 standards means hardware can be cheap, but the high throughput 802.11 scaled SEM is significantly inferior to the required spectral emissions shape for TVWS~\cite{Shellhammer2009}.
-For instance, as can be seen in Fig.~\ref{fig:SEMCompare}, the 802.11 scaled SEM requires an attenuation of 20\,dB at the edge of the channel whereas the equivalent requirement for portable TV band devices (TVBD) is 55\,dB.
+For instance, as can be seen in Figure~\ref{fig:SEMCompare}, the 802.11 scaled SEM requires an attenuation of 20\,dB at the edge of the channel whereas the equivalent requirement for portable TV band devices (TVBD) is 55\,dB.
 
 \begin{figure}
 	\centerline{\includegraphics [width=0.7\columnwidth] {figures/802_11a_afSEM.pdf} }
@@ -468,7 +468,7 @@ These are more stringent than for current 802.11 radios, in order to improve per
 In addition, 802.11p will operate in the 5.9\,GHz DSRC spectrum divided into seven 10\,MHz bands.
 This channelisation allows the MAC layer to perform multi-channel operations \cite{WAVE2010}.
 The mechanism allows safety and other applications to occupy separate channels to reduce interference.
-The four strict 802.11p SEMs are defined to reduce the effect of ICI between the channels. %, shown in Fig.~\ref{fig:4SEM},
+The four strict 802.11p SEMs are defined to reduce the effect of ICI between the channels. %, shown in Figure~\ref{fig:4SEM},
 Wu et al.~\cite{Wu2013} showed that transmitters on adjacent service channels still causes inter-channel interference (ICI) in the safety channel, even if they satisfy the class C requirement.
 Shaping 802.11p spectral leakage is thus potentially important in helping to eliminate ICI.
 
@@ -490,7 +490,7 @@ A combined approach was presented in \cite{Kryszkiewicz2013} where some subcarri
 \label{sec:how_ofdm_works}
 
 Modern OFDM implementations tend to favour subsuming as much processing as possible within the baseband digital components, in order to simplify the front-end RF hardware.
-Fig.\ref{fig:DUCFrontEnd} illustrates the comparison between traditional Front-end (above) and DUC Front-end (below).
+Figure\ref{fig:DUCFrontEnd} illustrates the comparison between traditional Front-end (above) and DUC Front-end (below).
 Although many alternative transmitter designs exist, direct up-conversion (DUC) architectures are commonly selected due to inherent implementation, cost and performance advantages~\cite{masse2006direct}.
 Within the transmitter, orthogonal intermediate frequency (IF) signals are generated directly by digital baseband hardware, high-pass filtered and then quadrature up-converted to RF for transmission.
 This contrasts with more traditional digital radio implementations in which the digital hardware generates baseband signals which are up-converted to IF in one or more analogue steps before conversion to RF.
@@ -543,7 +543,7 @@ As noted previously, both 802.11p and 802.11af (in common with most OFDM-based s
 %In pulse shaping OFDM, the window function, $p[m]$, uses a smooth rather than rectangular pulse resulting in inducing distortion in the subcarriers.
 %One way to avoid this is to add extending parts, i.e. CP and a cyclic suffix (CS) before and after each conventional OFDM symbol respectively, and to multiply the extended symbol with a smoothing function.
 %While the CP in conventional OFDM is used as a guard interval, here it is also used for pulse shaping. Pulse shaping extends the  $N_{T}$ length of the OFDM signal by a roll-off factor, $\beta$.
-%The overhead of extending CS results in spectral loss; overlapping of the CP and CS of consecutive symbols shown in Fig.~\ref{fig:PS} is needed to form a transmitted symbol to reduce this loss, but causes ISI in the overlapped region. Pulse shaping using the overlapping method is effectively equivalent to shortening the OFDM guard interval.
+%The overhead of extending CS results in spectral loss; overlapping of the CP and CS of consecutive symbols shown in Figure~\ref{fig:PS} is needed to form a transmitted symbol to reduce this loss, but causes ISI in the overlapped region. Pulse shaping using the overlapping method is effectively equivalent to shortening the OFDM guard interval.
 %A larger $\beta$ obtains greater compression in spectral leakage but reduces the effective guard interval.
 %When $\beta N_{T}$ is increased to equal the CP length, the effective guard interval is reduced to zero (no guard interval) to prevent channel-induced ISI.
 %

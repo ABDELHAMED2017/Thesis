@@ -32,7 +32,7 @@ The work presented in this chapter has also been discussed in:
 \section{Implementing Correlators}
 %---------------------------------------------------------------------------------
 
-The downlink preamble in IEEE 802.16d~\cite{IEEE80216} contains two consecutive OFDM symbols as shown in Fig.~\ref{fig:pre}.
+The downlink preamble in IEEE 802.16d~\cite{IEEE80216} contains two consecutive OFDM symbols as shown in Figure~\ref{fig:pre}.
 The short symbol consists of 4 identical 64-sample fragments in time preceded by a cyclic prefix (CP).
 This is followed by the long symbol which contains two repetitions of a 128-sample fragment and a CP~\cite{IEEE80216}.
 
@@ -67,17 +67,17 @@ The correlator designs must be specified manually, and cannot be inferred by the
 %---------------------------------------------------------------------------------
 \subsection{Design of DSP48E1 Based Correlator}
 
-The DSP48E1 block inside the Virtex-6 shown in Fig.~\ref{fig:DSP48E1} contains a multiplier followed by a configurable arithmetic unit to provide many independent functions, e.g., multiply, multiply-accumulate, multiply-add, three-input add, and more~\cite{Xilinx2011}.
+The DSP48E1 block inside the Virtex-6 shown in Figure~\ref{fig:DSP48E1} contains a multiplier followed by a configurable arithmetic unit to provide many independent functions, e.g., multiply, multiply-accumulate, multiply-add, three-input add, and more~\cite{Xilinx2011}.
 It also allows the datapath to be configured for various input combinations and register stages; a three-stage pipeline offers maximum performance.
 Since the DSP block is designed to mirror the structure of an FIR filter tap, it is ideally suited to implement correlation, and would hence be the method of choice for this application.
-Our first design uses non-pipelined DSP48E1 blocks in transpose direct form, as shown in Fig.~\ref{fig:str_corr}, with 64 coefficients corresponding to the 64 samples in the preamble.
+Our first design uses non-pipelined DSP48E1 blocks in transpose direct form, as shown in Figure~\ref{fig:str_corr}, with 64 coefficients corresponding to the 64 samples in the preamble.
 The coefficients are pre-computed according to the IEEE 802.16d specification.
-The second design spreads the complex multiply-adds in a five-stage pipeline, shown in Fig.~\ref{fig:Cmp_MultAdder}, consisting of DSP48E1 blocks configured for three stage internal pipelining.
+The second design spreads the complex multiply-adds in a five-stage pipeline, shown in Figure~\ref{fig:Cmp_MultAdder}, consisting of DSP48E1 blocks configured for three stage internal pipelining.
 $Ri\_Re$, $Ri\_Im$ are the real and imaginary parts of the received sample, respectively.
 $Pr\_Re$, $Pr\_Im$ similarly represent known preamble.
 The pipeline registers for the $Pr\_Re$, $Pr\_Im$ are eliminated because they have a constant value.
 $Re$, $Im$ are the real and imaginary parts of the previous multiply-add.
-Fig.~\ref{fig:DSP48pp_correlator} presents the pipeline structure of the correlator.
+Figure~\ref{fig:DSP48pp_correlator} presents the pipeline structure of the correlator.
 The additional pipeline registers are required to handle the received sample.
 Adding pipeline registers should increase performance significantly.
 \begin{figure}
@@ -114,8 +114,8 @@ Furthermore, synchronisation accuracy must be considered.
 To explore this, four alternative multiplierless correlators are implemented using four coefficient sets with an increasing degree of rounding, to compare the cost and performance and evaluate against multiplier-based correlators.
 The coefficient sets are found by quantising the 64 normalised preamble samples with quantisations of 1, 0.5, 0.25, and 0.125.
 
-The proposed structure for multiplierless correlators is shown in Fig.~\ref{fig:ML_correlator}.
-This structure is based on the transposed direct form shown in Fig.~\ref{fig:str_corr}.
+The proposed structure for multiplierless correlators is shown in Figure~\ref{fig:ML_correlator}.
+This structure is based on the transposed direct form shown in Figure~\ref{fig:str_corr}.
 Instead of using multipliers to multiply input samples by coefficients, the \emph{Shift\_Add} block and multiplexers are used to perform the equivalent operation without an actual multiplication.
 The \emph{Shift\_Add} block, multiplexers and value of $Pr[n]$ are different depending upon the quantised coefficient set being used, and these perform shifts and additions on received samples according to the degree of quantisation that is applied.
 To optimise resources in the case of small numbers of bit quantisation, one common \emph{Shift\_Add} block is used for all 64 coefficients instead of 64 separate \emph{Shift\_Add} blocks.
@@ -207,7 +207,7 @@ In the next section, we will evaluate the impact on accuracy.
 	\label{fig:Plot_PWR}
 \end{figure}
 
-We also investigated how total power consumption varies with frequency, as shown in Fig.~\ref{fig:Plot_PWR}.
+We also investigated how total power consumption varies with frequency, as shown in Figure~\ref{fig:Plot_PWR}.
 As frequency increases, the finer quantisations and DSP48E1-based designs begin to consume proportionally more power.
 Overall, multiplierless designs on the Spartan-6 consume 75\% to 85\% less power than the same designs on the Virtex-6, and a 0.25 quantisation design on the Spartan-6 consumes 81\% to 85\% less power then the DSP48E1-based design on a Virtex-6.
 
@@ -218,7 +218,7 @@ The \emph{DSPc} implementation represents how an architecture-independent design
 %---------------------------------------------------------------------------------
 In order to validate our designs at the application level, we simulate them using ModelSim with an IEEE 802.16 OFDM frame created using MATLAB, including the preamble symbols, data symbols and effects of an AWGN channel.
 Cross-correlation results using the correlator designs are compared to corresponding results in MATLAB to verify the correctness of implementation.
-To evaluate the accuracy of timing synchronisation achievable by these designs, the correlation outputs are plotted in Fig.~\ref{fig:Plot_XCR} for random data frames at 10\,dB SNR.
+To evaluate the accuracy of timing synchronisation achievable by these designs, the correlation outputs are plotted in Figure~\ref{fig:Plot_XCR} for random data frames at 10\,dB SNR.
 The output of each correlator is slightly different because of rounding, but the timing synchronisation depends upon the location of the peaks being at the  position of the preamble.
 All correlator designs achieve this most of the time, as shown at indices 34 and 98 for the CP samples and the first preamble samples respectively, for a single frame.
 
@@ -233,7 +233,7 @@ First, find the first peak, $P1$, over 64 samples.
 Next, find the second peak, $P2$, in the 64 samples following the first peak and compute the average value, $avg$, of the samples between two peaks.
 If  $( P1 - avg ) \le  0.75 * ( P2 - avg )$, the start of frame is detected and the correctness of the position can be checked.
 It should be noted that in all cases, the peaks were known to be located within the two search regions and that the detection strategies described above are compatible with those in other published work such as \cite{Kishore2006} and \cite{Yip2003}.
-Fig.~\ref{fig:Plot_NFail} plots the results in terms of failure rate against AWGN SNR and shows that the designs are able to accurately detect the start of frame even in low SNR conditions.
+Figure~\ref{fig:Plot_NFail} plots the results in terms of failure rate against AWGN SNR and shows that the designs are able to accurately detect the start of frame even in low SNR conditions.
 The failure rate of \emph{ML1} is the highest, as expected, due to the coarse quantisation.
 For SNRs above 4\,dB, the failure rates of \emph{ML2}, \emph{ML3}, \emph{ML4}, and \emph{DSPc} differ less than 0.05\% from each other.
 This suggests that sacrificing arithmetic accuracy by using multiplierless cross-correlation is feasible and has negligible impact on synchronisation accuracy.

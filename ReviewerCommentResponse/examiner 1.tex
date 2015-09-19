@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{subfigure}
+\usepackage{todonotes}
+\usepackage{times,amsmath,epsfig}
+%\title{Thesis\\ Responses to Reviewers' Comments}
+\begin{document}
+%\maketitle
+
+\section*{Reply to Examiner No. 1}
+\begin{table}[h]
+%	\centering
+%	\caption{Popular window-based FIR filter lengths}
+%	\label{tab:lengthFIR}
+%	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{ll}
+{\large From Candidate} &: {\large Pham Hung Thinh} \\
+{\large Degree }& : {\large Doctor of Philosophy (PhD)}\\
+{\large Thesis Title }&: {\large Techniques for Multi-Standard Cognitive Radios on FPGAs}\\
+& \\
+& \\
+& 
+	\end{tabular}
+\end{table}
+
+
+\begin{quote}
+\emph{The report provides detailed analysis of the various proposed new techniques and novel approaches and algorithms, which are shown to be better than other existing methods, through simulation results of the various proposed concepts.
+There are some minor typo errors and some suggestions to improve some phrasings, indicated in various parts of the report, for the candidate to revise his thesis.}
+\end{quote}
+Thank you for reading this thesis so carefully and providing these constructive review comments, which we have accepted and amended in full, as described below, alongside the corrections indicated in the hard copy.
+
+\begin{quote}
+\emph{1. In chapter 2, to include a constellation diagram of an ideal OFDM received signals, such that it can be used to comparatively illustrate the effects of STO and CFO shown in Figure 2.7, 2.9, 2.10 and 2.11.}
+\end{quote}
+The mentioned figures have been amended to include the constellation diagram of ideal OFDM received signals.
+%We have revised and clarified these points in the introduction section.
+
+\begin{quote}
+\emph{2. In chapter 4, how are the frame detection threshold values for various channels derived/ determined?}
+\end{quote}
+The threshold values depend on the operating channel and are determined empirically by simulation (in common with other systems such as in [36]). Assuming the set of possible channels is known, the thresholds for these channels can be pre-determined by simulation. The performance of synchronisation is evaluated with increased thresholds for a given channel model. The threshold value corresponding to the best performance is selected for the channel model. The determined threshold values are stored in a look-up table. Based upon current channel model and conditions, a threshold is selected from the look-up table.
+The discussion on determining the frame detection threshold has been amended in Section 4.3.1 to reflect this explanation.
+
+\begin{quote}
+\emph{3. In chapter 6, figures comparing the different spectrums (e.g. 6.2, 6.3, 6.4) should be presented in different colors for clarity in comparing their characteristics.}
+\end{quote}
+These mentioned figures in Chapter 6 have been improved by using different colours to enhance clarity.
+
+\begin{quote}
+\emph{4. A page listing the various notations used in the thesis should be included for easy reference when reading the thesis.}
+\end{quote}
+The list of notations is presented in the thesis on page xiv.
+
+\begin{quote}
+\emph{5. One issue that the candidate should further address in the thesis is to present results that demonstrate the practical feasibility of, as well as the real-time performance achievable by the proposed techniques when implanted on actual FPGAs. While there is no reason to doubt that functionality of the proposed techniques, it would be more convincing by developing a prototype on a FPGA device to demonstrate the correctness and real-time performance. In addition, this will also help to cross-check and compare against the results obtained through simulations, as well as provide an indication of the real-time performance achievable, which is importance for CR application. This investigation should at least be performed for the proposed receiver, and can be done based on Figure 7.1, where an `transmitter' is synthesized to emit baseband digital data (with effects simulating the various conditions encountered under practical environment such as multipath, CFO, STO effects) that loopback to the receiver that contains the various modules. The required FPGA development resources are readily available in the research centre in NTU/SCE, and should be relatively easy to be done as the candidate had already used the relevant tools to analyse and validate individually the various proposed modules.}
+\end{quote}
+
+Each of the methods has been implemented using FPGA development tools in a modular fashion with systematic verification. The implemented logic was used to process captured data, and the output from the module under test was itself captured for comparison with a software model. The output captured data was also used for testing the next module in the processing chain. The tests were conducted on synthesised Verilog (not just simulated Verilog). Because we have many alternative modules for most positions in the processing chain (where each one depends upon actual protocols and channels being used), it would be exhaustive and virtually impossible to test all combinations under all test scenarios, and thus the validation follows the unit test approach.
+In fact a carefully-designed testbench has been generated for each module, following industry standard practices for FPGA development.
+Furthermore, the captured data streams were cross-compared with a MATLAB simulation to ensure correctness. In other words, the output of a module is compared to the MATLAB simulation output for that module. This data then forms the input of the next module (whose output is also checked against the MATLAB data).
+
+Regarding real-time effects, chapter 7 analyses the ability of the proposed architecture in a multi-standard context specifically with regard to the adaptation time when switching from one standard to another. %As can be seen in Figure 7.1, building up a prototype for demonstration requires a lot of hard engineering works.
+Please note also that a prototype CR implementation is beyond the scope of this work (and requires many practical issues to be solved, as well as having a working CR engine, RF or IF digital front-end, and MCMM).
+While we did begin to pursue this through employment of a Research Associate, they departed before completing the project.
+
+To be clear, the main contributions of this thesis are to propose novel techniques to overcome well-known practical issues with building OFDM-based multi-standard CR systems, such as synchronisation and spectral leakage. %The proposed methods are implemented by using Verilog HDL. The verification for the implementation is intensively done by the test-benches in which the output and intermediate values are compared to that of Matlab simulation to evaluate the correctness.
+Further work for verifying a system integration framework making use of these techniques is described in a new Section 7.5, in the revised thesis, that presents comprehensive system verification results from testbenches using Xilinx tools, and compared to a `golden reference' simulated in MATLAB. \newline
+
+I would like to thank the examiner for the insightful comments that have helped improve the thesis.
+
+
+\begin{table}[h]
+	\begin{tabular}{ll}
+	 	& \\
+		& \\
+		& \\ 
+		& \\
+		& \\
+		& \\
+		& \\
+		& \\
+		& \\
+		& \\
+		& \\
+		& \\
+		& \\
+		& \\
+		& \\
+		 
+		Signature and Date 
+	\end{tabular}
+\end{table}
+
+
+\end{document}
